@@ -1,0 +1,185 @@
+<script>
+// $(function() {
+
+// <!--
+// $("#Table1").styleTable();
+// -->
+
+// <!-- orig
+// $( "#accordion" ).accordion();
+// -->
+$("#accordion").accordion({ collapsible: true,
+                            header: "h3",
+                            active: false,
+                            heightStyle: "content"
+                         });
+
+$("#accordion_open").accordion({ collapsible: true,
+                                 // header: "h3",
+                                 heightStyle: "content"
+                              });
+
+/*
+$("#accordion_open2").accordion({ collapsible: true,
+                                 header: "h2",
+                                 heightStyle: "content"
+                              });
+*/
+
+//from: http://stackoverflow.com/questions/15702444/jquery-ui-accordion-open-multiple-panels-at-once - jsFiddle demo
+$('#accordion_open2').accordion({
+    collapsible:true,
+    heightStyle: "content",
+    beforeActivate: function(event, ui) {
+         // The accordion believes a panel is being opened
+        if (ui.newHeader[0]) {
+            var currHeader  = ui.newHeader;
+            var currContent = currHeader.next('.ui-accordion-content');
+         // The accordion believes a panel is being closed
+        } else {
+            var currHeader  = ui.oldHeader;
+            var currContent = currHeader.next('.ui-accordion-content');
+        }
+         // Since we've changed the default behavior, this detects the actual status
+        var isPanelSelected = currHeader.attr('aria-selected') == 'true';
+
+         // Toggle the panel's header
+        currHeader.toggleClass('ui-corner-all',isPanelSelected).toggleClass('accordion-header-active ui-state-active ui-corner-top',!isPanelSelected).attr('aria-selected',((!isPanelSelected).toString()));
+
+        // Toggle the panel's icon
+        currHeader.children('.ui-icon').toggleClass('ui-icon-triangle-1-e',isPanelSelected).toggleClass('ui-icon-triangle-1-s',!isPanelSelected);
+
+         // Toggle the panel's content
+        currContent.toggleClass('accordion-content-active',!isPanelSelected)    
+        if (isPanelSelected) { currContent.slideUp(); }  else { currContent.slideDown(); }
+
+        return false; // Cancels the default action
+    }
+});
+
+/*
+$('.close').click(function () {
+        $('.ui-accordion-header').removeClass('ui-accordion-header-active ui-state-active ui-corner-top').addClass('ui-corner-all').attr({
+            'aria-selected': 'false',
+            'tabindex': '-1'
+        });
+        $('.ui-accordion-header-icon').removeClass(icons.headerSelected).addClass(icons.header);
+        $('.ui-accordion-content').removeClass('ui-accordion-content-active').attr({
+            'aria-expanded': 'false',
+            'aria-hidden': 'true'
+        }).hide();
+        $(this).attr("disabled","disabled");
+        $('.open').removeAttr("disabled");
+    });
+*/
+
+var availableTags = [
+   "ActionScript",
+   "AppleScript",
+   "Asp",
+   "BASIC",
+   "C",
+   "C++"];
+$( "#autocomplete" ).autocomplete({
+   source: availableTags});
+
+$( "#button" ).button();
+$( "#button_search_book" ).button();
+$( "#button_search_item" ).button();
+$( "#button_search_title" ).button();
+$( "#button_search_page" ).button();
+$( "#button_search_taxa" ).button();
+$( "#button_move2wiki" ).button();
+
+$( "#radioset" ).buttonset();
+
+$( "#tabs_main" ).tabs();
+$( "#tabs" ).tabs();
+$( "#tabs1" ).tabs();
+$( "#tabs2" ).tabs();
+$( "#tabs3" ).tabs();
+$( "#tabs4" ).tabs();
+$( "#tabs5" ).tabs();
+
+$( "#dialog" ).dialog({
+   autoOpen: false,
+   width: 400,
+   buttons: [
+      {
+         text: "Ok",
+         click: function() {
+            $( this ).dialog( "close" );
+         }
+      },
+      {
+         text: "Cancel",
+         click: function() {
+            $( this ).dialog( "close" );
+         }
+      }
+   ]
+});
+
+// Link to open the dialog
+$( "#dialog-link" ).click(function( event ) {
+   $( "#dialog" ).dialog( "open" );
+   event.preventDefault();
+});
+
+$( "#datepicker" ).datepicker({
+   inline: true
+});
+
+$( "#slider" ).slider({
+   range: true,
+   values: [ 17, 67 ]
+});
+
+$( "#progressbar" ).progressbar({
+   value: 20
+});
+
+$( "#spinner" ).spinner();
+
+$( "#menu" ).menu();
+
+$( "#tooltip" ).tooltip();
+
+$( "#selectmenu" ).selectmenu({width: 450});   //subject_type in subject_menu.php
+$( "#selectmenu_2" ).selectmenu();             //audience_type in subject_menu.php
+$( "#selectmenu_3" ).selectmenu({width: 250}); //license_type in subject_menu.php
+$( "#selectmenu_4" ).selectmenu({width: 450}); //subject_type in page-editor.php
+
+// Hover states on the static widgets
+$( "#dialog-link, #icons li" ).hover(
+   function() {
+      $( this ).addClass( "ui-state-hover" );
+   },
+   function() {
+      $( this ).removeClass( "ui-state-hover" );
+   }
+);
+
+$('input:text, input:password, input[type=email]')
+    .button().addClass('my-textfield');
+    
+function spinner_on()
+{
+  $('#el').spin('large');
+}
+
+function spinner_off()
+{
+  $('#el').spin(false);
+}
+
+// });
+
+</script>
+
+<script type="text/javascript">
+$(window).load(function () {
+     $('#el').spin(false);
+     // $("#loadOverlay").css("display","none");
+});
+</script>

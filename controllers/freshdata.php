@@ -1,0 +1,137 @@
+<?php
+// namespace php_active_record;
+
+class freshdata_controller extends other_controller
+{
+    function __construct($params)
+    {
+        // $this->bhl_api_service['booksearch']  = "http://www.biodiversitylibrary.org/api2/httpquery.ashx?op=BookSearch&apikey=" . BHL_API_KEY;
+        // $this->bhl_api_service['itemsearch']  = "http://www.biodiversitylibrary.org/api2/httpquery.ashx?op=GetItemMetadata&pages=t&ocr=t&parts=t&apikey=" . BHL_API_KEY;
+        // $this->mediawiki_api = "http://" . $_SERVER['SERVER_NAME'] . "/" . MEDIAWIKI_MAIN_FOLDER . "/api.php";
+        $this->download_options = array('download_timeout_seconds' => 4800, 'download_wait_time' => 300000, 'expire_seconds' => false);
+        $this->monitors_api = "http://api.effechecka.org/monitors";
+    }
+
+    function user_is_logged_in_wiki()
+    {
+        if(@$_SESSION["freshdata_user_logged_in"]) return true;
+        else
+        {
+            echo "\nLog in again...\n";
+            self::display_message(array('type' => "error", 'msg' => "Cannot proceed. <a href='" . "http://" . $_SERVER['SERVER_NAME'] . "/github-php-client/app/login/'>You must login from GitHub first</a>."));
+            return false;
+        }
+    }
+    
+    function monitors_list()
+    {
+        $download_params = array("expire_seconds" => false);
+        $json = Functions::lookup_with_cache($this->monitors_api, $download_params);
+        $monitors = json_decode($json, true);
+        $recs = array();
+        foreach($monitors as $m)
+        {   /*
+            Array
+            (
+                [selector] => Array
+                    (
+                        [taxonSelector] => Puffinus puffinus
+                        [wktString] => POLYGON((-98.98681640625 21.207458730482653, -98.98681640625 30.41078179084589, -81.71630859375 30.41078179084589, -81.71630859375 21.207458730482653, -98.98681640625 21.207458730482653))
+                        [traitSelector] => 
+                        [uuid] => 38361b26-7a71-5134-aaf3-edb58a439941
+                    )
+                [status] => ready
+                [recordCount] => 10
+            )
+            */
+            $info = array();
+            $info['taxonSelector']  = $m['selector']['taxonSelector'];
+            $info['wktString']      = $m['selector']['wktString'];
+            $info['traitSelector']  = $m['selector']['traitSelector'];
+            $info['uuid']           = $m['selector']['uuid'];
+            $info['status']         = $m['status'];
+            $info['recordCount']    = $m['recordCount'];
+            $recs[] = $info;
+        }
+        return array("total" => count($recs), "recs" => $recs);
+    }
+    
+    
+    function get_realname($username)
+    {
+        $url = "/LiteratureEditor/api.php?action=query&meta=userinfo&uiprop=groups|realname&format=json";
+        $json = self::get_api_result($url);
+        $obj = json_decode($json);
+        if($val = @$obj->query->userinfo->realname) return $val;
+        return $username;
+    }
+    
+    function get_api_result($url)
+    {
+        $session_cookie = MW_DBNAME.'_session';
+        if(!isset($_COOKIE[$session_cookie])) return false;
+        $url = "http://" . $_SERVER['SERVER_NAME'] . $url;
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_COOKIE, $session_cookie . '=' . $_COOKIE[$session_cookie]);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        $string = curl_exec($ch);
+        curl_close($ch);
+        return $string;
+    }
+    
+    function get_api_result_via_post($url, $post)
+    {
+        $session_cookie = MW_DBNAME.'_session';
+        if(!isset($_COOKIE[$session_cookie])) return false;
+        $url = "http://" . $_SERVER['SERVER_NAME'] . $url;
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_COOKIE, $session_cookie . '=' . $_COOKIE[$session_cookie]);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+        $string = curl_exec($ch);
+        curl_close($ch);
+        return $string;
+    }
+
+    public static function index() {}
+    
+    function render_layout($p, $template)
+    {
+        if($template == 'result')
+        {
+            if(in_array(@$p['search_type'], array('booksearch', 'itemsearch', 'titlesearch', 'pagetaxasearch', 'pagesearch')))
+            {
+                $xml = self::search_bhl($p);
+                if(    @$p['search_type'] == 'booksearch')      echo self::render_template('booksearch-result', array('xml' => $xml));
+                elseif(@$p['search_type'] == 'itemsearch')      echo self::render_template('itemsearch-result', array('xml' => $xml));
+            }
+            // else exit("<br>investigate pls.[$template]<br>");
+        }
+        return self::render_template($template, array('book_title' => @$p['book_title'], 'volume' => @$p['volume'], 'lname' => @$p['lname'], 'use_cache' => @$p['use_cache']));
+    }
+    
+    function render_template($filename, $variables)
+    {
+        extract($variables); //makes the array index value to become a variable e.g. array("a" => "dog") becomes $a = "dog";
+        ob_start();
+        require('templates/freshdata/' . $filename . '.php');
+        $contents = ob_get_contents(); 
+        ob_end_clean();
+        return $contents;
+    }
+    
+    function display_message($options)
+    {   //displays Highlight or Error messages
+        if($options['type'] == "highlight")
+        {
+            echo'<div class="ui-widget"><div class="ui-state-highlight ui-corner-all" style="margin-top: 0px; padding: 0 .7em;"><p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span><strong>Info:</strong>&nbsp; ' . $options['msg'] . '</p></div></div>';
+        }
+        elseif($options['type'] == "error")
+        {
+            echo'<div class="ui-widget"><div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"><p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span><strong>Alert:</strong>&nbsp; ' . $options['msg'] . '</p></div></div>';
+        }
+    }
+    
+
+}
