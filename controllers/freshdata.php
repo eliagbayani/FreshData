@@ -56,6 +56,67 @@ class freshdata_controller extends other_controller
         return array("total" => count($recs), "recs" => $recs);
     }
     
+    function process_uuid($uuid)
+    {
+        self::create_text_file_if_does_not_exist($uuid);
+        $rec = self::get_text_file_value($uuid);
+        
+        echo "<pre>"; print_r($rec); echo "</pre>";
+        
+    }
+    
+    function get_text_file_value($uuid)
+    {
+        $fields = array("Title", "Description", "URL", "field4", "field5");
+        $filename = self::get_uuid_text_file_path($uuid);
+        if($file_size = filesize($filename))
+        {
+            $fn = Functions::file_open($filename, "r");
+            $tsv = fread($fn, $file_size);
+            $arr = explode("\t", $tsv);
+            /*
+            Title (pretty short character limit text box); 
+            Description (longer character limit, for a paragraph or so); 
+            URL (if there can be validation in here that the content is a url, 
+            */
+
+            $i = 0;
+            $final = array();
+            foreach($arr as $val)
+            {
+                echo "<br>" . $fields[$i];
+                $final[$fields[$i]] = $val;
+                $i++;
+            }
+        }
+        else
+        {
+            $final = array();
+            foreach($fields as $field)
+            {
+                $final[$field] = "";
+            }
+        }
+        return $final;
+    }
+    
+    function create_text_file_if_does_not_exist($uuid)
+    {
+        $filename = self::get_uuid_text_file_path($uuid);
+        if(!file_exists($filename))
+        {
+            $fn = Functions::file_open($filename, "w");
+            fwrite($fn, "\t\t\t\t\n"); //creates five fields
+            fclose($fn);
+            echo "<br>file created<br>";
+        }
+        else echo "<br>file already created<br>";
+    }
+
+    function get_uuid_text_file_path($uuid)
+    {
+        return "database/uuid/$uuid" . ".txt";
+    }
     
     function get_realname($username)
     {

@@ -23,7 +23,7 @@ $ctrler = new freshdata_controller($params);
 ?>
 
 <script type="text/javascript">
-//$(window).load(function () { $("#loadOverlay").css("display","none"); });
+// $(window).load(function () { $("#loadOverlay").css("display","none"); });
 </script>
 
 <?php
@@ -46,8 +46,12 @@ if($val = @$params['search_type'])
 }
 //end ------------------------------------------
 
-if(isset($params['search2']) || @$params['search_type'] == 'booksearch') require_once("../templates/freshdata/layout2.php");
-else require_once("templates/freshdata/layout.php"); //default
+if(isset($params['uuid'])) require_once("templates/freshdata/layout2.php");
+else                       require_once("templates/freshdata/layout.php"); //default
+
+// else print $ctrler->render_template('layout', array('params' => @$params));
+
+
 ?>
 
 <!--- for spinner effect: http://spin.js.org/ --->
@@ -61,7 +65,7 @@ $('#el').spin('large'); //start spinning
 <?php
 print $ctrler->render_layout(@$params, 'result');
 
-if(isset($params['page_more_info'])) print $ctrler->render_template('page-more-info', array('arr' => @$params['page_more_info']));
+if(isset($params['uuid'])) print $ctrler->render_template('monitors-form', array('params' => @$params));
 if(isset($params['part_more_info'])) print $ctrler->render_template('part-more-info', array('arr' => @$params['part_more_info']));
 if(isset($params['search_type']))
 {

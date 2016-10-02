@@ -61,10 +61,12 @@ tfoot input {
         ?>
     </tbody>
 </table>
-<form id="myform<?php echo $table_id ?>" action="index.php" method="post" enctype="multipart/form-data" <?php if($group == "articles") echo "target=\"_blank\"" ?>><!---  --->
+<form id="myform<?php echo $table_id ?>" action="index.php" method="post" enctype="multipart/form-data" <?php if($group == "xxx") echo "target=\"_blank\"" ?>><!---  --->
+<!---
 <input type="hidden" name="search_type" value="<?php echo $vars['search_type'] ?>">
 <input type="hidden" name="overwrite"   value="1">
-<input type="hidden" name="wiki_title"  value="1" id="wiki_title<?php echo $table_id ?>">
+--->
+<input type="hidden" name="uuid"  value="1" id="uuid<?php echo $table_id ?>">
 </form>
 
 <script>
@@ -115,19 +117,19 @@ tfoot input {
     // on click event
     $('#<?php echo $table_id ?> tbody').on('click', 'tr', function () {
             var data<?php echo $table_id ?> = table<?php echo $table_id ?>.row( this ).data();
-            // alert( 'You clicked on '+data<?php echo $table_id ?>[0]+'\'s row' );
+            alert( 'You clicked on '+data<?php echo $table_id ?>[3]+'\'s row' );
             myFunction<?php echo $table_id ?>(data<?php echo $table_id ?>[3], data<?php echo $table_id ?>[1], data<?php echo $table_id ?>[2]);
         } );
     
 <!--- } ); --->
 
-function myFunction<?php echo $table_id ?>(wiki_title, title, subject) 
+function myFunction<?php echo $table_id ?>(uuid, title, subject) 
 {
     /* working but dialog box to continue may not be needed anymore...
     var x;
     if (confirm("<?php echo $vars['js_string']?>:\n\n"+title+" - ("+subject+")") == true) 
     {
-        document.getElementById("wiki_title<?php echo $table_id ?>").value = wiki_title;
+        document.getElementById("uuid<?php echo $table_id ?>").value = uuid;
         document.getElementById("myform<?php echo $table_id ?>").submit();
     } else 
     {
@@ -138,7 +140,7 @@ function myFunction<?php echo $table_id ?>(wiki_title, title, subject)
     */
 
     // spinner_on();
-    document.getElementById("wiki_title<?php echo $table_id ?>").value = wiki_title;
+    document.getElementById("uuid<?php echo $table_id ?>").value = uuid;
     document.getElementById("myform<?php echo $table_id ?>").submit();
 }
 </script>
