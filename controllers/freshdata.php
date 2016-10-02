@@ -9,7 +9,8 @@ class freshdata_controller extends other_controller
         // $this->bhl_api_service['itemsearch']  = "http://www.biodiversitylibrary.org/api2/httpquery.ashx?op=GetItemMetadata&pages=t&ocr=t&parts=t&apikey=" . BHL_API_KEY;
         // $this->mediawiki_api = "http://" . $_SERVER['SERVER_NAME'] . "/" . MEDIAWIKI_MAIN_FOLDER . "/api.php";
         $this->download_options = array('download_timeout_seconds' => 4800, 'download_wait_time' => 300000, 'expire_seconds' => false);
-        $this->monitors_api = "http://api.effechecka.org/monitors";
+        $this->monitors_api['all'] = "http://api.effechecka.org/monitors";
+        $this->monitors_api['one'] = "http://api.effechecka.org/monitors?uuid=";
     }
 
     function user_is_logged_in_wiki()
@@ -26,7 +27,7 @@ class freshdata_controller extends other_controller
     function monitors_list()
     {
         $download_params = array("expire_seconds" => false);
-        $json = Functions::lookup_with_cache($this->monitors_api, $download_params);
+        $json = Functions::lookup_with_cache($this->monitors_api['all'], $download_params);
         $monitors = json_decode($json, true);
         $recs = array();
         foreach($monitors as $m)
@@ -60,9 +61,14 @@ class freshdata_controller extends other_controller
     {
         self::create_text_file_if_does_not_exist($uuid);
         $rec = self::get_text_file_value($uuid);
-        
-        echo "<pre>"; print_r($rec); echo "</pre>";
-        
+        // echo "<pre>"; print_r($rec); echo "</pre>";
+    }
+    
+    function get_monitor_record($uuid)
+    {
+        $json = Functions::lookup_with_cache($this->monitors_api['one'].$uuid, $this->download_options);
+        $monitor = json_decode($json, true);
+        return $monitor;
     }
     
     function get_text_file_value($uuid)
@@ -79,12 +85,11 @@ class freshdata_controller extends other_controller
             Description (longer character limit, for a paragraph or so); 
             URL (if there can be validation in here that the content is a url, 
             */
-
             $i = 0;
             $final = array();
             foreach($arr as $val)
             {
-                echo "<br>" . $fields[$i];
+                // echo "<br>" . $fields[$i]; //debug
                 $final[$fields[$i]] = $val;
                 $i++;
             }
@@ -92,10 +97,7 @@ class freshdata_controller extends other_controller
         else
         {
             $final = array();
-            foreach($fields as $field)
-            {
-                $final[$field] = "";
-            }
+            foreach($fields as $field) $final[$field] = "";
         }
         return $final;
     }
@@ -106,11 +108,11 @@ class freshdata_controller extends other_controller
         if(!file_exists($filename))
         {
             $fn = Functions::file_open($filename, "w");
-            fwrite($fn, "\t\t\t\t\n"); //creates five fields
+            fwrite($fn, "\t\t\t\t"); //creates five fields
             fclose($fn);
-            echo "<br>file created<br>";
+            // echo "<br>file created<br>"; //debug
         }
-        else echo "<br>file already created<br>";
+        // else echo "<br>file already created<br>"; //debug
     }
 
     function get_uuid_text_file_path($uuid)

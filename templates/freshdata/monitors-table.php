@@ -117,7 +117,7 @@ tfoot input {
     // on click event
     $('#<?php echo $table_id ?> tbody').on('click', 'tr', function () {
             var data<?php echo $table_id ?> = table<?php echo $table_id ?>.row( this ).data();
-            alert( 'You clicked on '+data<?php echo $table_id ?>[3]+'\'s row' );
+            // alert( 'You clicked on '+data<?php echo $table_id ?>[3]+'\'s row' );
             myFunction<?php echo $table_id ?>(data<?php echo $table_id ?>[3], data<?php echo $table_id ?>[1], data<?php echo $table_id ?>[2]);
         } );
     
