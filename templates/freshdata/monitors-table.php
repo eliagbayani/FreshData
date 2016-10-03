@@ -84,7 +84,7 @@ tfoot input {
     // DataTable
     var table<?php echo $table_id ?> = $('#<?php echo $table_id ?>').DataTable({
         "iDisplayLength": 25,
-        "order": [[ 0, "desc" ]]
+        "order": [[ 1, "desc" ]]
     });
  
     // Apply the search

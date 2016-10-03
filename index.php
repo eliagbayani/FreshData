@@ -2,7 +2,9 @@
 <!doctype html>
 <html lang="us">
 <head>
+    <!---
     <div id="loadOverlay" style="background-color:#333; position:absolute; top:0px; left:0px; width:100%; height:100%; z-index:2000; color:white; font-size:120%;">Loading, please wait ...</div>
+    --->
     <title>Fresh Data: Monitors Maintenance</title>
     <?php require_once("config/head-entry.html") ?>
 </head>
@@ -21,7 +23,7 @@ $ctrler = new freshdata_controller($params);
 ?>
 
 <script type="text/javascript">
-$(window).load(function () { $("#loadOverlay").css("display","none"); });
+// $(window).load(function () { $("#loadOverlay").css("display","none"); });
 </script>
 
 <?php
@@ -32,7 +34,7 @@ if(!$ctrler->user_is_logged_in_wiki()) return;
 
 
 //start assignment ------------------------------------------
-if(isset($params['assign'])) $ctrler->make_working_proj($params['wiki_title']);
+if(isset($params['Title'])) $ctrler->save_monitor($params);
 
 // http://editors.eol.localhost/LiteratureEditor/Custom/bhl_access/index.php?wiki_title=Completed_Projects:Planet_of_the_Apes&search_type=move24harvest&wiki_status={Completed}&articles=
 if($val = @$params['search_type'])

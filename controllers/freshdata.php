@@ -18,7 +18,6 @@ class freshdata_controller extends other_controller
         if(@$_SESSION["freshdata_user_logged_in"]) return true;
         else
         {
-            echo "\nLog in again...\n";
             self::display_message(array('type' => "error", 'msg' => "Cannot proceed. <a href='" . "http://" . $_SERVER['SERVER_NAME'] . "/github-php-client/app/login/'>You must login from GitHub first</a>."));
             return false;
         }
@@ -62,6 +61,7 @@ class freshdata_controller extends other_controller
         self::create_text_file_if_does_not_exist($uuid);
         $rec = self::get_text_file_value($uuid);
         // echo "<pre>"; print_r($rec); echo "</pre>";
+        return $rec;
     }
     
     function get_monitor_record($uuid)
@@ -119,6 +119,32 @@ class freshdata_controller extends other_controller
     {
         return "database/uuid/$uuid" . ".txt";
     }
+    
+    // function save_monitor($params)
+    // {
+    //     // $params =& $_GET;
+    //     // if(!$params) $params =& $_POST;
+    //     echo "<pre>"; print_r($params); echo "</pre>";
+    //     if(self::save_to_text($params))
+    //     {
+    //         echo "<br>Saved OK<br>";
+    //     }
+    // }
+    
+    function save_to_text($params)
+    {
+        $uuid = $params['uuid'];
+        $filename = "../../" . self::get_uuid_text_file_path($uuid); //added extra ../ bec. curdir is inside templates/freshdata/monitor-save.php
+        if($fn = Functions::file_open($filename, "w"))
+        {
+            fwrite($fn, $params['Title'] . "\t" . $params['Description'] . "\t" . $params['URL'] . "\t\t"); //saves five fields
+            fclose($fn);
+            return true;
+        }
+        return false;
+    }
+    
+    
     
     function get_realname($username)
     {
