@@ -21,12 +21,10 @@
 
 <?php 
     $back = FRESHDATA_DOMAIN;
-    $public_view = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?public_view=";
-    
+    $public_view = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php";
 ?>
 <script>
 function tab3_clicked() { location.href = '<?php echo $back ?>'; }
 function tab4_clicked() { location.href = '<?php echo $public_view ?>'; }
-
 </script>
 

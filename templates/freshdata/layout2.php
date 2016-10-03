@@ -14,6 +14,6 @@
 ?>
 
 <script>
-function tab1_clicked() { location.href = '<?php echo "index.php" ?>'; }
+function tab1_clicked() { location.href = '<?php echo "index.php?admin_view=" ?>'; }
 function tab3_clicked() { location.href = '<?php echo $back ?>'; }
 </script>

@@ -8,7 +8,7 @@ class freshdata_controller extends other_controller
         // $this->bhl_api_service['booksearch']  = "http://www.biodiversitylibrary.org/api2/httpquery.ashx?op=BookSearch&apikey=" . BHL_API_KEY;
         // $this->bhl_api_service['itemsearch']  = "http://www.biodiversitylibrary.org/api2/httpquery.ashx?op=GetItemMetadata&pages=t&ocr=t&parts=t&apikey=" . BHL_API_KEY;
         // $this->mediawiki_api = "http://" . $_SERVER['SERVER_NAME'] . "/" . MEDIAWIKI_MAIN_FOLDER . "/api.php";
-        $this->download_options = array('download_timeout_seconds' => 4800, 'download_wait_time' => 300000, 'expire_seconds' => false);
+        $this->download_options = array('download_timeout_seconds' => 4800, 'download_wait_time' => 300000, 'expire_seconds' => 43200); //expires in 12 hours
         $this->monitors_api['all'] = "http://api.effechecka.org/monitors";
         $this->monitors_api['one'] = "http://api.effechecka.org/monitors?uuid=";
     }
@@ -18,15 +18,15 @@ class freshdata_controller extends other_controller
         if(@$_SESSION["freshdata_user_logged_in"]) return true;
         else
         {
-            self::display_message(array('type' => "error", 'msg' => "Cannot proceed. <a href='" . "http://" . $_SERVER['SERVER_NAME'] . "/github-php-client/app/login/'>You must login from GitHub first</a>."));
+            self::display_message(array('type' => "error", 'msg' => "Cannot open Admin page. <a href='" . "http://" . $_SERVER['SERVER_NAME'] . "/github-php-client/app/login/'>You must login using your GitHub account first</a>."));
+            self::display_message(array('type' => "highlight", 'msg' => "Go back to <a href='index.php'>public view</a>."));
             return false;
         }
     }
     
     function monitors_list()
     {
-        $download_params = array("expire_seconds" => false);
-        $json = Functions::lookup_with_cache($this->monitors_api['all'], $download_params);
+        $json = Functions::lookup_with_cache($this->monitors_api['all'], $this->download_options);
         $monitors = json_decode($json, true);
         $recs = array();
         foreach($monitors as $m)

@@ -14,10 +14,9 @@
     <div id="tabs_main-3">Loading...</div>
 </div>
 
-<?php 
+<?php
     $back = FRESHDATA_DOMAIN;
-    $admin_view = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php";
-    
+    $admin_view = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?admin_view=";
 ?>
 <script>
 function tab2_clicked() { location.href = '<?php echo $admin_view ?>'; }

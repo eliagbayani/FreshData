@@ -3,17 +3,15 @@
 /* Expects: $params */
 
 
-echo "<pre>"; print_r($params); echo "</pre>";
-
-if(isset($params['public_view'])) $public_view = true;
-else                              $public_view = false;
+// echo "<pre>"; print_r($params); echo "</pre>";
+if(isset($params['admin_view']))  $public_view = false;
+else                              $public_view = true;
 
 $rek = self::monitors_list();
 $rows = $rek['recs'];
 $str = " n = " . count($rows);
 
 // echo "<pre>"; print_r($rek); echo "</pre>";
-// exit;
 
 ?>
 <div id="accordion_open">
@@ -26,7 +24,6 @@ $str = " n = " . count($rows);
             $data = array('group' => 'monitors', 'records' => $rows, 'public_view' => $public_view);
             print self::render_template('monitors-table', array('data' => @$data));
         }
-        
         ?>
     </div>
 </div>

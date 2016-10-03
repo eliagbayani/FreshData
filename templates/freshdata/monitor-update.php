@@ -26,12 +26,30 @@ $(document).ready(function() {
     var URL = $("#URL").val();
     
     
+    if(URL)
+    {
+        if(!validateURL(URL))
+        {
+            $('#stage').append('<div id="memo" class="help-block">Invalid URL</div>');
+            return;
+        }
+    }
+
     $("#stage").load('templates/freshdata/monitor-save.php', {"uuid":uuid, "Title":Title, "Description":Description, "URL":URL} );
     $("#login_form").hide();
     $('#stage').append('<div class="help-block"><br>Please wait, loading...<br><br></div>'); // add the actual error message under our input
+
     
     });
 });
+
+function validateURL(textval)
+{
+    //to add ftp: (https?|ftp)
+    var urlregex = /^(https?):\/\/([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/;
+    return urlregex.test(textval);
+}
+
 </script>
 
 <span id = "login_form">

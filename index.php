@@ -2,9 +2,7 @@
 <!doctype html>
 <html lang="us">
 <head>
-    <!---
     <div id="loadOverlay" style="background-color:#333; position:absolute; top:0px; left:0px; width:100%; height:100%; z-index:2000; color:white; font-size:120%;">Loading, please wait ...</div>
-    --->
     <title>Fresh Data: Monitors Maintenance</title>
     <?php require_once("config/head-entry.html") ?>
 </head>
@@ -23,13 +21,18 @@ $ctrler = new freshdata_controller($params);
 ?>
 
 <script type="text/javascript">
-// $(window).load(function () { $("#loadOverlay").css("display","none"); });
+$(window).load(function () { $("#loadOverlay").css("display","none"); });
 </script>
 
 <?php
 
 // echo "<pre>"; print_r($_COOKIE); echo "</pre>";
-if(!$ctrler->user_is_logged_in_wiki()) return;
+
+if(isset($params['admin_view']))
+{
+    if(!$ctrler->user_is_logged_in_wiki()) return;
+}
+
 
 
 //start assignment ------------------------------------------
@@ -44,9 +47,9 @@ if($val = @$params['search_type'])
 }
 //end ------------------------------------------
 
-if(isset($params['uuid'])) require_once("templates/freshdata/layout2.php");
-elseif(isset($params['public_view'])) require_once("templates/freshdata/layout_public.php");
-else                       require_once("templates/freshdata/layout.php"); //default
+if(isset($params['uuid']))           require_once("templates/freshdata/layout2.php");
+elseif(isset($params['admin_view'])) require_once("templates/freshdata/layout_admin.php");
+else                                 require_once("templates/freshdata/layout_public.php"); //default
 
 // else print $ctrler->render_template('layout', array('params' => @$params));
 
