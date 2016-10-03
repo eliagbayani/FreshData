@@ -3,7 +3,12 @@
 /* Expects: $params */
 
 
-$rek = self::monitors_list('active', false, true);
+echo "<pre>"; print_r($params); echo "</pre>";
+
+if(isset($params['public_view'])) $public_view = true;
+else                              $public_view = false;
+
+$rek = self::monitors_list();
 $rows = $rek['recs'];
 $str = " n = " . count($rows);
 
@@ -18,7 +23,7 @@ $str = " n = " . count($rows);
         if($rows)
         {
             // echo "<pre>"; print_r($rows); echo "</pre>";
-            $data = array('group' => 'monitors', 'records' => $rows);
+            $data = array('group' => 'monitors', 'records' => $rows, 'public_view' => $public_view);
             print self::render_template('monitors-table', array('data' => @$data));
         }
         

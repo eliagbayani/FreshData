@@ -32,11 +32,9 @@ $ctrler = new freshdata_controller($params);
 if(!$ctrler->user_is_logged_in_wiki()) return;
 
 
-
 //start assignment ------------------------------------------
 if(isset($params['Title'])) $ctrler->save_monitor($params);
 
-// http://editors.eol.localhost/LiteratureEditor/Custom/bhl_access/index.php?wiki_title=Completed_Projects:Planet_of_the_Apes&search_type=move24harvest&wiki_status={Completed}&articles=
 if($val = @$params['search_type'])
 {
     if($val == "move24harvest")
@@ -47,6 +45,7 @@ if($val = @$params['search_type'])
 //end ------------------------------------------
 
 if(isset($params['uuid'])) require_once("templates/freshdata/layout2.php");
+elseif(isset($params['public_view'])) require_once("templates/freshdata/layout_public.php");
 else                       require_once("templates/freshdata/layout.php"); //default
 
 // else print $ctrler->render_template('layout', array('params' => @$params));
@@ -74,10 +73,7 @@ if(isset($params['search_type']))
 require_once("config/script-below-entry.html");
 
 //for layout
-// if(@$params['search_type'] == 'titlesearch')    print '<script>$( "#tabs_main" ).tabs( "option", "active", 1 );</script>';
-
-if(isset($params['uuid'])) print '<script>$( "#tabs_main" ).tabs( "option", "active", 1 );</script>';
-
+if    (isset($params['uuid']))          print '<script>$( "#tabs_main" ).tabs( "option", "active", 1 );</script>';
 
 ?>
 </body>

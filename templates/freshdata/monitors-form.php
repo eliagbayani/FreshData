@@ -1,12 +1,11 @@
 <?php
 // echo "<pre>"; print_r($params); echo "</pre>";
 $uuid = $params['uuid'];
-
 $rec_from_text = self::process_uuid($uuid);
 $monitor = self::get_monitor_record($uuid);
 
-echo "<pre>"; print_r($monitor); echo "</pre>";
-echo "<pre>"; print_r($rec_from_text); echo "</pre>";
+// echo "<pre>"; print_r($monitor); echo "</pre>";
+// echo "<pre>"; print_r($rec_from_text); echo "</pre>";
 
 /*
 Array
@@ -25,13 +24,14 @@ Array
 */
 ?>
 <div id="accordion_open2">
-    <h3><?php echo "Monitor metadata" ?></h3>
+    <h3><?php echo "Monitor info" ?></h3>
     <div>
         <table>
-            <tr><td>Taxa</td>           <td>: <?php echo $monitor['selector']['taxonSelector'] ?></td></tr>
-            <tr><td>Status</td>         <td>: <?php echo $monitor['status'] ?></td></tr>
-            <tr><td>Records</td>        <td>: <?php echo number_format($monitor['recordCount']) ?></td></tr>
-            <tr><td>Trait selector</td> <td>: <?php echo $monitor['selector']['traitSelector'] ?></td></tr>
+            <tr><td>Taxa:</td>           <td id="value"><?php echo $monitor['selector']['taxonSelector'] ?></td></tr>
+            <tr><td>Status:</td>         <td id="value"><?php echo $monitor['status'] ?></td></tr>
+            <tr><td>Records:</td>        <td id="value"><?php echo number_format($monitor['recordCount']) ?></td></tr>
+            <tr><td>Trait selector:</td> <td id="value"><?php echo $monitor['selector']['traitSelector'] ?></td></tr>
+            <tr><td>String:</td>         <td id="value"><?php echo $monitor['selector']['wktString'] ?></td></tr>
         </table>
         <?php
         require_once("templates/freshdata/monitor-update.php");

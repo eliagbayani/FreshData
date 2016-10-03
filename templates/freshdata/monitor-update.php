@@ -35,11 +35,11 @@ $(document).ready(function() {
 </script>
 
 <span id = "login_form">
-  <p>Update additional metadata for monitor:</p>
+  <p>Update metadata for monitor:</p>
   <table>
-  <tr><td>Title</td>        <td>: <input type = "text" id = "Title"         size = "40" value="<?php echo $rec_from_text['Title']       ?>" /></td></tr>
-  <tr><td>Description</td>  <td>: <input type = "text"  id = "Description"  size = "40" value="<?php echo $rec_from_text['Description'] ?>" /></td></tr>
-  <tr><td>URL</td>          <td>: <input type = "text"  id = "URL"          size = "40" value="<?php echo $rec_from_text['URL']         ?>" /></td></tr>
+  <tr><td>Title:</td>                   <td><input type = "text" id = "Title"         size = "100" value="<?php echo $rec_from_text['Title']       ?>" /></td></tr>
+  <tr valign="top"><td>Description:</td><td valign="top"><textarea id="Description" rows="10" cols="100" name="Description"><?php echo $rec_from_text['Description']; ?></textarea></td></tr>
+  <tr><td>URL:</td>                     <td><input type = "text"  id = "URL"          size = "100" value="<?php echo $rec_from_text['URL']         ?>" /></td></tr>
   <input type="hidden" id="uuid" value="<?php echo $uuid ?>">
   </table>
   

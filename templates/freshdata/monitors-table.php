@@ -26,6 +26,8 @@ tfoot input {
 <?php
     $rows = $data['records'];
     $group = $data['group'];
+    $public_view = $data['public_view'];
+    
     if($group == "monitors") $vars = array('search_type' => "wiki2php",         'js_string' => "Monitors List");
     else                     $vars = array('search_type' => "wiki2php_project", 'js_string' => "xxx");
 ?>
@@ -35,7 +37,13 @@ tfoot input {
             <?php if($group == "monitors") echo "<th>Status</th>"; ?>
             <th>#Records</th>
             <th>Taxa</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>URL</th>
             <th style="display:none">uuid</th>
+            <th style="display:none">taxonSelector</th>
+            <th style="display:none">traitSelector</th>
+            <th style="display:none">wktString</th>
         </tr>
     </thead>
     <tfoot>
@@ -43,7 +51,17 @@ tfoot input {
             <?php if($group == "monitors") echo "<th>Status</th>"; ?>
             <th>#Records</th>
             <th>Taxa</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>URL</th>
             <th style="display:none">uuid</th>
+
+            <th style="display:none">taxonSelector</th>
+            <th style="display:none">traitSelector</th>
+            <th style="display:none">wktString</th>
+
+
+            
         </tr>
     </tfoot>
     <tbody>
@@ -52,22 +70,46 @@ tfoot input {
             ?>
                 <tr>
                     <?php if($group == "monitors") echo '<td>'.$r['status'].'</td>'; ?>
-                    <td><?php echo $r['recordCount'] ?></td>
+                    <td align="right"><?php echo number_format($r['recordCount']) ?></td>
                     <td><?php echo $r['taxonSelector'] ?></td>
+                    
+                    <?php $rek = self::get_text_file_value($r['uuid']); ?>
+                    <td><?php echo $rek['Title'] ?></td>
+                    <td><?php echo $rek['Description'] ?></td>
+                    <td><?php echo $rek['URL'] ?></td>
+
                     <td style="display:none"><?php echo $r['uuid'] ?></td>
+
+                    <td style="display:none"><?php echo $r['taxonSelector'] ?></td>
+                    <td style="display:none"><?php echo $r['traitSelector'] ?></td>
+                    <td style="display:none"><?php echo $r['wktString'] ?></td>
                 </tr>
             <?php
         }
         ?>
     </tbody>
 </table>
-<form id="myform<?php echo $table_id ?>" action="index.php" method="post" enctype="multipart/form-data" <?php if($group == "xxx") echo "target=\"_blank\"" ?>><!---  --->
-<!---
-<input type="hidden" name="search_type" value="<?php echo $vars['search_type'] ?>">
-<input type="hidden" name="overwrite"   value="1">
---->
-<input type="hidden" name="uuid"  value="1" id="uuid<?php echo $table_id ?>">
-</form>
+
+<?php
+if(!$public_view)
+{
+    ?>
+    <form id="myform<?php echo $table_id ?>" action="index.php" method="post" enctype="multipart/form-data" <?php if($group == "xxx") echo "target=\"_blank\"" ?>>
+    <input type="hidden" name="uuid"  value="1" id="uuid<?php echo $table_id ?>">
+    </form>
+    <?php
+}
+else
+{
+    ?>
+    <form id="myform<?php echo $table_id ?>" action="<?php echo FRESHDATA_DOMAIN ?>" method="get" enctype="multipart/form-data" <?php if($group == "xxx") echo "target=\"_blank\"" ?>>
+    <input type="hidden" name="taxonSelector" id="taxonSelector">
+    <input type="hidden" name="traitSelector" id="traitSelector">
+    <input type="hidden" name="wktString"     id="wktString">
+    </form>
+    <?php
+}
+?>
 
 <script>
 <!--- $(document).ready(function() { --->
@@ -77,7 +119,7 @@ tfoot input {
         
         //customized by Eli
         if(title == "Taxa") $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
-        else                $(this).html( '<input type="text" placeholder="" />' );
+        else                $(this).html( '<input type="text" placeholder="Search" />' );
         
     } );
  
@@ -118,12 +160,18 @@ tfoot input {
     $('#<?php echo $table_id ?> tbody').on('click', 'tr', function () {
             var data<?php echo $table_id ?> = table<?php echo $table_id ?>.row( this ).data();
             // alert( 'You clicked on '+data<?php echo $table_id ?>[3]+'\'s row' );
-            myFunction<?php echo $table_id ?>(data<?php echo $table_id ?>[3], data<?php echo $table_id ?>[1], data<?php echo $table_id ?>[2]);
+            myFunction<?php echo $table_id ?>(data<?php echo $table_id ?>[6], 
+                                              data<?php echo $table_id ?>[7], 
+                                              data<?php echo $table_id ?>[8], 
+                                              data<?php echo $table_id ?>[9]
+                                              );
         } );
     
 <!--- } ); --->
 
-function myFunction<?php echo $table_id ?>(uuid, title, subject) 
+
+
+function myFunction<?php echo $table_id ?>(uuid, taxonSelector, traitSelector, wktString) 
 {
     /* working but dialog box to continue may not be needed anymore...
     var x;
@@ -140,7 +188,25 @@ function myFunction<?php echo $table_id ?>(uuid, title, subject)
     */
 
     // spinner_on();
-    document.getElementById("uuid<?php echo $table_id ?>").value = uuid;
+    
+    <?php
+    if(!$public_view)
+    {
+        ?>
+        document.getElementById("uuid<?php echo $table_id ?>").value = uuid;
+        <?php
+    }
+    else
+    {
+        ?>
+        document.getElementById("taxonSelector").value = taxonSelector;
+        document.getElementById("traitSelector").value = traitSelector;
+        document.getElementById("wktString").value = wktString;
+        <?php
+    }
+    ?>
+    
+    
     document.getElementById("myform<?php echo $table_id ?>").submit();
 }
 </script>
