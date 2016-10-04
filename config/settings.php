@@ -18,12 +18,14 @@ if(!defined('DOWNLOAD_TIMEOUT_SECONDS')) define('DOWNLOAD_TIMEOUT_SECONDS', '30'
 define('DOC_ROOT', $_SERVER['DOCUMENT_ROOT']);
 define('DEVELOPER_EMAIL', 'eagbayani@eol.org');
 
-/*
+// /* for Archive server - remote
 define('CACHE_PATH', '/var/www/html/cache_LiteratureEditor/');  //for archive
 define('FRESHDATA_DOMAIN', 'http://gimmefreshdata.github.io/'); //e.g. http://gimmefreshdata.github.io/monitors.html
-*/
+// */
 
+/* for Mac Mini - local
 define('CACHE_PATH', '/Volumes/MacMini_HD2/cache_LiteratureEditor/');   //for mac mini
 define('FRESHDATA_DOMAIN', 'http://localhost:4000/');                   //e.g. http://localhost:4000/monitors.html
+*/
 
 ?>
