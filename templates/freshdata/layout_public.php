@@ -3,7 +3,7 @@
         <li><a href="#tabs_main-1">Monitors</a></li>
         <li><a onClick="tab2_clicked()" href="#tabs_main-2">Admin Page ››</a></li>
         <li><a onClick="tab3_clicked()" href="#tabs_main-3">Back to Fresh Data ››</a></li>
-        <li><a onClick="tab4_clicked()" href="#tabs_main-4">Refresh cache ››</a></li>
+        <li><a href="#tabs_main-4">Refresh cache</a></li>
     </ul>
     <div id="tabs_main-1">
         <?php 
@@ -13,7 +13,13 @@
     </div>
     <div id="tabs_main-2">Loading...</div>
     <div id="tabs_main-3">Loading...</div>
-    <div id="tabs_main-4">Loading...</div>
+    <div id="tabs_main-4">
+        <?php
+        $ctrler->display_message(array('type' => "highlight", 'msg' => "You only need to refresh if new monitors are added/deleted."));
+        $ctrler->display_message(array('type' => "highlight", 'msg' => "Cache refreshes automatically every 12 hours."));
+        echo "<br><a href='index.php?refresh_cache='>Refresh now</a>.";
+        ?>
+    </div>
 </div>
 
 <?php
@@ -24,6 +30,8 @@
 <script>
 function tab2_clicked() { location.href = '<?php echo $admin_view ?>'; }
 function tab3_clicked() { location.href = '<?php echo $back ?>'; }
+/* 
 function tab4_clicked() { location.href = '<?php echo $refresh ?>'; }
+*/
 </script>
 
