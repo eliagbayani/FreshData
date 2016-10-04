@@ -1,6 +1,6 @@
 <div id="tabs_main">
     <ul>
-        <li><a onClick="tab1_clicked()" href="#tabs_main-1">Monitors ››</a></li>
+        <li><a onClick="tab1_clicked()" href="#tabs_main-1">Monitors - Admin ››</a></li>
         <li><a href="#tabs_main-2">Maintenance</a></li>
         <li><a onClick="tab3_clicked()" href="#tabs_main-3">Back to Fresh Data ››</a></li>
     </ul>
