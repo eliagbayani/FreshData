@@ -15,21 +15,15 @@ if(!defined('DOWNLOAD_WAIT_TIME')) define('DOWNLOAD_WAIT_TIME', '300000'); //.3 
 define('DOWNLOAD_ATTEMPTS', '2');
 if(!defined('DOWNLOAD_TIMEOUT_SECONDS')) define('DOWNLOAD_TIMEOUT_SECONDS', '30');
 
-define('CACHE_PATH', '/Volumes/MacMini_HD2/cache_LiteratureEditor/');    //for mac mini
-// define('CACHE_PATH', '/var/www/html/cache_LiteratureEditor/');           //for archive
-
 define('DOC_ROOT', $_SERVER['DOCUMENT_ROOT']);
-
 define('DEVELOPER_EMAIL', 'eagbayani@eol.org');
 
+/*
+define('CACHE_PATH', '/var/www/html/cache_LiteratureEditor/');  //for archive
+define('FRESHDATA_DOMAIN', 'http://gimmefreshdata.github.io/'); //e.g. http://gimmefreshdata.github.io/monitors.html
+*/
 
-// define('EOL_PHP_CODE', 'http://editors.eol.localhost/eol_php_code/'); //applications/content_server/resources/
-
-
-
-
-// define('FRESHDATA_DOMAIN', 'http://gimmefreshdata.github.io/'); //e.g. http://gimmefreshdata.github.io/monitors.html
-define('FRESHDATA_DOMAIN', 'http://localhost:4000/'); //e.g. http://localhost:4000/monitors.html
-
+define('CACHE_PATH', '/Volumes/MacMini_HD2/cache_LiteratureEditor/');   //for mac mini
+define('FRESHDATA_DOMAIN', 'http://localhost:4000/');                   //e.g. http://localhost:4000/monitors.html
 
 ?>

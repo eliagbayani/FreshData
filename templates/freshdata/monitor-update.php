@@ -61,6 +61,8 @@ function validateURL(textval)
   <input type="hidden" id="uuid" value="<?php echo $uuid ?>">
   </table>
   
-  <button id="driver" type="submit" class="btn btn-success">Save</button>
+  <button id="driver" type="submit">Save</button>
+  <button onClick="javascript:history.go(-1)" type="">Cancel</button>
+  
 </span>
 <div id = "stage" style = "background-color:white;"></div>

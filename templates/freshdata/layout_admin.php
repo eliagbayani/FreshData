@@ -1,6 +1,6 @@
 <div id="tabs_main">
     <ul>
-        <li><a href="#tabs_main-1">Monitors</a></li>
+        <li><a href="#tabs_main-1">Monitors - Admin</a></li>
         <li><a href="#tabs_main-2">Maintenance</a></li>
         <li><a onClick="tab4_clicked()" href="#tabs_main-4">Public View ››</a></li>
         <li><a onClick="tab3_clicked()" href="#tabs_main-3">Back to Fresh Data ››</a></li>
@@ -12,7 +12,7 @@
         ?>
     </div>
     <div id="tabs_main-2">
-        Click a monitor to update
+        Click a monitor to update.
     </div>
     <div id="tabs_main-3">Loading...</div>
     <div id="tabs_main-4">Loading...</div>
