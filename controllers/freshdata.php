@@ -24,9 +24,16 @@ class freshdata_controller extends other_controller
         }
     }
     
-    function monitors_list()
+    function monitors_list($params)
     {
-        $json = Functions::lookup_with_cache($this->monitors_api['all'], $this->download_options);
+        $download_params = $this->download_options;
+        if(isset($params['refresh_cache']))
+        {
+            $download_params['expire_seconds'] = true;
+            self::display_message(array('type' => "highlight", 'msg' => "Cache refreshed."));
+        }
+        
+        $json = Functions::lookup_with_cache($this->monitors_api['all'], $download_params);
         $monitors = json_decode($json, true);
         $recs = array();
         foreach($monitors as $m)
