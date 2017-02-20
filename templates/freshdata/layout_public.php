@@ -4,7 +4,7 @@
         <li><a onClick="tab2_clicked()" href="#tabs_main-2">Admin Page ››</a></li>
         <li><a onClick="tab3_clicked()" href="#tabs_main-3">Back to Fresh Data ››</a></li>
         <li><a href="#tabs_main-4">Refresh cache</a></li>
-        <li><a onClick="tab5_clicked()" href="#tabs_main-5">API Call</a></li>
+        <li><a href="#tabs_main-5">API Call</a></li>
     </ul>
     <div id="tabs_main-1">
         <?php 
@@ -21,7 +21,12 @@
         echo "<br><a href='index.php?refresh_cache='>Refresh now</a>.";
         ?>
     </div>
-    <div id="tabs_main-5">Loading...</div>
+    <div id="tabs_main-5">
+        <?php
+        $api_call = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/monitors.php";
+        ?>
+        API Call: <a href="<?php echo $api_call ?>"><?php echo $api_call ?></a>
+    </div>
 </div>
 
 <?php
@@ -36,6 +41,8 @@ function tab3_clicked() { location.href = '<?php echo $back ?>'; }
 /* 
 function tab4_clicked() { location.href = '<?php echo $refresh ?>'; }
 */
+/* working but not used atm.
 function tab5_clicked() { location.href = '<?php echo $api ?>'; }
+*/
 </script>
 

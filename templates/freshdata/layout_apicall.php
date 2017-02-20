@@ -25,6 +25,7 @@
         $api_call = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/monitors.php";
         ?>
         API Call: <a href="<?php echo $api_call ?>"><?php echo $api_call ?></a>
+
         <?php
         /* if we want to display it, possible todo:
         $json = Functions::lookup_with_cache($api_call, array('cache' => 0));
