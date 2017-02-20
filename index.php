@@ -49,6 +49,7 @@ if($val = @$params['search_type'])
 
 if(isset($params['uuid']))           require_once("templates/freshdata/layout2.php");
 elseif(isset($params['admin_view'])) require_once("templates/freshdata/layout_admin.php");
+elseif(isset($params['api_call']))   require_once("templates/freshdata/layout_apicall.php");
 else                                 require_once("templates/freshdata/layout_public.php"); //default
 
 // else print $ctrler->render_template('layout', array('params' => @$params));
@@ -77,6 +78,7 @@ require_once("config/script-below-entry.html");
 
 //for layout
 if    (isset($params['uuid']))          print '<script>$( "#tabs_main" ).tabs( "option", "active", 1 );</script>';
+if    (isset($params['api_call']))      print '<script>$( "#tabs_main" ).tabs( "option", "active", 4 );</script>';
 
 ?>
 </body>

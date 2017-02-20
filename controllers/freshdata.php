@@ -63,6 +63,26 @@ class freshdata_controller extends other_controller
         return array("total" => count($recs), "recs" => $recs);
     }
     
+    function append_additional_fields()
+    {
+        $json = Functions::lookup_with_cache($this->monitors_api['all'], $this->download_options);
+        $rows = json_decode($json, true);
+        $i = 0;
+        foreach($rows as $r)
+        {
+            if($rek = self::get_text_file_value($r['selector']['uuid']))
+            {
+                $rows[$i]['selector']['Title']          = $rek['Title'];
+                $rows[$i]['selector']['Description']    = $rek['Description'];
+                $rows[$i]['selector']['URL']            = $rek['URL'];
+            }
+            $i++;
+        }
+        //from array to json
+        $json = json_encode($rows, JSON_PRETTY_PRINT);
+        return $json;
+    }
+    
     function process_uuid($uuid)
     {
         self::create_text_file_if_does_not_exist($uuid);
