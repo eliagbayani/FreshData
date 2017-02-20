@@ -5,11 +5,9 @@
         <li><a onClick="tab3_clicked()" href="#tabs_main-3">Back to Fresh Data ››</a></li>
         <li><a href="#tabs_main-4">Refresh cache</a></li>
         <li><a href="#tabs_main-5">API Call</a></li>
-        
     </ul>
     <div id="tabs_main-1">
         <?php 
-            // print $ctrler->render_layout(@$params, 'monitors-list')
             print $ctrler->render_template('monitors-list', array('params' => @$params));
         ?>
     </div>
@@ -28,8 +26,10 @@
         ?>
         API Call: <a href="<?php echo $api_call ?>"><?php echo $api_call ?></a>
         <?php
+        /* if we want to display it, possible todo:
         $json = Functions::lookup_with_cache($api_call, array('cache' => 0));
-        // echo "<br><br><span>$json</span>";
+        echo "<br><br><span>$json</span>";
+        */
         ?>
         
     </div>
@@ -44,9 +44,8 @@
 <script>
 function tab2_clicked() { location.href = '<?php echo $admin_view ?>'; }
 function tab3_clicked() { location.href = '<?php echo $back ?>'; }
-function tab5_clicked() { location.href = '<?php echo $api ?>'; }
 /* 
 function tab4_clicked() { location.href = '<?php echo $refresh ?>'; }
 */
+function tab5_clicked() { location.href = '<?php echo $api ?>'; }
 </script>
-
