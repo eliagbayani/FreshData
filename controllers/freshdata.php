@@ -56,7 +56,7 @@ class freshdata_controller extends other_controller
             $info['wktString']      = $m['selector']['wktString'];
             $info['traitSelector']  = $m['selector']['traitSelector'];
             $info['uuid']           = $m['selector']['uuid'];
-            $info['status']         = $m['status'];
+            $info['status']         = @$m['status'];
             $info['recordCount']    = $m['recordCount'];
             $recs[] = $info;
         }
