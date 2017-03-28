@@ -200,6 +200,10 @@ function myFunction<?php echo $table_id ?>(uuid, taxonSelector, traitSelector, w
     {
         ?>
         document.getElementById("taxonSelector").value = taxonSelector;
+        
+        traitSelector = traitSelector.replace('&gt;', '>');
+        traitSelector = traitSelector.replace('&lt;', '<');
+        
         document.getElementById("traitSelector").value = traitSelector;
         document.getElementById("wktString").value = wktString;
         <?php
