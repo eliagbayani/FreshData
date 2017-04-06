@@ -5,4 +5,4 @@ $api_call3 = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/monitors.php?sour
 ?>
 List all monitors / active searches: <a href="<?php echo $api_call ?>"><?php echo $api_call ?></a><p>
 Select a single monitor by uuid: <a href="<?php echo $api_call2 ?>"><?php echo $api_call2 ?></a><p>
-Find monitors that include occurrence id http://www.inaturalist.org/observations/142322 from inaturalist: <a href="<?php echo $api_call3 ?>"><?php echo $api_call3 ?></a><p>
+Find monitors that include occurrence id <i>http://www.inaturalist.org/observations/142322</i> from <i>inaturalist</i>: <a href="<?php echo $api_call3 ?>"><?php echo $api_call3 ?></a><p>
