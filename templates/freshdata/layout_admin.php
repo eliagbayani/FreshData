@@ -19,9 +19,8 @@
     <div id="tabs_main-4">Loading...</div>
     <div id="tabs_main-5">
         <?php
-        $api_call = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/monitors.php";
+        require_once("apicall.php")
         ?>
-        API Call: <a href="<?php echo $api_call ?>"><?php echo $api_call ?></a>
     </div>
 </div>
 
