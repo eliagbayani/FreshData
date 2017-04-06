@@ -11,6 +11,9 @@ class freshdata_controller extends other_controller
         $this->download_options = array('download_timeout_seconds' => 4800, 'download_wait_time' => 300000, 'expire_seconds' => 43200); //expires in 12 hours
         $this->monitors_api['all'] = "http://api.effechecka.org/monitors";
         $this->monitors_api['one'] = "http://api.effechecka.org/monitors?uuid=";
+        $this->monitors_api['id']  = "http://api.effechecka.org/monitors?id=";
+        $this->monitors_api['source']  = "http://api.effechecka.org/monitors?source=";
+        $this->monitors_api['id_source']  = "http://api.effechecka.org/monitors?id=id_val&source=source_val";
     }
 
     function user_is_logged_in_wiki()
@@ -63,18 +66,40 @@ class freshdata_controller extends other_controller
         return array("total" => count($recs), "recs" => $recs);
     }
     
-    function append_additional_fields()
+    function append_additional_fields($id = null, $source = null)
     {
-        $json = Functions::lookup_with_cache($this->monitors_api['all'], $this->download_options);
+        if($id && $source)
+        {
+            $url = $this->monitors_api['id_source'];
+            $url = str_replace("id_val", $id, $url);
+            $url = str_replace("source_val", $source, $url);
+            $json = Functions::lookup_with_cache($url, $this->download_options);
+        }
+        elseif($id)     $json = Functions::lookup_with_cache($this->monitors_api['id'].$id, $this->download_options);
+        elseif($source) $json = Functions::lookup_with_cache($this->monitors_api['source'].$source, $this->download_options);
+        else            $json = Functions::lookup_with_cache($this->monitors_api['all'], $this->download_options);
         $rows = json_decode($json, true);
         $i = 0;
         foreach($rows as $r)
         {
-            if($rek = self::get_text_file_value($r['selector']['uuid']))
+            $rek = array();
+            if($id && $source) $rek = self::get_text_file_value(@$r['uuid']);
+            else               $rek = self::get_text_file_value(@$r['selector']['uuid']);
+            
+            if($rek)
             {
-                $rows[$i]['selector']['Title']          = $rek['Title'];
-                $rows[$i]['selector']['Description']    = $rek['Description'];
-                $rows[$i]['selector']['URL']            = $rek['URL'];
+                if($id && $source)
+                {
+                    $rows[$i]['Title']          = $rek['Title'];
+                    $rows[$i]['Description']    = $rek['Description'];
+                    $rows[$i]['URL']            = $rek['URL'];
+                }
+                else
+                {
+                    $rows[$i]['selector']['Title']          = $rek['Title'];
+                    $rows[$i]['selector']['Description']    = $rek['Description'];
+                    $rows[$i]['selector']['URL']            = $rek['URL'];
+                }
             }
             $i++;
         }
@@ -97,6 +122,23 @@ class freshdata_controller extends other_controller
         $monitor = json_decode($json, true);
         return $monitor;
     }
+    
+    //start params scheme
+    function params_is_uuid($uuid)
+    {
+        $json = Functions::lookup_with_cache($this->monitors_api['one'].$uuid, $this->download_options);
+        $row = json_decode($json, true);
+        if($rek = self::get_text_file_value($uuid))
+        {
+            $row['selector']['Title']          = $rek['Title'];
+            $row['selector']['Description']    = $rek['Description'];
+            $row['selector']['URL']            = $rek['URL'];
+        }
+        //from array to json
+        $json = json_encode($row, JSON_PRETTY_PRINT);
+        return $json;
+    }
+    //end params scheme
     
     function get_text_file_value($uuid)
     {
