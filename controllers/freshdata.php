@@ -93,12 +93,16 @@ class freshdata_controller extends other_controller
                     $rows[$i]['Title']          = $rek['Title'];
                     $rows[$i]['Description']    = $rek['Description'];
                     $rows[$i]['URL']            = $rek['URL'];
+                    $rows[$i]['Training_materials'] = $rek['Training_materials'];
+                    $rows[$i]['Contact']            = $rek['Contact'];
                 }
                 else
                 {
                     $rows[$i]['selector']['Title']          = $rek['Title'];
                     $rows[$i]['selector']['Description']    = $rek['Description'];
                     $rows[$i]['selector']['URL']            = $rek['URL'];
+                    $rows[$i]['selector']['Training_materials'] = $rek['Training_materials'];
+                    $rows[$i]['selector']['Contact']            = $rek['Contact'];
                 }
             }
             $i++;
@@ -133,6 +137,8 @@ class freshdata_controller extends other_controller
             $row['selector']['Title']          = $rek['Title'];
             $row['selector']['Description']    = $rek['Description'];
             $row['selector']['URL']            = $rek['URL'];
+            $row['selector']['Training_materials']  = $rek['Training_materials'];
+            $row['selector']['Contact']             = $rek['Contact'];
         }
         //from array to json
         $json = json_encode($row, JSON_PRETTY_PRINT);
@@ -142,7 +148,8 @@ class freshdata_controller extends other_controller
     
     function get_text_file_value($uuid)
     {
-        $fields = array("Title", "Description", "URL", "field4", "field5");
+        // $fields = array("Title", "Description", "URL", "field4", "field5"); //orig
+        $fields = array("Title", "Description", "URL", "Training_materials", "Contact"); //orig
         $filename = self::get_uuid_text_file_path($uuid);
         if(file_exists($filename))
         {
@@ -214,7 +221,8 @@ class freshdata_controller extends other_controller
         $filename = "../../" . self::get_uuid_text_file_path($uuid); //added extra ../ bec. curdir is inside templates/freshdata/monitor-save.php
         if($fn = Functions::file_open($filename, "w"))
         {
-            fwrite($fn, $params['Title'] . "\t" . $params['Description'] . "\t" . $params['URL'] . "\t\t"); //saves five fields
+            // fwrite($fn, $params['Title'] . "\t" . $params['Description'] . "\t" . $params['URL'] . "\t\t"); //saves five fields //orig
+            fwrite($fn, $params['Title'] . "\t" . $params['Description'] . "\t" . $params['URL'] . "\t" . $params['Training_materials'] . "\t" . $params['Contact']); //saves five fields
             fclose($fn);
             return true;
         }

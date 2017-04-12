@@ -24,7 +24,8 @@ $(document).ready(function() {
     var Title = $("#Title").val();
     var Description = $("#Description").val();
     var URL = $("#URL").val();
-    
+    var Training_materials = $("#Training_materials").val();
+    var Contact = $("#Contact").val();
     
     if(URL)
     {
@@ -35,7 +36,7 @@ $(document).ready(function() {
         }
     }
 
-    $("#stage").load('templates/freshdata/monitor-save.php', {"uuid":uuid, "Title":Title, "Description":Description, "URL":URL} );
+    $("#stage").load('templates/freshdata/monitor-save.php', {"uuid":uuid, "Title":Title, "Description":Description, "URL":URL, "Training_materials":Training_materials, "Contact":Contact} );
     $("#login_form").hide();
     $('#stage').append('<div class="help-block"><br>Please wait, loading...<br><br></div>'); // add the actual error message under our input
 
@@ -58,6 +59,8 @@ function validateURL(textval)
   <tr><td>Title:</td>                   <td><input type = "text" id = "Title"         size = "100" value="<?php echo $rec_from_text['Title']       ?>" /></td></tr>
   <tr valign="top"><td>Description:</td><td valign="top"><textarea id="Description" rows="10" cols="100" name="Description"><?php echo $rec_from_text['Description']; ?></textarea></td></tr>
   <tr><td>URL:</td>                     <td><input type = "text"  id = "URL"          size = "100" value="<?php echo $rec_from_text['URL']         ?>" /></td></tr>
+  <tr><td>Training materials:</td>      <td><input type = "text" id = "Training_materials" size = "100" value="<?php echo $rec_from_text['Training_materials']  ?>" /></td></tr>
+  <tr><td>Contact:</td>                 <td><input type = "text" id = "Contact" size = "100" value="<?php echo $rec_from_text['Contact']                        ?>" /></td></tr>
   <input type="hidden" id="uuid" value="<?php echo $uuid ?>">
   </table>
   

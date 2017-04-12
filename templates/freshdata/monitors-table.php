@@ -40,6 +40,8 @@ tfoot input {
             <th>Title</th>
             <th>Description</th>
             <th>URL</th>
+            <th>Training materials</th>
+            <th>Contact</th>
             <th style="display:none">uuid</th>
             <th style="display:none">taxonSelector</th>
             <th style="display:none">traitSelector</th>
@@ -54,14 +56,12 @@ tfoot input {
             <th>Title</th>
             <th>Description</th>
             <th>URL</th>
+            <th>Training materials</th>
+            <th>Contact</th>
             <th style="display:none">uuid</th>
-
             <th style="display:none">taxonSelector</th>
             <th style="display:none">traitSelector</th>
             <th style="display:none">wktString</th>
-
-
-            
         </tr>
     </tfoot>
     <tbody>
@@ -77,9 +77,9 @@ tfoot input {
                     <td><?php echo $rek['Title'] ?></td>
                     <td><?php echo $rek['Description'] ?></td>
                     <td><?php echo $rek['URL'] ?></td>
-
+                    <td><?php echo $rek['Training_materials'] ?></td>
+                    <td><?php echo $rek['Contact'] ?></td>
                     <td style="display:none"><?php echo $r['uuid'] ?></td>
-
                     <td style="display:none"><?php echo $r['taxonSelector'] ?></td>
                     <td style="display:none"><?php echo $r['traitSelector'] ?></td>
                     <td style="display:none"><?php echo $r['wktString'] ?></td>
@@ -160,10 +160,10 @@ else
     $('#<?php echo $table_id ?> tbody').on('click', 'tr', function () {
             var data<?php echo $table_id ?> = table<?php echo $table_id ?>.row( this ).data();
             // alert( 'You clicked on '+data<?php echo $table_id ?>[3]+'\'s row' );
-            myFunction<?php echo $table_id ?>(data<?php echo $table_id ?>[6], 
-                                              data<?php echo $table_id ?>[7], 
-                                              data<?php echo $table_id ?>[8], 
-                                              data<?php echo $table_id ?>[9]
+            myFunction<?php echo $table_id ?>(data<?php echo $table_id ?>[8], //originally 6,7,8,9; now 8,9,10,11
+                                              data<?php echo $table_id ?>[9], 
+                                              data<?php echo $table_id ?>[10], 
+                                              data<?php echo $table_id ?>[11]
                                               );
         } );
     
