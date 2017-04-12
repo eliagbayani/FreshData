@@ -27,6 +27,7 @@ Array
     <h3><?php echo "Monitor info" ?></h3>
     <div>
         <table>
+            <tr><td>uuid:</td>           <td id="value"><?php echo $monitor['selector']['uuid'] ?></td></tr>
             <tr><td>Taxa:</td>           <td id="value"><?php echo $monitor['selector']['taxonSelector'] ?></td></tr>
             <tr><td>Status:</td>         <td id="value"><?php echo $monitor['status'] ?></td></tr>
             <tr><td>Records:</td>        <td id="value"><?php echo number_format($monitor['recordCount']) ?></td></tr>
