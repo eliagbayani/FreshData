@@ -149,7 +149,7 @@ class freshdata_controller extends other_controller
     function get_text_file_value($uuid)
     {
         // $fields = array("Title", "Description", "URL", "field4", "field5"); //orig
-        $fields = array("Title", "Description", "URL", "Training_materials", "Contact"); //orig
+        $fields = array("Title", "Description", "URL", "Training_materials", "Contact"); //new
         $filename = self::get_uuid_text_file_path($uuid);
         if(file_exists($filename))
         {
