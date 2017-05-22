@@ -37,7 +37,7 @@
 
 <?php
     $back = FRESHDATA_DOMAIN;
-    $admin = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?admin_view=";
+    $admin = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=admin";
     $refresh = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?refresh_cache=";
     $api = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?api_call=";
 ?>

@@ -27,17 +27,12 @@ $(window).load(function () { $("#loadOverlay").css("display","none"); });
 </script>
 
 <?php
-
 // echo "<pre>"; print_r($_COOKIE); echo "</pre>";
 
-
-// if(isset($params['admin_view']))
 if(@$params['view_type'] == 'admin')
 {
     if(!$ctrler->user_is_logged_in_wiki()) return;
 }
-
-
 
 //start assignment ------------------------------------------
 if(isset($params['Title'])) $ctrler->save_monitor($params);
@@ -52,7 +47,6 @@ if($val = @$params['search_type'])
 //end ------------------------------------------
 
 if(isset($params['uuid']))                  require_once("templates/freshdata/layout2.php");
-// elseif(isset($params['admin_view'])) 
 elseif(@$params['view_type'] == 'admin')    require_once("templates/freshdata/layout_admin.php");
 elseif(isset($params['api_call']))          require_once("templates/freshdata/layout_apicall.php");
 elseif(@$params['view_type'] == 'public')   require_once("templates/freshdata/layout_public.php"); //default
@@ -63,8 +57,6 @@ else
 }
 
 // else print $ctrler->render_template('layout', array('params' => @$params));
-
-
 ?>
 
 <!--- for spinner effect: http://spin.js.org/ --->
