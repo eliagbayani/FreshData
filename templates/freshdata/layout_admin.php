@@ -3,6 +3,7 @@
         <li><a href="#tabs_main-1">Monitors - Admin</a></li>
         <li><a href="#tabs_main-2">Maintenance</a></li>
         <li><a onClick="tab4_clicked()" href="#tabs_main-4">Public View ››</a></li>
+        <li><a onClick="tab6_clicked()" href="#tabs_main-6">SciStarter ››</a></li>
         <li><a onClick="tab3_clicked()" href="#tabs_main-3">Back to Fresh Data ››</a></li>
         <li><a href="#tabs_main-5">API Call</a></li>
     </ul>
@@ -27,11 +28,13 @@
 <?php 
     $back = FRESHDATA_DOMAIN;
     $public = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=public";
+    $scistarter = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=scistarter";
     $api = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?api_call=";
 ?>
 <script>
 function tab3_clicked() { location.href = '<?php echo $back ?>'; }
 function tab4_clicked() { location.href = '<?php echo $public ?>'; }
+function tab6_clicked() { location.href = '<?php echo $scistarter ?>'; }
 /* working but not used atm.
 function tab5_clicked() { location.href = '<?php echo $api ?>'; }
 */
