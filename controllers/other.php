@@ -4,6 +4,7 @@ class other_controller
 {
     function __construct($params)
     {
+        https://scistarter.com/finder?format=json&key=e32de5b4a92bfbb18c519158b2ff93b89016c26f080c39752d8e6584eee6d4cdea496f1e2ce0200adc3263eb8fb09bd867049a2e33d2657751a34e5e5124aa1e&q=Atlantic seabirds and whales lost in the Pacific
     }
     
     function scistarter_fields()
@@ -15,7 +16,7 @@ class other_controller
         "contact_address" => "National Museum of Natural History\n\nSmithsonian Institution\n\nP.O. Box 37012, MRC 106\n\nWashington, DC  20013-7012",
         "origin" => "Fresh Data",
         "status" => "active",
-        "preregistration" => false,
+        "preregistration" => 0,
         "goal" => "Collect wildlife observations to support ongoing research and monitoring projects",
         "task" => "photograph and report wildlife online",
         "image" => "http://opendata.eol.org/uploads/group/2017-05-15-172001.731090FDlogo.jpg",
@@ -23,8 +24,8 @@ class other_controller
         "how_to_join" => "You may report wildlife observations through a variety of platforms. If you do not have a favorite platform already, we suggest joining http://www.inaturalist.org/ to make observations for this project.",
         "special_skills" => "Photography- it needn't be art, but it should be well lit and in focus",
         "gear" => 'Camera + internet. A mobile device will do nicely, but if you prefer a "real camera", you\'ll need to be able to upload the photo later, and make a note of your location and the time when you took it.',
-        "outdoors" => true,
-        "indoors" => false,
+        "outdoors" => 1,
+        "indoors" => 0,
         "time_commitment" => "five minutes per data contribution",
         "project_type" => "Project",
         "audience" => "High School (14 - 17 years), College, Graduate students, Adults, Families");
