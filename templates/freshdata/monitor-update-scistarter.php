@@ -21,7 +21,9 @@ $(document).ready(function() {
     var twitter_name = $("#twitter_name").val();
     var facebook_page = $("#facebook_page").val();
     var status = $("#status").val();
-    var preregistration = $("#preregistration").val();
+    
+    var preregistration = $('input[name="preregistration"]:checked').val();
+    
     var goal = $("#goal").val();
     var task = $("#task").val();
     var image = $("#image").val();
@@ -29,8 +31,10 @@ $(document).ready(function() {
     var how_to_join = $("#how_to_join").val();
     var special_skills = $("#special_skills").val();
     var gear = $("#gear").val();
-    var outdoors = $("#outdoors").val();
-    var indoors = $("#indoors").val();
+    
+    var outdoors = $('input[name="outdoors"]:checked').val();
+    var indoors = $('input[name="indoors"]:checked').val();
+
     var time_commitment = $("#time_commitment").val();
     var project_type = $("#project_type").val();
     var audience = $("#audience").val();
@@ -82,7 +86,7 @@ function validateURL(textval)
 ?>
 
 <span id = "login_form">
-  <p>Update metadata for monitor:</p>
+  <p>Update project info:</p>
   <table>
   <tr><td>name:</td>                    <td><input type="text" id="name" size="100" value="<?php echo $rec_from_text2['name'] ?>" /></td></tr>
   <tr valign="top"><td>description:</td><td valign="top"><textarea id="description" rows="8" cols="100" name="Description"><?php echo $rec_from_text2['description'] ?></textarea></td></tr>
@@ -99,7 +103,14 @@ function validateURL(textval)
   <tr><td>twitter_name:</td>        <td><input type="text" id="twitter_name"        size="100" value="<?php echo $rec_from_text2['twitter_name'] ?>" /></td></tr>
   <tr><td>facebook_page:</td>       <td><input type="text" id="facebook_page"       size="100" value="<?php echo $rec_from_text2['facebook_page'] ?>" /></td></tr>
   <tr><td>status:</td>              <td><input type="text" id="status"              size="100" value="<?php echo $rec_from_text2['status'] ?>" /></td></tr>
-  <tr><td>preregistration:</td>     <td><input type="text" id="preregistration"     size="100" value="<?php echo $rec_from_text2['preregistration'] ?>" /></td></tr>
+
+  <tr><td>preregistration:</td><td>
+  <?php $preregistration = $rec_from_text2['preregistration'] ?>
+  <input type="radio" id="preregistration" value="true" name="preregistration" <?php if($preregistration == 'true') echo "checked" ?>/>True
+  &nbsp;&nbsp;&nbsp;
+  <input type="radio" id="preregistration" value="false" name="preregistration" <?php if($preregistration == 'false') echo "checked" ?>/>False
+  </td></tr>
+
   <tr><td>goal:</td>                <td><input type="text" id="goal"                size="100" value="<?php echo $rec_from_text2['goal'] ?>" /></td></tr>
   <tr><td>task:</td>                <td><input type="text" id="task"                size="100" value="<?php echo $rec_from_text2['task'] ?>" /></td></tr>
   <tr><td>image:</td>               <td><input type="text" id="image"               size="100" value="<?php echo $rec_from_text2['image'] ?>" /></td></tr>
@@ -107,8 +118,21 @@ function validateURL(textval)
   <tr valign="top"><td>how_to_join:</td><td valign="top"><textarea id="how_to_join" rows="3" cols="100" name="how_to_join"><?php echo $rec_from_text2['how_to_join'] ?></textarea></td></tr>
   <tr><td>special_skills:</td>      <td><input type="text" id="special_skills"      size="100" value="<?php echo $rec_from_text2['special_skills'] ?>" /></td></tr>
   <tr valign="top"><td>gear:</td>   <td valign="top"><textarea id="gear" rows="3" cols="100" name="gear"><?php echo $rec_from_text2['gear'] ?></textarea></td></tr>
-  <tr><td>outdoors:</td>            <td><input type="text" id="outdoors"            size="100" value="<?php echo $rec_from_text2['outdoors'] ?>" /></td></tr>
-  <tr><td>indoors:</td>             <td><input type="text" id="indoors"             size="100" value="<?php echo $rec_from_text2['indoors'] ?>" /></td></tr>
+
+  <tr><td>outdoors:</td><td>
+  <?php $outdoors = $rec_from_text2['outdoors'] ?>
+  <input type="radio" id="outdoors" value="true" name="outdoors" <?php if($outdoors == 'true') echo "checked" ?>/>True
+  &nbsp;&nbsp;&nbsp;
+  <input type="radio" id="outdoors" value="false" name="outdoors" <?php if($outdoors == 'false') echo "checked" ?>/>False
+  </td></tr>
+
+  <tr><td>indoors:</td><td>
+  <?php $indoors = $rec_from_text2['indoors'] ?>
+  <input type="radio" id="indoors" value="true" name="indoors" <?php if($indoors == 'true') echo "checked" ?>/>True
+  &nbsp;&nbsp;&nbsp;
+  <input type="radio" id="indoors" value="false" name="indoors" <?php if($indoors == 'false') echo "checked" ?>/>False
+  </td></tr>
+
   <tr><td>time_commitment:</td>     <td><input type="text" id="time_commitment"     size="100" value="<?php echo $rec_from_text2['time_commitment'] ?>" /></td></tr>
   <tr><td>project_type:</td>        <td><input type="text" id="project_type"        size="100" value="<?php echo $rec_from_text2['project_type'] ?>" /></td></tr>
   <tr><td>audience:</td>            <td><input type="text" id="audience"            size="100" value="<?php echo $rec_from_text2['audience'] ?>" /></td></tr>
