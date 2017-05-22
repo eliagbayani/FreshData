@@ -7,6 +7,9 @@
 if(isset($params['admin_view']))  $public_view = false;
 else                              $public_view = true;
 
+
+
+
 $rek = self::monitors_list($params);
 $rows = $rek['recs'];
 $str = " n = " . count($rows);

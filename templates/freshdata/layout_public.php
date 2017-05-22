@@ -30,12 +30,12 @@
 
 <?php
     $back = FRESHDATA_DOMAIN;
-    $admin_view = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?admin_view=";
+    $admin = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?admin_view=";
     $refresh = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?refresh_cache=";
     $api = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?api_call=";
 ?>
 <script>
-function tab2_clicked() { location.href = '<?php echo $admin_view ?>'; }
+function tab2_clicked() { location.href = '<?php echo $admin ?>'; }
 function tab3_clicked() { location.href = '<?php echo $back ?>'; }
 /* 
 function tab4_clicked() { location.href = '<?php echo $refresh ?>'; }
