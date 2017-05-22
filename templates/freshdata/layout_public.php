@@ -2,6 +2,7 @@
     <ul>
         <li><a href="#tabs_main-1">Monitors</a></li>
         <li><a onClick="tab2_clicked()" href="#tabs_main-2">Admin Page ››</a></li>
+        <li><a onClick="tab6_clicked()" href="#tabs_main-6">SciStarter ››</a></li>
         <li><a onClick="tab3_clicked()" href="#tabs_main-3">Back to Fresh Data ››</a></li>
         <li><a href="#tabs_main-4">Refresh cache</a></li>
         <li><a href="#tabs_main-5">API Call</a></li>
@@ -31,11 +32,13 @@
 <?php
     $back = FRESHDATA_DOMAIN;
     $admin = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=admin";
+    $scistarter = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=scistarter";
     $refresh = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?refresh_cache=";
     $api = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?api_call=";
 ?>
 <script>
 function tab2_clicked() { location.href = '<?php echo $admin ?>'; }
+function tab6_clicked() { location.href = '<?php echo $scistarter ?>'; }
 function tab3_clicked() { location.href = '<?php echo $back ?>'; }
 /* 
 function tab4_clicked() { location.href = '<?php echo $refresh ?>'; }
@@ -44,4 +47,3 @@ function tab4_clicked() { location.href = '<?php echo $refresh ?>'; }
 function tab5_clicked() { location.href = '<?php echo $api ?>'; }
 */
 </script>
-

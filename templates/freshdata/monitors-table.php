@@ -100,6 +100,15 @@ if($view_type == 'admin')
     </form>
     <?php
 }
+elseif($view_type == 'scistarter')
+{
+    ?>
+    <form id="myform<?php echo $table_id ?>" action="index.php" method="post" enctype="multipart/form-data" <?php if($group == "xxx") echo "target=\"_blank\"" ?>>
+    <input type="hidden" name="uuid"  value="1" id="uuid<?php echo $table_id ?>">
+    <input type="hidden" name="scistarter"  value="1" id="scistarter<?php echo $table_id ?>">
+    </form>
+    <?php
+}
 elseif($view_type == 'public')
 {
     ?>
@@ -172,7 +181,7 @@ elseif($view_type == 'public')
 
 
 
-function myFunction<?php echo $table_id ?>(uuid, taxonSelector, traitSelector, wktString) 
+function myFunction<?php echo $table_id ?>(uuid, taxonSelector, traitSelector, wktString, scistarter) 
 {
     /* working but dialog box to continue may not be needed anymore...
     var x;
@@ -195,6 +204,13 @@ function myFunction<?php echo $table_id ?>(uuid, taxonSelector, traitSelector, w
     {
         ?>
         document.getElementById("uuid<?php echo $table_id ?>").value = uuid;
+        <?php
+    }
+    elseif($view_type == 'scistarter')
+    {
+        ?>
+        document.getElementById("uuid<?php echo $table_id ?>").value = uuid;
+        document.getElementById("scistarter<?php echo $table_id ?>").value = scistarter;
         <?php
     }
     elseif($view_type == 'public')

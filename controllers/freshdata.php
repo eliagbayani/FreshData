@@ -112,10 +112,10 @@ class freshdata_controller extends other_controller
         return $json;
     }
     
-    function process_uuid($uuid)
+    function process_uuid($uuid, $what = null)
     {
-        self::create_text_file_if_does_not_exist($uuid);
-        $rec = self::get_text_file_value($uuid);
+        self::create_text_file_if_does_not_exist($uuid, $what);
+        $rec = self::get_text_file_value($uuid, $what);
         // echo "<pre>"; print_r($rec); echo "</pre>";
         return $rec;
     }
@@ -146,11 +146,14 @@ class freshdata_controller extends other_controller
     }
     //end params scheme
     
-    function get_text_file_value($uuid)
+    function get_text_file_value($uuid, $what = null)
     {
         // $fields = array("Title", "Description", "URL", "field4", "field5"); //orig
-        $fields = array("Title", "Description", "URL", "Training_materials", "Contact"); //new
-        $filename = self::get_uuid_text_file_path($uuid);
+        
+        if($what == 'scistarter') $fields = other_controller::all_scistarter_fields();
+        else                      $fields = array("Title", "Description", "URL", "Training_materials", "Contact"); //original Admin
+        
+        $filename = self::get_uuid_text_file_path($uuid, $what);
         if(file_exists($filename))
         {
             if($file_size = filesize($filename))
@@ -186,22 +189,24 @@ class freshdata_controller extends other_controller
         return $final;
     }
     
-    function create_text_file_if_does_not_exist($uuid)
+    function create_text_file_if_does_not_exist($uuid, $what = null)
     {
-        $filename = self::get_uuid_text_file_path($uuid);
+        $filename = self::get_uuid_text_file_path($uuid, $what);
         if(!file_exists($filename))
         {
             $fn = Functions::file_open($filename, "w");
-            fwrite($fn, "\t\t\t\t"); //creates five fields
+            if($what == 'scistarter') fwrite($fn, str_repeat("\t", 29)); //creates 30 fields - for scistarter
+            else                      fwrite($fn, "\t\t\t\t"); //creates five fields - for original Admin
             fclose($fn);
             // echo "<br>file created<br>"; //debug
         }
         // else echo "<br>file already created<br>"; //debug
     }
 
-    function get_uuid_text_file_path($uuid)
+    function get_uuid_text_file_path($uuid, $what = null)
     {
-        return "database/uuid/$uuid" . ".txt";
+        if($what) return "database/$what/$uuid" . ".txt";
+        else      return "database/uuid/$uuid" . ".txt";
     }
     
     // function save_monitor($params)
@@ -223,6 +228,23 @@ class freshdata_controller extends other_controller
         {
             // fwrite($fn, $params['Title'] . "\t" . $params['Description'] . "\t" . $params['URL'] . "\t\t"); //saves five fields //orig
             fwrite($fn, $params['Title'] . "\t" . $params['Description'] . "\t" . $params['URL'] . "\t" . $params['Training_materials'] . "\t" . $params['Contact']); //saves five fields
+            fclose($fn);
+            return true;
+        }
+        return false;
+    }
+
+    function save_to_text_scistarter($params)
+    {
+        $uuid = $params['uuid'];
+        $filename = "../../" . self::get_uuid_text_file_path($uuid, 'scistarter'); //added extra ../ bec. curdir is inside templates/freshdata/monitor-save-scistarter.php
+        if($fn = Functions::file_open($filename, "w"))
+        {
+            $fields = other_controller::all_scistarter_fields();
+            $final = array();
+            foreach($fields as $field) $final[$field] = $params[$field];
+            $final = implode("\t", $final);
+            fwrite($fn, $final); //saves 30 fields
             fclose($fn);
             return true;
         }

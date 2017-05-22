@@ -29,7 +29,7 @@ $(window).load(function () { $("#loadOverlay").css("display","none"); });
 <?php
 // echo "<pre>"; print_r($_COOKIE); echo "</pre>";
 
-if(@$params['view_type'] == 'admin')
+if(in_array(@$params['view_type'], array('admin', 'scistarter')))
 {
     if(!$ctrler->user_is_logged_in_wiki()) return;
 }
@@ -46,10 +46,11 @@ if($val = @$params['search_type'])
 }
 //end ------------------------------------------
 
-if(isset($params['uuid']))                  require_once("templates/freshdata/layout2.php");
-elseif(@$params['view_type'] == 'admin')    require_once("templates/freshdata/layout_admin.php");
-elseif(isset($params['api_call']))          require_once("templates/freshdata/layout_apicall.php");
-elseif(@$params['view_type'] == 'public')   require_once("templates/freshdata/layout_public.php"); //default
+if(isset($params['uuid']))                    require_once("templates/freshdata/layout2.php");
+elseif(@$params['view_type'] == 'admin')      require_once("templates/freshdata/layout_admin.php");
+elseif(@$params['view_type'] == 'scistarter') require_once("templates/freshdata/layout_scistarter.php");
+elseif(isset($params['api_call']))            require_once("templates/freshdata/layout_apicall.php");
+elseif(@$params['view_type'] == 'public')     require_once("templates/freshdata/layout_public.php"); //default
 else
 {
     $params['view_type'] = 'public';
@@ -70,18 +71,19 @@ $('#el').spin('large'); //start spinning
 <?php
 print $ctrler->render_layout(@$params, 'result');
 
-if(isset($params['uuid'])) print $ctrler->render_template('monitors-form', array('params' => @$params));
+if    (isset($params['scistarter'])) print $ctrler->render_template('monitors-form-scistarter', array('params' => @$params));       //scistarter
+elseif(isset($params['uuid'])) print $ctrler->render_template('monitors-form', array('params' => @$params));                        //original admin
+
 if(isset($params['part_more_info'])) print $ctrler->render_template('part-more-info', array('arr' => @$params['part_more_info']));
 if(isset($params['search_type']))
 {
-    if    ($params['search_type'] == "titlelist")     print $ctrler->render_template('titlelist-result', array('letter' => @$params['radio']));
+    if($params['search_type'] == "titlelist") print $ctrler->render_template('titlelist-result', array('letter' => @$params['radio']));
 }
 require_once("config/script-below-entry.html");
 
 //for layout
-if    (isset($params['uuid']))          print '<script>$( "#tabs_main" ).tabs( "option", "active", 1 );</script>';
-if    (isset($params['api_call']))      print '<script>$( "#tabs_main" ).tabs( "option", "active", 4 );</script>';
-
+if    (isset($params['uuid']))      print '<script>$( "#tabs_main" ).tabs( "option", "active", 1 );</script>';
+if    (isset($params['api_call']))  print '<script>$( "#tabs_main" ).tabs( "option", "active", 4 );</script>';
 ?>
 </body>
 </html>
