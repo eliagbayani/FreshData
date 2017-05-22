@@ -61,7 +61,11 @@ class freshdata_controller extends other_controller
             $info['uuid']           = $m['selector']['uuid'];
             $info['status']         = @$m['status'];
             $info['recordCount']    = $m['recordCount'];
-            $recs[] = $info;
+            if($params['view_type'] == 'scistarter')
+            {
+                if(self::has_title_desc_url($m['selector']['uuid'])) $recs[] = $info;
+            }
+            else $recs[] = $info;
         }
         return array("total" => count($recs), "recs" => $recs);
     }
@@ -110,6 +114,13 @@ class freshdata_controller extends other_controller
         //from array to json
         $json = json_encode($rows, JSON_PRETTY_PRINT);
         return $json;
+    }
+    
+    function has_title_desc_url($uuid)
+    {
+        $rec = self::get_text_file_value($uuid);
+        if($rec['Title'] && $rec['Description'] && $rec['URL']) return true;
+        return false;
     }
     
     function process_uuid($uuid, $what = null)
