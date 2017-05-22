@@ -31,6 +31,7 @@ tfoot input {
     if($group == "monitors") $vars = array('search_type' => "wiki2php",         'js_string' => "Monitors List");
     else                     $vars = array('search_type' => "wiki2php_project", 'js_string' => "xxx");
 ?>
+eli is here
 <table id="<?php echo $table_id ?>" class="display" cellspacing="0" width="100%">
     <thead>
         <tr>

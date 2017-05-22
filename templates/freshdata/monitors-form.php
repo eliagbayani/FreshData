@@ -17,7 +17,6 @@ Array
             [traitSelector] => 
             [uuid] => 55e4b0a0-bcd9-566f-99bc-357439011d85
         )
-
     [status] => ready
     [recordCount] => 111211058
 )
