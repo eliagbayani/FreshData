@@ -46,7 +46,8 @@ if($val = @$params['search_type'])
 }
 //end ------------------------------------------
 
-if(isset($params['uuid']))                    require_once("templates/freshdata/layout2.php");
+if(isset($params['scistarter']))              require_once("templates/freshdata/layout3.php");
+elseif(isset($params['uuid']))                require_once("templates/freshdata/layout2.php");
 elseif(@$params['view_type'] == 'admin')      require_once("templates/freshdata/layout_admin.php");
 elseif(@$params['view_type'] == 'scistarter') require_once("templates/freshdata/layout_scistarter.php");
 elseif(isset($params['api_call']))            require_once("templates/freshdata/layout_apicall.php");
