@@ -2,9 +2,7 @@
 <!doctype html>
 <html lang="us">
 <head>
-    <!---
     <div id="loadOverlay" style="background-color:#333; position:absolute; top:0px; left:0px; width:100%; height:100%; z-index:2000; color:white; font-size:120%;">Loading, please wait ...</div>
-    --->
     <title>Fresh Data: Monitors Maintenance</title>
     <?php require_once("config/head-entry.html") ?>
 </head>
@@ -31,7 +29,7 @@ $(window).load(function () { $("#loadOverlay").css("display","none"); });
 
 if(in_array(@$params['view_type'], array('admin', 'scistarter')))
 {
-    if(!$ctrler->user_is_logged_in_wiki()) return;
+    if(!$ctrler->user_is_logged_in_wiki($params['view_type'])) return;
 }
 
 //start assignment ------------------------------------------

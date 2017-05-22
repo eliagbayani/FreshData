@@ -16,12 +16,12 @@ class freshdata_controller extends other_controller
         $this->monitors_api['id_source']  = "http://api.effechecka.org/monitors?id=id_val&source=source_val";
     }
 
-    function user_is_logged_in_wiki()
+    function user_is_logged_in_wiki($view_type)
     {
         if(@$_SESSION["freshdata_user_logged_in"]) return true;
         else
         {
-            self::display_message(array('type' => "error", 'msg' => "Cannot open Admin page. <a href='" . "http://" . $_SERVER['SERVER_NAME'] . "/github-php-client/app/login/'>You must login using your GitHub account first</a>."));
+            self::display_message(array('type' => "error", 'msg' => "Cannot open Admin page. <a href='" . "http://" . $_SERVER['SERVER_NAME'] . "/github-php-client/app/login/index.php?view_type=$view_type'>You must login using your GitHub account first</a>."));
             self::display_message(array('type' => "highlight", 'msg' => "Go back to <a href='index.php'>public view</a>."));
             return false;
         }
