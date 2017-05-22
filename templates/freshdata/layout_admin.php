@@ -26,12 +26,12 @@
 
 <?php 
     $back = FRESHDATA_DOMAIN;
-    $public_view = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php";
+    $public = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=public";
     $api = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?api_call=";
 ?>
 <script>
 function tab3_clicked() { location.href = '<?php echo $back ?>'; }
-function tab4_clicked() { location.href = '<?php echo $public_view ?>'; }
+function tab4_clicked() { location.href = '<?php echo $public ?>'; }
 /* working but not used atm.
 function tab5_clicked() { location.href = '<?php echo $api ?>'; }
 */

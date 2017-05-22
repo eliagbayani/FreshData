@@ -26,7 +26,7 @@ tfoot input {
 <?php
     $rows = $data['records'];
     $group = $data['group'];
-    $public_view = $data['public_view'];
+    $view_type = $data['view_type'];
     
     if($group == "monitors") $vars = array('search_type' => "wiki2php",         'js_string' => "Monitors List");
     else                     $vars = array('search_type' => "wiki2php_project", 'js_string' => "xxx");
@@ -92,7 +92,7 @@ eli is here
 </table>
 
 <?php
-if(!$public_view)
+if($view_type == 'admin')
 {
     ?>
     <form id="myform<?php echo $table_id ?>" action="index.php" method="post" enctype="multipart/form-data" <?php if($group == "xxx") echo "target=\"_blank\"" ?>>
@@ -100,7 +100,7 @@ if(!$public_view)
     </form>
     <?php
 }
-else
+elseif($view_type == 'public')
 {
     ?>
     <form id="myform<?php echo $table_id ?>" action="<?php echo FRESHDATA_DOMAIN ?>" method="get" enctype="multipart/form-data" <?php if($group == "xxx") echo "target=\"_blank\"" ?>>
@@ -191,13 +191,13 @@ function myFunction<?php echo $table_id ?>(uuid, taxonSelector, traitSelector, w
     // spinner_on();
     
     <?php
-    if(!$public_view)
+    if($view_type == 'admin')
     {
         ?>
         document.getElementById("uuid<?php echo $table_id ?>").value = uuid;
         <?php
     }
-    else
+    elseif($view_type == 'public')
     {
         ?>
         document.getElementById("taxonSelector").value = taxonSelector;
