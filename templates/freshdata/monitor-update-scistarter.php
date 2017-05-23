@@ -95,7 +95,7 @@ function validateURL(textval)
   <tr><td>contact_affiliation:</td><td><input type="text" id="contact_affiliation" size="100" value="<?php echo $rec_from_text2['contact_affiliation'] ?>" /></td></tr>
   <tr><td>contact_email:</td>       <td><input type="text" id="contact_email"        size="100" value="<?php echo $rec_from_text2['contact_email'] ?>" /></td></tr>
   <tr><td>contact_phone:</td>       <td><input type="text" id="contact_phone"        size="100" value="<?php echo $rec_from_text2['contact_phone'] ?>" /></td></tr>
-  <tr valign="top"><td>contact_address:</td><td valign="top"><textarea id="contact_address" rows="8" cols="100" name="contact_address"><?php echo $rec_from_text2['contact_address'] ?></textarea></td></tr>
+  <tr valign="top"><td>contact_address:</td><td valign="top"><textarea id="contact_address" rows="5" cols="100" name="contact_address"><?php echo $rec_from_text2['contact_address'] ?></textarea></td></tr>
   <tr><td>presenting_org:</td>      <td><input type="text" id="presenting_org"      size="100" value="<?php echo $rec_from_text2['presenting_org'] ?>" /></td></tr>
   <tr><td>origin:</td>              <td><input type="text" id="origin"              size="100" value="<?php echo $rec_from_text2['origin'] ?>" /></td></tr>
   <tr><td>video_url:</td>           <td><input type="text" id="video_url"           size="100" value="<?php echo $rec_from_text2['video_url'] ?>" /></td></tr>

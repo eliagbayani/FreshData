@@ -13,7 +13,7 @@ class other_controller
         "contact_name" => "Jen Hammock",
         "contact_affiliation" => "Encyclopedia of Life",
         "contact_email" => "hammockj@si.edu",
-        "contact_address" => "National Museum of Natural History\n\nSmithsonian Institution\n\nP.O. Box 37012, MRC 106\n\nWashington, DC  20013-7012",
+        "contact_address" => "National Museum of Natural History\nSmithsonian Institution\nP.O. Box 37012, MRC 106\nWashington, DC  20013-7012",
         "origin" => "Fresh Data",
         "status" => "active",
         "preregistration" => 'false',
