@@ -21,9 +21,7 @@ $(document).ready(function() {
     var twitter_name = $("#twitter_name").val();
     var facebook_page = $("#facebook_page").val();
     var status = $("#status").val();
-    
     var preregistration = $('input[name="preregistration"]:checked').val();
-    
     var goal = $("#goal").val();
     var task = $("#task").val();
     var image = $("#image").val();
@@ -31,10 +29,8 @@ $(document).ready(function() {
     var how_to_join = $("#how_to_join").val();
     var special_skills = $("#special_skills").val();
     var gear = $("#gear").val();
-    
     var outdoors = $('input[name="outdoors"]:checked').val();
     var indoors = $('input[name="indoors"]:checked').val();
-
     var time_commitment = $("#time_commitment").val();
     var project_type = $("#project_type").val();
     var audience = $("#audience").val();
@@ -68,7 +64,7 @@ $(document).ready(function() {
     "goal":goal, "task":task, "image":image, "image_credit":image_credit, "how_to_join":how_to_join, "special_skills":special_skills, "gear":gear, "outdoors":outdoors, "indoors":indoors, "time_commitment":time_commitment, 
     "project_type":project_type, "audience":audience, "regions":regions, "UN_regions":UN_regions} );
     $("#login_form").hide();
-    $('#stage').append('<div class="help-block"><br>Please wait, loading...<br><br></div>'); // add the actual error message under our input
+    $('#stage').append('<div class="help-block"><br>Please wait, saving...<br><br></div>'); // add the actual error message under our input
 
     });
 });

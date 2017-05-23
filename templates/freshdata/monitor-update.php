@@ -38,7 +38,7 @@ $(document).ready(function() {
 
     $("#stage").load('templates/freshdata/monitor-save.php', {"uuid":uuid, "Title":Title, "Description":Description, "URL":URL, "Training_materials":Training_materials, "Contact":Contact} );
     $("#login_form").hide();
-    $('#stage').append('<div class="help-block"><br>Please wait, loading...<br><br></div>'); // add the actual error message under our input
+    $('#stage').append('<div class="help-block"><br>Please wait, saving...<br><br></div>'); // add the actual error message under our input
 
     
     });
