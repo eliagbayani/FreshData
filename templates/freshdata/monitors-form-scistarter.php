@@ -5,7 +5,7 @@ $uuid = $params['uuid'];
 $rec_from_text1 = self::process_uuid($uuid);
 $rec_from_text2 = self::process_uuid($uuid, 'scistarter');
 $monitor = self::get_monitor_record($uuid);
-$rec_from_text2 = other_controller::get_default_values($rec_from_text2, $rec_from_text1, $monitor); //get default value if blank
+$rec_from_text2 = other_controller::get_default_values_if_blank($rec_from_text2, $rec_from_text1, $monitor); //get default value if blank
 
 // echo "<pre>"; print_r($monitor); echo "</pre>";
 // echo "<pre>"; print_r($rec_from_text1); echo "</pre>";

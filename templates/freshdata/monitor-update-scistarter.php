@@ -64,7 +64,7 @@ $(document).ready(function() {
     "goal":goal, "task":task, "image":image, "image_credit":image_credit, "how_to_join":how_to_join, "special_skills":special_skills, "gear":gear, "outdoors":outdoors, "indoors":indoors, "time_commitment":time_commitment, 
     "project_type":project_type, "audience":audience, "regions":regions, "UN_regions":UN_regions} );
     $("#login_form").hide();
-    $('#stage').append('<div class="help-block"><br>Please wait, saving...<br><br></div>'); // add the actual error message under our input
+    $('#stage').append('<div class="help-block"><br><h3>Saving, please wait...</h3><br><br></div>'); // add the actual error message under our input
 
     });
 });
@@ -98,12 +98,25 @@ function validateURL(textval)
   <tr><td>blog_url:</td>            <td><input type="text" id="blog_url"            size="100" value="<?php echo $rec_from_text2['blog_url'] ?>" /></td></tr>
   <tr><td>twitter_name:</td>        <td><input type="text" id="twitter_name"        size="100" value="<?php echo $rec_from_text2['twitter_name'] ?>" /></td></tr>
   <tr><td>facebook_page:</td>       <td><input type="text" id="facebook_page"       size="100" value="<?php echo $rec_from_text2['facebook_page'] ?>" /></td></tr>
-  <tr><td>status:</td>              <td><input type="text" id="status"              size="100" value="<?php echo $rec_from_text2['status'] ?>" /></td></tr>
+  <tr><td>status:</td>
+  
+    <!--- <td><input type="text" id="status" size="100" value="<?php echo $rec_from_text2['status'] ?>" /></td> --->
+    <td>
+    <select id="status">
+        <?php $statuses = array('starting', 'active', 'hiatus', 'complete');
+        foreach($statuses as $status) {
+            $selected = "";
+            if($rec_from_text2['status'] == $status) $selected = "selected";
+            echo '<option value="' . $status . '" ' . $selected . '>' . $status . '</option>';
+        }?>
+    </select>
+    </td>
+  </tr>
 
   <tr><td>preregistration:</td><td>
   <?php $preregistration = $rec_from_text2['preregistration'] ?>
   <input type="radio" id="preregistration" value="true" name="preregistration" <?php if($preregistration == 'true') echo "checked" ?>/>True
-  &nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;
   <input type="radio" id="preregistration" value="false" name="preregistration" <?php if($preregistration == 'false') echo "checked" ?>/>False
   </td></tr>
 
@@ -118,19 +131,30 @@ function validateURL(textval)
   <tr><td>outdoors:</td><td>
   <?php $outdoors = $rec_from_text2['outdoors'] ?>
   <input type="radio" id="outdoors" value="true" name="outdoors" <?php if($outdoors == 'true') echo "checked" ?>/>True
-  &nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;
   <input type="radio" id="outdoors" value="false" name="outdoors" <?php if($outdoors == 'false') echo "checked" ?>/>False
   </td></tr>
 
   <tr><td>indoors:</td><td>
   <?php $indoors = $rec_from_text2['indoors'] ?>
   <input type="radio" id="indoors" value="true" name="indoors" <?php if($indoors == 'true') echo "checked" ?>/>True
-  &nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;
   <input type="radio" id="indoors" value="false" name="indoors" <?php if($indoors == 'false') echo "checked" ?>/>False
   </td></tr>
 
   <tr><td>time_commitment:</td>     <td><input type="text" id="time_commitment"     size="100" value="<?php echo $rec_from_text2['time_commitment'] ?>" /></td></tr>
-  <tr><td>project_type:</td>        <td><input type="text" id="project_type"        size="100" value="<?php echo $rec_from_text2['project_type'] ?>" /></td></tr>
+  <tr><td>project_type:</td>        
+  <td>
+      <select id="project_type">
+          <?php $options = array('Project', 'Event');
+          foreach($options as $option) {
+              $selected = "";
+              if($rec_from_text2['project_type'] == $option) $selected = "selected";
+              echo '<option value="' . $option . '" ' . $selected . '>' . $option . '</option>';
+          }?>
+      </select>
+  </td></tr>
+  
   <tr><td>audience:</td>            <td><input type="text" id="audience"            size="100" value="<?php echo $rec_from_text2['audience'] ?>" /></td></tr>
   <tr valign="top"><td>regions:</td><td valign="top"><textarea id="regions" rows="8" cols="100" name="regions"><?php echo $rec_from_text2['regions'] ?></textarea></td></tr>
   <tr><td>UN_regions:</td>          <td><input type="text" id="UN_regions"          size="100" value="<?php echo $rec_from_text2['UN_regions'] ?>" /></td></tr>

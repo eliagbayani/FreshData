@@ -41,7 +41,10 @@ tfoot input {
             <th>Description</th>
             <th>URL</th>
             <th>Training materials</th>
-            <th>Contact</th>
+
+            <?php if(in_array($view_type, array("public", "admin"))) echo "<th>Contact</th>" ?>
+            <?php if(in_array($view_type, array("scistarter"))) echo "<th>SciStarter Project</th>" ?>
+
             <th style="display:none">uuid</th>
             <th style="display:none">taxonSelector</th>
             <th style="display:none">traitSelector</th>
@@ -57,7 +60,10 @@ tfoot input {
             <th>Description</th>
             <th>URL</th>
             <th>Training materials</th>
-            <th>Contact</th>
+
+            <?php if(in_array($view_type, array("public", "admin"))) echo "<th>Contact</th>" ?>
+            <?php if(in_array($view_type, array("scistarter"))) echo "<th>SciStarter Project</th>" ?>
+            
             <th style="display:none">uuid</th>
             <th style="display:none">taxonSelector</th>
             <th style="display:none">traitSelector</th>
