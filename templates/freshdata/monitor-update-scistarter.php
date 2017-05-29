@@ -5,6 +5,7 @@ $(document).ready(function() {
     $('.help-block').remove(); // remove the error text
     
     var uuid = $("#uuid").val();
+    var SciStarterProjectYN = $("#SciStarterProjectYN").val();
     
     var name = $("#name").val();
     var description = $("#description").val();
@@ -59,7 +60,7 @@ $(document).ready(function() {
         }
     }
 
-    $("#stage").load('templates/freshdata/monitor-save-scistarter.php', {"uuid":uuid, "name":name, "description":description, "url":url, "contact_name":contact_name, "contact_affiliation":contact_affiliation, "contact_email":contact_email, "contact_phone":contact_phone, "contact_address":contact_address, 
+    $("#stage").load('templates/freshdata/monitor-save-scistarter.php', {"uuid":uuid, "SciStarterProjectYN":SciStarterProjectYN, "name":name, "description":description, "url":url, "contact_name":contact_name, "contact_affiliation":contact_affiliation, "contact_email":contact_email, "contact_phone":contact_phone, "contact_address":contact_address, 
     "presenting_org":presenting_org, "origin":origin, "video_url":video_url, "blog_url":blog_url, "twitter_name":twitter_name, "facebook_page":facebook_page, "status":status, "preregistration":preregistration, 
     "goal":goal, "task":task, "image":image, "image_credit":image_credit, "how_to_join":how_to_join, "special_skills":special_skills, "gear":gear, "outdoors":outdoors, "indoors":indoors, "time_commitment":time_commitment, 
     "project_type":project_type, "audience":audience, "regions":regions, "UN_regions":UN_regions} );
@@ -84,6 +85,8 @@ function validateURL(textval)
 <span id = "login_form">
   <p>Update project info:</p>
   <table>
+
+  <tr><td>SciStarter Project YN:</td>   <td><input type="text" id="SciStarterProjectYN" value="<?php echo $rec_from_text2['SciStarterProjectYN'] ?>" /></td></tr>
   <tr><td>name:</td>                    <td><input type="text" id="name" size="100" value="<?php echo $rec_from_text2['name'] ?>" /></td></tr>
   <tr valign="top"><td>description:</td><td valign="top"><textarea id="description" rows="8" cols="100" name="Description"><?php echo $rec_from_text2['description'] ?></textarea></td></tr>
   <tr><td>url:</td>                <td><input type="text" id="url"                 size="100" value="<?php echo $rec_from_text2['url'] ?>" /></td></tr>

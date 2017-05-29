@@ -157,6 +157,12 @@ class freshdata_controller extends other_controller
     }
     //end params scheme
     
+    function get_field_value($uuid, $fieldname, $what)
+    {
+        $arr = self::get_text_file_value($uuid, $what);
+        return $arr[$fieldname];
+    }
+    
     function get_text_file_value($uuid, $what = null)
     {
         // $fields = array("Title", "Description", "URL", "field4", "field5"); //orig
@@ -206,7 +212,7 @@ class freshdata_controller extends other_controller
         if(!file_exists($filename))
         {
             $fn = Functions::file_open($filename, "w");
-            if($what == 'scistarter') fwrite($fn, str_repeat("\t", 29)); //creates 30 fields - for scistarter
+            if($what == 'scistarter') fwrite($fn, str_repeat("\t", 30)); //creates total 31 fields - for scistarter: 30 for forms and 1 for boolean 'availability'
             else                      fwrite($fn, "\t\t\t\t"); //creates five fields - for original Admin
             fclose($fn);
             // echo "<br>file created<br>"; //debug

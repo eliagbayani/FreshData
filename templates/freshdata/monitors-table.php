@@ -84,7 +84,10 @@ tfoot input {
                     <td><?php echo $rek['Description'] ?></td>
                     <td><?php echo $rek['URL'] ?></td>
                     <td><?php echo $rek['Training_materials'] ?></td>
-                    <td><?php echo $rek['Contact'] ?></td>
+
+                    <?php if(in_array($view_type, array("public", "admin"))) echo "<td>".$rek['Contact']."</td>" ?>
+                    <?php if(in_array($view_type, array("scistarter"))) echo "<td>".self::get_field_value($r['uuid'], "SciStarterProjectYN", "scistarter")."</td>" ?>
+
                     <td style="display:none"><?php echo $r['uuid'] ?></td>
                     <td style="display:none"><?php echo $r['taxonSelector'] ?></td>
                     <td style="display:none"><?php echo $r['traitSelector'] ?></td>
