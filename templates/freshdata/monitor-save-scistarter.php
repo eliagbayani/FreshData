@@ -4,7 +4,7 @@ require_once("../../controllers/other.php");
 require_once("../../controllers/freshdata.php");
 
 $params =& $_GET;
-if(!$params) $params =& $_POST;
+if(!$params) $params =& $_POST; //it is actually just a POST
 
 $ctrler = new freshdata_controller($params);
 sleep(1);
@@ -14,11 +14,18 @@ if($ctrler->save_to_text_scistarter($params))
 {
     echo "<br><span id='memo'>Saved OK</span><br><br>";
     ?>
-    <table>
-    <tr><td>name:</td>         <td id="value"><?php echo $params['name'] ?></td></tr>
-    <tr><td>description:</td>  <td id="value"><?php echo $params['description'] ?></td></tr>
-    <tr><td>url:</td>          <td id="value"><?php echo $params['url'] ?></td></tr>
-    <tr><td>contact_name:</td> <td id="value"><?php echo $params['contact_name'] ?></td></tr>
+    <table border="1" cellspacing="0">
+        <?php
+            $fields = other_controller::all_scistarter_fields();
+            foreach($fields as $field) 
+            {
+                echo "<tr><td>$field:</td><td>";
+                if(in_array($field, array("description"))) echo "<textarea rows='8' cols='100' readonly>$params[$field]</textarea>";
+                elseif(in_array($field, array("contact_address"))) echo "<textarea rows='4' cols='100' readonly>$params[$field]</textarea>";
+                else                                       echo $params[$field];
+                echo "</td></tr>";
+            }
+        ?>
     </table>
     <?php
 }

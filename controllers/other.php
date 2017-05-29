@@ -35,7 +35,7 @@ class other_controller
         "audience" => "High School (14 - 17 years), College, Graduate students, Adults, Families");
     }
     
-    function all_scistarter_fields()
+    static function all_scistarter_fields()
     {
         return array("name", "description", "url", "contact_name", "contact_affiliation", "contact_email", "contact_phone", "contact_address", "presenting_org", "origin", "video_url", "blog_url", "twitter_name", "facebook_page", "status", "preregistration", "goal", "task", "image", "image_credit", "how_to_join", "special_skills", "gear", "outdoors", "indoors", "time_commitment", "project_type", "audience", "regions", "UN_regions", "SciStarterProjectYN");
     }

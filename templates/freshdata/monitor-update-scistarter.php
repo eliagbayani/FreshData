@@ -6,6 +6,7 @@ $(document).ready(function() {
     
     var uuid = $("#uuid").val();
     var SciStarterProjectYN = $("#SciStarterProjectYN").val();
+    var key = $("#key").val();
     
     var name = $("#name").val();
     var description = $("#description").val();
@@ -60,10 +61,16 @@ $(document).ready(function() {
         }
     }
 
-    $("#stage").load('templates/freshdata/monitor-save-scistarter.php', {"uuid":uuid, "SciStarterProjectYN":SciStarterProjectYN, "name":name, "description":description, "url":url, "contact_name":contact_name, "contact_affiliation":contact_affiliation, "contact_email":contact_email, "contact_phone":contact_phone, "contact_address":contact_address, 
+    $("#stage").load('templates/freshdata/monitor-save-scistarter.php', {"uuid":uuid, "key":key, "SciStarterProjectYN":SciStarterProjectYN, "name":name, "description":description, "url":url, "contact_name":contact_name, "contact_affiliation":contact_affiliation, "contact_email":contact_email, "contact_phone":contact_phone, "contact_address":contact_address, 
     "presenting_org":presenting_org, "origin":origin, "video_url":video_url, "blog_url":blog_url, "twitter_name":twitter_name, "facebook_page":facebook_page, "status":status, "preregistration":preregistration, 
     "goal":goal, "task":task, "image":image, "image_credit":image_credit, "how_to_join":how_to_join, "special_skills":special_skills, "gear":gear, "outdoors":outdoors, "indoors":indoors, "time_commitment":time_commitment, 
-    "project_type":project_type, "audience":audience, "regions":regions, "UN_regions":UN_regions} );
+    "project_type":project_type, "audience":audience, "regions":regions, "UN_regions":UN_regions}, function(responseTxt, statusTxt, xhr){
+            if(statusTxt == "success")
+                // alert("External content loaded successfully!");
+                // alert(responseTxt);
+            if(statusTxt == "error")
+                alert("Error: " + xhr.status + ": " + xhr.statusText);
+        } ); //https://www.w3schools.com/jquery/jquery_ajax_load.asp
     $("#login_form").hide();
     $('#stage').append('<div class="help-block"><br><h3>Saving, please wait...</h3><br><br></div>'); // add the actual error message under our input
 
@@ -78,12 +85,9 @@ function validateURL(textval)
 }
 </script>
 
-<?php
-// print_r(other_controller::scistarter_fields());
-?>
 
 <span id = "login_form">
-  <p>Update project info:</p>
+  <p>Update SciStarter project info:</p>
   <table>
 
   <tr><td>SciStarter Project YN:</td>   <td><input type="text" id="SciStarterProjectYN" value="<?php echo $rec_from_text2['SciStarterProjectYN'] ?>" /></td></tr>
@@ -103,7 +107,6 @@ function validateURL(textval)
   <tr><td>facebook_page:</td>       <td><input type="text" id="facebook_page"       size="100" value="<?php echo $rec_from_text2['facebook_page'] ?>" /></td></tr>
   <tr><td>status:</td>
   
-    <!--- <td><input type="text" id="status" size="100" value="<?php echo $rec_from_text2['status'] ?>" /></td> --->
     <td>
     <select id="status">
         <?php $statuses = array('starting', 'active', 'hiatus', 'complete');
@@ -162,6 +165,7 @@ function validateURL(textval)
   <tr valign="top"><td>regions:</td><td valign="top"><textarea id="regions" rows="8" cols="100" name="regions"><?php echo $rec_from_text2['regions'] ?></textarea></td></tr>
   <tr><td>UN_regions:</td>          <td><input type="text" id="UN_regions"          size="100" value="<?php echo $rec_from_text2['UN_regions'] ?>" /></td></tr>
   <input type="hidden" id="uuid" value="<?php echo $uuid ?>">
+  <input type="hidden" id="key" value="<?php echo SCISTARTER_API_KEY ?>">
   </table>
   <button id="driver" type="submit">Save</button>
   <button onClick="javascript:history.go(-1)" type="">Cancel</button>
