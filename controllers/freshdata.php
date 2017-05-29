@@ -212,7 +212,7 @@ class freshdata_controller extends other_controller
         if(!file_exists($filename))
         {
             $fn = Functions::file_open($filename, "w");
-            if($what == 'scistarter') fwrite($fn, str_repeat("\t", 30)); //creates total 31 fields - for scistarter: 30 for forms and 1 for boolean 'availability'
+            if($what == 'scistarter') fwrite($fn, str_repeat("\t", 30)); //creates total 31 fields: 30 for scistarter forms and 1 for ProjectID
             else                      fwrite($fn, "\t\t\t\t"); //creates five fields - for original Admin
             fclose($fn);
             // echo "<br>file created<br>"; //debug

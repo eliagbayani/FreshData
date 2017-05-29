@@ -9,8 +9,10 @@ class other_controller
         
         // https://scistarter.com/api/project/12977?key=e32de5b4a92bfbb18c519158b2ff93b89016c26f080c39752d8e6584eee6d4cdea496f1e2ce0200adc3263eb8fb09bd867049a2e33d2657751a34e5e5124aa1e
         // https://scistarter.com/finder?format=json&key=e32de5b4a92bfbb18c519158b2ff93b89016c26f080c39752d8e6584eee6d4cdea496f1e2ce0200adc3263eb8fb09bd867049a2e33d2657751a34e5e5124aa1e&q=Fresh%20Data-
+        
+        $this->post['add_project'] = "https://scistarter.com/api/project/add/";
     }
-    
+
     function scistarter_fields()
     {
         return array( //default from https://docs.google.com/spreadsheets/d/1gHdrWRaZbEKp3bCI7kXhN95le-jGvQOXXxeVpgmypJ4/edit?ts=5919e683#gid=0
@@ -37,7 +39,7 @@ class other_controller
     
     static function all_scistarter_fields()
     {
-        return array("name", "description", "url", "contact_name", "contact_affiliation", "contact_email", "contact_phone", "contact_address", "presenting_org", "origin", "video_url", "blog_url", "twitter_name", "facebook_page", "status", "preregistration", "goal", "task", "image", "image_credit", "how_to_join", "special_skills", "gear", "outdoors", "indoors", "time_commitment", "project_type", "audience", "regions", "UN_regions", "SciStarterProjectYN");
+        return array("name", "description", "url", "contact_name", "contact_affiliation", "contact_email", "contact_phone", "contact_address", "presenting_org", "origin", "video_url", "blog_url", "twitter_name", "facebook_page", "status", "preregistration", "goal", "task", "image", "image_credit", "how_to_join", "special_skills", "gear", "outdoors", "indoors", "time_commitment", "project_type", "audience", "regions", "UN_regions", "ProjectID");
     }
 
     function get_default_values_if_blank($arr, $text1, $monitor)
@@ -53,6 +55,43 @@ class other_controller
         if(!$arr['url']) $arr['url'] = $text1['URL'];
         if(!$arr['regions']) $arr['regions'] = $monitor['selector']['wktString'];
         return $arr;
+    }
+    
+    function submit_add_project($params)
+    {
+        $params['key'] = SCISTARTER_API_KEY;
+        $url = "http://localhost/eli.php";
+        $info = self::curl_post_request($url, $params);
+        print_r($info);
+        return $info;
+    }
+    
+    function curl_post_request($url, $parameters_array = array())
+    {
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        if(isset($parameters_array) && is_array($parameters_array)) curl_setopt($ch, CURLOPT_POSTFIELDS, $parameters_array);
+
+        curl_setopt($ch, CURLOPT_FAILONERROR, 1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 50);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_AUTOREFERER, true);
+        curl_setopt($ch, CURLOPT_MAXREDIRS, 5);
+
+        // echo("<hr>Sending post request to $url with params ".print_r($parameters_array, 1).": only attempt<hr>");
+        $result = curl_exec($ch);
+
+        if(0 == curl_errno($ch))
+        {
+            curl_close($ch);
+            return $result;
+        }
+        echo "<hr>Curl error ($url): " . curl_error($ch)."<hr>";
+        return false;
     }
 
 }

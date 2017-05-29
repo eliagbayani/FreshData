@@ -43,7 +43,7 @@ tfoot input {
             <th>Training materials</th>
 
             <?php if(in_array($view_type, array("public", "admin"))) echo "<th>Contact</th>" ?>
-            <?php if(in_array($view_type, array("scistarter"))) echo "<th>SciStarter Project</th>" ?>
+            <?php if(in_array($view_type, array("scistarter"))) echo "<th>SciStarter Project ID</th>" ?>
 
             <th style="display:none">uuid</th>
             <th style="display:none">taxonSelector</th>
@@ -62,7 +62,7 @@ tfoot input {
             <th>Training materials</th>
 
             <?php if(in_array($view_type, array("public", "admin"))) echo "<th>Contact</th>" ?>
-            <?php if(in_array($view_type, array("scistarter"))) echo "<th>SciStarter Project</th>" ?>
+            <?php if(in_array($view_type, array("scistarter"))) echo "<th>SciStarter Project ID</th>" ?>
             
             <th style="display:none">uuid</th>
             <th style="display:none">taxonSelector</th>
@@ -86,7 +86,7 @@ tfoot input {
                     <td><?php echo $rek['Training_materials'] ?></td>
 
                     <?php if(in_array($view_type, array("public", "admin"))) echo "<td>".$rek['Contact']."</td>" ?>
-                    <?php if(in_array($view_type, array("scistarter"))) echo "<td>".self::get_field_value($r['uuid'], "SciStarterProjectYN", "scistarter")."</td>" ?>
+                    <?php if(in_array($view_type, array("scistarter"))) echo "<td>".self::get_field_value($r['uuid'], "ProjectID", "scistarter")."</td>" ?>
 
                     <td style="display:none"><?php echo $r['uuid'] ?></td>
                     <td style="display:none"><?php echo $r['taxonSelector'] ?></td>

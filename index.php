@@ -2,7 +2,9 @@
 <!doctype html>
 <html lang="us">
 <head>
+    <!---
     <div id="loadOverlay" style="background-color:#333; position:absolute; top:0px; left:0px; width:100%; height:100%; z-index:2000; color:white; font-size:120%;">Loading, please wait ...</div>
+    --->
     <title>Fresh Data: Monitors Maintenance</title>
     <?php require_once("config/head-entry.html") ?>
 </head>
@@ -45,6 +47,7 @@ if($val = @$params['search_type'])
 //end ------------------------------------------
 
 if(isset($params['scistarter']))              require_once("templates/freshdata/layout3.php");
+elseif(isset($params['contact_name']))              require_once("templates/freshdata/layout3.php");
 elseif(isset($params['uuid']))                require_once("templates/freshdata/layout2.php");
 elseif(@$params['view_type'] == 'admin')      require_once("templates/freshdata/layout_admin.php");
 elseif(@$params['view_type'] == 'scistarter') require_once("templates/freshdata/layout_scistarter.php");
@@ -70,7 +73,8 @@ $('#el').spin('large'); //start spinning
 <?php
 print $ctrler->render_layout(@$params, 'result');
 
-if    (isset($params['scistarter'])) print $ctrler->render_template('monitors-form-scistarter', array('params' => @$params));       //scistarter
+if    (isset($params['contact_name'])) print $ctrler->render_template('monitor_add_project_scistarter', array('params' => @$params));       //add project to SciStarter
+elseif    (isset($params['scistarter'])) print $ctrler->render_template('monitors-form-scistarter', array('params' => @$params));       //scistarter
 elseif(isset($params['uuid'])) print $ctrler->render_template('monitors-form', array('params' => @$params));                        //original admin
 
 if(isset($params['part_more_info'])) print $ctrler->render_template('part-more-info', array('arr' => @$params['part_more_info']));
@@ -81,8 +85,9 @@ if(isset($params['search_type']))
 require_once("config/script-below-entry.html");
 
 //for layout
-if    (isset($params['uuid']))      print '<script>$( "#tabs_main" ).tabs( "option", "active", 1 );</script>';
-if    (isset($params['api_call']))  print '<script>$( "#tabs_main" ).tabs( "option", "active", 4 );</script>';
+if    (isset($params['contact_name']))  print '<script>$( "#tabs_main" ).tabs( "option", "active", 1 );</script>'; //layout3.php
+elseif(isset($params['uuid']))          print '<script>$( "#tabs_main" ).tabs( "option", "active", 1 );</script>';
+elseif(isset($params['api_call']))      print '<script>$( "#tabs_main" ).tabs( "option", "active", 4 );</script>';
 ?>
 </body>
 </html>

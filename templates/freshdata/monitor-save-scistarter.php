@@ -12,8 +12,8 @@ sleep(1);
 // echo "<pre>"; print_r($params); echo "</pre>";
 if($ctrler->save_to_text_scistarter($params))
 {
-    echo "<br><span id='memo'>Saved OK</span><br><br>";
     ?>
+    <br><span id='memo'>Project Info Saved OK</span><br>
     <table border="1" cellspacing="0">
         <?php
             $fields = other_controller::all_scistarter_fields();
@@ -27,6 +27,21 @@ if($ctrler->save_to_text_scistarter($params))
             }
         ?>
     </table>
+    <br>
+    Please review your entries. Click button to proceed.<br><br>
+    
+    <form action="index.php" method="post" enctype="multipart/form-data"> <!--- target="_blank" --->
+
+    <?php
+    foreach($fields as $field)
+    {
+        echo "<input type='hidden' name='$field'  value='$params[$field]'>";
+    }
+    ?>
+    <input type="submit" value="Add Project to SciStarter">
+    <a href="javascript:history.go(-1)">Cancel</a>
+    </form>
+    
     <?php
 }
 ?>

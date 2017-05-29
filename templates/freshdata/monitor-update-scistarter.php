@@ -5,8 +5,7 @@ $(document).ready(function() {
     $('.help-block').remove(); // remove the error text
     
     var uuid = $("#uuid").val();
-    var SciStarterProjectYN = $("#SciStarterProjectYN").val();
-    var key = $("#key").val();
+    var ProjectID = $("#ProjectID").val();
     
     var name = $("#name").val();
     var description = $("#description").val();
@@ -61,7 +60,7 @@ $(document).ready(function() {
         }
     }
 
-    $("#stage").load('templates/freshdata/monitor-save-scistarter.php', {"uuid":uuid, "key":key, "SciStarterProjectYN":SciStarterProjectYN, "name":name, "description":description, "url":url, "contact_name":contact_name, "contact_affiliation":contact_affiliation, "contact_email":contact_email, "contact_phone":contact_phone, "contact_address":contact_address, 
+    $("#stage").load('templates/freshdata/monitor-save-scistarter.php', {"uuid":uuid, "ProjectID":ProjectID, "name":name, "description":description, "url":url, "contact_name":contact_name, "contact_affiliation":contact_affiliation, "contact_email":contact_email, "contact_phone":contact_phone, "contact_address":contact_address, 
     "presenting_org":presenting_org, "origin":origin, "video_url":video_url, "blog_url":blog_url, "twitter_name":twitter_name, "facebook_page":facebook_page, "status":status, "preregistration":preregistration, 
     "goal":goal, "task":task, "image":image, "image_credit":image_credit, "how_to_join":how_to_join, "special_skills":special_skills, "gear":gear, "outdoors":outdoors, "indoors":indoors, "time_commitment":time_commitment, 
     "project_type":project_type, "audience":audience, "regions":regions, "UN_regions":UN_regions}, function(responseTxt, statusTxt, xhr){
@@ -87,10 +86,11 @@ function validateURL(textval)
 
 
 <span id = "login_form">
-  <p>Update SciStarter project info:</p>
+  <p><b>Update SciStarter Project Info:</b></p>
   <table>
 
-  <tr><td>SciStarter Project YN:</td>   <td><input type="text" id="SciStarterProjectYN" value="<?php echo $rec_from_text2['SciStarterProjectYN'] ?>" /></td></tr>
+  <tr><td>SciStarter Project ID:</td>   <td><input type="text" id="ProjectID" value="<?php echo $rec_from_text2['ProjectID'] ?>" /><i>Get this value once project is added to SciStarter</i></td></tr>
+  
   <tr><td>name:</td>                    <td><input type="text" id="name" size="100" value="<?php echo $rec_from_text2['name'] ?>" /></td></tr>
   <tr valign="top"><td>description:</td><td valign="top"><textarea id="description" rows="8" cols="100" name="Description"><?php echo $rec_from_text2['description'] ?></textarea></td></tr>
   <tr><td>url:</td>                <td><input type="text" id="url"                 size="100" value="<?php echo $rec_from_text2['url'] ?>" /></td></tr>
@@ -165,9 +165,10 @@ function validateURL(textval)
   <tr valign="top"><td>regions:</td><td valign="top"><textarea id="regions" rows="8" cols="100" name="regions"><?php echo $rec_from_text2['regions'] ?></textarea></td></tr>
   <tr><td>UN_regions:</td>          <td><input type="text" id="UN_regions"          size="100" value="<?php echo $rec_from_text2['UN_regions'] ?>" /></td></tr>
   <input type="hidden" id="uuid" value="<?php echo $uuid ?>">
-  <input type="hidden" id="key" value="<?php echo SCISTARTER_API_KEY ?>">
   </table>
-  <button id="driver" type="submit">Save</button>
-  <button onClick="javascript:history.go(-1)" type="">Cancel</button>
+  <br>
+  <button id="driver" type="submit">Save Project Info</button>
+  <!--- <button onClick="javascript:history.go(-1)" type="">Cancel</button> --->
+  <a href="javascript:history.go(-1)">Cancel</a><br><br>
 </span>
 <div id = "stage" style = "background-color:white;"></div>
