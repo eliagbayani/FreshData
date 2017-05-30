@@ -58,6 +58,7 @@ class other_controller
     public static function submit_add_project($params)
     {
         $params['key'] = SCISTARTER_API_KEY;
+        $params['ProjectName'] = $params['name'];
         $info = self::curl_post_request(SCISTARTER_ADD_PROJECT_API, $params);
         return $info;
     }
