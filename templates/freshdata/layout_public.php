@@ -2,31 +2,16 @@
     <ul>
         <li><a href="#tabs_main-1">Monitors</a></li>
         <li><a onClick="tab2_clicked()" href="#tabs_main-2">Admin Page ››</a></li>
-        <li><a onClick="tab6_clicked()" href="#tabs_main-6">SciStarter ››</a></li>
+        <li><a onClick="tab6_clicked()" href="#tabs_main-6">Admin SciStarter ››</a></li>
         <li><a onClick="tab3_clicked()" href="#tabs_main-3">Back to Fresh Data ››</a></li>
         <li><a href="#tabs_main-4">Refresh cache</a></li>
         <li><a href="#tabs_main-5">API Call</a></li>
     </ul>
-    <div id="tabs_main-1">
-        <?php 
-            // print $ctrler->render_layout(@$params, 'monitors-list')
-            print $ctrler->render_template('monitors-list', array('params' => @$params));
-        ?>
-    </div>
+    <div id="tabs_main-1"><?php print $ctrler->render_template('monitors-list', array('params' => @$params)); ?></div>
     <div id="tabs_main-2">Loading...</div>
     <div id="tabs_main-3">Loading...</div>
-    <div id="tabs_main-4">
-        <?php
-        $ctrler->display_message(array('type' => "highlight", 'msg' => "You only need to refresh if new monitors are added/deleted."));
-        $ctrler->display_message(array('type' => "highlight", 'msg' => "Cache refreshes automatically every 12 hours."));
-        echo "<br><a href='index.php?refresh_cache='>Refresh now</a>.";
-        ?>
-    </div>
-    <div id="tabs_main-5">
-        <?php
-        require_once("apicall.php")
-        ?>
-    </div>
+    <div id="tabs_main-4"><?php require_once("layout_refresh.php") ?></div>
+    <div id="tabs_main-5"><?php require_once("apicall.php") ?></div>
 </div>
 
 <?php

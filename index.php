@@ -45,7 +45,7 @@ if($val = @$params['search_type'])
 //end ------------------------------------------
 
 if(isset($params['scistarter']))              require_once("templates/freshdata/layout3.php");
-elseif(isset($params['contact_name']))              require_once("templates/freshdata/layout3.php");
+elseif(isset($params['contact_name']))        require_once("templates/freshdata/layout3.php");
 elseif(isset($params['uuid']))                require_once("templates/freshdata/layout2.php");
 elseif(@$params['view_type'] == 'admin')      require_once("templates/freshdata/layout_admin.php");
 elseif(@$params['view_type'] == 'scistarter') require_once("templates/freshdata/layout_scistarter.php");
@@ -83,9 +83,11 @@ if(isset($params['search_type']))
 require_once("config/script-below-entry.html");
 
 //for layout
-if    (isset($params['contact_name']))  print '<script>$( "#tabs_main" ).tabs( "option", "active", 1 );</script>'; //layout3.php
-elseif(isset($params['uuid']))          print '<script>$( "#tabs_main" ).tabs( "option", "active", 1 );</script>';
-elseif(isset($params['api_call']))      print '<script>$( "#tabs_main" ).tabs( "option", "active", 4 );</script>';
+if(@$params['view_type'] == 'admin')            print '<script>$( "#tabs_main" ).tabs( "option", "active", 1 );</script>';
+elseif(@$params['view_type'] == 'scistarter')   print '<script>$( "#tabs_main" ).tabs( "option", "active", 2 );</script>';
+elseif(isset($params['contact_name']))          print '<script>$( "#tabs_main" ).tabs( "option", "active", 1 );</script>'; //layout3.php
+elseif(isset($params['uuid']))                  print '<script>$( "#tabs_main" ).tabs( "option", "active", 1 );</script>';
+elseif(isset($params['api_call']))              print '<script>$( "#tabs_main" ).tabs( "option", "active", 4 );</script>';
 ?>
 </body>
 </html>
