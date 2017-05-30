@@ -9,8 +9,6 @@ class other_controller
         
         // https://scistarter.com/api/project/12977?key=e32de5b4a92bfbb18c519158b2ff93b89016c26f080c39752d8e6584eee6d4cdea496f1e2ce0200adc3263eb8fb09bd867049a2e33d2657751a34e5e5124aa1e
         // https://scistarter.com/finder?format=json&key=e32de5b4a92bfbb18c519158b2ff93b89016c26f080c39752d8e6584eee6d4cdea496f1e2ce0200adc3263eb8fb09bd867049a2e33d2657751a34e5e5124aa1e&q=Fresh%20Data-
-        
-        $this->post['add_project'] = "https://scistarter.com/api/project/add/";
     }
 
     function scistarter_fields()
@@ -57,23 +55,19 @@ class other_controller
         return $arr;
     }
     
-    function submit_add_project($params)
+    public static function submit_add_project($params)
     {
         $params['key'] = SCISTARTER_API_KEY;
-        $url = "http://localhost/eli.php";
-        $info = self::curl_post_request($url, $params);
-        print_r($info);
+        $info = self::curl_post_request(SCISTARTER_ADD_PROJECT_API, $params);
         return $info;
     }
     
-    function curl_post_request($url, $parameters_array = array())
+    static function curl_post_request($url, $parameters_array = array())
     {
         $ch = curl_init();
-
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POST, true);
         if(isset($parameters_array) && is_array($parameters_array)) curl_setopt($ch, CURLOPT_POSTFIELDS, $parameters_array);
-
         curl_setopt($ch, CURLOPT_FAILONERROR, 1);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
@@ -81,7 +75,6 @@ class other_controller
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_AUTOREFERER, true);
         curl_setopt($ch, CURLOPT_MAXREDIRS, 5);
-
         // echo("<hr>Sending post request to $url with params ".print_r($parameters_array, 1).": only attempt<hr>");
         $result = curl_exec($ch);
 

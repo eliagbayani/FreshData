@@ -28,7 +28,7 @@ if($ctrler->save_to_text_scistarter($params))
         ?>
     </table>
     <br>
-    Please review your entries. Click button to proceed.<br><br>
+    Please review your entries. Click button to add this project to SciStarter.<br><br>
     
     <form action="index.php" method="post" enctype="multipart/form-data"> <!--- target="_blank" --->
 
@@ -39,7 +39,7 @@ if($ctrler->save_to_text_scistarter($params))
     }
     ?>
     <input type="submit" value="Add Project to SciStarter">
-    <a href="javascript:history.go(-1)">Cancel</a>
+    <a href="javascript:history.go(-1)">Cancel</a><br><br>
     </form>
     
     <?php

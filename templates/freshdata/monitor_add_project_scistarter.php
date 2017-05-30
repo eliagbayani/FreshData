@@ -59,7 +59,8 @@ Array
         // echo "<hr>";
 
         $info = other_controller::submit_add_project($params);
-        // print_r($info);
+        print_r($info);
+        echo "<hr>$info<hr>";
         ?>
 
         <?php
