@@ -5,3 +5,6 @@ $ sudo chown -R apache:apache /var/www/html/FreshData/database/uuid
 -> this works OK
 
 
+$ sudo chown -R apache:apache /var/www/html/FreshData/database/scistarter
+
+
