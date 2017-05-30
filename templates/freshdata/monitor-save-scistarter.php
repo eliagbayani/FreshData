@@ -21,7 +21,7 @@ if($ctrler->save_to_text_scistarter($params))
             {
                 echo "<tr><td>$field:</td><td>";
                 if(in_array($field, array("description"))) echo "<textarea rows='8' cols='100' readonly>$params[$field]</textarea>";
-                elseif(in_array($field, array("contact_address"))) echo "<textarea rows='4' cols='100' readonly>$params[$field]</textarea>";
+                elseif(in_array($field, array("contact_address", "gear", "how_to_join"))) echo "<textarea rows='3' cols='100' readonly>$params[$field]</textarea>";
                 else                                       echo $params[$field];
                 echo "</td></tr>";
             }

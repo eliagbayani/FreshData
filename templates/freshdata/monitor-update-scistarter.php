@@ -89,7 +89,7 @@ function validateURL(textval)
   <p><b>Update SciStarter Project Info:</b></p>
   <table>
 
-  <tr><td>SciStarter Project ID:</td>   <td><input type="text" id="ProjectID" value="<?php echo $rec_from_text2['ProjectID'] ?>" /><i>Get this value once project is added to SciStarter</i></td></tr>
+  <tr><td>SciStarter Project ID:</td>   <td><input type="text" id="ProjectID" value="<?php echo $rec_from_text2['ProjectID'] ?>" /><i>Put here the project ID from SciStarter, once this project is added to SciStarter. Leave it blank otherwise.</i></td></tr>
   
   <tr><td>name:</td>                    <td><input type="text" id="name" size="100" value="<?php echo $rec_from_text2['name'] ?>" /></td></tr>
   <tr valign="top"><td>description:</td><td valign="top"><textarea id="description" rows="8" cols="100" name="Description"><?php echo $rec_from_text2['description'] ?></textarea></td></tr>
