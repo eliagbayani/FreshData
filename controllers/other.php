@@ -64,6 +64,9 @@ class other_controller
         $info = self::curl_post_request(SCISTARTER_ADD_PROJECT_API, $params);
         if($obj = self::if_add_is_successful($info))
         {
+            echo "<b>Print information below for your reference.</b><p>
+            Project Name: $params[name]<br>
+            Project ID: $obj->project_id<br>";
             self::put_project_id_in_project($obj, $uuid);
         }
         return $info;
