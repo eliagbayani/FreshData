@@ -9,8 +9,8 @@ if(!$params) $params =& $_POST;
         <?php
         // echo "<pre>"; print_r($params); echo "</pre>"; 
 
-        $info = other_controller::submit_add_project($params);
-        print_r($info);
+        $info = other_controller::submit_add_project($params, $params['uuid']);
+        // print_r($info);
         echo "<hr>$info<hr>";
         ?>
 

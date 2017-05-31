@@ -16,13 +16,14 @@ if($ctrler->save_to_text_scistarter($params))
     <br><span id='memo'>Project Info Saved OK</span><br>
     
     <?php
-    if($params['ProjectID']) echo "<hr>Project already in <a href='https://scistarter.com/project/".$params['ProjectID']."'>SciStarter</a><hr>";
+    if($params['ProjectID']) echo "<hr>Project already in <a href='https://scistarter.com/project/".$params['ProjectID']."'>SciStarter</a>, since it has a project ID ($params[ProjectID]) already.<hr>";
     else                     echo 'Please review your entries. Click button below to add this project to SciStarter.<br><br>';
     ?>
     
     <table border="1" cellspacing="0">
         <?php
             $fields = other_controller::all_scistarter_fields();
+            $fields[] = "uuid";
             foreach($fields as $field) 
             {
                 echo "<tr><td>$field:</td><td>";
@@ -39,7 +40,7 @@ if($ctrler->save_to_text_scistarter($params))
     <?php
     foreach($fields as $field) echo "<input type='hidden' name='$field'  value='$params[$field]'>";
     
-    if($params['ProjectID']) echo "<hr>Project already in <a href='https://scistarter.com/project/".$params['ProjectID']."'>SciStarter</a><hr>";
+    if($params['ProjectID']) echo "<hr>Project already in <a href='https://scistarter.com/project/".$params['ProjectID']."'>SciStarter</a>, since it has a project ID ($params[ProjectID]) already.<hr>";
     else
     {
         echo 'Please review your entries. Click button to add this project to SciStarter.<br><br>';

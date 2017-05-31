@@ -9,6 +9,8 @@ class other_controller
         
         // https://scistarter.com/api/project/12977?key=e32de5b4a92bfbb18c519158b2ff93b89016c26f080c39752d8e6584eee6d4cdea496f1e2ce0200adc3263eb8fb09bd867049a2e33d2657751a34e5e5124aa1e
         // https://scistarter.com/finder?format=json&key=e32de5b4a92bfbb18c519158b2ff93b89016c26f080c39752d8e6584eee6d4cdea496f1e2ce0200adc3263eb8fb09bd867049a2e33d2657751a34e5e5124aa1e&q=Fresh%20Data-
+
+        // 17626: Fresh Data- Pacific seabirds and whales lost in the Atlantic
     }
 
     function scistarter_fields()
@@ -55,18 +57,43 @@ class other_controller
         return $arr;
     }
     
-    public static function submit_add_project($params)
+    public function submit_add_project($params, $uuid)
     {
         $params['key'] = SCISTARTER_API_KEY;
         $params['ProjectName'] = $params['name'];
         $info = self::curl_post_request(SCISTARTER_ADD_PROJECT_API, $params);
+        if($obj = self::if_add_is_successful($info))
+        {
+            self::put_project_id_in_project($obj, $uuid);
+        }
         return $info;
+    }
+    
+    private function if_add_is_successful($info)
+    {
+        // {"project_id": 17626, "result": "success"}
+        $obj = json_decode($info);
+        if($obj->project_id && $obj->result == "success") return $obj;
+        else return false;
+    }
+    
+    private function put_project_id_in_project($obj, $uuid)
+    {   
+        //stdClass Object ( [project_id] => 17626 [result] => success )
+        // self::update_field_with_value('ProjectID', $obj->project_id);
+        // echo "<hr>$uuid<hr>";
+        
+        $rec = freshdata_controller::get_text_file_value($uuid, 'scistarter');
+        $rec['uuid'] = $uuid;
+        $rec['ProjectID'] = $obj->project_id;
+        // print_r($rec);
+        freshdata_controller::save_to_text_scistarter($rec);
     }
     
     static function curl_post_request($url, $parameters_array = array())
     {
         $data_string = json_encode($parameters_array);
-        
+        // echo "<hr>$data_string<hr>";
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POST, true);

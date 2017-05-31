@@ -9,7 +9,7 @@
     <div id="tabs_main-3">Loading...</div>
 </div>
 
-<?php 
+<?php
     $public = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=public";
 ?>
 

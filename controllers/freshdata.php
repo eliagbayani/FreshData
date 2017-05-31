@@ -240,7 +240,7 @@ class freshdata_controller extends other_controller
     function save_to_text($params)
     {
         $uuid = $params['uuid'];
-        $filename = "../../" . self::get_uuid_text_file_path($uuid); //added extra ../ bec. curdir is inside templates/freshdata/monitor-save.php
+        $filename = __DIR__ . "/../" . self::get_uuid_text_file_path($uuid); //added extra ../ bec. curdir is inside templates/freshdata/monitor-save.php
         if($fn = Functions::file_open($filename, "w"))
         {
             // fwrite($fn, $params['Title'] . "\t" . $params['Description'] . "\t" . $params['URL'] . "\t\t"); //saves five fields //orig
@@ -254,7 +254,7 @@ class freshdata_controller extends other_controller
     function save_to_text_scistarter($params)
     {
         $uuid = $params['uuid'];
-        $filename = "../../" . self::get_uuid_text_file_path($uuid, 'scistarter'); //added extra ../ bec. curdir is inside templates/freshdata/monitor-save-scistarter.php
+        $filename = __DIR__ . "/../" . self::get_uuid_text_file_path($uuid, 'scistarter'); //added extra ../ bec. curdir is inside templates/freshdata/monitor-save-scistarter.php
         if($fn = Functions::file_open($filename, "w"))
         {
             $fields = other_controller::all_scistarter_fields();
@@ -267,8 +267,6 @@ class freshdata_controller extends other_controller
         }
         return false;
     }
-    
-    
     
     function get_realname($username)
     {
