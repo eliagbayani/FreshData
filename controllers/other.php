@@ -53,7 +53,7 @@ class other_controller
         if(!$arr['name']) $arr['name'] = "Fresh Data - " . $text1['Title'];
         if(!$arr['description']) $arr['description'] = "Welcome to ".$text1['Title']."! We are eager for online reports of particular wildlife, accompanied by photographs. \n\n".$text1['Description']."\n\nAs with all Fresh Data projects, the simplest way to participate is by submitting your observation and photo through iNaturalist. The iNat community can help you with species identification, and our research team will be notified that you’ve provided fresh data for this research project.";
         if(!$arr['url']) $arr['url'] = $text1['URL'];
-        if(!$arr['regions']) $arr['regions'] = $monitor['selector']['wktString'];
+        if(!$arr['regions']) $arr['regions'] = self::convert_GEOMETRYCOLLECTION_to_MULTIPOLYGON($monitor['selector']['wktString']);
         return $arr;
     }
     
@@ -96,7 +96,7 @@ class other_controller
     static function curl_post_request($url, $parameters_array = array())
     {
         $data_string = json_encode($parameters_array);
-        // echo "<hr>$data_string<hr>";
+        echo "<hr>$data_string<hr>";
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POST, true);
@@ -123,6 +123,31 @@ class other_controller
         }
         echo "<hr>Curl error ($url): " . curl_error($ch)."<hr>";
         return false;
+    }
+    
+    private function convert_GEOMETRYCOLLECTION_to_MULTIPOLYGON($str)
+    {
+        /*
+        POLYGON ((-82.6171875 32.54681317351517, -72.7734375 44.84029065139799, -59.765625 53.12040528310657, -67.1484375 57.136239319177434, -74.1796875 60.75915950226991, -84.55078125 66.56, 14.23828125 66.56, 1.0546875 46.55886030311719, -5.2734375 32.84267363195431, -82.6171875 32.54681317351517))
+        -> get as is
+        
+        GEOMETRYCOLLECTION(
+            POLYGON ((-175.78125 32.54681317351514, -175.78125 66.51326044311185, -135.703125 61.938950426660604, -121.640625 52.908902047770255, -117.7734375 32.71, -175.78125 32.54681317351514)),
+            POLYGON ((116.71874999999999 32.71, 130.78125 47.517200697839414, 137.109375 63.548552232036414, 150.46875 62.59334083012024, 165.9375 63.860035895395306, 175.78125 66.51326044311185, 175.78125 33.137551192346145, 116.71874999999999 32.71))
+            )
+        -> convert to below:
+        MULTIPOLYGON(
+            ((-175.78125 32.54681317351514, -175.78125 66.51326044311185, -135.703125 61.938950426660604, -121.640625 52.908902047770255, -117.7734375 32.71, -175.78125 32.54681317351514)),
+            ((116.71874999999999 32.71, 130.78125 47.517200697839414, 137.109375 63.548552232036414, 150.46875 62.59334083012024, 165.9375 63.860035895395306, 175.78125 66.51326044311185, 175.78125 33.137551192346145, 116.71874999999999 32.71))
+            )
+        */
+        
+        if(stripos($str, "GEOMETRYCOLLECTION") !== false) //string is found
+        {
+            $str = str_ireplace("POLYGON", "", $str);
+            $str = str_ireplace("GEOMETRYCOLLECTION", "MULTIPOLYGON", $str);
+        }
+        return $str;
     }
 
 }
