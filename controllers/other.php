@@ -96,7 +96,7 @@ class other_controller
     static function curl_post_request($url, $parameters_array = array())
     {
         $data_string = json_encode($parameters_array);
-        echo "<hr>$data_string<hr>";
+        echo "<hr><b>Print this if you want to inquire to SciStarter about this project in the future. This is the actual data submitted to their write API.</b><br><br>$data_string<hr>";
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POST, true);
