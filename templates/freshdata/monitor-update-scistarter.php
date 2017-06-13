@@ -89,11 +89,13 @@ function validateURL(textval)
   <p><b>Update SciStarter Project Info:</b></p>
   <table>
 
-  <tr><td>SciStarter Project ID:</td>   <td><input type="text" id="ProjectID" value="<?php echo $rec_from_text2['ProjectID'] ?>" /><i>Put here the project ID from SciStarter, once this project is added to SciStarter. Leave it blank otherwise.
+  <tr><td>SciStarter Project ID:</td>   <td><input type="text" id="ProjectID" value="<?php echo $rec_from_text2['ProjectID'] ?>" /><i>
+  SciStarter Project ID will automatically be filled-up by the system once you add this project to SciStarter. <br>
+  If for some reason it does not, manually put here the project ID created by SciStarter for this project.
   <?php if($val = $rec_from_text2['ProjectID']) echo "<a href='https://scistarter.com/project/".$val."'>View this project in SciStarter.</a>" ?>
   </i></td></tr>
   
-  <tr><td>name:</td>                    <td><input type="text" id="name" size="100" value="<?php echo $rec_from_text2['name'] ?>" /></td></tr>
+  <tr><td>name:</td>                    <td><input type="text" id="name" size="100" maxlength="250" value="<?php echo $rec_from_text2['name'] ?>" /></td></tr>
   <tr valign="top"><td>description:</td><td valign="top"><textarea id="description" rows="8" cols="100" name="Description"><?php echo $rec_from_text2['description'] ?></textarea></td></tr>
   <tr><td>url:</td>                <td><input type="text" id="url"                 size="100" value="<?php echo $rec_from_text2['url'] ?>" /></td></tr>
   <tr><td>contact_name:</td>       <td><input type="text" id="contact_name"        size="100" value="<?php echo $rec_from_text2['contact_name'] ?>" /></td></tr>
@@ -128,10 +130,10 @@ function validateURL(textval)
   <input type="radio" id="preregistration" value="false" name="preregistration" <?php if($preregistration == 'false') echo "checked" ?>/>False
   </td></tr>
 
-  <tr><td>goal:</td>                <td><input type="text" id="goal"                size="100" value="<?php echo $rec_from_text2['goal'] ?>" /></td></tr>
-  <tr><td>task:</td>                <td><input type="text" id="task"                size="100" value="<?php echo $rec_from_text2['task'] ?>" /></td></tr>
+  <tr><td>goal:</td>                <td><input type="text" id="goal"                size="100" maxlength="120" value="<?php echo $rec_from_text2['goal'] ?>" /></td></tr>
+  <tr><td>task:</td>                <td><input type="text" id="task"                size="100" maxlength="120" value="<?php echo $rec_from_text2['task'] ?>" /></td></tr>
   <tr><td>image:</td>               <td><input type="text" id="image"               size="100" value="<?php echo $rec_from_text2['image'] ?>" /></td></tr>
-  <tr><td>image_credit:</td>        <td><input type="text" id="image_credit"        size="100" value="<?php echo $rec_from_text2['image_credit'] ?>" /></td></tr>
+  <tr><td>image_credit:</td>        <td><input type="text" id="image_credit"        size="100" maxlength="64" value="<?php echo $rec_from_text2['image_credit'] ?>" /></td></tr>
   <tr valign="top"><td>how_to_join:</td><td valign="top"><textarea id="how_to_join" rows="3" cols="100" name="how_to_join"><?php echo $rec_from_text2['how_to_join'] ?></textarea></td></tr>
   <tr><td>special_skills:</td>      <td><input type="text" id="special_skills"      size="100" value="<?php echo $rec_from_text2['special_skills'] ?>" /></td></tr>
   <tr valign="top"><td>gear:</td>   <td valign="top"><textarea id="gear" rows="3" cols="100" name="gear"><?php echo $rec_from_text2['gear'] ?></textarea></td></tr>
@@ -150,7 +152,7 @@ function validateURL(textval)
   <input type="radio" id="indoors" value="false" name="indoors" <?php if($indoors == 'false') echo "checked" ?>/>False
   </td></tr>
 
-  <tr><td>time_commitment:</td>     <td><input type="text" id="time_commitment"     size="100" value="<?php echo $rec_from_text2['time_commitment'] ?>" /></td></tr>
+  <tr><td>time_commitment:</td>     <td><input type="text" id="time_commitment"     size="100" maxlength="64" value="<?php echo $rec_from_text2['time_commitment'] ?>" /></td></tr>
   <tr><td>project_type:</td>        
   <td>
       <select id="project_type">
