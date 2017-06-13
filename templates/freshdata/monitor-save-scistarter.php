@@ -40,16 +40,19 @@ if($ctrler->save_to_text_scistarter($params))
     <?php
     foreach($fields as $field) echo "<input type='hidden' name='$field'  value='$params[$field]'>";
     
-    if($params['ProjectID']) echo "<hr>Project already in <a href='https://scistarter.com/project/".$params['ProjectID']."'>SciStarter</a>, since it has a project ID ($params[ProjectID]) already.<hr>";
+    if($params['ProjectID'])
+    {
+        echo "<hr>Project already in <a href='https://scistarter.com/project/".$params['ProjectID']."'>SciStarter</a>, since it has a project ID ($params[ProjectID]) already.<hr>";
+        echo "<a href='javascript:history.go(-1)'>Go Back</a><br><br>";
+    }
     else
     {
         echo 'Please review your entries. Click button to add this project to SciStarter.<br><br>';
         echo "<input type='submit' value='Add Project to SciStarter'>";
+        echo " &nbsp;<a href='javascript:history.go(-1)'>Cancel</a><br><br>";
     }
     ?>
-    <a href="javascript:history.go(-1)">Cancel</a><br><br>
     </form>
-    
     <?php
 }
 ?>
