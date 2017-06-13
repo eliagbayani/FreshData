@@ -38,7 +38,9 @@ if($ctrler->save_to_text_scistarter($params))
 
     <form action="index.php" method="post" enctype="multipart/form-data"> <!--- target="_blank" --->
     <?php
-    foreach($fields as $field) echo "<input type='hidden' name='$field'  value='$params[$field]'>";
+    // foreach($fields as $field) echo "<input type='hidden' name='$field'  value='$params[$field]'>";
+    foreach($fields as $field) echo '<input type="hidden" name="'.$field.'"  value="'.$params[$field].'">';
+
     
     if($params['ProjectID'])
     {

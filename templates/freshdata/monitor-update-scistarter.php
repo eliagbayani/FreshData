@@ -37,7 +37,18 @@ $(document).ready(function() {
     var audience = $("#audience").val();
     var regions = $("#regions").val();
     var UN_regions = $("#UN_regions").val();
-    
+
+    // works OK but tedious, more lines to add
+    // name = name.replace(/"/g, "'");
+    // description = description.replace(/"/g, "'");
+
+    //this replaces " with '
+    var myStringArray = ["name","description","contact_name","contact_affiliation","contact_address","presenting_org","origin","goal","task","image_credit","how_to_join","special_skills","gear","time_commitment","UN_regions"];
+    var arrayLength = myStringArray.length;
+    for (var i = 0; i < arrayLength; i++) {
+        eval(myStringArray[i] + " = " + myStringArray[i]+".replace(/\"/g, \"'\")");
+    }
+
     if(url)
     {   if(!validateURL(url))
         {
