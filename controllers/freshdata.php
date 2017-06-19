@@ -168,7 +168,11 @@ class freshdata_controller extends other_controller
         // $fields = array("Title", "Description", "URL", "field4", "field5"); //orig
         
         if($what == 'scistarter') $fields = other_controller::all_scistarter_fields();
-        else                      $fields = array("Title", "Description", "URL", "Training_materials", "Contact"); //original Admin
+        else
+        {
+            $fields = array("Title", "Description", "URL", "Training_materials", "Contact"); //original Admin
+            $fields = array("Title", "Description", "URL", "Training_materials", "Contact", "uuid_archive", "Taxa", "Status", "Records", "Trait_selector", "String"); //new Admin
+        }
         
         $filename = self::get_uuid_text_file_path($uuid, $what);
         if(file_exists($filename))
@@ -191,6 +195,8 @@ class freshdata_controller extends other_controller
                     $final[$fields[$i]] = $val;
                     $i++;
                 }
+                if(!isset($final['uuid_archive'])) $final = self::fill_up_main_monitor_fields($final, $uuid);
+                // else echo "<hr>filled-up OK<hr>";
             }
             else
             {
@@ -206,6 +212,34 @@ class freshdata_controller extends other_controller
         return $final;
     }
     
+    private function fill_up_main_monitor_fields($final, $uuid)
+    {
+        // echo "<hr>not yet filled-up<hr>";
+        $monitor = self::get_monitor_record($uuid);
+        // echo "<pre>"; print_r($monitor); echo "</pre>";
+        /*
+        Array
+        (
+            [selector] => Array
+                (
+                    [taxonSelector] => Animalia|Insecta
+                    [wktString] => POLYGON ((-150 10, -150 40, -50 40, -50 10, -150 10))
+                    [traitSelector] => 
+                    [uuid] => 5ffd7bae-5fe0-5692-b914-bf90e921fa1b
+                )
+            [status] => ready
+            [recordCount] => 111278193
+        )
+        */
+        $final['uuid_archive'] = $monitor['selector']['uuid'];
+        $final['Taxa'] = $monitor['selector']['taxonSelector'];
+        $final['Status'] = @$monitor['status'];
+        $final['Records'] = $monitor['recordCount'];
+        $final['Trait_selector'] = $monitor['selector']['traitSelector'];
+        $final['String'] = $monitor['selector']['wktString'];
+        return $final;
+    }
+    
     function create_text_file_if_does_not_exist($uuid, $what = null)
     {
         $filename = self::get_uuid_text_file_path($uuid, $what);
@@ -213,9 +247,13 @@ class freshdata_controller extends other_controller
         {
             $fn = Functions::file_open($filename, "w");
             if($what == 'scistarter') fwrite($fn, str_repeat("\t", 30)); //creates total 31 fields: 30 for scistarter forms and 1 for ProjectID
-            else                      fwrite($fn, "\t\t\t\t"); //creates five fields - for original Admin
+            else
+            {
+                // fwrite($fn, "\t\t\t\t"); //creates five fields - for original Admin
+                fwrite($fn, str_repeat("\t", 10)); //new admin, creates 11 fields
+            }
             fclose($fn);
-            // echo "<br>file created<br>"; //debug
+            // echo "<br>[$what]<br>"; //debug
         }
         // else echo "<br>file already created<br>"; //debug
     }
@@ -244,7 +282,12 @@ class freshdata_controller extends other_controller
         if($fn = Functions::file_open($filename, "w"))
         {
             // fwrite($fn, $params['Title'] . "\t" . $params['Description'] . "\t" . $params['URL'] . "\t\t"); //saves five fields //orig
-            fwrite($fn, $params['Title'] . "\t" . $params['Description'] . "\t" . $params['URL'] . "\t" . $params['Training_materials'] . "\t" . $params['Contact']); //saves five fields
+            // fwrite($fn, $params['Title'] . "\t" . $params['Description'] . "\t" . $params['URL'] . "\t" . $params['Training_materials'] . "\t" . $params['Contact']); //saves five fields
+
+            fwrite($fn, $params['Title'] . "\t" . $params['Description'] . "\t" . $params['URL'] . "\t" . $params['Training_materials'] . "\t" . $params['Contact'] . "\t" . 
+                        $params['uuid_archive'] . "\t" . $params['Taxa'] . "\t" . $params['Status'] . "\t" . $params['Records'] . "\t" . $params['Trait_selector'] . "\t" . $params['String']);
+            
+
             fclose($fn);
             return true;
         }

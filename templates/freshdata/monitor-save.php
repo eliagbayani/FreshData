@@ -20,6 +20,15 @@ if($ctrler->save_to_text($params))
     <tr><td>URL:</td>          <td id="value"><?php echo $params['URL']         ?></td></tr>
     <tr><td>Training materials:</td> <td id="value"><?php echo $params['Training_materials'] ?></td></tr>
     <tr><td>Contact:</td>            <td id="value"><?php echo $params['Contact']            ?></td></tr>
+    
+    <?php
+    $fields = array("uuid_archive", "Taxa", "Status", "Records", "Trait_selector", "String");
+    foreach($fields as $field)
+    {
+        echo "<tr><td>$field:</td><td>".$params[$field]."</td></tr>";
+    }
+    ?>
+    
     </table>
     <?php
 }

@@ -25,16 +25,32 @@ Array
 <div id="accordion_open2">
     <h3><?php echo "Monitor info" ?></h3>
     <div>
-        <table>
-            <tr><td>uuid:</td>           <td id="value"><?php echo $monitor['selector']['uuid'] ?></td></tr>
-            <tr><td>Taxa:</td>           <td id="value"><?php echo $monitor['selector']['taxonSelector'] ?></td></tr>
-            <tr><td>Status:</td>         <td id="value"><?php echo @$monitor['status'] ?></td></tr>
-            <tr><td>Records:</td>        <td id="value"><?php echo number_format($monitor['recordCount']) ?></td></tr>
-            <tr><td>Trait selector:</td> <td id="value"><?php echo $monitor['selector']['traitSelector'] ?></td></tr>
-            <tr><td>String:</td>         <td id="value"><?php echo $monitor['selector']['wktString'] ?></td></tr>
-        </table>
-        <?php
-        require_once("templates/freshdata/monitor-update.php");
-        ?>
+    
+        <div id="tabs1">
+            <ul>
+                <li><a href="#tabs-0">Edit</a></li>
+                <li><a href="#tabs-1">Add</a></li>
+                <li><a href="#tabs-2">Search</a></li>
+            </ul>
+    
+            <div id="tabs-0">
+                <table>
+                    <tr><td>uuid:</td>           <td id="value"><?php echo $monitor['selector']['uuid'] ?></td></tr>
+                    <tr><td>Taxa:</td>           <td id="value"><?php echo $monitor['selector']['taxonSelector'] ?></td></tr>
+                    <tr><td>Status:</td>         <td id="value"><?php echo @$monitor['status'] ?></td></tr>
+                    <tr><td>Records:</td>        <td id="value"><?php echo number_format($monitor['recordCount']) ?></td></tr>
+                    <tr><td>Trait selector:</td> <td id="value"><?php echo $monitor['selector']['traitSelector'] ?></td></tr>
+                    <tr><td>String:</td>         <td id="value"><?php echo $monitor['selector']['wktString'] ?></td></tr>
+                </table>
+                <?php require_once("templates/freshdata/monitor-update.php"); ?>
+            </div>
+
+            <div id="tabs-1">
+            </div>
+            <div id="tabs-2">
+            </div>
+        
+        </div>
+    
     </div>
 </div>
