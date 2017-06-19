@@ -21,11 +21,12 @@ if($ctrler->save_to_text($params))
     <tr><td>Training materials:</td> <td id="value"><?php echo $params['Training_materials'] ?></td></tr>
     <tr><td>Contact:</td>            <td id="value"><?php echo $params['Contact']            ?></td></tr>
     
+    <tr><td colspan="2"><hr>Archive Monitor Info<hr></td></tr>
     <?php
     $fields = array("uuid_archive", "Taxa", "Status", "Records", "Trait_selector", "String");
     foreach($fields as $field)
     {
-        echo "<tr><td>$field:</td><td>".$params[$field]."</td></tr>";
+        echo "<tr><td>$field:</td><td id='value'>".$params[$field]."</td></tr>";
     }
     ?>
     

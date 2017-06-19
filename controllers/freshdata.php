@@ -54,18 +54,43 @@ class freshdata_controller extends other_controller
                 [recordCount] => 10
             )
             */
-            $info = array();
-            $info['taxonSelector']  = $m['selector']['taxonSelector'];
-            $info['wktString']      = $m['selector']['wktString'];
-            $info['traitSelector']  = $m['selector']['traitSelector'];
-            $info['uuid']           = $m['selector']['uuid'];
-            $info['status']         = @$m['status'];
-            $info['recordCount']    = $m['recordCount'];
-            if($params['view_type'] == 'scistarter')
+            if($params['monitorAPI'] == 1)
             {
-                if(self::has_title_desc_url($m['selector']['uuid'])) $recs[] = $info;
+                $info = array();
+                $info['taxonSelector']  = $m['selector']['taxonSelector'];
+                $info['wktString']      = $m['selector']['wktString'];
+                $info['traitSelector']  = $m['selector']['traitSelector'];
+                $info['uuid']           = $m['selector']['uuid'];
+                $info['status']         = @$m['status'];
+                $info['recordCount']    = $m['recordCount'];
+                if($params['view_type'] == 'scistarter')
+                {
+                    if(self::has_title_desc_url($m['selector']['uuid'])) $recs[] = $info;
+                }
+                else $recs[] = $info;
             }
-            else $recs[] = $info;
+            elseif($params['monitorAPI'] == 0) //unhooked
+            {
+                $uuid = $m['selector']['uuid'];
+                $rec_from_text = self::get_text_file_value($uuid);
+                $info = array();
+                // print_r($rec_from_text); exit;
+                /* Array ( [Title] => [Description] => [URL] => [Training_materials] => [Contact] => [uuid_archive] => [Taxa] => [Status] => [Records] => [Trait_selector] => [String] => ) */
+                $info['taxonSelector']  = $rec_from_text['Taxa'];
+                $info['wktString']      = $rec_from_text['String'];
+                $info['traitSelector']  = $rec_from_text['Trait_selector'];
+                // $info['uuid']           = $rec_from_text['uuid_archive'];
+                $info['uuid']           = $uuid;
+                $info['status']         = $rec_from_text['Status'];
+                $info['recordCount']    = $rec_from_text['Records'];
+                if($params['view_type'] == 'scistarter')
+                {
+                    if(self::has_title_desc_url($rec_from_text['uuid_archive'])) $recs[] = $info;
+                }
+                else $recs[] = $info;
+            }
+            
+            
         }
         return array("total" => count($recs), "recs" => $recs);
     }
@@ -199,7 +224,7 @@ class freshdata_controller extends other_controller
                 else
                 {
                     if(!$final['uuid_archive']) $final = self::fill_up_main_monitor_fields($final, $uuid);
-                    // else echo "<hr>filled-up OK1<hr>";
+                    // else echo "<hr>filled-up OK<hr>";
                 }
             }
             else

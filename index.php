@@ -45,6 +45,7 @@ if($val = @$params['search_type'])
     }
 }
 //end ------------------------------------------
+if(!isset($params['monitorAPI'])) $params['monitorAPI'] = 0;
 
 if(isset($params['scistarter']))              require_once("templates/freshdata/layout3.php");
 elseif(isset($params['contact_name']))        require_once("templates/freshdata/layout3.php");

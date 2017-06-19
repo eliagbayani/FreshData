@@ -80,7 +80,13 @@ tfoot input {
             ?>
                 <tr>
                     <?php if($group == "monitors") echo '<td>'.$r['status'].'</td>'; ?>
-                    <td align="right"><?php echo number_format($r['recordCount']) ?></td>
+                    <td align="right">
+                        <?php 
+                            if($r['recordCount']) echo number_format($r['recordCount']);
+                            else echo "0";
+                            // echo number_format(trim($r['recordCount']));
+                        ?>
+                    </td>
                     <td><?php echo $r['taxonSelector'] ?></td>
                     
                     <?php $rek = self::get_text_file_value($r['uuid']); ?>
@@ -150,7 +156,7 @@ elseif($view_type == 'public')
     // DataTable
     var table<?php echo $table_id ?> = $('#<?php echo $table_id ?>').DataTable({
         "iDisplayLength": 15, //orig 25
-        "order": [[ 1, "desc" ]]
+        "order": [[ 1, "desc" ],[ 2, "asc"] ]
     });
  
     // Apply the search

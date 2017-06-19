@@ -74,7 +74,7 @@ function validateURL(textval)
   <tr><td>Training materials:</td>      <td><input type = "text" id = "Training_materials" size = "100" value="<?php echo $rec_from_text['Training_materials']  ?>" /></td></tr>
   <tr><td>Contact:</td>                 <td><input type = "text" id = "Contact" size = "100" value="<?php echo $rec_from_text['Contact']                        ?>" /></td></tr>
 
-  <tr><td><hr>Archive Monitor Info<hr></td></tr>
+  <tr><td colspan="2"><hr>Archive Monitor Info<hr></td></tr>
   <tr><td>uuid:</td>                   <td><input type = "text" id = "uuid_archive"         size = "100" value="<?php echo $rec_from_text['uuid_archive']       ?>" /></td></tr>
   <tr><td>Taxa:</td>                   <td><input type = "text" id = "Taxa"         size = "100" value="<?php echo $rec_from_text['Taxa']       ?>" /></td></tr>
   <tr><td>Status:</td>                   <td><input type = "text" id = "Status"         size = "100" value="<?php echo $rec_from_text['Status']       ?>" /></td></tr>
