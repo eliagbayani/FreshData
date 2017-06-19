@@ -6,6 +6,12 @@
         <li><a onClick="tab3_clicked()" href="#tabs_main-3">Back to Fresh Data ››</a></li>
         <li><a href="#tabs_main-4">Refresh cache</a></li>
         <li><a href="#tabs_main-5">API Call</a></li>
+        
+        <?php
+        if($params['unhooked'] == 0) echo '<li><a onClick="tab7_clicked()" href="#tabs_main-7">Un-hooked mode >></a></li>';
+        else                         echo '<li><a onClick="tab7_clicked()" href="#tabs_main-7">Monitor API mode >></a></li>';
+        ?>
+        
     </ul>
     <div id="tabs_main-1">Loading...</div>
     <div id="tabs_main-2"><?php print $ctrler->render_template('monitors-list', array('params' => @$params)); ?></div>
@@ -20,11 +26,14 @@
     $public = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=public";
     $scistarter = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=scistarter";
     $api = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?api_call=";
+    if($params['unhooked'] == 0) $admin_unhooked = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=admin&unhooked=1";
+    else                         $admin_unhooked = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=admin&unhooked=0";
 ?>
 <script>
 function tab3_clicked() { location.href = '<?php echo $back ?>'; }
 function tab1_clicked() { location.href = '<?php echo $public ?>'; }
 function tab6_clicked() { location.href = '<?php echo $scistarter ?>'; }
+function tab7_clicked() { location.href = '<?php echo $admin_unhooked ?>'; }
 /* working but not used atm.
 function tab5_clicked() { location.href = '<?php echo $api ?>'; }
 */

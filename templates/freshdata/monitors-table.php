@@ -149,7 +149,7 @@ elseif($view_type == 'public')
  
     // DataTable
     var table<?php echo $table_id ?> = $('#<?php echo $table_id ?>').DataTable({
-        "iDisplayLength": 25,
+        "iDisplayLength": 15, //orig 25
         "order": [[ 1, "desc" ]]
     });
  
