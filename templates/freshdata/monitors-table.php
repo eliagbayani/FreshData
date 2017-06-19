@@ -27,6 +27,7 @@ tfoot input {
     $rows = $data['records'];
     $group = $data['group'];
     $view_type = $data['view_type'];
+    $params = $data['params'];
     
     if($group == "monitors") $vars = array('search_type' => "wiki2php",         'js_string' => "Monitors List");
     else                     $vars = array('search_type' => "wiki2php_project", 'js_string' => "xxx");
@@ -126,6 +127,7 @@ elseif($view_type == 'scistarter')
     <form id="myform<?php echo $table_id ?>" action="index.php" method="post" enctype="multipart/form-data" <?php if($group == "xxx") echo "target=\"_blank\"" ?>>
     <input type="hidden" name="uuid"  value="1" id="uuid<?php echo $table_id ?>">
     <input type="hidden" name="scistarter"  value="1" id="scistarter<?php echo $table_id ?>">
+    <input type="hidden" name="monitorAPI"  value="<?php echo $params['monitorAPI'] ?>" id="monitorAPI<?php echo $table_id ?>">
     </form>
     <?php
 }

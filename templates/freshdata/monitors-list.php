@@ -22,7 +22,7 @@ else                           $str .= " | Monitors Manual Mode";
         if($rows)
         {
             // echo "<pre>"; print_r($rows); echo "</pre>";
-            $data = array('group' => 'monitors', 'records' => $rows, 'view_type' => $params['view_type']);
+            $data = array('group' => 'monitors', 'records' => $rows, 'view_type' => $params['view_type'], 'params' => $params);
             print self::render_template('monitors-table', array('data' => @$data));
         }
         ?>
