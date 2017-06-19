@@ -42,6 +42,11 @@ $(document).ready(function() {
             return;
         }
     }
+    if(!uuid_archive)
+    {
+        $('#stage').append('<div id="memo" class="help-block">uuid cannot be blank!</div>');
+        return;
+    }
 
     $("#stage").load('templates/freshdata/monitor-save.php', {"uuid":uuid, "Title":Title, "Description":Description, "URL":URL, "Training_materials":Training_materials, "Contact":Contact, 
                                                               "uuid_archive":uuid_archive, "Taxa":Taxa, "Status":Status, "Records":Records, "Trait_selector":Trait_selector, "String":String} );

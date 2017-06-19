@@ -196,7 +196,11 @@ class freshdata_controller extends other_controller
                     $i++;
                 }
                 if(!isset($final['uuid_archive'])) $final = self::fill_up_main_monitor_fields($final, $uuid);
-                // else echo "<hr>filled-up OK<hr>";
+                else
+                {
+                    if(!$final['uuid_archive']) $final = self::fill_up_main_monitor_fields($final, $uuid);
+                    else echo "<hr>filled-up OK1<hr>";
+                }
             }
             else
             {
@@ -214,7 +218,7 @@ class freshdata_controller extends other_controller
     
     private function fill_up_main_monitor_fields($final, $uuid)
     {
-        // echo "<hr>not yet filled-up<hr>";
+        echo "<hr>not yet filled-up<hr>";
         $monitor = self::get_monitor_record($uuid);
         // echo "<pre>"; print_r($monitor); echo "</pre>";
         /*
