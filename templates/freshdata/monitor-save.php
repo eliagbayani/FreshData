@@ -12,7 +12,9 @@ sleep(1);
 // echo "<pre>"; print_r($params); echo "</pre>";
 if($ctrler->save_to_text($params))
 {
-    echo "<br><span id='memo'>Saved OK</span><br><br>";
+    // echo "<br><span id='memo'>Saved OK</span><br>";
+    $ctrler->display_message(array('type' => "highlight", 'msg' => "Record has been successfully saved."));
+    
     ?>
     <table>
     

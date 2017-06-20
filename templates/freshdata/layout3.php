@@ -5,7 +5,12 @@
         <li><a onClick="tab3_clicked()" href="#tabs_main-3">Monitors ››</a></li>
     </ul>
     <div id="tabs_main-1">Loading...</div>
-    <div id="tabs_main-2">Click a monitor to update</div>
+    <div id="tabs_main-2">
+        <?php
+        if    (isset($params['contact_name'])) print $ctrler->render_template('monitor_add_project_scistarter', array('params' => @$params)); //add project to SciStarter
+        elseif(isset($params['scistarter'])) print $ctrler->render_template('monitors-form-scistarter', array('params' => @$params));         //scistarter
+        ?>
+    </div>
     <div id="tabs_main-3">Loading...</div>
 </div>
 

@@ -72,9 +72,10 @@ $('#el').spin('large'); //start spinning
 <?php
 print $ctrler->render_layout(@$params, 'result');
 
-if    (isset($params['contact_name'])) print $ctrler->render_template('monitor_add_project_scistarter', array('params' => @$params));       //add project to SciStarter
-elseif    (isset($params['scistarter'])) print $ctrler->render_template('monitors-form-scistarter', array('params' => @$params));       //scistarter
-elseif(isset($params['uuid'])) print $ctrler->render_template('monitors-form', array('params' => @$params));                        //original admin
+// all these 3 are woking OK, but transferred to layout3.php, layout2.php respectively
+// if(isset($params['contact_name'])) print $ctrler->render_template('monitor_add_project_scistarter', array('params' => @$params)); //add project to SciStarter --- transferred to layout3.php
+// elseif(isset($params['scistarter'])) print $ctrler->render_template('monitors-form-scistarter', array('params' => @$params));     //scistarter                --- transferred to layout3.php
+// elseif(isset($params['uuid'])) print $ctrler->render_template('monitors-form', array('params' => @$params));                      //original admin            --- transferred to layout2.php
 
 if(isset($params['part_more_info'])) print $ctrler->render_template('part-more-info', array('arr' => @$params['part_more_info']));
 if(isset($params['search_type']))

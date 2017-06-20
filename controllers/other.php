@@ -75,8 +75,11 @@ class other_controller
     private function if_add_is_successful($info)
     {
         // {"project_id": 17626, "result": "success"}
-        $obj = json_decode($info);
-        if($obj->project_id && $obj->result == "success") return $obj;
+        if($obj = json_decode($info))
+        {
+            if($obj->project_id && $obj->result == "success") return $obj;
+            else return false;
+        }
         else return false;
     }
     
@@ -96,7 +99,7 @@ class other_controller
     static function curl_post_request($url, $parameters_array = array())
     {
         $data_string = json_encode($parameters_array);
-        echo "<hr><b>Print this if you want to inquire to SciStarter about this project in the future. This is the actual data submitted to their write API.</b><br><br>$data_string<hr>";
+        echo "<hr><b>Print this if you want to inquire about this project to SciStarter in the future. This is the actual data submitted to their write API.</b><br><br>$data_string<hr>";
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POST, true);
@@ -116,12 +119,21 @@ class other_controller
         // echo("<hr>Sending post request to $url with params ".print_r($parameters_array, 1).": only attempt<hr>");
         $result = curl_exec($ch);
 
+        $arr = json_decode($result);
+        if($arr->result == "success") freshdata_controller::display_message(array('type' => "highlight", 'msg' => "Project sent successfully."));
+        
+        
         if(0 == curl_errno($ch))
         {
             curl_close($ch);
             return $result;
         }
-        echo "<hr>Curl error ($url): " . curl_error($ch)."<hr>";
+        // echo "<hr><b>Curl error ($url):</b><br><br>" . curl_error($ch)."<hr>";
+        
+        freshdata_controller::display_message(array('type' => "error", 'msg' => "Curl error ($url)"));
+        freshdata_controller::display_message(array('type' => "error", 'msg' => curl_error($ch)));
+        
+        
         return false;
     }
     

@@ -5,7 +5,11 @@
         <li><a onClick="tab3_clicked()" href="#tabs_main-3">Monitors ››</a></li>
     </ul>
     <div id="tabs_main-1">Loading...</div>
-    <div id="tabs_main-2">Click a monitor to update</div>
+    <div id="tabs_main-2"><!---Click a monitor to update--->
+        <?php
+        print $ctrler->render_template('monitors-form', array('params' => @$params)); //original admin
+        ?>
+    </div>
     <div id="tabs_main-3">Loading...</div>
 </div>
 

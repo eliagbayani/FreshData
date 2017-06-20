@@ -30,7 +30,7 @@ Array
             <ul>
                 <li><a href="#tabs-0">Edit</a></li>
                 <li><a href="#tabs-1">Add</a></li>
-                <li><a href="#tabs-2">Search</a></li>
+                <li><a href="#tabs-2">Delete</a></li>
             </ul>
     
             <div id="tabs-0">

@@ -13,11 +13,12 @@ sleep(1);
 if($ctrler->save_to_text_scistarter($params))
 {
     ?>
-    <br><span id='memo'>Project Info Saved OK</span><br>
-    
+    <!---<br><span id='memo'>Saved OK</span><br>--->
     <?php
-    if($params['ProjectID']) echo "<hr>Project already in <a href='https://scistarter.com/project/".$params['ProjectID']."'>SciStarter</a>, since it has a project ID ($params[ProjectID]) already.<hr>";
-    else                     echo 'Please review your entries. Click button below to add this project to SciStarter.<br><br>';
+    $ctrler->display_message(array('type' => "highlight", 'msg' => "Record has been successfully saved."));
+    
+    if($params['ProjectID']) echo "<hr><b>Project already in <a href='https://scistarter.com/project/".$params['ProjectID']."'>SciStarter</a>, since it has a project ID ($params[ProjectID]) already.</b><hr><br>";
+    else                     echo '<hr><b>Please review your entries. Click button below to add this project to SciStarter.</b><hr><br>';
     ?>
     
     <table border="1" cellspacing="0">

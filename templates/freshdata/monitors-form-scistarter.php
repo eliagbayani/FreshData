@@ -15,8 +15,6 @@ $rec_from_text2 = other_controller::get_default_values_if_blank($rec_from_text2,
 $str = "SciStarter Project info";
 if($params['monitorAPI'] == 1) $str .= " | Monitors API Mode";
 else                           $str .= " | Monitors Manual Mode";
-
-
 ?>
 <div id="accordion_open2">
     <h3><?php echo $str ?></h3>

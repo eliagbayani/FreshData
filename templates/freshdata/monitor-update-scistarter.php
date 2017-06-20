@@ -83,7 +83,7 @@ $(document).ready(function() {
                 alert("Error: " + xhr.status + ": " + xhr.statusText);
         } ); //https://www.w3schools.com/jquery/jquery_ajax_load.asp
     $("#login_form").hide();
-    $('#stage').append('<div class="help-block"><br><h3>Saving, please wait...</h3><br><br></div>'); // add the actual error message under our input
+    $('#stage').append('<div class="help-block"><br>Saving, please wait...<br><br></div>'); // add the actual error message under our input
 
     });
 });
@@ -98,13 +98,14 @@ function validateURL(textval)
 
 
 <span id = "login_form">
-  <p><b>Update SciStarter Project Info:</b></p>
+  <p><b><hr>Update SciStarter Project Info:<hr></b></p>
   <table>
 
-  <tr><td>SciStarter Project ID:</td>   <td><input type="text" id="ProjectID" value="<?php echo $rec_from_text2['ProjectID'] ?>" /><i>
-  SciStarter Project ID will automatically be filled-up by the system once you add this project to SciStarter. <br>
-  If for some reason it does not, manually put here the project ID created by SciStarter for this project.
-  <?php if($val = $rec_from_text2['ProjectID']) echo "<a href='https://scistarter.com/project/".$val."'>View this project in SciStarter.</a>" ?>
+  <tr><td valign="top">SciStarter Project ID:</td>   <td><input type="text" id="ProjectID" value="<?php echo $rec_from_text2['ProjectID'] ?>" /><i>
+  <?php 
+  if($val = $rec_from_text2['ProjectID']) echo "<a target='".$val."' href='https://scistarter.com/project/".$val."'>View this project in SciStarter.</a>"; 
+  else echo "<br>SciStarter Project ID will automatically be filled-up by the system once you add this project to SciStarter.<br>If for some reason it does not, manually put here the project ID created by SciStarter.";
+  ?>
   </i></td></tr>
   
   <tr><td>name:</td>                    <td><input type="text" id="name" size="100" maxlength="250" value="<?php echo $rec_from_text2['name'] ?>" /></td></tr>

@@ -404,7 +404,7 @@ class freshdata_controller extends other_controller
         return $contents;
     }
     
-    function display_message($options)
+    static function display_message($options)
     {   //displays Highlight or Error messages
         if($options['type'] == "highlight")
         {
