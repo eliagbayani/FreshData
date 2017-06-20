@@ -23,8 +23,8 @@
 
 <?php
     $back = FRESHDATA_DOMAIN;
-    $public = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=public";
-    $admin = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=admin";
+    $public = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=public&monitorAPI=".$params['monitorAPI'];
+    $admin = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=admin&monitorAPI=".$params['monitorAPI'];
     $api = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?api_call=";
     
     if($params['monitorAPI'] == 0) $admin_unhooked = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=scistarter&monitorAPI=1";

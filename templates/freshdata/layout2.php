@@ -10,10 +10,10 @@
 </div>
 
 <?php
-    $public = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=public";
+    $public = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=public&monitorAPI=".$params['monitorAPI'];
 ?>
 
 <script>
-function tab1_clicked() { location.href = '<?php echo "index.php?view_type=admin" ?>'; }
+function tab1_clicked() { location.href = '<?php echo "index.php?view_type=admin&monitorAPI=".$params['monitorAPI'] ?>'; }
 function tab3_clicked() { location.href = '<?php echo $public ?>'; }
 </script>

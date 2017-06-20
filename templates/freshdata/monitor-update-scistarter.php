@@ -6,6 +6,7 @@ $(document).ready(function() {
     
     var uuid = $("#uuid").val();
     var ProjectID = $("#ProjectID").val();
+    var monitorAPI = $("#monitorAPI").val();
     
     var name = $("#name").val();
     var description = $("#description").val();
@@ -71,7 +72,7 @@ $(document).ready(function() {
         }
     }
 
-    $("#stage").load('templates/freshdata/monitor-save-scistarter.php', {"uuid":uuid, "ProjectID":ProjectID, "name":name, "description":description, "url":url, "contact_name":contact_name, "contact_affiliation":contact_affiliation, "contact_email":contact_email, "contact_phone":contact_phone, "contact_address":contact_address, 
+    $("#stage").load('templates/freshdata/monitor-save-scistarter.php', {"uuid":uuid, "ProjectID":ProjectID, "monitorAPI":monitorAPI, "name":name, "description":description, "url":url, "contact_name":contact_name, "contact_affiliation":contact_affiliation, "contact_email":contact_email, "contact_phone":contact_phone, "contact_address":contact_address, 
     "presenting_org":presenting_org, "origin":origin, "video_url":video_url, "blog_url":blog_url, "twitter_name":twitter_name, "facebook_page":facebook_page, "status":status, "preregistration":preregistration, 
     "goal":goal, "task":task, "image":image, "image_credit":image_credit, "how_to_join":how_to_join, "special_skills":special_skills, "gear":gear, "outdoors":outdoors, "indoors":indoors, "time_commitment":time_commitment, 
     "project_type":project_type, "audience":audience, "regions":regions, "UN_regions":UN_regions}, function(responseTxt, statusTxt, xhr){
@@ -180,6 +181,7 @@ function validateURL(textval)
   <tr valign="top"><td>regions:</td><td valign="top"><textarea id="regions" rows="8" cols="100" name="regions"><?php echo $rec_from_text2['regions'] ?></textarea></td></tr>
   <tr><td>UN_regions:</td>          <td><input type="text" id="UN_regions"          size="100" value="<?php echo $rec_from_text2['UN_regions'] ?>" /></td></tr>
   <input type="hidden" id="uuid" value="<?php echo $uuid ?>">
+  <input type="hidden" id="monitorAPI" value="<?php echo $params['monitorAPI'] ?>">
   </table>
   <br>
   <button id="driver" type="submit">Save Project Info</button>
