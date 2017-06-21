@@ -260,7 +260,12 @@ class freshdata_controller extends other_controller
                         if(!$final['uuid_archive']) 
                         {
                             $final = self::fill_up_main_monitor_fields($final, $uuid);
+                            echo "<pre>"; print_r($final); echo "</pre>";
                             echo "<br>passed 222<br>";
+                            
+                            //these 2 lines are needed to save to text file the main monitor fields, also is needed when un-deleting record; that is when saving with blank uuid
+                            $final['uuid'] = $uuid;
+                            self::save_to_text($final);
                         }
                         // else echo "<hr>filled-up OK<hr>";
                     }
