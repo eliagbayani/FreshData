@@ -9,11 +9,18 @@ class freshdata_controller extends other_controller
         // $this->bhl_api_service['itemsearch']  = "http://www.biodiversitylibrary.org/api2/httpquery.ashx?op=GetItemMetadata&pages=t&ocr=t&parts=t&apikey=" . BHL_API_KEY;
         // $this->mediawiki_api = "http://" . $_SERVER['SERVER_NAME'] . "/" . MEDIAWIKI_MAIN_FOLDER . "/api.php";
         $this->download_options = array('download_timeout_seconds' => 4800, 'download_wait_time' => 300000, 'expire_seconds' => 43200); //expires in 12 hours
+
+        // /*
         $this->monitors_api['all'] = "http://api.effechecka.org/monitors";
         $this->monitors_api['one'] = "http://api.effechecka.org/monitors?uuid=";
         $this->monitors_api['id']  = "http://api.effechecka.org/monitors?id=";
         $this->monitors_api['source']  = "http://api.effechecka.org/monitors?source=";
         $this->monitors_api['id_source']  = "http://api.effechecka.org/monitors?id=id_val&source=source_val";
+        // */
+
+        // $this->monitors_api['all']          = "http://localhost/FreshData/database/archive/monitors.json";
+
+
     }
 
     function user_is_logged_in_wiki($view_type)

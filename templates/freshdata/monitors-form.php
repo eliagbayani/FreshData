@@ -21,9 +21,13 @@ Array
     [recordCount] => 111211058
 )
 */
+$str = "Monitor info";
+if($params['monitorAPI'] == 1) $str .= " | Monitors API Mode";
+else                           $str .= " | Monitors Manual Mode";
 ?>
+
 <div id="accordion_open2">
-    <h3><?php echo "Monitor info" ?></h3>
+    <h3><?php echo $str ?></h3>
     <div>
     
         <div id="tabs1">
@@ -32,7 +36,6 @@ Array
                 <li><a href="#tabs-1">Add</a></li>
                 <li><a href="#tabs-2">Delete</a></li>
             </ul>
-    
             <div id="tabs-0">
                 <table>
                     <tr><td>uuid:</td>           <td id="value"><?php echo $monitor['selector']['uuid'] ?></td></tr>

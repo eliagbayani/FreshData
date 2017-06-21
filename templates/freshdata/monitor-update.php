@@ -67,16 +67,7 @@ function validateURL(textval)
 
 <span id = "login_form">
   <table>
-  <tr><td colspan="2"><hr><b>Update Additional Monitor Fields:</b><hr></td></tr>
-  
-  <tr><td>Title:</td>                   <td><input type = "text" id = "Title"         size = "100" value="<?php echo $rec_from_text['Title']       ?>" /></td></tr>
-  <tr valign="top"><td>Description:</td><td valign="top"><textarea id="Description" rows="10" cols="100" name="Description"><?php echo $rec_from_text['Description']; ?></textarea></td></tr>
-  <tr><td>URL:</td>                     <td><input type = "text"  id = "URL"          size = "100" value="<?php echo $rec_from_text['URL']         ?>" /></td></tr>
-  <tr><td>Training materials:</td>      <td><input type = "text" id = "Training_materials" size = "100" value="<?php echo $rec_from_text['Training_materials']  ?>" /></td></tr>
-  <tr><td>Contact:</td>                 <td><input type = "text" id = "Contact" size = "100" value="<?php echo $rec_from_text['Contact']                        ?>" /></td></tr>
-
-  <tr><td colspan="2"><hr><b>Update Archive Monitor Info:</b><hr></td></tr>
-  
+  <tr><td colspan="2"><hr><b>Update Archive Info:</b><hr></td></tr>
   <tr><td>uuid:</td>                   <td><input type = "text" id = "uuid_archive"         size = "100" value="<?php echo $rec_from_text['uuid_archive']       ?>" /></td></tr>
   <tr><td>Taxa:</td>                   <td><input type = "text" id = "Taxa"         size = "100" value="<?php echo $rec_from_text['Taxa']       ?>" /></td></tr>
   <tr><td>Status:</td>                   <td><input type = "text" id = "Status"         size = "100" value="<?php echo $rec_from_text['Status']       ?>" /></td></tr>
@@ -84,11 +75,22 @@ function validateURL(textval)
   <tr><td>Trait_selector:</td>                   <td><input type = "text" id = "Trait_selector"         size = "100" value="<?php echo $rec_from_text['Trait_selector']       ?>" /></td></tr>
   <tr valign="top"><td>String:</td><td valign="top"><textarea id="String" rows="10" cols="100" name="String"><?php echo $rec_from_text['String']; ?></textarea></td></tr>
 
+  <tr><td colspan="2"><hr><b>Update Additional Fields:</b><hr></td></tr>
+  <tr><td>Title:</td>                   <td><input type = "text" id = "Title"         size = "100" value="<?php echo $rec_from_text['Title']       ?>" /></td></tr>
+  <tr valign="top"><td>Description:</td><td valign="top"><textarea id="Description" rows="10" cols="100" name="Description"><?php echo $rec_from_text['Description']; ?></textarea></td></tr>
+  <tr><td>URL:</td>                     <td><input type = "text"  id = "URL"          size = "100" value="<?php echo $rec_from_text['URL']         ?>" /></td></tr>
+  <tr><td>Training materials:</td>      <td><input type = "text" id = "Training_materials" size = "100" value="<?php echo $rec_from_text['Training_materials']  ?>" /></td></tr>
+  <tr><td>Contact:</td>                 <td><input type = "text" id = "Contact" size = "100" value="<?php echo $rec_from_text['Contact']                        ?>" /></td></tr>
+
   <input type="hidden" id="uuid" value="<?php echo $uuid ?>">
+
+  <tr><td colspan="2"><hr></td></tr>
+  <tr><td colspan="2">
+      <button id="driver" type="submit">Save</button>
+      <!---<button onClick="javascript:history.go(-1)" type="">Cancel</button>--->
+      <a href="javascript:history.go(-1)">Cancel</a>
+  </td></tr>
   </table>
-  
-  <button id="driver" type="submit">Save</button>
-  <button onClick="javascript:history.go(-1)" type="">Cancel</button>
   
 </span>
 <div id = "stage" style = "background-color:white;"></div>
