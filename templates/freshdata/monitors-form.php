@@ -37,20 +37,27 @@ else                           $str .= " | Monitors Manual Mode";
                 <li><a href="#tabs-2">Delete</a></li>
             </ul>
             <div id="tabs-0">
-                <table>
-                    <tr><td>uuid:</td>           <td id="value"><?php echo $monitor['selector']['uuid'] ?></td></tr>
-                    <tr><td>Taxa:</td>           <td id="value"><?php echo $monitor['selector']['taxonSelector'] ?></td></tr>
-                    <tr><td>Status:</td>         <td id="value"><?php echo @$monitor['status'] ?></td></tr>
-                    <tr><td>Records:</td>        <td id="value"><?php echo number_format($monitor['recordCount']) ?></td></tr>
-                    <tr><td>Trait selector:</td> <td id="value"><?php echo $monitor['selector']['traitSelector'] ?></td></tr>
-                    <tr><td>String:</td>         <td id="value"><?php echo $monitor['selector']['wktString'] ?></td></tr>
-                </table>
+                <?php require("templates/freshdata/monitor-orig-api-data.php"); ?>
                 <?php require_once("templates/freshdata/monitor-update.php"); ?>
             </div>
 
             <div id="tabs-1">
             </div>
+
             <div id="tabs-2">
+                <table>
+                <tr><td colspan="2"><hr><b>Archive Info:</b><hr></td></tr>
+                <?php
+                $fields = array("uuid_archive", "Taxa", "Status", "Records", "Trait_selector", "String");
+                foreach($fields as $field) echo "<tr><td>$field:</td><td id='value'>".$rec_from_text[$field]."</td></tr>";
+                ?>
+                <tr><td colspan="2"><hr><b>Additional Fields:</b><hr></td></tr>
+                <?php
+                $fields = array("Title", "Description", "URL", "Training_materials", "Contact");
+                foreach($fields as $field) echo "<tr><td>$field:</td><td id='value'>".$rec_from_text[$field]."</td></tr>";
+                ?>
+                </table>
+                <?php require_once("templates/freshdata/monitor-delete.php"); ?>
             </div>
         
         </div>

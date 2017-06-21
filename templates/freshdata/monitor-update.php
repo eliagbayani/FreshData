@@ -42,12 +42,14 @@ $(document).ready(function() {
             return;
         }
     }
+    /*
     if(!uuid_archive)
     {
         $('#stage').append('<div id="memo" class="help-block">uuid cannot be blank!</div>');
         return;
     }
-
+    */
+    
     $("#stage").load('templates/freshdata/monitor-save.php', {"uuid":uuid, "Title":Title, "Description":Description, "URL":URL, "Training_materials":Training_materials, "Contact":Contact, 
                                                               "uuid_archive":uuid_archive, "Taxa":Taxa, "Status":Status, "Records":Records, "Trait_selector":Trait_selector, "String":String} );
     $("#login_form").hide();
@@ -68,7 +70,9 @@ function validateURL(textval)
 <span id = "login_form">
   <table>
   <tr><td colspan="2"><hr><b>Update Archive Info:</b><hr></td></tr>
-  <tr><td>uuid:</td>                   <td><input type = "text" id = "uuid_archive"         size = "100" value="<?php echo $rec_from_text['uuid_archive']       ?>" /></td></tr>
+  <tr><td>uuid:</td>                   <td><?php echo $rec_from_text['uuid_archive'] ?><input type = "text" id = "uuid_archive"         size = "100" value="<?php echo $rec_from_text['uuid_archive'] ?>" /></td></tr>
+  
+  
   <tr><td>Taxa:</td>                   <td><input type = "text" id = "Taxa"         size = "100" value="<?php echo $rec_from_text['Taxa']       ?>" /></td></tr>
   <tr><td>Status:</td>                   <td><input type = "text" id = "Status"         size = "100" value="<?php echo $rec_from_text['Status']       ?>" /></td></tr>
   <tr><td>Records:</td>                   <td><input type = "text" id = "Records"         size = "100" value="<?php echo $rec_from_text['Records']       ?>" /></td></tr>
