@@ -78,6 +78,10 @@ class freshdata_controller extends other_controller
                 {
                     if(self::has_title_desc_url($m['selector']['uuid'])) $recs[] = $info;
                 }
+                elseif($params['view_type'] == 'public')
+                {
+                    if(self::valid_for_public($info)) $recs[] = $info;
+                }
                 else $recs[] = $info;
             }
             elseif($params['monitorAPI'] == 0) //unhooked
@@ -97,6 +101,10 @@ class freshdata_controller extends other_controller
                 if($params['view_type'] == 'scistarter')
                 {
                     if(self::has_title_desc_url($rec_from_text['uuid_archive'])) $recs[] = $info;
+                }
+                elseif($params['view_type'] == 'public')
+                {
+                    if(self::valid_for_public($info)) $recs[] = $info;
                 }
                 else $recs[] = $info;
             }
@@ -157,6 +165,12 @@ class freshdata_controller extends other_controller
         $rec = self::get_text_file_value($uuid);
         if($rec['Title'] && $rec['Description'] && $rec['URL']) return true;
         return false;
+    }
+    
+    private function valid_for_public($info)
+    {
+        if($info['taxonSelector'] || $info['wktString'] || $info['traitSelector'] || $info['status'] || $info['recordCount']) return true; //at least one with value
+        else return false;    
     }
     
     function process_uuid($uuid, $what = null)
@@ -233,20 +247,25 @@ class freshdata_controller extends other_controller
                     $final[$fields[$i]] = $val;
                     $i++;
                 }
-                if(!isset($final['uuid_archive']))
+                //=========================================
+                if($what != 'scistarter')
                 {
-                    $final = self::fill_up_main_monitor_fields($final, $uuid);
-                    echo "<br>passed 111<br>";
-                }
-                else
-                {
-                    if(!$final['uuid_archive']) 
+                    if(!isset($final['uuid_archive']))
                     {
                         $final = self::fill_up_main_monitor_fields($final, $uuid);
-                        echo "<br>passed 222<br>";
+                        echo "<br>passed 111<br>";
                     }
-                    // else echo "<hr>filled-up OK<hr>";
+                    else
+                    {
+                        if(!$final['uuid_archive']) 
+                        {
+                            $final = self::fill_up_main_monitor_fields($final, $uuid);
+                            echo "<br>passed 222<br>";
+                        }
+                        // else echo "<hr>filled-up OK<hr>";
+                    }
                 }
+                //=========================================
             }
             else
             {
