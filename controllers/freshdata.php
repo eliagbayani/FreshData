@@ -19,6 +19,10 @@ class freshdata_controller extends other_controller
         // */
 
         // $this->monitors_api['all']          = "http://localhost/FreshData/database/archive/monitors.json";
+        // $this->monitors_api['one']          = "http://api.effechecka.org/zmonitors?uuid=";
+        // $this->monitors_api['id']           = "http://api.effechecka.org/zmonitors?id=";
+        // $this->monitors_api['source']       = "http://api.effechecka.org/zmonitors?source=";
+        // $this->monitors_api['id_source']    = "http://api.effechecka.org/zmonitors?id=id_val&source=source_val";
 
 
     }
@@ -165,6 +169,8 @@ class freshdata_controller extends other_controller
     
     function get_monitor_record($uuid)
     {
+        // exit("<br>111<br>");
+        
         $json = Functions::lookup_with_cache($this->monitors_api['one'].$uuid, $this->download_options);
         $monitor = json_decode($json, true);
         return $monitor;
@@ -227,10 +233,18 @@ class freshdata_controller extends other_controller
                     $final[$fields[$i]] = $val;
                     $i++;
                 }
-                if(!isset($final['uuid_archive'])) $final = self::fill_up_main_monitor_fields($final, $uuid);
+                if(!isset($final['uuid_archive']))
+                {
+                    $final = self::fill_up_main_monitor_fields($final, $uuid);
+                    echo "<br>passed 111<br>";
+                }
                 else
                 {
-                    if(!$final['uuid_archive']) $final = self::fill_up_main_monitor_fields($final, $uuid);
+                    if(!$final['uuid_archive']) 
+                    {
+                        $final = self::fill_up_main_monitor_fields($final, $uuid);
+                        echo "<br>passed 222<br>";
+                    }
                     // else echo "<hr>filled-up OK<hr>";
                 }
             }

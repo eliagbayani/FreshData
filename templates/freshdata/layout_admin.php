@@ -19,6 +19,7 @@
     <div id="tabs_main-3">Loading...</div>
     <div id="tabs_main-4"><?php require_once("layout_refresh.php") ?></div>
     <div id="tabs_main-5"><?php require_once("apicall.php") ?></div>
+    <div id="tabs_main-7">Loading...</div>
 </div>
 
 <?php 
