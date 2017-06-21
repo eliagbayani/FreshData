@@ -254,6 +254,10 @@ class freshdata_controller extends other_controller
                     {
                         $final = self::fill_up_main_monitor_fields($final, $uuid);
                         echo "<br>passed 111<br>";
+
+                        //these 2 lines are needed to save to text file the main monitor fields, also when txt's are newly pasted in /database/uuid/
+                        $final['uuid'] = $uuid;
+                        self::save_to_text($final);
                     }
                     else
                     {

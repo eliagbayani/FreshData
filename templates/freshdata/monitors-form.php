@@ -45,6 +45,7 @@ else                           $str .= " | Monitors Manual Mode";
             </div>
 
             <div id="tabs-2">
+                <span id = "login_form2">
                 <table>
                 <tr><td colspan="2"><hr><b>Archive Info:</b><hr></td></tr>
                 <?php
@@ -58,6 +59,8 @@ else                           $str .= " | Monitors Manual Mode";
                 ?>
                 </table>
                 <?php require_once("templates/freshdata/monitor-delete.php"); ?>
+                </span>
+                <div id="stage2" style = "background-color:white;"></div>
             </div>
         
         </div>

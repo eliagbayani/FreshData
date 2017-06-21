@@ -42,7 +42,7 @@ $(document).ready(function() {
 });
 </script>
 
-<span id = "login_form2">
+<!---<span id = "login_form2">--->
   <input type="hidden" id="uuid_archive"            value="<?php echo $rec_from_text['uuid_archive'] ?>" />
   <input type="hidden" id="Taxa"                    value="" />
   <input type="hidden" id="Status"                  value="" />
@@ -56,7 +56,8 @@ $(document).ready(function() {
   <input type="hidden" id="Training_materials"      value="" />
   <input type="hidden" id="Contact"                 value="" />
   <input type="hidden" id="uuid"                    value="<?php echo $uuid ?>">
-  <button id="driver2" type="submit">Delete</button>
-  <a href="javascript:history.go(-1)">Cancel</a>
-</span>
-<div id="stage2" style = "background-color:white;"></div>
+  <hr>
+  <button id="driver2" type="submit">Delete this monitor</button>
+  &nbsp;<a href="javascript:history.go(-1)">Cancel</a>
+<!---</span>--->
+<!---<div id="stage2" style = "background-color:white;"></div>--->
