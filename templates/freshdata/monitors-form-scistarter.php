@@ -19,30 +19,42 @@ else                           $str .= " | Monitors Manual Mode";
 <div id="accordion_open2">
     <h3><?php echo $str ?></h3>
     <div>
-        <table>
-            <tr>
-            <?php
-            if($params['monitorAPI'] == 1)
-            {
-               ?>
-               <td>uuid:</td>      <td id="value"><?php echo $monitor['selector']['uuid'] ?></td>
-               <td>Taxa:</td>      <td id="value"><?php echo $monitor['selector']['taxonSelector'] ?></td>
-               <td>Status:</td>    <td id="value"><?php echo @$monitor['status'] ?></td>
-               <td>Records:</td>   <td id="value"><?php echo number_format($monitor['recordCount']) ?></td>
-               <?php
-            }
-            else
-            {
-                ?>
-                <td>uuid:</td>      <td id="value"><?php echo $rec_from_text1['uuid_archive'] ?></td>
-                <td>Taxa:</td>      <td id="value"><?php echo $rec_from_text1['Taxa'] ?></td>
-                <td>Status:</td>    <td id="value"><?php echo $rec_from_text1['Status'] ?></td>
-                <td>Records:</td>   <td id="value"><?php echo number_format($rec_from_text1['Records']) ?></td>
+        
+        <div id="accordion">
+            <h3>Show Monitor record</h3>
+            <div>
                 <?php
-            }
-            ?>
-            </tr>
-        </table>
+                if($params['monitorAPI'] == 1)
+                {
+                   ?>
+                   <table>
+                       <tr><td>uuid:</td>           <td id="value"><?php echo $monitor['selector']['uuid'] ?></td></tr>
+                       <tr><td>Taxa:</td>           <td id="value"><?php echo $monitor['selector']['taxonSelector'] ?></td></tr>
+                       <tr><td>Status:</td>         <td id="value"><?php echo @$monitor['status'] ?></td></tr>
+                       <tr><td>Records:</td>        <td id="value"><?php echo number_format($monitor['recordCount']) ?></td></tr>
+                       <tr><td>Trait selector:</td> <td id="value"><?php echo $monitor['selector']['traitSelector'] ?></td></tr>
+                       <tr><td>String:</td>         <td id="value"><?php echo $monitor['selector']['wktString'] ?></td></tr>
+                   </table>
+                   <?php
+                }
+                else
+                {
+                    ?>
+                    <table>
+                        <tr><td>uuid:</td>           <td id="value"><?php echo $rec_from_text1['uuid_archive'] ?></td></tr>
+                        <tr><td>Taxa:</td>           <td id="value"><?php echo $rec_from_text1['Taxa'] ?></td></tr>
+                        <tr><td>Status:</td>         <td id="value"><?php echo $rec_from_text1['Status'] ?></td></tr>
+                        <tr><td>Records:</td>        <td id="value"><?php echo number_format($rec_from_text1['Records']) ?></td></tr>
+                        <tr><td>Trait selector:</td> <td id="value"><?php echo $rec_from_text1['Trait_selector'] ?></td></tr>
+                        <tr><td>String:</td>         <td id="value"><?php echo $rec_from_text1['String'] ?></td></tr>
+                    </table>
+                    <?php
+                }
+                ?>
+            </div>
+        </div>
+        
+        
         <?php
         require_once("templates/freshdata/monitor-update-scistarter.php");
         ?>

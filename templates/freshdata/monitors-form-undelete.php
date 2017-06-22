@@ -36,6 +36,8 @@ else                           $str .= " | Monitors Manual Mode";
                 <li><a href="#tabs-1">Add</a></li>
             </ul>
             <div id="tabs-0">
+                <?php require("templates/freshdata/monitor-orig-api-data.php"); ?>
+                
                 <span id = "login_form2">
                 <table>
                 <tr><td colspan="2"><hr><b>Archive Info:</b><hr></td></tr>
