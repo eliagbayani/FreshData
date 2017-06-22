@@ -82,6 +82,10 @@ class freshdata_controller extends other_controller
                 {
                     if(self::valid_for_public($info)) $recs[] = $info;
                 }
+                elseif($params['view_type'] == 'delRecs')
+                {
+                    if(self::valid_for_deleted_recs($info)) $recs[] = $info;
+                }
                 else $recs[] = $info;
             }
             elseif($params['monitorAPI'] == 0) //unhooked

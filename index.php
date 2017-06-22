@@ -47,7 +47,9 @@ if(!isset($params['monitorAPI'])) $params['monitorAPI'] = 0; //defaults to unhoo
 
 if(isset($params['scistarter']))              require_once("templates/freshdata/layout3.php");
 elseif(isset($params['contact_name']))        require_once("templates/freshdata/layout3.php");
-elseif(isset($params['uuid']))                require_once("templates/freshdata/layout2.php");
+elseif(isset($params['uuid']) && @$params['view_type'] == 'admin') require_once("templates/freshdata/layout2.php");
+elseif(isset($params['uuid']) && @$params['view_type'] == 'delRecs') require_once("templates/freshdata/layout4.php");
+
 elseif(@$params['view_type'] == 'admin')      require_once("templates/freshdata/layout_admin.php");
 elseif(@$params['view_type'] == 'scistarter') require_once("templates/freshdata/layout_scistarter.php");
 elseif(@$params['view_type'] == 'delRecs')    require_once("templates/freshdata/layout_delRecs.php");
@@ -88,6 +90,7 @@ require_once("config/script-below-entry.html");
 //for layout
 if(@$params['view_type'] == 'admin')            print '<script>$( "#tabs_main" ).tabs( "option", "active", 1 );</script>';
 elseif(@$params['view_type'] == 'scistarter')   print '<script>$( "#tabs_main" ).tabs( "option", "active", 2 );</script>';
+elseif(isset($params['uuid']) && @$params['view_type'] == 'delRecs') print '<script>$( "#tabs_main" ).tabs( "option", "active", 1 );</script>'; //layout4.php
 elseif(@$params['view_type'] == 'delRecs')      print '<script>$( "#tabs_main" ).tabs( "option", "active", 7 );</script>'; //layout_delRecs.php
 elseif(isset($params['contact_name']))          print '<script>$( "#tabs_main" ).tabs( "option", "active", 1 );</script>'; //layout3.php
 elseif(isset($params['uuid']))                  print '<script>$( "#tabs_main" ).tabs( "option", "active", 1 );</script>';

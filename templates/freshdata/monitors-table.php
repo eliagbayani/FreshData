@@ -119,6 +119,7 @@ if($view_type == 'admin' || $view_type == 'delRecs')
     <form id="myform<?php echo $table_id ?>" action="index.php" method="post" enctype="multipart/form-data" <?php if($group == "xxx") echo "target=\"_blank\"" ?>>
     <input type="hidden" name="uuid"  value="1" id="uuid<?php echo $table_id ?>">
     <input type="hidden" name="monitorAPI"  value="<?php echo $params['monitorAPI'] ?>" id="monitorAPI<?php echo $table_id ?>">
+    <input type="hidden" name="view_type"  value="<?php echo $params['view_type'] ?>" id="view_type<?php echo $table_id ?>">
     </form>
     <?php
 }
