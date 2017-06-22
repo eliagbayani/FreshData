@@ -106,6 +106,10 @@ class freshdata_controller extends other_controller
                 {
                     if(self::valid_for_public($info)) $recs[] = $info;
                 }
+                elseif($params['view_type'] == 'delRecs')
+                {
+                    if(self::valid_for_deleted_recs($info)) $recs[] = $info;
+                }
                 else $recs[] = $info;
             }
             
@@ -172,6 +176,13 @@ class freshdata_controller extends other_controller
         if($info['taxonSelector'] || $info['wktString'] || $info['traitSelector'] || $info['status'] || $info['recordCount']) return true; //at least one with value
         else return false;    
     }
+
+    private function valid_for_deleted_recs($info)
+    {
+        if(!$info['taxonSelector'] && !$info['wktString'] && !$info['traitSelector'] && !$info['status'] && !$info['recordCount']) return true; //at least one with value
+        else return false;    
+    }
+
     
     function process_uuid($uuid, $what = null)
     {
@@ -265,7 +276,7 @@ class freshdata_controller extends other_controller
                         {
                             $final = self::fill_up_main_monitor_fields($final, $uuid);
                             echo "<pre>"; print_r($final); echo "</pre>";
-                            echo "<br>passed 222<br>";
+                            echo "<br>passed 222 [$uuid]<br>";
                             
                             //these 2 lines are needed to save to text file the main monitor fields, also is needed when un-deleting record; that is when saving with blank uuid
                             $final['uuid'] = $uuid;

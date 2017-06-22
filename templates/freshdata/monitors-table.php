@@ -42,10 +42,10 @@ tfoot input {
             <th>Description</th>
             <th>URL</th>
             
-            <?php if(in_array($view_type, array("public", "admin"))) echo "<th>Training materials</th>" ?>
+            <?php if(in_array($view_type, array("public", "admin", "delRecs"))) echo "<th>Training materials</th>" ?>
             <?php if(in_array($view_type, array("scistarter"))) echo "<th>SciStarter Project ID</th>" ?>
 
-            <?php if(in_array($view_type, array("public", "admin"))) echo "<th>Contact</th>" ?>
+            <?php if(in_array($view_type, array("public", "admin", "delRecs"))) echo "<th>Contact</th>" ?>
             <?php if(in_array($view_type, array("scistarter"))) echo "<th>SciStarter Project Name</th>" ?>
 
             <th style="display:none">uuid</th>
@@ -63,10 +63,10 @@ tfoot input {
             <th>Description</th>
             <th>URL</th>
 
-            <?php if(in_array($view_type, array("public", "admin"))) echo "<th>Training materials</th>" ?>
+            <?php if(in_array($view_type, array("public", "admin", "delRecs"))) echo "<th>Training materials</th>" ?>
             <?php if(in_array($view_type, array("scistarter"))) echo "<th>SciStarter Project ID</th>" ?>
 
-            <?php if(in_array($view_type, array("public", "admin"))) echo "<th>Contact</th>" ?>
+            <?php if(in_array($view_type, array("public", "admin", "delRecs"))) echo "<th>Contact</th>" ?>
             <?php if(in_array($view_type, array("scistarter"))) echo "<th>SciStarter Project Name</th>" ?>
             
             <th style="display:none">uuid</th>
@@ -95,10 +95,10 @@ tfoot input {
                     <td><?php echo $rek['Description'] ?></td>
                     <td><?php echo $rek['URL'] ?></td>
 
-                    <?php if(in_array($view_type, array("public", "admin"))) echo "<td>".$rek['Training_materials']."</td>" ?>
+                    <?php if(in_array($view_type, array("public", "admin", "delRecs"))) echo "<td>".$rek['Training_materials']."</td>" ?>
                     <?php if(in_array($view_type, array("scistarter"))) echo "<td>".self::get_field_value($r['uuid'], "ProjectID", "scistarter")."</td>" ?>
 
-                    <?php if(in_array($view_type, array("public", "admin"))) echo "<td>".$rek['Contact']."</td>" ?>
+                    <?php if(in_array($view_type, array("public", "admin", "delRecs"))) echo "<td>".$rek['Contact']."</td>" ?>
                     <?php if(in_array($view_type, array("scistarter"))) echo "<td>".self::get_field_value($r['uuid'], "name", "scistarter")."</td>" ?>
 
                     <td style="display:none"><?php echo $r['uuid'] ?></td>
@@ -113,7 +113,7 @@ tfoot input {
 </table>
 
 <?php
-if($view_type == 'admin')
+if($view_type == 'admin' || $view_type == 'delRecs')
 {
     ?>
     <form id="myform<?php echo $table_id ?>" action="index.php" method="post" enctype="multipart/form-data" <?php if($group == "xxx") echo "target=\"_blank\"" ?>>
@@ -224,7 +224,7 @@ function myFunction<?php echo $table_id ?>(uuid, taxonSelector, traitSelector, w
     // spinner_on();
     
     <?php
-    if($view_type == 'admin')
+    if($view_type == 'admin' || $view_type == 'delRecs')
     {
         ?>
         document.getElementById("uuid<?php echo $table_id ?>").value = uuid;
