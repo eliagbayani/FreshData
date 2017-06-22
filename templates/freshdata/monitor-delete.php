@@ -5,13 +5,6 @@ $(document).ready(function() {
     $('.help-block2').remove(); // remove the error text
 
     var uuid = $("#uuid").val();
-    /*
-    var Title = $("#Title").val();
-    var Description = $("#Description").val();
-    var URL = $("#URL").val();
-    var Training_materials = $("#Training_materials").val();
-    var Contact = $("#Contact").val();
-    */
     var Title = "";
     var Description = "";
     var URL = "";
@@ -19,19 +12,11 @@ $(document).ready(function() {
     var Contact = "";
     
     var uuid_archive = $("#uuid_archive").val();
-    /*
-    var Taxa = $("#Taxa").val();
-    var Status = $("#Status").val();
-    var Records = $("#Records").val();
-    var Trait_selector = $("#Trait_selector").val();
-    var String = $("#String").val();
-    */
     var Taxa = "";
     var Status = "";
     var Records = "";
     var Trait_selector = "";
     var String = "";
-    
     
     $("#stage2").load('templates/freshdata/monitor-delete-confirm.php', {"uuid":uuid, "Title":Title, "Description":Description, "URL":URL, "Training_materials":Training_materials, "Contact":Contact, 
                                                               "uuid_archive":uuid_archive, "Taxa":Taxa, "Status":Status, "Records":Records, "Trait_selector":Trait_selector, "String":String} );
@@ -44,6 +29,7 @@ $(document).ready(function() {
 
 <!---<span id = "login_form2">--->
   <input type="hidden" id="uuid_archive"            value="<?php echo $rec_from_text['uuid_archive'] ?>" />
+  <!--- not needed anymore...
   <input type="hidden" id="Taxa"                    value="" />
   <input type="hidden" id="Status"                  value="" />
   <input type="hidden" id="Records"                 value="" />
@@ -55,6 +41,7 @@ $(document).ready(function() {
   <input type="hidden" id="URL"                     value="" />
   <input type="hidden" id="Training_materials"      value="" />
   <input type="hidden" id="Contact"                 value="" />
+  --->
   <input type="hidden" id="uuid"                    value="<?php echo $uuid ?>">
   <hr>
   <button id="driver2" type="submit">Delete this monitor</button>

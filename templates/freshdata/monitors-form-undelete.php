@@ -49,7 +49,7 @@ else                           $str .= " | Monitors Manual Mode";
                 foreach($fields as $field) echo "<tr><td>$field:</td><td id='value'>".$rec_from_text[$field]."</td></tr>";
                 ?>
                 </table>
-                <?php require_once("templates/freshdata/monitor-delete.php"); ?>
+                <?php require_once("templates/freshdata/monitor-undelete.php"); ?>
                 </span>
                 <div id="stage2" style = "background-color:white;"></div>
             </div>

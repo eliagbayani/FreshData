@@ -11,8 +11,9 @@ sleep(1);
 
 if($ctrler->save_to_text($params))
 {
-    $ctrler->display_message(array('type' => "highlight", 'msg' => "Record has been successfully deleted."));
+    $ctrler->display_message(array('type' => "highlight", 'msg' => "Record has been successfully un-deleted."));
     ?>
+    <!---
     <table>
     <tr><td colspan="2"><hr><b>Archive Info:</b><hr></td></tr>
     <?php
@@ -29,6 +30,7 @@ if($ctrler->save_to_text($params))
     <tr><td>Training materials:</td> <td id="value"><?php echo $params['Training_materials'] ?></td></tr>
     <tr><td>Contact:</td>            <td id="value"><?php echo $params['Contact']            ?></td></tr>
     </table>
+    --->
     <?php
 }
 ?>

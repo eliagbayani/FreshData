@@ -106,7 +106,7 @@ class freshdata_controller extends other_controller
                 {
                     if(self::has_title_desc_url($rec_from_text['uuid_archive'])) $recs[] = $info;
                 }
-                elseif($params['view_type'] == 'public')
+                elseif($params['view_type'] == 'public' || $params['view_type'] == 'admin')
                 {
                     if(self::valid_for_public($info)) $recs[] = $info;
                 }
