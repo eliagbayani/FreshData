@@ -36,21 +36,26 @@ else                           $str .= " | Monitors Manual Mode";
                 <li><a href="#tabs-1">Add</a></li>
             </ul>
             <div id="tabs-0">
+                <hr><b>This will un-delete this monitor by retrieving cached API data.</b><hr>
                 <?php require("templates/freshdata/monitor-orig-api-data.php"); ?>
                 
                 <span id = "login_form2">
+                
                 <table>
                 <tr><td colspan="2"><hr><b>Archive Info:</b><hr></td></tr>
                 <?php
                 $fields = array("uuid_archive", "Taxa", "Status", "Records", "Trait_selector", "String");
                 foreach($fields as $field) echo "<tr><td>$field:</td><td id='value'>".$rec_from_text[$field]."</td></tr>";
                 ?>
+                <!---
                 <tr><td colspan="2"><hr><b>Additional Fields:</b><hr></td></tr>
                 <?php
                 $fields = array("Title", "Description", "URL", "Training_materials", "Contact");
                 foreach($fields as $field) echo "<tr><td>$field:</td><td id='value'>".$rec_from_text[$field]."</td></tr>";
                 ?>
+                --->
                 </table>
+                
                 <?php require_once("templates/freshdata/monitor-undelete.php"); ?>
                 </span>
                 <div id="stage2" style = "background-color:white;"></div>
