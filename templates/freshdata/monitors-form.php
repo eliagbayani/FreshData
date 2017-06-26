@@ -53,7 +53,13 @@ else                           $str .= " | Monitors Manual Mode";
                 <table>
                 
                 <?php
-                if(self::manually_added_monitor($uuid)) self::display_message(array('type' => "error", 'msg' => "Since this is a manually added monitor, deletion is permanent. There is no 'un-delete' for these type of monitors."));
+                if(self::manually_added_monitor($uuid)) self::display_message(array('type' => "error", 'msg' => "Since this is a manually added monitor, deletion is permanent. There is no 'un-delete' for manually added monitors."));
+                else 
+                {
+                    self::display_message(array('type' => "highlight", 'msg' => "Originally API-driven monitors can still be retrieved once deleted."));
+                    self::display_message(array('type' => "highlight", 'msg' => "Go to: Admin Page -> Admin: Deleted Records -> Choose a record -> Click 'Un-delete' button"));
+                    
+                }
                 ?>
                 
                 <tr><td colspan="2"><hr><b>Archive Info:</b><hr></td></tr>

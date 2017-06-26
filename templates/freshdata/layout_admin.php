@@ -11,7 +11,7 @@
         if($params['monitorAPI'] == 1) echo '<li><a onClick="tab7_clicked()" href="#tabs_main-7">Monitors Manual mode ››</a></li>';
         else                           echo '<li><a onClick="tab7_clicked()" href="#tabs_main-7">Monitors API mode ››</a></li>';
         ?>
-        <li><a onClick="tab8_clicked()" href="#tabs_main-8">Admin Deleted Records ››</a></li>
+        <li><a onClick="tab8_clicked()" href="#tabs_main-8">Admin: Deleted Records ››</a></li>
         
     </ul>
     <div id="tabs_main-1">Loading...</div>

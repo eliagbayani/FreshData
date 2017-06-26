@@ -21,7 +21,7 @@ $(document).ready(function() {
     
     if(!Taxa_a && !String_a)
     {
-        $('#stage_add').append('<div id="memo" class="help-block">Taxa and String cannot be both blank.</div>');
+        $('#stage_add').append('<div id="memo" class="help-block">Taxa and String cannot be both blank. One or both must have an entry.</div>');
         return;
     }
     
