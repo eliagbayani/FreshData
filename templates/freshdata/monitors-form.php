@@ -51,6 +51,11 @@ else                           $str .= " | Monitors Manual Mode";
             <div id="tabs-2">
                 <span id = "login_form2">
                 <table>
+                
+                <?php
+                if(self::manually_added_monitor($uuid)) self::display_message(array('type' => "error", 'msg' => "Since this is a manually added monitor, deletion is permanent. There is no 'un-delete' for these type of monitors."));
+                ?>
+                
                 <tr><td colspan="2"><hr><b>Archive Info:</b><hr></td></tr>
                 <?php
                 $fields = array("uuid_archive", "Taxa", "Status", "Records", "Trait_selector", "String");
