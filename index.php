@@ -27,7 +27,7 @@ $(window).load(function () { $("#loadOverlay").css("display","none"); });
 <?php
 // echo "<pre>"; print_r($_COOKIE); echo "</pre>";
 
-if(in_array(@$params['view_type'], array('admin', 'scistarter', 'delRecs')))
+if(in_array(@$params['view_type'], array('admin', 'scistarter', 'delRecs', 'manRecs')))
 {
     if(!$ctrler->user_is_logged_in_wiki($params['view_type'])) return;
 }
@@ -49,10 +49,13 @@ if(isset($params['scistarter']))              require_once("templates/freshdata/
 elseif(isset($params['contact_name']))        require_once("templates/freshdata/layout3.php");
 elseif(isset($params['uuid']) && @$params['view_type'] == 'admin') require_once("templates/freshdata/layout2.php");
 elseif(isset($params['uuid']) && @$params['view_type'] == 'delRecs') require_once("templates/freshdata/layout4.php");
+elseif(isset($params['uuid']) && @$params['view_type'] == 'manRecs') require_once("templates/freshdata/layout5.php");
 
 elseif(@$params['view_type'] == 'admin')      require_once("templates/freshdata/layout_admin.php");
 elseif(@$params['view_type'] == 'scistarter') require_once("templates/freshdata/layout_scistarter.php");
 elseif(@$params['view_type'] == 'delRecs')    require_once("templates/freshdata/layout_delRecs.php");
+elseif(@$params['view_type'] == 'manRecs')    require_once("templates/freshdata/layout_manRecs.php");
+
 elseif(isset($params['api_call']))            require_once("templates/freshdata/layout_apicall.php");
 elseif(@$params['view_type'] == 'public')     require_once("templates/freshdata/layout_public.php"); //default
 else
@@ -90,8 +93,14 @@ require_once("config/script-below-entry.html");
 //for layout
 if(@$params['view_type'] == 'admin')            print '<script>$( "#tabs_main" ).tabs( "option", "active", 1 );</script>';
 elseif(@$params['view_type'] == 'scistarter')   print '<script>$( "#tabs_main" ).tabs( "option", "active", 2 );</script>';
+
 elseif(isset($params['uuid']) && @$params['view_type'] == 'delRecs') print '<script>$( "#tabs_main" ).tabs( "option", "active", 1 );</script>'; //layout4.php
+elseif(isset($params['uuid']) && @$params['view_type'] == 'manRecs') print '<script>$( "#tabs_main" ).tabs( "option", "active", 1 );</script>'; //layout5.php
+
 elseif(@$params['view_type'] == 'delRecs')      print '<script>$( "#tabs_main" ).tabs( "option", "active", 7 );</script>'; //layout_delRecs.php
+elseif(@$params['view_type'] == 'manRecs')      print '<script>$( "#tabs_main" ).tabs( "option", "active", 8 );</script>'; //layout_manRecs.php
+
+
 elseif(isset($params['contact_name']))          print '<script>$( "#tabs_main" ).tabs( "option", "active", 1 );</script>'; //layout3.php
 elseif(isset($params['uuid']))                  print '<script>$( "#tabs_main" ).tabs( "option", "active", 1 );</script>';
 elseif(isset($params['api_call']))              print '<script>$( "#tabs_main" ).tabs( "option", "active", 4 );</script>';

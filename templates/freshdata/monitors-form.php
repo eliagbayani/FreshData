@@ -53,29 +53,35 @@ else                           $str .= " | Monitors Manual Mode";
                 <table>
                 
                 <?php
-                if(self::manually_added_monitor($uuid)) self::display_message(array('type' => "error", 'msg' => "Since this is a manually added monitor, deletion is permanent. There is no 'un-delete' for manually added monitors."));
-                else 
+                if(self::has_scistarter_project_name($uuid)) self::display_message(array('type' => "error", 'msg' => "Cannot delete because it is used in SciStarter."));
+                else
                 {
-                    self::display_message(array('type' => "highlight", 'msg' => "Originally API-driven monitors can still be retrieved once deleted."));
-                    self::display_message(array('type' => "highlight", 'msg' => "Go to: Admin Page -> Admin: Deleted Records -> Choose a record -> Click 'Un-delete' button"));
-                    
+                    if(self::manually_added_monitor($uuid)) self::display_message(array('type' => "error", 'msg' => "Since this is a manually added monitor, deletion is permanent. There is no 'un-delete' for manually added monitors."));
+                    else 
+                    {
+                        self::display_message(array('type' => "highlight", 'msg' => "Original API-driven monitors can still be retrieved once deleted."));
+                        self::display_message(array('type' => "highlight", 'msg' => "Go to: Admin Page -> Admin: Deleted Records -> Choose a record -> Click 'Un-delete' button"));
+                    }
+                    ?>
+
+                    <tr><td colspan="2"><hr><b>Archive Info:</b><hr></td></tr>
+                    <?php
+                    $fields = array("uuid_archive", "Taxa", "Status", "Records", "Trait_selector", "String");
+                    foreach($fields as $field) echo "<tr><td>$field:</td><td id='value'>".$rec_from_text[$field]."</td></tr>";
+                    ?>
+                    <tr><td colspan="2"><hr><b>Additional Fields:</b><hr></td></tr>
+                    <?php
+                    $fields = array("Title", "Description", "URL", "Training_materials", "Contact");
+                    foreach($fields as $field) echo "<tr><td>$field:</td><td id='value'>".$rec_from_text[$field]."</td></tr>";
+                    ?>
+                    </table>
+                    <?php require_once("templates/freshdata/monitor-delete.php"); ?>
+                    </span>
+                    <div id="stage2" style = "background-color:white;"></div>
+                    <?php
                 }
                 ?>
                 
-                <tr><td colspan="2"><hr><b>Archive Info:</b><hr></td></tr>
-                <?php
-                $fields = array("uuid_archive", "Taxa", "Status", "Records", "Trait_selector", "String");
-                foreach($fields as $field) echo "<tr><td>$field:</td><td id='value'>".$rec_from_text[$field]."</td></tr>";
-                ?>
-                <tr><td colspan="2"><hr><b>Additional Fields:</b><hr></td></tr>
-                <?php
-                $fields = array("Title", "Description", "URL", "Training_materials", "Contact");
-                foreach($fields as $field) echo "<tr><td>$field:</td><td id='value'>".$rec_from_text[$field]."</td></tr>";
-                ?>
-                </table>
-                <?php require_once("templates/freshdata/monitor-delete.php"); ?>
-                </span>
-                <div id="stage2" style = "background-color:white;"></div>
             </div>
         
         </div>

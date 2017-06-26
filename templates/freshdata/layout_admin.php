@@ -12,6 +12,8 @@
         else                           echo '<li><a onClick="tab7_clicked()" href="#tabs_main-7">Monitors API mode ››</a></li>';
         ?>
         <li><a onClick="tab8_clicked()" href="#tabs_main-8">Admin: Deleted Records ››</a></li>
+        <li><a onClick="tab9_clicked()" href="#tabs_main-9">Admin: Manually-added Records ››</a></li>
+        
         
     </ul>
     <div id="tabs_main-1">Loading...</div>
@@ -22,6 +24,8 @@
     <div id="tabs_main-5"><?php require_once("apicall.php") ?></div>
     <div id="tabs_main-7">Loading...</div>
     <div id="tabs_main-8">Loading...</div>
+    <div id="tabs_main-9">Loading...</div>
+    
 </div>
 
 <?php 
@@ -30,6 +34,7 @@
     $scistarter = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=scistarter&monitorAPI=".$params['monitorAPI'];
     $api = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?api_call=";
     $admin_delrecs = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=delRecs&monitorAPI=".$params['monitorAPI'];
+    $admin_manrecs = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=manRecs&monitorAPI=".$params['monitorAPI'];
     if($params['monitorAPI'] == 0) $admin_unhooked = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=admin&monitorAPI=1";
     else                           $admin_unhooked = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=admin&monitorAPI=0";
 ?>
@@ -39,6 +44,8 @@ function tab1_clicked() { location.href = '<?php echo $public ?>'; }
 function tab6_clicked() { location.href = '<?php echo $scistarter ?>'; }
 function tab7_clicked() { location.href = '<?php echo $admin_unhooked ?>'; }
 function tab8_clicked() { location.href = '<?php echo $admin_delrecs ?>'; }
+function tab9_clicked() { location.href = '<?php echo $admin_manrecs ?>'; }
+
 /* working but not used atm.
 function tab5_clicked() { location.href = '<?php echo $api ?>'; }
 */

@@ -147,6 +147,10 @@ class freshdata_controller extends other_controller
                 {
                     if(self::valid_for_deleted_recs($info)) $recs[] = $info;
                 }
+                elseif($params['view_type'] == 'manRecs')
+                {
+                    if(self::valid_for_manual_recs($info)) $recs[] = $info;
+                }
                 else $recs[] = $info;
             }
             elseif($params['monitorAPI'] == 0) //unhooked
@@ -174,6 +178,10 @@ class freshdata_controller extends other_controller
                 elseif($params['view_type'] == 'delRecs')
                 {
                     if(self::valid_for_deleted_recs($info)) $recs[] = $info;
+                }
+                elseif($params['view_type'] == 'manRecs')
+                {
+                    if(self::valid_for_manual_recs($info)) $recs[] = $info;
                 }
                 else $recs[] = $info;
             }
@@ -236,6 +244,14 @@ class freshdata_controller extends other_controller
         return false;
     }
     
+    function has_scistarter_project_name($uuid)
+    {
+        $rec = self::get_text_file_value($uuid, "scistarter");
+        // echo"<pre>"; print_r($rec); echo"</pre>";
+        if($rec['name'] && $rec['contact_name']) return true;
+        else return false;
+    }
+    
     private function valid_for_public($info)
     {
         if($info['taxonSelector'] || $info['wktString'] || $info['traitSelector'] || $info['status'] || $info['recordCount']) return true; //at least one with value
@@ -248,7 +264,12 @@ class freshdata_controller extends other_controller
         else return false;    
     }
 
-    
+    private function valid_for_manual_recs($info)
+    {
+        if(self::manually_added_monitor($info['uuid'])) return true;
+        else return false;
+    }
+
     function process_uuid($uuid, $what = null)
     {
         self::create_text_file_if_does_not_exist($uuid, $what);
@@ -341,7 +362,7 @@ class freshdata_controller extends other_controller
                         {
                             $final = self::fill_up_main_monitor_fields($final, $uuid);
                             // echo "<pre>"; print_r($final); echo "</pre>";
-                            echo "<br>passed 222 [$uuid]<br>";
+                            // echo "<br>passed 222 [$uuid]<br>";
                             
                             //these 2 lines are needed to save to text file the main monitor fields, also is needed when un-deleting record; that is when saving with blank uuid
                             $final['uuid'] = $uuid;

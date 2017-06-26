@@ -36,7 +36,12 @@ else                           $str .= " | Monitors Manual Mode";
                 <li><a href="#tabs-1">Add</a></li>
             </ul>
             <div id="tabs-0">
+                <!---
                 <hr><b>This will un-delete this monitor by retrieving cached API data.</b><hr>
+                --->
+                <?php
+                self::display_message(array('type' => "highlight", 'msg' => "This will un-delete this monitor by retrieving cached API data."));
+                ?>
                 <?php require("templates/freshdata/monitor-orig-api-data.php"); ?>
                 
                 <span id = "login_form2">
