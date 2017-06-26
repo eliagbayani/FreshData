@@ -1,5 +1,6 @@
 /database/uuid/*
 /database/uuid
 /database/scistarter/*
+/database/manually_added_monitors.txt
 
 

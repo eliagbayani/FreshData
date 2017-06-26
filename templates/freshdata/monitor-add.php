@@ -8,7 +8,7 @@ $(document).ready(function() {
     var uuid_a = $("#uuid_a").val();
     var Title_a = $("#Title_a").val();
     var Description_a = $("#Description_a").val();
-    var URL = $("#URL").val();
+    var URL_a = $("#URL_a").val();
     var Training_materials_a = $("#Training_materials_a").val();
     var Contact_a = $("#Contact_a").val();
     
@@ -19,16 +19,16 @@ $(document).ready(function() {
     var Trait_selector_a = $("#Trait_selector_a").val();
     var String_a = $("#String_a").val();
     
-    if(URL)
+    if(URL_a)
     {
-        if(!validateURL(URL))
+        if(!validateURL(URL_a))
         {
             $('#stage_add').append('<div id="memo" class="help-block">Invalid URL</div>');
             return;
         }
     }
     
-    $("#stage_add").load('templates/freshdata/monitor-save-add.php', {"uuid":uuid_a, "Title":Title_a, "Description":Description_a, "URL":URL, "Training_materials":Training_materials_a, "Contact":Contact_a, 
+    $("#stage_add").load('templates/freshdata/monitor-save-add.php', {"uuid":uuid_a, "Title":Title_a, "Description":Description_a, "URL":URL_a, "Training_materials":Training_materials_a, "Contact":Contact_a, 
                                                               "uuid_archive":uuid_archive_a, "Taxa":Taxa_a, "Status":Status_a, "Records":Records_a, "Trait_selector":Trait_selector_a, "String":String_a} );
     $("#login_form_add").hide();
     $('#stage_add').append('<div class="help-block"><br>Saving, please wait...<br><br></div>'); // add the actual error message under our input
@@ -61,7 +61,7 @@ function validateURL(textval)
   <tr><td colspan="2"><hr><b>Additional Fields:</b><hr></td></tr>
   <tr><td>Title:</td>                   <td><input type = "text" id = "Title_a"               size = "100"  /></td></tr>
   <tr valign="top"><td>Description:</td><td valign="top"><textarea id="Description_a" rows="10" cols="100" name="Description_a"></textarea></td></tr>
-  <tr><td>URL:</td>                     <td><input type = "text"  id = "URL"                size = "100"  /></td></tr>
+  <tr><td>URL:</td>                     <td><input type = "text"  id = "URL_a"                size = "100"  /></td></tr>
   <tr><td>Training materials:</td>      <td><input type = "text" id = "Training_materials_a"  size = "100"  /></td></tr>
   <tr><td>Contact:</td>                 <td><input type = "text" id = "Contact_a"             size = "100"  /></td></tr>
 
