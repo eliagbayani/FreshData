@@ -47,6 +47,10 @@ class freshdata_controller extends other_controller
     }
     private function save_manually_added_ids_2text($manually_added_uuids)
     {
+        // $manually_added_uuids = array_filter($manually_added_uuids); //remove null arrays
+        $manually_added_uuids = array_values($manually_added_uuids); //reindex key
+        
+        
         $json = json_encode($manually_added_uuids);
         $filename = __DIR__ . "/../database/manually_added_monitors.txt"; //added extra ../ bec. curdir is inside templates/freshdata/
         $fn = fopen($filename, "w");
@@ -57,6 +61,12 @@ class freshdata_controller extends other_controller
     private function get_manually_added_uuids()
     {
         $filename = __DIR__ . "/../database/manually_added_monitors.txt"; //added extra ../ bec. curdir is inside templates/freshdata/
+        if(!file_exists($filename))
+        {
+            $fn = fopen($filename, "w");
+            // fwrite($fn, $json . "\n");
+            fclose($fn);
+        }
         $json = file_get_contents($filename);
         return json_decode($json, true);
     }
@@ -64,7 +74,10 @@ class freshdata_controller extends other_controller
     {
         $manually_added_uuids = self::get_manually_added_uuids();
         echo"<pre>"; print_r($manually_added_uuids); echo "</pre>";
-        foreach($manually_added_uuids as $uuid) $monitors[] = array("selector" => array("uuid" => $uuid));
+        if($manually_added_uuids)
+        {
+            foreach($manually_added_uuids as $uuid) $monitors[] = array("selector" => array("uuid" => $uuid));
+        }
         return $monitors;
     }
     function delete_manually_added_uuid($params)
@@ -79,7 +92,6 @@ class freshdata_controller extends other_controller
         $filename = __DIR__ . "/../" . self::get_uuid_text_file_path($params['uuid_archive']); //added extra ../ bec. curdir is inside templates/freshdata/
         unlink($filename);
         echo "<br>Deleted: [$filename]<br>";
-        
     }
     function monitors_list($params)
     {
