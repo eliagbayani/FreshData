@@ -38,6 +38,49 @@ class freshdata_controller extends other_controller
         }
     }
     
+    
+    function save_manually_added_uuid($uuid)
+    {
+        $manually_added_uuids = self::get_manually_added_uuids();
+        $manually_added_uuids[] = $uuid;
+        self::save_manually_added_ids_2text($manually_added_uuids);
+    }
+    private function save_manually_added_ids_2text($manually_added_uuids)
+    {
+        $json = json_encode($manually_added_uuids);
+        $filename = __DIR__ . "/../database/manually_added_monitors.txt"; //added extra ../ bec. curdir is inside templates/freshdata/
+        $fn = fopen($filename, "w");
+        fwrite($fn, $json . "\n");
+        fclose($fn);
+        
+    }
+    private function get_manually_added_uuids()
+    {
+        $filename = __DIR__ . "/../database/manually_added_monitors.txt"; //added extra ../ bec. curdir is inside templates/freshdata/
+        $json = file_get_contents($filename);
+        return json_decode($json, true);
+    }
+    private function get_manually_added_monitors($monitors)
+    {
+        $manually_added_uuids = self::get_manually_added_uuids();
+        echo"<pre>"; print_r($manually_added_uuids); echo "</pre>";
+        foreach($manually_added_uuids as $uuid) $monitors[] = array("selector" => array("uuid" => $uuid));
+        return $monitors;
+    }
+    function delete_manually_added_uuid($params)
+    {
+        $manually_added_uuids = self::get_manually_added_uuids();
+        echo"<pre>"; print_r($manually_added_uuids); echo "</pre>";
+        $manually_added_uuids = array_diff($manually_added_uuids, [$params['uuid_archive']]); //used to delete an array based on an array list of values
+        self::save_manually_added_ids_2text($manually_added_uuids);
+        echo"<pre>"; print_r($manually_added_uuids); echo "</pre>";
+        
+        // delete here the text file in /database/
+        $filename = __DIR__ . "/../" . self::get_uuid_text_file_path($params['uuid_archive']); //added extra ../ bec. curdir is inside templates/freshdata/
+        unlink($filename);
+        echo "<br>Deleted: [$filename]<br>";
+        
+    }
     function monitors_list($params)
     {
         $download_params = $this->download_options;
@@ -49,6 +92,9 @@ class freshdata_controller extends other_controller
         
         $json = Functions::lookup_with_cache($this->monitors_api['all'], $download_params);
         $monitors = json_decode($json, true);
+        //--------------
+        if($params['monitorAPI'] == 0) $monitors = self::get_manually_added_monitors($monitors); //unhooked
+        //--------------
         $recs = array();
         foreach($monitors as $m)
         {   /*
@@ -482,7 +528,8 @@ class freshdata_controller extends other_controller
     
     function create_guid()
     {
-        return "M-".sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
+        $tmp = "M-".sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
+        return strtolower($tmp);
     }
 
 }
