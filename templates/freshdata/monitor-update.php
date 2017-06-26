@@ -34,6 +34,12 @@ $(document).ready(function() {
     var Trait_selector = $("#Trait_selector").val();
     var String = $("#String").val();
     
+    if(!Taxa && !String)
+    {
+        $('#stage').append('<div id="memo" class="help-block">Taxa and String cannot be both blank.</div>');
+        return;
+    }
+    
     if(URL)
     {
         if(!validateURL(URL))

@@ -23,8 +23,6 @@ class freshdata_controller extends other_controller
         // $this->monitors_api['id']           = "http://api.effechecka.org/zmonitors?id=";
         // $this->monitors_api['source']       = "http://api.effechecka.org/zmonitors?source=";
         // $this->monitors_api['id_source']    = "http://api.effechecka.org/zmonitors?id=id_val&source=source_val";
-
-
     }
 
     function user_is_logged_in_wiki($view_type)
@@ -39,6 +37,11 @@ class freshdata_controller extends other_controller
     }
     
     
+    function manually_added_monitor($uuid)
+    {
+        if(substr($uuid,0,2) == "m-") return true;
+        return false;
+    }
     function save_manually_added_uuid($uuid)
     {
         $manually_added_uuids = self::get_manually_added_uuids();
@@ -83,15 +86,15 @@ class freshdata_controller extends other_controller
     function delete_manually_added_uuid($params)
     {
         $manually_added_uuids = self::get_manually_added_uuids();
-        echo"<pre>"; print_r($manually_added_uuids); echo "</pre>";
+        // echo"<pre>"; print_r($manually_added_uuids); echo "</pre>";
         $manually_added_uuids = array_diff($manually_added_uuids, [$params['uuid_archive']]); //used to delete an array based on an array list of values
         self::save_manually_added_ids_2text($manually_added_uuids);
-        echo"<pre>"; print_r($manually_added_uuids); echo "</pre>";
+        // echo"<pre>"; print_r($manually_added_uuids); echo "</pre>";
         
         // delete here the text file in /database/
         $filename = __DIR__ . "/../" . self::get_uuid_text_file_path($params['uuid_archive']); //added extra ../ bec. curdir is inside templates/freshdata/
         unlink($filename);
-        echo "<br>Deleted: [$filename]<br>";
+        // echo "<br>Deleted: [$filename]<br>";
     }
     function monitors_list($params)
     {
@@ -337,7 +340,7 @@ class freshdata_controller extends other_controller
                         if(!$final['uuid_archive']) 
                         {
                             $final = self::fill_up_main_monitor_fields($final, $uuid);
-                            echo "<pre>"; print_r($final); echo "</pre>";
+                            // echo "<pre>"; print_r($final); echo "</pre>";
                             echo "<br>passed 222 [$uuid]<br>";
                             
                             //these 2 lines are needed to save to text file the main monitor fields, also is needed when un-deleting record; that is when saving with blank uuid

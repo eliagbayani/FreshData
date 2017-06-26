@@ -2,7 +2,8 @@
 // echo "<pre>"; print_r($params); echo "</pre>";
 $uuid = $params['uuid'];
 $rec_from_text = self::process_uuid($uuid);
-$monitor = self::get_monitor_record($uuid);
+
+if(!self::manually_added_monitor($uuid)) $monitor = self::get_monitor_record($uuid);
 
 // echo "<pre>"; print_r($monitor); echo "</pre>";
 // echo "<pre>"; print_r($rec_from_text); echo "</pre>";
@@ -37,7 +38,9 @@ else                           $str .= " | Monitors Manual Mode";
                 <li><a href="#tabs-1">Create a new monitor</a></li>
             </ul>
             <div id="tabs-0">
-                <?php require("templates/freshdata/monitor-orig-api-data.php"); ?>
+                <?php 
+                if(!self::manually_added_monitor($uuid)) require("templates/freshdata/monitor-orig-api-data.php"); 
+                ?>
                 <?php require_once("templates/freshdata/monitor-update.php"); ?>
             </div>
 

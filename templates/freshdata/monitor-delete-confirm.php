@@ -12,7 +12,7 @@ sleep(1);
 if($ctrler->save_to_text($params))
 {
     $ctrler->display_message(array('type' => "highlight", 'msg' => "Record has been successfully deleted."));
-    if(substr($params['uuid_archive'],0,2) == "m-") $ctrler->delete_manually_added_uuid($params);
+    if($ctrler->manually_added_monitor($params['uuid_archive'])) $ctrler->delete_manually_added_uuid($params);
     ?>
     <table>
     <tr><td colspan="2"><hr><b>Archive Info:</b><hr></td></tr>
