@@ -60,7 +60,6 @@ else                           $str .= " | Monitors Manual Mode";
                     {
                         self::display_message(array('type' => "error", 'msg' => "Since this is a manually added monitor, deletion will be permanent. There is no 'un-delete' for manually added monitors."));
                         self::display_message(array('type' => "error", 'msg' => "You can print or write this down for reference so you can add it again if needed."));
-                        
                     }
                     else 
                     {
