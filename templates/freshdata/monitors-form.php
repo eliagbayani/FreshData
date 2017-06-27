@@ -56,7 +56,12 @@ else                           $str .= " | Monitors Manual Mode";
                 if(self::has_scistarter_project_name($uuid)) self::display_message(array('type' => "error", 'msg' => "Cannot delete because it is used in SciStarter."));
                 else
                 {
-                    if(self::manually_added_monitor($uuid)) self::display_message(array('type' => "error", 'msg' => "Since this is a manually added monitor, deletion is permanent. There is no 'un-delete' for manually added monitors."));
+                    if(self::manually_added_monitor($uuid))
+                    {
+                        self::display_message(array('type' => "error", 'msg' => "Since this is a manually added monitor, deletion will be permanent. There is no 'un-delete' for manually added monitors."));
+                        self::display_message(array('type' => "error", 'msg' => "You can print or write this down for reference so you can add it again if needed."));
+                        
+                    }
                     else 
                     {
                         self::display_message(array('type' => "highlight", 'msg' => "Original API-driven monitors can still be retrieved once deleted."));
