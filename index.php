@@ -97,8 +97,8 @@ elseif(@$params['view_type'] == 'scistarter')   print '<script>$( "#tabs_main" )
 elseif(isset($params['uuid']) && @$params['view_type'] == 'delRecs') print '<script>$( "#tabs_main" ).tabs( "option", "active", 1 );</script>'; //layout4.php
 elseif(isset($params['uuid']) && @$params['view_type'] == 'manRecs') print '<script>$( "#tabs_main" ).tabs( "option", "active", 1 );</script>'; //layout5.php
 
-elseif(@$params['view_type'] == 'delRecs')      print '<script>$( "#tabs_main" ).tabs( "option", "active", 3 );</script>'; //layout_delRecs.php orig is 7
-elseif(@$params['view_type'] == 'manRecs')      print '<script>$( "#tabs_main" ).tabs( "option", "active", 4 );</script>'; //layout_manRecs.php
+elseif(@$params['view_type'] == 'delRecs')      print '<script>$( "#tabs_main" ).tabs( "option", "active", 2 );</script>'; //layout_delRecs.php orig is 7
+elseif(@$params['view_type'] == 'manRecs')      print '<script>$( "#tabs_main" ).tabs( "option", "active", 3 );</script>'; //layout_manRecs.php
 
 
 elseif(isset($params['contact_name']))          print '<script>$( "#tabs_main" ).tabs( "option", "active", 1 );</script>'; //layout3.php
