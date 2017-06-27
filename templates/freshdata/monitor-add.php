@@ -25,6 +25,15 @@ $(document).ready(function() {
         return;
     }
     
+    if(Records_a)
+    {
+        if(isNaN(Records_a))
+        {
+            $('#stage_add').append('<div id="memo" class="help-block">No. of records should be numeric.</div>');
+            return;
+        }
+    }
+    
     if(URL_a)
     {
         if(!validateURL(URL_a))
@@ -60,7 +69,7 @@ function validateURL(textval)
                                       <input type = "hidden" id = "uuid_archive_a"  value="<?php echo $guid ?>" /></td></tr>
   <tr><td>Taxa:</td>                <td><input type = "text" id = "Taxa_a"            size = "100"  /></td></tr>
   <tr><td>Status:</td>              <td><input type = "text" id = "Status_a"          size = "100"  /></td></tr>
-  <tr><td>Records:</td>             <td><input type = "text" id = "Records_a"         size = "100"  /></td></tr>
+  <tr><td>No. of records:</td>      <td><input type = "text" id = "Records_a"         size = "100"  /></td></tr>
   <tr><td>Trait_selector:</td>      <td><input type = "text" id = "Trait_selector_a"  size = "100"  /></td></tr>
   <tr valign="top"><td>String:</td> <td valign="top"><textarea id="String_a" rows="10" cols="100" name="String_a"></textarea></td></tr>
 

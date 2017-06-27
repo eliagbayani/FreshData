@@ -76,7 +76,7 @@ class freshdata_controller extends other_controller
     private function get_manually_added_monitors($monitors)
     {
         $manually_added_uuids = self::get_manually_added_uuids();
-        echo"<pre>"; print_r($manually_added_uuids); echo "</pre>";
+        // echo"<pre>"; print_r($manually_added_uuids); echo "</pre>";
         if($manually_added_uuids)
         {
             foreach($manually_added_uuids as $uuid) $monitors[] = array("selector" => array("uuid" => $uuid));
