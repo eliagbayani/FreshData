@@ -153,7 +153,19 @@ class freshdata_controller extends other_controller
                 }
                 elseif($params['view_type'] == 'delRecs')
                 {
-                    if(self::valid_for_deleted_recs($info)) $recs[] = $info;
+                    if(self::valid_for_deleted_recs($info))
+                    {
+                        // $recs[] = $info; //orig but gives blank records as expected
+                        $m = self::get_monitor_record($info['uuid']);
+                        $info = array();
+                        $info['taxonSelector']  = $m['selector']['taxonSelector'];
+                        $info['wktString']      = $m['selector']['wktString'];
+                        $info['traitSelector']  = $m['selector']['traitSelector'];
+                        $info['uuid']           = $m['selector']['uuid'];
+                        $info['status']         = @$m['status'];
+                        $info['recordCount']    = $m['recordCount'];
+                        $recs[] = $info;
+                    }
                 }
                 elseif($params['view_type'] == 'manRecs')
                 {
@@ -263,7 +275,7 @@ class freshdata_controller extends other_controller
 
     private function valid_for_deleted_recs($info)
     {
-        if(!$info['taxonSelector'] && !$info['wktString'] && !$info['traitSelector'] && !$info['status'] && !$info['recordCount']) return true; //at least one with value
+        if(!$info['taxonSelector'] && !$info['wktString'] && !$info['traitSelector'] && !$info['status'] && !$info['recordCount']) return true; //all 5 fields must be blank
         else return false;    
     }
 

@@ -12,8 +12,12 @@ $str = " n = " . count($rows);
 if(in_array($params['view_type'], array('delRecs', 'manRecs'))) $manual_mode = true;
 else                                                            $manual_mode = false;
 
-if($params['monitorAPI'] == 0 || $manual_mode)  $str .= " | Monitors Manual Mode";
-elseif($params['monitorAPI'] == 1)              $str .= " | Monitors API Mode";
+if($manual_mode) {}
+else // extra display only for other lists, not on manRecs or delRecs
+{
+    if($params['monitorAPI'] == 0 || $manual_mode)  $str .= " | Monitors Manual Mode";
+    elseif($params['monitorAPI'] == 1)              $str .= " | Monitors API Mode";
+}
 
 
 // echo "<pre>"; print_r($rek); echo "</pre>";
