@@ -33,7 +33,7 @@ else                           $str .= " | Monitors Manual Mode";
         <div id="tabs1">
             <ul>
                 <li><a href="#tabs-0">Un-delete</a></li>
-                <li><a href="#tabs-1">Add</a></li>
+                <li><a href="#tabs-1">Create a new monitor</a></li>
             </ul>
             <div id="tabs-0">
                 <!---
@@ -67,6 +67,7 @@ else                           $str .= " | Monitors Manual Mode";
             </div>
 
             <div id="tabs-1">
+                <?php require_once("templates/freshdata/monitor-add.php"); ?>
             </div>
 
         </div>
