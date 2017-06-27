@@ -16,7 +16,7 @@ if($ctrler->save_to_text($params))
     
     
     // echo "<br><span id='memo'>Saved OK</span><br>";
-    $ctrler->display_message(array('type' => "highlight", 'msg' => "Record has been successfully saved."));
+    $ctrler->display_message(array('type' => "highlight", 'msg' => "Record has been successfully created."));
     ?>
     <table>
     <tr><td colspan="2"><hr><b>Archive Info:</b><hr></td></tr>
