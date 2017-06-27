@@ -98,6 +98,9 @@ class freshdata_controller extends other_controller
     }
     function monitors_list($params)
     {
+        if(in_array($params['view_type'], array('delRecs', 'manRecs'))) $manual_mode = true;
+        else                                                            $manual_mode = false;
+        
         $download_params = $this->download_options;
         if(isset($params['refresh_cache']))
         {
@@ -108,7 +111,7 @@ class freshdata_controller extends other_controller
         $json = Functions::lookup_with_cache($this->monitors_api['all'], $download_params);
         $monitors = json_decode($json, true);
         //--------------
-        if($params['monitorAPI'] == 0) $monitors = self::get_manually_added_monitors($monitors); //unhooked
+        if($params['monitorAPI'] == 0 || $manual_mode) $monitors = self::get_manually_added_monitors($monitors); //unhooked
         //--------------
         $recs = array();
         foreach($monitors as $m)
@@ -126,34 +129,7 @@ class freshdata_controller extends other_controller
                 [recordCount] => 10
             )
             */
-            if($params['monitorAPI'] == 1)
-            {
-                $info = array();
-                $info['taxonSelector']  = $m['selector']['taxonSelector'];
-                $info['wktString']      = $m['selector']['wktString'];
-                $info['traitSelector']  = $m['selector']['traitSelector'];
-                $info['uuid']           = $m['selector']['uuid'];
-                $info['status']         = @$m['status'];
-                $info['recordCount']    = $m['recordCount'];
-                if($params['view_type'] == 'scistarter')
-                {
-                    if(self::has_title_desc_url($m['selector']['uuid'])) $recs[] = $info;
-                }
-                elseif($params['view_type'] == 'public')
-                {
-                    if(self::valid_for_public($info)) $recs[] = $info;
-                }
-                elseif($params['view_type'] == 'delRecs')
-                {
-                    if(self::valid_for_deleted_recs($info)) $recs[] = $info;
-                }
-                elseif($params['view_type'] == 'manRecs')
-                {
-                    if(self::valid_for_manual_recs($info)) $recs[] = $info;
-                }
-                else $recs[] = $info;
-            }
-            elseif($params['monitorAPI'] == 0) //unhooked
+            if($params['monitorAPI'] == 0 || $manual_mode) //unhooked
             {
                 $uuid = $m['selector']['uuid'];
                 $rec_from_text = self::get_text_file_value($uuid);
@@ -172,6 +148,33 @@ class freshdata_controller extends other_controller
                     if(self::has_title_desc_url($rec_from_text['uuid_archive'])) $recs[] = $info;
                 }
                 elseif($params['view_type'] == 'public' || $params['view_type'] == 'admin')
+                {
+                    if(self::valid_for_public($info)) $recs[] = $info;
+                }
+                elseif($params['view_type'] == 'delRecs')
+                {
+                    if(self::valid_for_deleted_recs($info)) $recs[] = $info;
+                }
+                elseif($params['view_type'] == 'manRecs')
+                {
+                    if(self::valid_for_manual_recs($info)) $recs[] = $info;
+                }
+                else $recs[] = $info;
+            }
+            elseif($params['monitorAPI'] == 1)
+            {
+                $info = array();
+                $info['taxonSelector']  = $m['selector']['taxonSelector'];
+                $info['wktString']      = $m['selector']['wktString'];
+                $info['traitSelector']  = $m['selector']['traitSelector'];
+                $info['uuid']           = $m['selector']['uuid'];
+                $info['status']         = @$m['status'];
+                $info['recordCount']    = $m['recordCount'];
+                if($params['view_type'] == 'scistarter')
+                {
+                    if(self::has_title_desc_url($m['selector']['uuid'])) $recs[] = $info;
+                }
+                elseif($params['view_type'] == 'public')
                 {
                     if(self::valid_for_public($info)) $recs[] = $info;
                 }

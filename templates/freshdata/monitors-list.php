@@ -8,8 +8,12 @@ $rek = self::monitors_list($params);
 $rows = $rek['recs'];
 $str = " n = " . count($rows);
 
-if($params['monitorAPI'] == 1) $str .= " | Monitors API Mode";
-else                           $str .= " | Monitors Manual Mode";
+
+if(in_array($params['view_type'], array('delRecs', 'manRecs'))) $manual_mode = true;
+else                                                            $manual_mode = false;
+
+if($params['monitorAPI'] == 0 || $manual_mode)  $str .= " | Monitors Manual Mode";
+elseif($params['monitorAPI'] == 1)              $str .= " | Monitors API Mode";
 
 
 // echo "<pre>"; print_r($rek); echo "</pre>";
