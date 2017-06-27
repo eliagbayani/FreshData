@@ -10,8 +10,8 @@
         <li><a href="#tabs_main-5">API Call</a></li>
         --->
         
-        <li><a onClick="tab8_clicked()" href="#tabs_main-8">Admin: Deleted Records ››</a></li>
-        <li><a onClick="tab9_clicked()" href="#tabs_main-9">Admin: Manually-added Records ››</a></li>
+        <li><a onClick="tab8_clicked()" href="#tabs_main-8">Deleted Records ››</a></li>
+        <li><a onClick="tab9_clicked()" href="#tabs_main-9">Manually-added Records ››</a></li>
         <?php
         if($params['monitorAPI'] == 1) echo '<li><a onClick="tab7_clicked()" href="#tabs_main-7">Monitors Manual mode ››</a></li>';
         else                           echo '<li><a onClick="tab7_clicked()" href="#tabs_main-7">Monitors API mode ››</a></li>';

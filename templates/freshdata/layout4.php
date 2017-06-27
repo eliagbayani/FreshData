@@ -1,6 +1,6 @@
 <div id="tabs_main">
     <ul>
-        <li><a onClick="tab1_clicked()" href="#tabs_main-1">Admin: Deleted Records ››</a></li>
+        <li><a onClick="tab1_clicked()" href="#tabs_main-1">Deleted Records ››</a></li>
         <li><a href="#tabs_main-2">Maintenance</a></li>
         <li><a onClick="tab3_clicked()" href="#tabs_main-3">Monitors ››</a></li>
     </ul>

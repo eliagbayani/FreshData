@@ -15,8 +15,8 @@
         --->
         
         
-        <li><a                          href="#tabs_main-8">Admin: Deleted Records</a></li>
-        <li><a onClick="tab9_clicked()" href="#tabs_main-9">Admin: Manually-added Records ››</a></li>
+        <li><a                          href="#tabs_main-8">Deleted Records</a></li>
+        <li><a onClick="tab9_clicked()" href="#tabs_main-9">Manually-added Records ››</a></li>
         
     </ul>
     <div id="tabs_main-1">Loading...</div>

@@ -64,7 +64,7 @@ else                           $str .= " | Monitors Manual Mode";
                     else 
                     {
                         self::display_message(array('type' => "highlight", 'msg' => "Original API-driven monitors can still be retrieved once deleted."));
-                        self::display_message(array('type' => "highlight", 'msg' => "Go to: Admin Page -> Admin: Deleted Records -> Choose a record -> Click 'Un-delete' button"));
+                        self::display_message(array('type' => "highlight", 'msg' => "Go to: Admin Page -> Deleted Records -> Choose a record -> Click 'Un-delete' button"));
                     }
                     ?>
 
