@@ -18,7 +18,8 @@ class freshdata_controller extends other_controller
         $this->monitors_api['id_source']  = "http://api.effechecka.org/monitors?id=id_val&source=source_val";
         // */
 
-        // $this->monitors_api['all']          = "http://localhost/FreshData/database/archive/monitors.json";
+        // $this->monitors_api['all2']          = "http://localhost/FreshData/database/archive/monitors.json";
+        $this->monitors_api['all2']          = "http://editors.eol.org/FreshData/database/archive/monitors.json";
         // $this->monitors_api['one']          = "http://api.effechecka.org/zmonitors?uuid=";
         // $this->monitors_api['id']           = "http://api.effechecka.org/zmonitors?id=";
         // $this->monitors_api['source']       = "http://api.effechecka.org/zmonitors?source=";
@@ -109,6 +110,12 @@ class freshdata_controller extends other_controller
         }
         
         $json = Functions::lookup_with_cache($this->monitors_api['all'], $download_params);
+        if(!$json)
+        {
+            echo "<br>Original Monitors API discontinued 01.<br>";
+            $json = Functions::lookup_with_cache($this->monitors_api['all2'], $download_params);
+        }
+        
         $monitors = json_decode($json, true);
         //--------------
         if($params['monitorAPI'] == 0 || $manual_mode) $monitors = self::get_manually_added_monitors($monitors); //unhooked
@@ -217,7 +224,15 @@ class freshdata_controller extends other_controller
         }
         elseif($id)     $json = Functions::lookup_with_cache($this->monitors_api['id'].$id, $this->download_options);
         elseif($source) $json = Functions::lookup_with_cache($this->monitors_api['source'].$source, $this->download_options);
-        else            $json = Functions::lookup_with_cache($this->monitors_api['all'], $this->download_options);
+        else
+        {
+            $json = Functions::lookup_with_cache($this->monitors_api['all'], $this->download_options);
+            if(!$json)
+            {
+                echo "<br>Original Monitors API discontinued 02.<br>";
+                $json = Functions::lookup_with_cache($this->monitors_api['all2'], $this->download_options);
+            }
+        }
         $rows = json_decode($json, true);
         $i = 0;
         foreach($rows as $r)
