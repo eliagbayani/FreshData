@@ -2,3 +2,4 @@
 /database/uuid
 /database/scistarter/*
 database/manually_added_monitors.txt
+/app/backup/*

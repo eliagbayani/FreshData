@@ -36,8 +36,21 @@ class freshdata_controller extends other_controller
             return false;
         }
     }
-    
-    
+
+    function start_backup()
+    {
+        $file = "http://editors.eol.org/FreshData/database/manually_added_monitors.txt";
+        echo "\nbackup starts now...\n";
+        $download_params = $this->download_options;
+        $download_params['expire_seconds'] = 0;
+        $json = Functions::lookup_with_cache($file, $download_params);
+        $destination = __DIR__ . "/../app/backup/".date("Y-m-d")."_manually_added_monitors.txt";
+        echo "\ndestination: [$destination]\n";
+        $fn = fopen($destination, "w");
+        fwrite($fn, $json . "\n");
+        fclose($fn);
+    }
+
     function manually_added_monitor($uuid)
     {
         if(substr($uuid,0,2) == "m-") return true;
