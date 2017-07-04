@@ -11,8 +11,8 @@ class freshdata_controller extends other_controller
         $this->download_options = array('download_timeout_seconds' => 4800, 'download_wait_time' => 300000, 'expire_seconds' => 43200); //expires in 12 hours
 
         // /*
-        $this->monitors_api['all'] = "http://api.effechecka.org/monitors";
-        // $this->monitors_api['all'] = "http://editors.eol.org/FreshData/database/archive/monitors.json";
+        // $this->monitors_api['all'] = "http://api.effechecka.org/monitors";
+        $this->monitors_api['all'] = "http://editors.eol.org/FreshData/database/archive/monitors.json";
         
         $this->monitors_api['one'] = "http://api.effechecka.org/monitors?uuid=";
         $this->monitors_api['id']  = "http://api.effechecka.org/monitors?id=";
@@ -114,10 +114,11 @@ class freshdata_controller extends other_controller
     }
     function monitors_list($params)
     {
+        /*
         self::display_message(array('type' => "highlight", 'msg' => "System maintenance, please try again later."));
         self::display_message(array('type' => "highlight", 'msg' => "Original <a href='http://api.effechecka.org/monitors'>Monitors API</a> truncated."));
         return;
-        
+        */
         
         if(in_array($params['view_type'], array('delRecs', 'manRecs'))) $manual_mode = true;
         else                                                            $manual_mode = false;
@@ -331,10 +332,26 @@ class freshdata_controller extends other_controller
     function get_monitor_record($uuid)
     {
         // exit("<br>111<br>");
-        
-        $json = Functions::lookup_with_cache($this->monitors_api['one'].$uuid, $this->download_options);
-        $monitor = json_decode($json, true);
-        return $monitor;
+        // if($json = Functions::lookup_with_cache($this->monitors_api['one'].$uuid, $this->download_options))
+        if(false)
+        {
+            
+            $monitor = json_decode($json, true);
+            print_r($monitor);
+            echo "<hr>here 01<hr>";
+            echo "<hr>".$this->monitors_api['one'].$uuid."<hr>";
+        }
+        else //use cached monitors and get the single monitor from it
+        {
+            $json = Functions::lookup_with_cache($this->monitors_api['all2'], $this->download_options);
+            $monitors = json_decode($json, true);
+            foreach($monitors as $monitor)
+            {
+                if($monitor['selector']['uuid'] == $uuid) return $monitor;
+                // echo "<pre>";print_r($monitor);echo "</pre>";
+            }
+        }
+        return array();
     }
     
     //start params scheme
