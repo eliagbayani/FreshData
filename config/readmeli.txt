@@ -12,12 +12,6 @@ https://www.tutorialspoint.com/jquery/jquery-ajax.htm
 ===========================================
 Jira for this task: https://eol-jira.bibalex.org/browse/DATA-1621
 ===========================================
-Jenkins tutorials:
-
-http://www.inanzzz.com/index.php/post/jnrg/running-jenkins-build-via-command-line
-https://stackoverflow.com/questions/18697422/send-xml-data-to-webservice-using-php-curl
-
-===================================================
 check if job exists:
 curl -XGET 'http://localhost:8080/checkJobName?value=EoEarth_PHP_backup_script' --user eli:b2e5ca02f73b5c7d716449c763e120dd
 
@@ -40,4 +34,17 @@ curl -I -X POST -H "Jenkins-Crumb:64377cccf355db2cc6fe0c0726012401" http://eli:b
 
 cd /Library/WebServer/Documents/FreshData && php app/test.php
 
+====================================================
+Jenkins tutorials:
 
+http://www.inanzzz.com/index.php/post/jnrg/running-jenkins-build-via-command-line
+https://gist.github.com/stuart-warren/7786892
+https://support.cloudbees.com/hc/en-us/articles/218889337-How-to-build-a-job-using-the-REST-API-and-cURL
+https://stackoverflow.com/questions/18697422/send-xml-data-to-webservice-using-php-curl
+
+others:
+https://modess.io/jenkins-php/
+http://jenkins-php.org/
+https://alexbilbie.com/2015/04/setting-up-jenkins/
+
+===================================================

@@ -12,6 +12,8 @@ class freshdata_controller extends other_controller
 
         // /*
         $this->monitors_api['all'] = "http://api.effechecka.org/monitors";
+        // $this->monitors_api['all'] = "http://editors.eol.org/FreshData/database/archive/monitors.json";
+        
         $this->monitors_api['one'] = "http://api.effechecka.org/monitors?uuid=";
         $this->monitors_api['id']  = "http://api.effechecka.org/monitors?id=";
         $this->monitors_api['source']  = "http://api.effechecka.org/monitors?source=";
@@ -112,6 +114,11 @@ class freshdata_controller extends other_controller
     }
     function monitors_list($params)
     {
+        self::display_message(array('type' => "highlight", 'msg' => "System maintenance, please try again later."));
+        self::display_message(array('type' => "highlight", 'msg' => "Original <a href='http://api.effechecka.org/monitors'>Monitors API</a> truncated."));
+        return;
+        
+        
         if(in_array($params['view_type'], array('delRecs', 'manRecs'))) $manual_mode = true;
         else                                                            $manual_mode = false;
         
