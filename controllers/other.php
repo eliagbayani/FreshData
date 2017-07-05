@@ -11,7 +11,30 @@ class other_controller
         // https://scistarter.com/finder?format=json&key=e32de5b4a92bfbb18c519158b2ff93b89016c26f080c39752d8e6584eee6d4cdea496f1e2ce0200adc3263eb8fb09bd867049a2e33d2657751a34e5e5124aa1e&q=Fresh%20Data-
 
         // 17626: Fresh Data- Pacific seabirds and whales lost in the Atlantic
+        
+        /* not used yet
+        $this->download_options = array('download_timeout_seconds' => 4800, 'download_wait_time' => 300000, 'expire_seconds' => 43200); //expires in 12 hours
+        */
     }
+
+    //start queries ============================================================================
+    /* not used yet
+    function is_tsv_ready($url)
+    {
+        echo "<hr>elix<hr>";
+        $options = $this->download_options;
+        $options['expire_seconds'] = 0;
+        $options['download_timeout_seconds'] = 10;
+        
+        if($html = Functions::lookup_with_cache($url, $options))
+        {
+            echo $html;
+        }
+        else return false;
+    }
+    */
+    //end queries ==============================================================================
+    
 
     function scistarter_fields()
     {

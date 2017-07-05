@@ -24,6 +24,7 @@ define('SCISTARTER_API_KEY', '148dccccf90627b4c6eb4c59fb86954758227c86da437c0560
 define('CACHE_PATH', '/var/www/html/cache_LiteratureEditor/');  //for archive
 define('FRESHDATA_DOMAIN', 'http://gimmefreshdata.github.io/'); //e.g. http://gimmefreshdata.github.io/monitors.html
 define('SCISTARTER_ADD_PROJECT_API', 'https://scistarter.com/api/project/add/');  //for archive
+define('WGET_PATH', '/usr/bin/wget');  //for archive
 // */
 
 /* for Mac Mini - local
@@ -31,6 +32,7 @@ define('CACHE_PATH', '/Volumes/MacMini_HD2/cache_LiteratureEditor/');   //for ma
 // define('FRESHDATA_DOMAIN', 'http://localhost:4000/');                   //e.g. http://localhost:4000/monitors.html
 define('FRESHDATA_DOMAIN', 'http://gimmefreshdata.github.io/'); //e.g. http://gimmefreshdata.github.io/monitors.html
 define('SCISTARTER_ADD_PROJECT_API', 'http://localhost/eli.php');  //for mac mini
+define('WGET_PATH', '/opt/local/bin/wget');  //for mac mini
 */
 
 ?>

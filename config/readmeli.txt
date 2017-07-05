@@ -24,9 +24,7 @@ $crumb = shell_exec("curl -s 'http://eli:b2e5ca02f73b5c7d716449c763e120dd@localh
 print("<hr>$crumb<hr>");
 
 
-
 curl -I -X POST -H "Jenkins-Crumb:64377cccf355db2cc6fe0c0726012401" http://eli:b2e5ca02f73b5c7d716449c763e120dd@localhost:8080/job/FreshData_PHP_backup_script/buildWithParameters?myShell="cd /Library/WebServer/Documents/FreshData && php app/test.php"
-
 
 works OK: enter the 'cd' statement in the configuration and just pass the 'php' statement via curl:
 curl -I -X POST -H "Jenkins-Crumb:64377cccf355db2cc6fe0c0726012401" http://eli:b2e5ca02f73b5c7d716449c763e120dd@localhost:8080/job/FreshData_PHP_backup_script/buildWithParameters?myShell=php+app%2Ftest.php
@@ -46,5 +44,9 @@ others:
 https://modess.io/jenkins-php/
 http://jenkins-php.org/
 https://alexbilbie.com/2015/04/setting-up-jenkins/
+
+sh:
+https://www.shellscript.sh/
+
 
 ===================================================

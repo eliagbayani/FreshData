@@ -26,6 +26,9 @@ class freshdata_controller extends other_controller
         // $this->monitors_api['id']           = "http://api.effechecka.org/zmonitors?id=";
         // $this->monitors_api['source']       = "http://api.effechecka.org/zmonitors?source=";
         // $this->monitors_api['id_source']    = "http://api.effechecka.org/zmonitors?id=id_val&source=source_val";
+        
+        $this->api['effechecka_occurrences'] = "http://api.effechecka.org/occurrences.tsv";
+        
     }
 
     function user_is_logged_in_wiki($view_type)
