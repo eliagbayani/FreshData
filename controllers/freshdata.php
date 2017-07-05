@@ -31,6 +31,9 @@ class freshdata_controller extends other_controller
         
     }
 
+    // start queries ======================================================================
+    // end queries ========================================================================
+    
     function user_is_logged_in_wiki($view_type)
     {
         if(@$_SESSION["freshdata_user_logged_in"]) return true;

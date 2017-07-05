@@ -12,12 +12,45 @@ class other_controller
 
         // 17626: Fresh Data- Pacific seabirds and whales lost in the Atlantic
         
-        /* not used yet
         $this->download_options = array('download_timeout_seconds' => 4800, 'download_wait_time' => 300000, 'expire_seconds' => 43200); //expires in 12 hours
-        */
     }
 
     //start queries ============================================================================
+    function write_to_sh($uuid, $cmd)
+    {
+        $destination = __DIR__ . "/../sh_files/".$uuid.".sh";
+        shell_exec("chmod 755 $destination"); //https://www.shellscript.sh/
+        if($fn = Functions::file_open($destination, "w"))
+        {
+            fwrite($fn, $cmd . "\n");
+            fclose($fn);
+        }
+        else echo "<br>Write to file failed.<br>";
+    }
+    
+    function is_build_ok()
+    {
+        $url = JENKINS_DOMAIN."/job/wget_job/lastBuild/consoleText";    //http://localhost:8080/job/wget_job/lastBuild/consoleText
+        $options = $this->download_options;
+        $options['expire_seconds'] = 0;
+        echo "<hr>$url<hr>";
+        
+        if($html = Functions::lookup_with_cache($url, $options))
+        {
+            echo "<hr>$html<hr>";
+            if(stripos($html, "404 Not Found") !== false) return false; //string is found
+            elseif(stripos($html, "marked build as failure") !== false) return false; //string is found
+            elseif(stripos($html, "Permission denied") !== false) return false; //string is found
+            return true;
+        }
+        else
+        {
+            echo "<hr>111 222<hr>";
+            return false;
+        }
+    }
+    
+    
     /* not used yet
     function is_tsv_ready($url)
     {

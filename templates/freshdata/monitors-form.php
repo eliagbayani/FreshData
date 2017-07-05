@@ -56,7 +56,13 @@ else                           $str .= " | Monitors Manual Mode";
 
 
                     $destination = __DIR__ . "/../../TSV_files/$uuid.tsv";
-                    if(file_exists($destination)) echo "<hr>TSV already downloaded<hr>";
+                    if(file_exists($destination) && filesize($destination)) 
+                    {
+                        echo "<hr>TSV already downloaded<hr>";
+                        echo "<hr>".filesize($destination)."<hr>";
+                        
+                        
+                    }
                     else
                     {
                         require_once("templates/freshdata/monitor-q-download-tsv.php");
@@ -81,21 +87,14 @@ else                           $str .= " | Monitors Manual Mode";
                     // else echo "TSV is NOT YET READY.";
                 ?>
                 </span>
-                
-                
                 <div id="stage3" style = "background-color:white;"></div>
-            
-                
                 <form action="index.php" method="post" enctype="multipart/form-data">
-                <input type="text" name="uuid"        value="<?php echo $uuid ?>"                 >
-                <input type="text" name="monitorAPI"  value="<?php echo $params['monitorAPI'] ?>" >
-                <input type="text" name="view_type"   value="<?php echo $params['view_type'] ?>"  >
-                <input type="text" name="queries"     value="1"                                   >
+                <input type="hidden" name="uuid"        value="<?php echo $uuid ?>"                 >
+                <input type="hidden" name="monitorAPI"  value="<?php echo $params['monitorAPI'] ?>" >
+                <input type="hidden" name="view_type"   value="<?php echo $params['view_type'] ?>"  >
+                <input type="hidden" name="queries"     value="1"                                   >
                 <input type="submit" value="Continue">
                 </form>
-                
-                
-            
             </div>
             
             <div id="tabs-0">

@@ -22,10 +22,10 @@ $(document).ready(function() {
     // $url = $this->api['effechecka_occurrences']."?taxonSelector=".$rec_from_text['Taxa']."&traitSelector=".$rec_from_text['Trait_selector']."&wktString=".$rec_from_text['String'];
     ?>
 
-  <input type="text" id="uuid"            value="<?php echo $uuid ?>">
-  <input type="text" id="destination"     value="<?php echo $destination ?>">
-  <input type="text" id="url"             value="<?php echo $url ?>">
-  <input type="text" id="search_url"             value="<?php echo $search_url ?>">
+  <input type="hidden" id="uuid"            value="<?php echo $uuid ?>">
+  <input type="hidden" id="destination"     value="<?php echo $destination ?>">
+  <input type="hidden" id="url"             value="<?php echo $url ?>">
+  <input type="hidden" id="search_url"      value="<?php echo $search_url ?>">
   
   
   <hr>
