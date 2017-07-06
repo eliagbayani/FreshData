@@ -1,5 +1,5 @@
 <?php
-require_once("../../config/settings.php");
+require_once("../../config/settingz.php");
 require_once("../../../LiteratureEditor/Custom/lib/Functions.php");
 require_once("../../controllers/other.php");
 require_once("../../controllers/freshdata.php");

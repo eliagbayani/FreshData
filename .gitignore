@@ -5,4 +5,5 @@ database/manually_added_monitors.txt
 /app/backup/*
 /TSV_files/*
 /sh_files/*
+/config/settingz.php
 

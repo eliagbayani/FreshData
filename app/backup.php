@@ -1,5 +1,5 @@
 <?php 
-include_once(dirname(__FILE__) . "/../config/settings.php");
+include_once(dirname(__FILE__) . "/../config/settingz.php");
 
 // /*
 $params =& $_GET;

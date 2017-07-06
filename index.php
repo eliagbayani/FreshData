@@ -1,4 +1,4 @@
-<?php require_once("config/settings.php"); ?>
+<?php require_once("config/settingz.php"); ?>
 <!doctype html>
 <html lang="us">
 <head>
