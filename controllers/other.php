@@ -51,7 +51,7 @@ class other_controller
         else            $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/job/wget_job/lastBuild/consoleText";    //http://localhost:8080/job/wget_job/lastBuild/consoleText
         $options = $this->download_options;
         $options['expire_seconds'] = 0;
-        echo "<hr>$url<hr>";
+        // echo "<hr>$url<hr>";
         if($html = Functions::lookup_with_cache($url, $options)) return $html;
         else echo "<hr>Jenkins API last_build info is not ready.<hr>";
         return false;
@@ -63,12 +63,11 @@ class other_controller
         $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/job/wget_job/lastBuild/buildNumber";
         $options = $this->download_options;
         $options['expire_seconds'] = 0;
-        echo "<hr>$url<hr>";
+        // echo "<hr>$url<hr>";
         if($html = Functions::lookup_with_cache($url, $options)) return $html;
         else echo "<hr>Jenkins API last_build info is not ready.<hr>";
         return false;
     }
-    
     
     /* not used yet
     function is_tsv_ready($url)
