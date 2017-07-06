@@ -30,12 +30,7 @@ class other_controller
     
     function is_build_ok()
     {
-        $url = JENKINS_DOMAIN."/job/wget_job/lastBuild/consoleText";    //http://localhost:8080/job/wget_job/lastBuild/consoleText
-        $options = $this->download_options;
-        $options['expire_seconds'] = 0;
-        echo "<hr>$url<hr>";
-        
-        if($html = Functions::lookup_with_cache($url, $options))
+        if($html = self::get_last_build_console_text())
         {
             echo "<hr>$html<hr>";
             if(stripos($html, "404 Not Found") !== false) return false; //string is found
@@ -48,6 +43,30 @@ class other_controller
             echo "<hr>111 222<hr>";
             return false;
         }
+    }
+    
+    function get_last_build_console_text($build_no = false)
+    {
+        if($build_no)   $url = JENKINS_DOMAIN."/job/wget_job/$build_no/consoleText";    //http://localhost:8080/job/wget_job/lastBuild/consoleText
+        else            $url = JENKINS_DOMAIN."/job/wget_job/lastBuild/consoleText";    //http://localhost:8080/job/wget_job/lastBuild/consoleText
+        $options = $this->download_options;
+        $options['expire_seconds'] = 0;
+        echo "<hr>$url<hr>";
+        if($html = Functions::lookup_with_cache($url, $options)) return $html;
+        else echo "<hr>Jenkins API last_build info is not ready.<hr>";
+        return false;
+    }
+    
+    function get_last_build_number()
+    {
+        // http://localhost:8080/job/wget_job/lastBuild/buildNumber
+        $url = JENKINS_DOMAIN."/job/wget_job/lastBuild/buildNumber";
+        $options = $this->download_options;
+        $options['expire_seconds'] = 0;
+        echo "<hr>$url<hr>";
+        if($html = Functions::lookup_with_cache($url, $options)) return $html;
+        else echo "<hr>Jenkins API last_build info is not ready.<hr>";
+        return false;
     }
     
     

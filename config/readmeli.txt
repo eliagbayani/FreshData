@@ -48,5 +48,7 @@ https://alexbilbie.com/2015/04/setting-up-jenkins/
 sh:
 https://www.shellscript.sh/
 
-
 ===================================================
+// $c = escapeshellcmd($c);
+// $c = escapeshellarg($c);
+

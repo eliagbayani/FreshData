@@ -11,7 +11,7 @@ $(document).ready(function() {
     
     $("#stage3").load('templates/freshdata/monitor-q-download-tsv-confirm.php', {"uuid":uuid, "url":url, "destination":destination, "search_url":search_url} );
     $("#login_form3").hide();
-    $('#stage3').append('<div class="help-block2"><br>Downloading, please wait...<br><br></div>'); // add the actual error message under our input
+    $('#stage3').append('<div class="help-block2"><br>Downloading, please wait... OR you can click [Continue] and check the download later.<br><br></div>'); // add the actual error message under our input
 
     });
 });
@@ -29,7 +29,7 @@ $(document).ready(function() {
   
   
   <hr>
-  <button id="driver3" type="submit">Download TSV from Effechecka</button>
+  <button id="driver3" type="submit">Download TSV from Fresh Data</button>
   &nbsp;<a href="javascript:history.go(-1)">Cancel</a>
 <!---</span>--->
 <!---<div id="stage2" style = "background-color:white;"></div>--->

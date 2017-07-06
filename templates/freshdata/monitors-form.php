@@ -59,9 +59,7 @@ else                           $str .= " | Monitors Manual Mode";
                     if(file_exists($destination) && filesize($destination)) 
                     {
                         echo "<hr>TSV already downloaded<hr>";
-                        echo "<hr>".filesize($destination)."<hr>";
-                        
-                        
+                        echo "<hr>File size: ".filesize($destination)." bytes<hr>";
                     }
                     else
                     {
