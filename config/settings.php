@@ -25,6 +25,8 @@ define('CACHE_PATH', '/var/www/html/cache_LiteratureEditor/');  //for archive
 define('FRESHDATA_DOMAIN', 'http://gimmefreshdata.github.io/'); //e.g. http://gimmefreshdata.github.io/monitors.html
 define('SCISTARTER_ADD_PROJECT_API', 'https://scistarter.com/api/project/add/');  //for archive
 define('WGET_PATH', '/usr/bin/wget');  //for archive
+define('JENKINS_DOMAIN', 'http://localhost:8080');  //for archive
+define('JENKINS_USER_TOKEN', 'eli:xxx');  //for archive
 // */
 
 /* for Mac Mini - local
@@ -33,6 +35,8 @@ define('CACHE_PATH', '/Volumes/MacMini_HD2/cache_LiteratureEditor/');   //for ma
 define('FRESHDATA_DOMAIN', 'http://gimmefreshdata.github.io/'); //e.g. http://gimmefreshdata.github.io/monitors.html
 define('SCISTARTER_ADD_PROJECT_API', 'http://localhost/eli.php');  //for mac mini
 define('WGET_PATH', '/opt/local/bin/wget');  //for mac mini
+define('JENKINS_DOMAIN', 'localhost:8080');  //for mac mini
+define('JENKINS_USER_TOKEN', 'eli:b2e5ca02f73b5c7d716449c763e120dd');  //for mac mini
 */
 
 ?>

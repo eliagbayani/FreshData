@@ -36,14 +36,9 @@ $shell_debug = shell_exec($c);
 sleep(10);
 
 // echo "<pre><hr>$cmd<hr>$c<hr></pre>";
-echo "<pre><hr>[$shell_debug]<hr></pre>";
+echo "<pre><hr>[$shell_debug]<hr></pre>"; //debug only
 
-/* when TSV is not ready:
-[--2017-07-05 01:21:58-- http://api.effechecka.org/occurrences.tsv?taxonSelector=aphaenogaster%20picea%7Caphaenogaster%20fulva%7Caphaenogaster%20rudis&traitSelector=&wktString=POLYGON%20((-138.8671875%2044,%20-138.8671875%2070,%20-47.8125%2070,%20-47.8125%2044,%20-138.8671875%2044)) Resolving api.effechecka.org... 128.227.166.240 Connecting to api.effechecka.org|128.227.166.240|:80... connected. 
-HTTP request sent, awaiting response... 404 Not Found 2017-07-05 01:21:59 ERROR 404: Not Found. ] 
-*/
 // if(stripos($shell_debug, "404 Not Found") !== false) //string is found
-// if($ctrler->is_build_ok()) 
 if(file_exists($params['destination']) && filesize($params['destination']))
 {
     $ctrler->display_message(array('type' => "highlight", 'msg' => "Job completed: OK"));
@@ -52,17 +47,22 @@ if(file_exists($params['destination']) && filesize($params['destination']))
 }
 else
 {
-    echo "<hr>".$params['destination']."<hr>";
-    if(file_exists($params['destination']) && filesize($params['destination']))
+    $build_no = $ctrler->get_last_build_number();
+    $build_status = $ctrler->get_last_build_console_text();
+    if($ctrler->did_build_fail($build_status))
     {
-        $ctrler->display_message(array('type' => "highlight", 'msg' => "Downloading, please check later."));
+        $ctrler->display_message(array('type' => "error", 'msg' => "Occurrences for this search is NOT yet ready in Fresh Data."));
+        echo "<br><a href='".$params['search_url']."' target='".$params['uuid']."'>Search in Fresh Data first.</a><br><br>";
+    }
+    elseif($ctrler->is_build_currently_running($build_status))
+    {
+        $ctrler->display_message(array('type' => "highlight", 'msg' => "Download is on-going. Has not completed yet."));
+        $ctrler->display_message(array('type' => "highlight", 'msg' => "Please check back later."));
     }
     else
     {
-        $ctrler->display_message(array('type' => "error", 'msg' => "Occurrences for this search is NOT yet ready."));
-        echo "<br><a href='".$params['search_url']."' target='blank'>Search in Fresh Data first.</a><br><br>";
-        $build_no = $ctrler->get_last_build_number();
-        echo "<hr><pre>".$ctrler->get_last_build_console_text()."</pre><hr>";
+        $ctrler->display_message(array('type' => "highlight", 'msg' => "Build is in unknown state. Will investigate"));
     }
+    echo "<hr><pre>".$build_status."</pre><hr>"; //debug only
 }
 ?>

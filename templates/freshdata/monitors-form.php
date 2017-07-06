@@ -54,12 +54,13 @@ else                           $str .= " | Monitors Manual Mode";
                     $destination = __DIR__ . "/../../TSV_files/$uuid.tsv";
                     if(file_exists($destination) && filesize($destination)) 
                     {
-                        echo "<hr>TSV already downloaded<hr>";
-                        echo "<hr>File size: ".filesize($destination)." bytes<hr>";
+                        self::display_message(array('type' => "highlight", 'msg' => "Occurrence TSV file already downloaded. &nbsp; File size: ".filesize($destination)." bytes."));
                     }
                     else
                     {
-                        require_once("templates/freshdata/monitor-q-download-tsv.php");
+                        if(!self::is_there_an_unfinished_job_for_this_uuid($uuid)) require_once("templates/freshdata/monitor-q-download-tsv.php");
+                        elseif(!self::is_task_in_queue("wget_job", $uuid))         require_once("templates/freshdata/monitor-q-download-tsv.php");
+                        else self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download for this monitor. Please check back soon."));
                         /*
                         //worked on script
                         $cmd = WGET_PATH.' -O '.$destination.' "'.$url.'"';
@@ -82,12 +83,13 @@ else                           $str .= " | Monitors Manual Mode";
                 ?>
                 </span>
                 <div id="stage3" style = "background-color:white;"></div>
+                <br>
                 <form action="index.php" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="uuid"        value="<?php echo $uuid ?>"                 >
                 <input type="hidden" name="monitorAPI"  value="<?php echo $params['monitorAPI'] ?>" >
                 <input type="hidden" name="view_type"   value="<?php echo $params['view_type'] ?>"  >
                 <input type="hidden" name="queries"     value="1"                                   >
-                <input type="submit" value="Continue">
+                <input type="submit" value="Continue 1">
                 </form>
             </div>
             

@@ -28,21 +28,34 @@ class other_controller
         else echo "<br>Write to file failed.<br>";
     }
     
-    function is_build_ok()
+    function is_there_an_unfinished_job_for_this_uuid($uuid)
     {
-        if($html = self::get_last_build_console_text())
+        $status = self::get_last_build_console_text();
+        if(stripos($status, "$uuid.sh") !== false) //string is found
         {
-            echo "<hr>$html<hr>";
-            if(stripos($html, "404 Not Found") !== false) return false; //string is found
-            elseif(stripos($html, "marked build as failure") !== false) return false; //string is found
-            elseif(stripos($html, "Permission denied") !== false) return false; //string is found
-            return true;
+            if(self::is_build_currently_running($status)) return true;
         }
-        else
+        return false;
+    }
+    
+    function is_task_in_queue($task, $uuid)
+    {
+        $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/queue.xml";
+        $url = "http://localhost/queue.xml";
+        $options = $this->download_options;
+        $options['expire_seconds'] = 0;
+        if($xml = Functions::lookup_with_cache($url, $options))
         {
-            echo "<hr>111 222<hr>";
-            return false;
+            $xml = simplexml_load_string($xml);
+            // echo"<pre>";print_r($xml);echo"</pre>";
+            foreach($xml->item as $item)
+            {
+                if($item->task->name == $task && stripos($item->params, "$uuid.sh") !== false) return true; //string is found
+                // echo "<hr>".$item->task->name;
+                // echo "<hr>".$item->params;
+            }
         }
+        return false;
     }
     
     function get_last_build_console_text($build_no = false)
@@ -67,6 +80,27 @@ class other_controller
         if($html = Functions::lookup_with_cache($url, $options)) return $html;
         else echo "<hr>Jenkins API last_build info is not ready.<hr>";
         return false;
+    }
+    
+    function did_build_fail($status)
+    {
+        if(stripos($status, "404 Not Found") !== false) return true; //string is found
+        elseif(stripos($status, "marked build as failure") !== false) return true; //string is found
+        elseif(stripos($status, "Finished: FAILURE") !== false) return true; //string is found
+        else return false;
+    }
+    
+    function is_build_currently_running($status)
+    {
+        if(!self::did_build_fail($status) && !self::is_build_finish($status)) return true;
+        else return false;
+    }
+    
+    function is_build_finish($status)
+    {
+        if    (stripos($status, "Finished: SUCCESS") !== false) return true; //string is found
+        elseif(stripos($status, "Finished: FAILURE") !== false) return true; //string is found
+        else return false;
     }
     
     /* not used yet
