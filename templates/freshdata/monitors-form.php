@@ -37,23 +37,19 @@ else                           $str .= " | Monitors Manual Mode";
                 <li><a href="#tabs-2">Delete</a></li>
                 <li><a href="#tabs-1">Create a new monitor</a></li>
                 <li><a href="#tabs-3">Queries</a></li>
-                
             </ul>
             <div id="tabs-3">
             
                 <span id = "login_form3">
                 <?php
                     // echo "<pre>"; print_r($rec_from_text); echo "</pre>";
-
                     /*
                     worked command-line
                     wget -O TSV_files/eli.tsv "http://api.effechecka.org/occurrences.tsv?taxonSelector=Aphaenogaster&traitSelector=&wktString=POLYGON%20((-138.8671875%2044,%20-138.8671875%2070,%20-47.8125%2070,%20-47.8125%2044,%20-138.8671875%2044))"
                     */
-
                     $search_url = FRESHDATA_DOMAIN."?taxonSelector=".$rec_from_text['Taxa']."&traitSelector=".$rec_from_text['Trait_selector']."&wktString=".$rec_from_text['String'];
                     $url = $this->api['effechecka_occurrences']."?taxonSelector=".$rec_from_text['Taxa']."&traitSelector=".$rec_from_text['Trait_selector']."&wktString=".$rec_from_text['String'];
                     $url = $this->api['effechecka_occurrences']."?taxonSelector=".$rec_from_text['Taxa']."&traitSelector=".$rec_from_text['Trait_selector']."&wktString=".$rec_from_text['String'];
-
 
                     $destination = __DIR__ . "/../../TSV_files/$uuid.tsv";
                     if(file_exists($destination) && filesize($destination)) 

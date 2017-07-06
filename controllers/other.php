@@ -47,8 +47,8 @@ class other_controller
     
     function get_last_build_console_text($build_no = false)
     {
-        if($build_no)   $url = JENKINS_DOMAIN."/job/wget_job/$build_no/consoleText";    //http://localhost:8080/job/wget_job/lastBuild/consoleText
-        else            $url = JENKINS_DOMAIN."/job/wget_job/lastBuild/consoleText";    //http://localhost:8080/job/wget_job/lastBuild/consoleText
+        if($build_no)   $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/job/wget_job/$build_no/consoleText";    //http://localhost:8080/job/wget_job/lastBuild/consoleText
+        else            $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/job/wget_job/lastBuild/consoleText";    //http://localhost:8080/job/wget_job/lastBuild/consoleText
         $options = $this->download_options;
         $options['expire_seconds'] = 0;
         echo "<hr>$url<hr>";
@@ -60,7 +60,7 @@ class other_controller
     function get_last_build_number()
     {
         // http://localhost:8080/job/wget_job/lastBuild/buildNumber
-        $url = JENKINS_DOMAIN."/job/wget_job/lastBuild/buildNumber";
+        $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/job/wget_job/lastBuild/buildNumber";
         $options = $this->download_options;
         $options['expire_seconds'] = 0;
         echo "<hr>$url<hr>";
