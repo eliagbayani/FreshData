@@ -52,7 +52,7 @@ else
     if($ctrler->did_build_fail($build_status))
     {
         $ctrler->display_message(array('type' => "error", 'msg' => "Occurrences for this search is NOT yet ready in Fresh Data."));
-        echo "<br><a href='".$params['search_url']."' target='".$params['uuid']."'>Search in Fresh Data first.</a><br><br>";
+        echo "<br><a href='".$params['search_url']."' target='".$params['uuid']."'>Search in Fresh Data first.</a> If you already did, let us wait for Fresh Data to generate the Occurrence TSV file.<br><br>";
     }
     elseif($ctrler->is_build_currently_running($build_status))
     {

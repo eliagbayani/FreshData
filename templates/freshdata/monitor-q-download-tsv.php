@@ -17,6 +17,10 @@ $(document).ready(function() {
 });
 </script>
 
+<?php
+echo "<br><a href='".$search_url."' target='".$uuid."'>Search in Fresh Data.</a><br><br>";
+?>
+
 <!---<span id = "login_form2">--->
   <input type="hidden" id="uuid"            value="<?php echo $uuid ?>">
   <input type="hidden" id="destination"     value="<?php echo $destination ?>">

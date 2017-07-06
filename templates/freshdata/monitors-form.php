@@ -52,15 +52,17 @@ else                           $str .= " | Monitors Manual Mode";
                     $url = $this->api['effechecka_occurrences']."?taxonSelector=".$rec_from_text['Taxa']."&traitSelector=".$rec_from_text['Trait_selector']."&wktString=".$rec_from_text['String'];
 
                     $destination = __DIR__ . "/../../TSV_files/$uuid.tsv";
-                    if(file_exists($destination) && filesize($destination)) 
+                    if(file_exists($destination) && filesize($destination))
                     {
-                        self::display_message(array('type' => "highlight", 'msg' => "Occurrence TSV file already downloaded. &nbsp; File size: ".filesize($destination)." bytes."));
+                        if(self::is_there_an_unfinished_job_for_this_uuid($uuid)) self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download for this monitor. Please check back soon 01."));
+                        elseif(self::is_task_in_queue("wget_job", $uuid))         self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download for this monitor. Please check back soon 02."));
+                        else                                                      self::display_message(array('type' => "highlight", 'msg' => "Occurrence TSV file already downloaded. &nbsp; File size: ".filesize($destination)." bytes."));
                     }
                     else
                     {
                         if(!self::is_there_an_unfinished_job_for_this_uuid($uuid)) require_once("templates/freshdata/monitor-q-download-tsv.php");
                         elseif(!self::is_task_in_queue("wget_job", $uuid))         require_once("templates/freshdata/monitor-q-download-tsv.php");
-                        else self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download for this monitor. Please check back soon."));
+                        else self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download for this monitor. Please check back soon 03."));
                         /*
                         //worked on script
                         $cmd = WGET_PATH.' -O '.$destination.' "'.$url.'"';
