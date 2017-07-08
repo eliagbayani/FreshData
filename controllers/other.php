@@ -40,8 +40,11 @@ class other_controller
     
     function is_task_in_queue($task, $uuid)
     {
-        $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/queue.xml";
-        $url = "http://localhost/queue.xml";
+        $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/queue/api/xml";
+        // http://localhost:8080/queue/api/xml
+        // $url = "http://localhost/queue.xml";
+        // echo "<hr>$url<hr>";
+        
         $options = $this->download_options;
         $options['expire_seconds'] = 0;
         if($xml = Functions::lookup_with_cache($url, $options))

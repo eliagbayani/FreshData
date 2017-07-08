@@ -54,15 +54,29 @@ else                           $str .= " | Monitors Manual Mode";
                     $destination = __DIR__ . "/../../TSV_files/$uuid.tsv";
                     if(file_exists($destination) && filesize($destination))
                     {
-                        if(self::is_there_an_unfinished_job_for_this_uuid($uuid)) self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download for this monitor. Please check back soon *."));
-                        elseif(self::is_task_in_queue("wget_job", $uuid))         self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download for this monitor. Please check back soon **."));
+                        echo "<hr>went here 01<hr>";
+                        if(self::is_there_an_unfinished_job_for_this_uuid($uuid)) self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download for this monitor. Please check back soon *.")); //saw this already
+                        elseif(self::is_task_in_queue("wget_job", $uuid))         self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download for this monitor. Please check back soon **.")); //has not seen this yet
                         else                                                      self::display_message(array('type' => "highlight", 'msg' => "Occurrence TSV file already downloaded. &nbsp; File size: ".filesize($destination)." bytes."));
                     }
                     else
                     {
-                        if(!self::is_there_an_unfinished_job_for_this_uuid($uuid)) require_once("templates/freshdata/monitor-q-download-tsv.php");
-                        elseif(!self::is_task_in_queue("wget_job", $uuid))         require_once("templates/freshdata/monitor-q-download-tsv.php");
-                        else self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download for this monitor. Please check back soon ***."));
+                        echo "<hr>went here 02<hr>";
+                        if(self::is_task_in_queue("wget_job", $uuid))
+                        {
+                            self::display_message(array('type' => "highlight", 'msg' => "This task is already on queue. Please check back soon ****.")); //saw this already
+                        }
+                        elseif(!self::is_there_an_unfinished_job_for_this_uuid($uuid))
+                        {
+                            echo "<hr>went bbb<hr>";
+                            require_once("templates/freshdata/monitor-q-download-tsv.php");
+                        }
+                        elseif(!self::is_task_in_queue("wget_job", $uuid))
+                        {
+                            echo "<hr>went aaa<hr>";
+                            require_once("templates/freshdata/monitor-q-download-tsv.php");
+                        }
+                        else self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download for this monitor. Please check back soon ***.")); //has not seen this yet
                         /*
                         //worked on script
                         $cmd = WGET_PATH.' -O '.$destination.' "'.$url.'"';
