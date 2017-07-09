@@ -30,7 +30,7 @@ class other_controller
     
     function is_there_an_unfinished_job_for_this_uuid($uuid)
     {
-        $status = self::get_last_build_console_text();
+        $status = self::get_last_build_console_text("wget_job", $uuid);
         if(stripos($status, "$uuid.sh") !== false) //string is found
         {
             if(self::is_build_currently_running($status)) return true;
@@ -61,10 +61,35 @@ class other_controller
         return false;
     }
     
-    function get_last_build_console_text($build_no = false)
+    function get_last_build_console_text($task, $id, $build_no = false)
     {
-        if($build_no)   $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/job/wget_job/$build_no/consoleText";    //http://localhost:8080/job/wget_job/lastBuild/consoleText
-        else            $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/job/wget_job/lastBuild/consoleText";    //http://localhost:8080/job/wget_job/lastBuild/consoleText
+        /* first version
+        if($build_no)   $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/job/$task/$build_no/consoleText";    //http://localhost:8080/job/wget_job/lastBuild/consoleText
+        else            $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/job/$task/lastBuild/consoleText";    //http://localhost:8080/job/wget_job/lastBuild/consoleText
+        $options = $this->download_options;
+        $options['expire_seconds'] = 0;
+        // echo "<hr>$url<hr>";
+        if($html = Functions::lookup_with_cache($url, $options)) return $html;
+        else echo "<hr>Jenkins API last_build info is not ready.<hr>";
+        return false;
+        */
+        
+        //step 1: get_last_build_number
+        $last_build_no = self::get_last_build_number("wget_job");
+        //step 2: loop downwards, one step at a time
+        for($build_no = $last_build_no; $build_no >= ($last_build_no-10); $build_no--)
+        {
+            echo "<br>[$build_no]";
+            $status = self::get_task_build_status($task, $build_no);
+            if(stripos($status, "$id.sh") !== false) return $status; //string is found
+        }
+        return "";
+        // exit("<hr>[$last_build_no] stopx<hr>");
+    }
+    
+    function get_task_build_status($task, $build_no) //get status of this task with this build_no
+    {
+        $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/job/$task/$build_no/consoleText";    //http://localhost:8080/job/wget_job/190/consoleText
         $options = $this->download_options;
         $options['expire_seconds'] = 0;
         // echo "<hr>$url<hr>";
@@ -73,14 +98,14 @@ class other_controller
         return false;
     }
     
-    function get_last_build_number()
+    function get_last_build_number($task) //e.g. $task = "wget_job"
     {
         // http://localhost:8080/job/wget_job/lastBuild/buildNumber
-        $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/job/wget_job/lastBuild/buildNumber";
+        $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/job/$task/lastBuild/buildNumber";
         $options = $this->download_options;
         $options['expire_seconds'] = 0;
-        // echo "<hr>$url<hr>";
-        if($html = Functions::lookup_with_cache($url, $options)) return $html;
+        echo "<hr>$url<hr>";
+        if($build_no = Functions::lookup_with_cache($url, $options)) return $build_no;
         else echo "<hr>Jenkins API last_build info is not ready.<hr>";
         return false;
     }

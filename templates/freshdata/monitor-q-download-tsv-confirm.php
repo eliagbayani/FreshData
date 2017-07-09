@@ -38,31 +38,22 @@ sleep(10);
 // echo "<pre><hr>$cmd<hr>$c<hr></pre>";
 echo "<pre><hr>[$shell_debug]<hr></pre>"; //debug only
 
-// if(stripos($shell_debug, "404 Not Found") !== false) //string is found
-if(file_exists($params['destination']) && filesize($params['destination']))
+// the $build_status should come from the status for uuid in question not just the currently last_build
+$build_status = $ctrler->get_last_build_console_text("wget_job", $params['uuid']);
+if($ctrler->did_build_fail($build_status))
 {
-    $ctrler->display_message(array('type' => "highlight", 'msg' => "Job completed: OK"));
-    $build_no = $ctrler->get_last_build_number();
-    echo "<hr><pre>".$ctrler->get_last_build_console_text()."</pre><hr>";
+    $ctrler->display_message(array('type' => "error", 'msg' => "Occurrences for this search is NOT yet ready in Fresh Data."));
+    echo "<br><a href='".$params['search_url']."' target='".$params['uuid']."'>Search in Fresh Data first.</a> If you already did, let us wait for Fresh Data to generate the Occurrence TSV file.<br><br>";
+}
+elseif($ctrler->is_build_currently_running($build_status))
+{
+    $ctrler->display_message(array('type' => "highlight", 'msg' => "Download is on-going. Has not completed yet."));
+    $ctrler->display_message(array('type' => "highlight", 'msg' => "Please check back later."));
 }
 else
 {
-    $build_no = $ctrler->get_last_build_number();
-    $build_status = $ctrler->get_last_build_console_text();
-    if($ctrler->did_build_fail($build_status))
-    {
-        $ctrler->display_message(array('type' => "error", 'msg' => "Occurrences for this search is NOT yet ready in Fresh Data."));
-        echo "<br><a href='".$params['search_url']."' target='".$params['uuid']."'>Search in Fresh Data first.</a> If you already did, let us wait for Fresh Data to generate the Occurrence TSV file.<br><br>";
-    }
-    elseif($ctrler->is_build_currently_running($build_status))
-    {
-        $ctrler->display_message(array('type' => "highlight", 'msg' => "Download is on-going. Has not completed yet."));
-        $ctrler->display_message(array('type' => "highlight", 'msg' => "Please check back later."));
-    }
-    else
-    {
-        $ctrler->display_message(array('type' => "highlight", 'msg' => "Build is in unknown state. Will investigate"));
-    }
-    echo "<hr><pre>".$build_status."</pre><hr>"; //debug only
+    if(file_exists($params['destination']) && filesize($params['destination'])) $ctrler->display_message(array('type' => "highlight", 'msg' => "Job completed: OK"));
+    else                                                                        $ctrler->display_message(array('type' => "highlight", 'msg' => "Build is in unknown state. Will investigate"));
 }
+echo "<hr><pre>".$build_status."</pre><hr>"; //debug only
 ?>
