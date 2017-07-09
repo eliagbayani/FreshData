@@ -34,12 +34,11 @@ cd /Library/WebServer/Documents/FreshData && php app/test.php
 
 ====================================================
 Jenkins tutorials:
-
 http://www.inanzzz.com/index.php/post/jnrg/running-jenkins-build-via-command-line
 https://gist.github.com/stuart-warren/7786892
+others:
 https://support.cloudbees.com/hc/en-us/articles/218889337-How-to-build-a-job-using-the-REST-API-and-cURL
 https://stackoverflow.com/questions/18697422/send-xml-data-to-webservice-using-php-curl
-
 others:
 https://modess.io/jenkins-php/
 http://jenkins-php.org/
