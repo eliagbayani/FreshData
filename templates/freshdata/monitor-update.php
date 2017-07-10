@@ -105,8 +105,8 @@ function validateURL(textval)
   <tr><td colspan="2"><hr></td></tr>
   <tr><td colspan="2">
       <button id="driver" type="submit">Save</button>
-      <!---<button onClick="javascript:history.go(-1)" type="">Cancel</button>--->
-      <a href="javascript:history.go(-1)">Cancel</a>
+      <!---<button onClick="javascript:history.back(1)" type="">Cancel</button>--->
+      <a href="javascript:history.back(1)">Cancel</a>
   </td></tr>
   </table>
   

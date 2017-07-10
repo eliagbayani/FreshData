@@ -28,6 +28,7 @@ echo "<br><a href='".$search_url."' target='".$uuid."'>Search in Fresh Data.</a>
   <input type="hidden" id="search_url"      value="<?php echo $search_url ?>">
   <hr>
   <button id="driver3" type="submit">Download occurrence TSV from Fresh Data</button>
-  &nbsp;<a href="javascript:history.go(-1)">Cancel</a>
+  &nbsp;<a href="javascript:history.back(1)">Cancel</a>
+  
 <!---</span>--->
 <!---<div id="stage2" style = "background-color:white;"></div>--->

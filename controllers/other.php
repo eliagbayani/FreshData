@@ -131,6 +131,13 @@ class other_controller
         else return false;
     }
     
+    function get_total_rows($uuid)
+    {
+        $file = __DIR__ . "/../TSV_files/".$uuid.".tsv";
+        if(file_exists($file)) return number_format(Functions::count_rows_from_text_file($file)-1);
+        else echo "<hr>File does not exist: [$file]<hr>";
+    }
+    
     /* not used yet
     function is_tsv_ready($url)
     {

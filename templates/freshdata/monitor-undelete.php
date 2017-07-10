@@ -32,6 +32,6 @@ $(document).ready(function() {
   <input type="hidden" id="uuid"                    value="<?php echo $uuid ?>">
   <hr>
   <button id="driver2" type="submit">Un-delete this monitor</button>
-  &nbsp;<a href="javascript:history.go(-1)">Cancel</a>
+  &nbsp;<a href="javascript:history.back(1)">Cancel</a>
 <!---</span>--->
 <!---<div id="stage2" style = "background-color:white;"></div>--->

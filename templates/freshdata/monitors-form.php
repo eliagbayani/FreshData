@@ -51,13 +51,18 @@ else                           $str .= " | Monitors Manual Mode";
                     $url = $this->api['effechecka_occurrences']."?taxonSelector=".$rec_from_text['Taxa']."&traitSelector=".$rec_from_text['Trait_selector']."&wktString=".$rec_from_text['String'];
                     $url = $this->api['effechecka_occurrences']."?taxonSelector=".$rec_from_text['Taxa']."&traitSelector=".$rec_from_text['Trait_selector']."&wktString=".$rec_from_text['String'];
 
+                    $disp_total_rows = false;
                     $destination = __DIR__ . "/../../TSV_files/$uuid.tsv";
                     if(file_exists($destination) && filesize($destination))
                     {
                         echo "<hr>went here 01<hr>";
                         if(self::is_there_an_unfinished_job_for_this_uuid($uuid)) self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download for this monitor. Please check back soon *.")); //saw this already
                         elseif(self::is_task_in_queue("wget_job", $uuid))         self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download for this monitor. Please check back soon **.")); //has not seen this yet
-                        else                                                      self::display_message(array('type' => "highlight", 'msg' => "Occurrence TSV file already downloaded. &nbsp; File size: ".filesize($destination)." bytes."));
+                        else
+                        {
+                            $disp_total_rows = true;
+                            self::display_message(array('type' => "highlight", 'msg' => "Occurrence TSV file already downloaded. &nbsp; File size: ".filesize($destination)." bytes."));
+                        }
                     }
                     else
                     {
@@ -105,7 +110,29 @@ else                           $str .= " | Monitors Manual Mode";
                 <input type="hidden" name="monitorAPI"  value="<?php echo $params['monitorAPI'] ?>" >
                 <input type="hidden" name="view_type"   value="<?php echo $params['view_type'] ?>"  >
                 <input type="hidden" name="queries"     value="1"                                   >
-                <input type="submit" value="Continue 1">
+                
+                <?php
+                if(file_exists($destination) && filesize($destination) && $disp_total_rows)
+                {
+                    ?>
+                    Count total rows:
+                    <select name="get_count" id="toggleYN">
+                        <option>
+                        <?php $yn = array('Yes', 'No');
+                        foreach($yn as $ans) {
+                            $selected = "";
+                            if(@$params['get_count'] == $ans) $selected = "selected";
+                            echo '<option value="' . $ans . '" ' . $selected . '>' . $ans . '</option>';
+                        }?>
+                    </select>
+                    <?php 
+                    if(@$params['get_count']=='Yes') echo "<br><br>Total rows: ".self::get_total_rows($uuid);
+                    
+                    ?>
+                    <?php
+                }
+                ?>
+                <br><br><input type="submit" value="Continue 1">
                 </form>
             </div>
             

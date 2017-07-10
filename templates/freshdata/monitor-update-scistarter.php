@@ -186,7 +186,7 @@ function validateURL(textval)
   </table>
   <br>
   <button id="driver" type="submit">Save Project Info</button>
-  <!--- <button onClick="javascript:history.go(-1)" type="">Cancel</button> --->
-  <a href="javascript:history.go(-1)">Cancel</a><br><br>
+  <!--- <button onClick="javascript:history.back(1)" type="">Cancel</button> --->
+  <a href="javascript:history.back(1)">Cancel</a><br><br>
 </span>
 <div id = "stage" style = "background-color:white;"></div>
