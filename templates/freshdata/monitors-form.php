@@ -25,6 +25,9 @@ Array
 $str = "Monitor info";
 if($params['monitorAPI'] == 1) $str .= " | Monitors API Mode";
 else                           $str .= " | Monitors Manual Mode";
+
+$admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
+
 ?>
 
 <div id="accordion_open2">
@@ -36,33 +39,34 @@ else                           $str .= " | Monitors Manual Mode";
                 <li><a href="#tabs-0">Edit</a></li>
                 <li><a href="#tabs-2">Delete</a></li>
                 <li><a href="#tabs-1">Create a new monitor</a></li>
-                <li><a href="#tabs-3">Queries</a></li>
+                <li><a href="#tabs-3">Download TSV</a></li>
+                <li><a href="#tabs-4">Special Queries</a></li>
             </ul>
 
 
             <div id="tabs-3"><!---Queries--->
                 <span id = "login_form3">
                 <?php
-                    // echo "<pre>"; print_r($rec_from_text); echo "</pre>";
-                    /*
-                    worked command-line
-                    wget -O TSV_files/eli.tsv "http://api.effechecka.org/occurrences.tsv?taxonSelector=Aphaenogaster&traitSelector=&wktString=POLYGON%20((-138.8671875%2044,%20-138.8671875%2070,%20-47.8125%2070,%20-47.8125%2044,%20-138.8671875%2044))"
-                    */
                     $search_url = FRESHDATA_DOMAIN."?taxonSelector=".$rec_from_text['Taxa']."&traitSelector=".$rec_from_text['Trait_selector']."&wktString=".$rec_from_text['String'];
-                    $url = $this->api['effechecka_occurrences']."?taxonSelector=".$rec_from_text['Taxa']."&traitSelector=".$rec_from_text['Trait_selector']."&wktString=".$rec_from_text['String'];
                     $url = $this->api['effechecka_occurrences']."?taxonSelector=".$rec_from_text['Taxa']."&traitSelector=".$rec_from_text['Trait_selector']."&wktString=".$rec_from_text['String'];
 
                     $disp_total_rows = false;
+                    $disp_dl_button = false;
+                    $button_text  = "Continue 1";
+                    
                     $destination = __DIR__ . "/../../TSV_files/$uuid.tsv";
                     if(file_exists($destination) && filesize($destination))
                     {
                         echo "<hr>went here 01<hr>";
+                        $button_text  = "Refresh";
                         if(self::is_there_an_unfinished_job_for_this_uuid($uuid)) self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download for this monitor. Please check back soon *.")); //saw this already
                         elseif(self::is_task_in_queue("wget_job", $uuid))         self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download for this monitor. Please check back soon **.")); //has not seen this yet
                         else
                         {
                             $disp_total_rows = true;
+                            $button_text  = "Submit";
                             self::display_message(array('type' => "highlight", 'msg' => "Occurrence TSV file already downloaded. &nbsp; File size: ".filesize($destination)." bytes."));
+                            self::display_message(array('type' => "highlight", 'msg' => "You can now proceed with 'Special Queries' tab"));
                         }
                     }
                     else
@@ -70,21 +74,27 @@ else                           $str .= " | Monitors Manual Mode";
                         echo "<hr>went here 02<hr>";
                         if(self::is_task_in_queue("wget_job", $uuid))
                         {
+                            $button_text  = "Refresh";
                             self::display_message(array('type' => "highlight", 'msg' => "This task is already on queue. Please check back soon ****.")); //saw this already
                         }
                         elseif(!self::is_there_an_unfinished_job_for_this_uuid($uuid))
                         {
                             echo "<hr>went bbb<hr>";
+                            $disp_dl_button = true;
                             require_once("templates/freshdata/monitor-q-download-tsv.php");
                         }
                         elseif(!self::is_task_in_queue("wget_job", $uuid))
                         {
                             echo "<hr>went aaa<hr>";
+                            $disp_dl_button = true;
                             require_once("templates/freshdata/monitor-q-download-tsv.php");
                         }
-                        else self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download for this monitor. Please check back soon ***.")); //has not seen this yet
+                        else
+                        {
+                            $button_text  = "Refresh";
+                            self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download for this monitor. Please check back soon ***.")); //has not seen this yet
+                        }
                     }
-                    
                 ?>
                 </span>
                 <div id="stage3" style = "background-color:white;"></div>
@@ -94,7 +104,6 @@ else                           $str .= " | Monitors Manual Mode";
                 <input type="hidden" name="monitorAPI"  value="<?php echo $params['monitorAPI'] ?>" >
                 <input type="hidden" name="view_type"   value="<?php echo $params['view_type'] ?>"  >
                 <input type="hidden" name="queries"     value="1"                                   >
-                
                 <?php
                 if(file_exists($destination) && filesize($destination) && $disp_total_rows)
                 {
@@ -111,12 +120,48 @@ else                           $str .= " | Monitors Manual Mode";
                     </select>
                     <?php 
                     if(@$params['get_count']=='Yes') echo "<br><br>Total rows: ".self::get_total_rows($uuid);
-                    
+                    /*
                     //apply special query: Invasive
                     require_once("templates/freshdata/special-invasive-YN.php");
+                    */
+                }
+                if(!$disp_dl_button)
+                {
+                    ?>
+                    <br><br><input type="submit" value="<?php echo $button_text ?>">
+                    <?php
                 }
                 ?>
-                <br><br><input type="submit" value="Continue 1">
+                </form>
+            </div>
+
+            <div id="tabs-4"><!---Special Queries--->
+                <span id = "login_form4">
+                    span area
+                </span>
+                <div id="stage4" style = "background-color:white;"></div>
+                <br>
+                <form action="index.php" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="uuid"        value="<?php echo $uuid ?>"                 >
+                <input type="hidden" name="monitorAPI"  value="<?php echo $params['monitorAPI'] ?>" >
+                <input type="hidden" name="view_type"   value="<?php echo $params['view_type'] ?>"  >
+                <input type="hidden" name="queries"     value="2"                                   >
+                <?php
+                if(file_exists($destination) && filesize($destination) && $disp_total_rows)
+                {
+                    //apply special query: Invasive
+                    require("templates/freshdata/special-invasive-YN.php");
+                    ?>
+                    <br><br><input type="submit" value="Continue 2">
+                    <?php
+                }
+                else
+                {
+                    self::display_message(array('type' => "error", 'msg' => "Occurrence TSV file not yet downloaded."));
+                    self::display_message(array('type' => "error", 'msg' => "Use 'Download TSV' tab"));
+                    
+                }
+                ?>
                 </form>
             </div>
 

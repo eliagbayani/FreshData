@@ -57,3 +57,15 @@ else
 }
 echo "<hr><pre>".$build_status."</pre><hr>"; //debug only
 ?>
+
+
+<form action="index.php" method="post" enctype="multipart/form-data">
+<input type="hidden" name="uuid"        value="<?php echo $params['uuid'] ?>"       >
+<input type="hidden" name="monitorAPI"  value="<?php echo $params['monitorAPI'] ?>" >
+<input type="hidden" name="view_type"   value="<?php echo $params['view_type'] ?>"  >
+<input type="hidden" name="queries"     value="1"                                   >
+<br><br><input type="submit" value="Continue 3">
+</form>
+
+
+

@@ -64,5 +64,9 @@ if(stripos($shell_debug, "404 Not Found") !== false) //string is found
     unlink($destination);
 }
 */
+/*
+worked command-line
+wget -O TSV_files/eli.tsv "http://api.effechecka.org/occurrences.tsv?taxonSelector=Aphaenogaster&traitSelector=&wktString=POLYGON%20((-138.8671875%2044,%20-138.8671875%2070,%20-47.8125%2070,%20-47.8125%2044,%20-138.8671875%2044))"
+*/
 
 

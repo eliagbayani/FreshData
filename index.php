@@ -104,7 +104,9 @@ elseif(isset($params['contact_name']))          print '<script>$( "#tabs_main" )
 elseif(isset($params['uuid']))                  print '<script>$( "#tabs_main" ).tabs( "option", "active", 1 );</script>';
 elseif(isset($params['api_call']))              print '<script>$( "#tabs_main" ).tabs( "option", "active", 4 );</script>';
 
-if(@$params['queries'] == 1) print '<script>$( "#tabs1" ).tabs( "option", "active", 3 );</script>';
+if(@$params['queries'] == 1) print '<script>$( "#tabs1" ).tabs( "option", "active", 3 );</script>'; //Queries
+if(@$params['queries'] == 2) print '<script>$( "#tabs1" ).tabs( "option", "active", 4 );</script>'; //Special Queries
+
 ?>
 </body>
 </html>

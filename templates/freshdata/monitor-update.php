@@ -106,7 +106,8 @@ function validateURL(textval)
   <tr><td colspan="2">
       <button id="driver" type="submit">Save</button>
       <!---<button onClick="javascript:history.back(1)" type="">Cancel</button>--->
-      <a href="javascript:history.back(1)">Cancel</a>
+      <!---<a href="javascript:history.back(1)">Cancel</a>--->
+      <a href="<?php echo $admin_link ?>">Cancel</a>
   </td></tr>
   </table>
   
