@@ -38,8 +38,7 @@ else                           $str .= " | Monitors Manual Mode";
                 <li><a href="#tabs-1">Create a new monitor</a></li>
                 <li><a href="#tabs-3">Queries</a></li>
             </ul>
-            <div id="tabs-3">
-            
+            <div id="tabs-3"><!---Queries--->
                 <span id = "login_form3">
                 <?php
                     // echo "<pre>"; print_r($rec_from_text); echo "</pre>";
@@ -82,25 +81,8 @@ else                           $str .= " | Monitors Manual Mode";
                             require_once("templates/freshdata/monitor-q-download-tsv.php");
                         }
                         else self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download for this monitor. Please check back soon ***.")); //has not seen this yet
-                        /*
-                        //worked on script
-                        $cmd = WGET_PATH.' -O '.$destination.' "'.$url.'"';
-                        $cmd .= " 2>&1";
-                        $shell_debug = shell_exec($cmd);
-                        echo "<a href='$url'>link</a><hr>[$cmd]<hr><hr>[$shell_debug]";
-                        if(stripos($shell_debug, "404 Not Found") !== false) //string is found
-                        {
-                            echo "<hr>filesize:".filesize($destination)."<hr>";
-                            unlink($destination);
-                        }
-                        */
                     }
                     
-                    // if(other_controller::is_tsv_ready($search_url))
-                    // {
-                    //     echo "TSV is ready";
-                    // }
-                    // else echo "TSV is NOT YET READY.";
                 ?>
                 </span>
                 <div id="stage3" style = "background-color:white;"></div>
@@ -128,28 +110,30 @@ else                           $str .= " | Monitors Manual Mode";
                     <?php 
                     if(@$params['get_count']=='Yes') echo "<br><br>Total rows: ".self::get_total_rows($uuid);
                     
-                    ?>
-                    <?php
+                    //apply special query: Invasive
+                    require_once("templates/freshdata/special-invasive-YN.php");
+                    
+                    
+                    
                 }
                 ?>
                 <br><br><input type="submit" value="Continue 1">
                 </form>
             </div>
             
-            <div id="tabs-0">
+            <div id="tabs-0"><!---Edit--->
                 <?php 
                 if(!self::manually_added_monitor($uuid)) require("templates/freshdata/monitor-orig-api-data.php"); 
                 ?>
                 <?php require_once("templates/freshdata/monitor-update.php"); ?>
             </div>
 
-            <div id="tabs-1">
+            <div id="tabs-1"><!---Create a new monitor--->
                 <?php require_once("templates/freshdata/monitor-add.php"); ?>
             </div>
 
-            <div id="tabs-2">
+            <div id="tabs-2"><!---Delete--->
                 <span id = "login_form2">
-                
                 <?php
                 if(self::has_scistarter_project_name($uuid)) self::display_message(array('type' => "error", 'msg' => "Cannot delete because it is used in SciStarter."));
                 else
@@ -183,7 +167,6 @@ else                           $str .= " | Monitors Manual Mode";
                 ?>
                 </span>
                 <div id="stage2" style = "background-color:white;"></div>
-                
             </div>
         
         </div>

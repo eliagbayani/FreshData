@@ -51,3 +51,18 @@ https://www.shellscript.sh/
 // $c = escapeshellcmd($c);
 // $c = escapeshellarg($c);
 
+=============================================================
+/*
+//worked on script
+$cmd = WGET_PATH.' -O '.$destination.' "'.$url.'"';
+$cmd .= " 2>&1";
+$shell_debug = shell_exec($cmd);
+echo "<a href='$url'>link</a><hr>[$cmd]<hr><hr>[$shell_debug]";
+if(stripos($shell_debug, "404 Not Found") !== false) //string is found
+{
+    echo "<hr>filesize:".filesize($destination)."<hr>";
+    unlink($destination);
+}
+*/
+
+

@@ -79,7 +79,7 @@ class other_controller
         //step 2: loop downwards, one step at a time
         for($build_no = $last_build_no; $build_no >= ($last_build_no-10); $build_no--)
         {
-            echo "<br> - [$build_no]";
+            // echo "<br> - [$build_no]";
             $status = self::get_task_build_status($task, $build_no);
             if(stripos($status, "$id.sh") !== false) return $status; //string is found
         }
