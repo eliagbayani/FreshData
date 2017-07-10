@@ -38,6 +38,8 @@ else                           $str .= " | Monitors Manual Mode";
                 <li><a href="#tabs-1">Create a new monitor</a></li>
                 <li><a href="#tabs-3">Queries</a></li>
             </ul>
+
+
             <div id="tabs-3"><!---Queries--->
                 <span id = "login_form3">
                 <?php
@@ -112,15 +114,13 @@ else                           $str .= " | Monitors Manual Mode";
                     
                     //apply special query: Invasive
                     require_once("templates/freshdata/special-invasive-YN.php");
-                    
-                    
-                    
                 }
                 ?>
                 <br><br><input type="submit" value="Continue 1">
                 </form>
             </div>
-            
+
+
             <div id="tabs-0"><!---Edit--->
                 <?php 
                 if(!self::manually_added_monitor($uuid)) require("templates/freshdata/monitor-orig-api-data.php"); 
