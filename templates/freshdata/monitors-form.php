@@ -59,8 +59,8 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                     {
                         echo "<hr>went here 01<hr>";
                         $button_text  = "Refresh";
-                        if(self::is_there_an_unfinished_job_for_this_uuid($uuid)) self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download for this monitor. Please check back soon *.")); //saw this already
-                        elseif(self::is_task_in_queue("wget_job", $uuid))         self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download for this monitor. Please check back soon **.")); //has not seen this yet
+                        if(self::is_there_an_unfinished_job_for_this_uuid($uuid)) self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download of occurrence for this monitor. Please check back soon *.")); //saw this already
+                        elseif(self::is_task_in_queue("wget_job", $uuid))         self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download of occurrence for this monitor. Please check back soon **.")); //has not seen this yet
                         else
                         {
                             $disp_total_rows = true;
@@ -92,7 +92,7 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                         else
                         {
                             $button_text  = "Refresh";
-                            self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download for this monitor. Please check back soon ***.")); //has not seen this yet
+                            self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download of occurrence for this monitor. Please check back soon ***.")); //has not seen this yet
                         }
                     }
                 ?>
@@ -159,7 +159,6 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                 {
                     self::display_message(array('type' => "error", 'msg' => "Occurrence TSV file not yet downloaded."));
                     self::display_message(array('type' => "error", 'msg' => "Use 'Download TSV' tab"));
-                    
                 }
                 ?>
                 </form>
