@@ -12,6 +12,7 @@ class freshdata_controller extends other_controller
 
         // /*
         // $this->monitors_api['all'] = "http://api.effechecka.org/monitors";
+        // $this->monitors_api['all'] = "http://localhost/FreshData/database/archive/monitors.json";
         $this->monitors_api['all'] = "http://editors.eol.org/FreshData/database/archive/monitors.json";
         
         $this->monitors_api['one'] = "http://api.effechecka.org/monitors?uuid=";

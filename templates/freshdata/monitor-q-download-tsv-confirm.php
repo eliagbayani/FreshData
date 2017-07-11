@@ -59,11 +59,21 @@ echo "<hr><pre>".$build_status."</pre><hr>"; //debug only
 ?>
 
 
+<!--- may not need these below; sample $params value:
+Array
+(
+    [uuid] => 5b6d8474-fcb4-5e16-b5cf-8f8a9a502fc3
+    [url] => http://api.effechecka.org/occurrences.tsv?taxonSelector=aphaenogaster picea|aphaenogaster fulva|aphaenogaster rudis&traitSelector=&wktString=POLYGON ((-138.8671875 44, -138.8671875 70, -47.8125 70, -47.8125 44, -138.8671875 44))
+    [destination] => /Library/WebServer/Documents/FreshData/templates/freshdata/../../TSV_files/5b6d8474-fcb4-5e16-b5cf-8f8a9a502fc3.tsv
+    [search_url] => http://gimmefreshdata.github.io/?taxonSelector=aphaenogaster picea|aphaenogaster fulva|aphaenogaster rudis&traitSelector=&wktString=POLYGON ((-138.8671875 44, -138.8671875 70, -47.8125 70, -47.8125 44, -138.8671875 44))
+)
+<?php echo "<pre>"; print_r($params); echo "</pre>"; ?>
+--->
 <form action="index.php" method="post" enctype="multipart/form-data">
-<input type="hidden" name="uuid"        value="<?php echo $params['uuid'] ?>"       >
-<input type="hidden" name="monitorAPI"  value="<?php echo $params['monitorAPI'] ?>" >
-<input type="hidden" name="view_type"   value="<?php echo $params['view_type'] ?>"  >
-<input type="hidden" name="queries"     value="1"                                   >
+<input type="hidden" name="uuid"        value="<?php echo $params['uuid'] ?>">
+<input type="hidden" name="monitorAPI"  value="0">
+<input type="hidden" name="view_type"   value="admin">
+<input type="hidden" name="queries"     value="1">
 <br><br><input type="submit" value="Continue 3">
 </form>
 

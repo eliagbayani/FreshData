@@ -133,9 +133,21 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                 }
                 ?>
                 </form>
-            </div>
+            </div><!---end: Queries--->
+
 
             <div id="tabs-4"><!---Special Queries--->
+                <span id = "login_form4">
+                <?php
+                    require_once("templates/freshdata/special-invasive-form.php");
+                ?>
+                </span>
+                <div id="stage4" style = "background-color:white;"></div>
+                <br>
+            </div><!---end: Special Queries--->
+
+            <!--- temporarily commented, working but no ajax effect
+            <div id="tabs-4"> Special Queries
                 <span id = "login_form4">
                     span area
                 </span>
@@ -163,7 +175,7 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                 ?>
                 </form>
             </div>
-
+            --->
 
             <div id="tabs-0"><!---Edit--->
                 <?php 
