@@ -12,10 +12,9 @@ $ctrler = new freshdata_controller($params);
 
 //worked on script
 $cmd = WGET_PATH.' --tries=3 -O '.$params['destination'].' "'.$params['url'].'"'; //working well with shell_exec()
-$cmd = WGET_PATH.' --tries=3 -O '.$params['destination'].' "'.$params['url'].'"';
 $cmd .= " 2>&1";
 $ctrler->write_to_sh($params['uuid'], $cmd);
-//$shell_debug = shell_exec($cmd);
+//$shell_debug = shell_exec($cmd); //worked ok also but we changed strategy
 
 $c = '/usr/bin/curl -I -X POST -H "Jenkins-Crumb:64377cccf355db2cc6fe0c0726012401" http://eli:b2e5ca02f73b5c7d716449c763e120dd@localhost:8080/job/wget_job/buildWithParameters?myShell='.$cmd;
 
@@ -58,7 +57,6 @@ else
 echo "<hr><pre>".$build_status."</pre><hr>"; //debug only
 ?>
 
-
 <!--- may not need these below; sample $params value:
 Array
 (
@@ -76,6 +74,3 @@ Array
 <input type="hidden" name="queries"     value="1">
 <br><br><input type="submit" value="Continue 3">
 </form>
-
-
-
