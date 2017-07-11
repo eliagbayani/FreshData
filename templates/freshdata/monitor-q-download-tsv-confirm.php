@@ -16,8 +16,6 @@ $cmd .= " 2>&1";
 $ctrler->write_to_sh($params['uuid'], $cmd);
 //$shell_debug = shell_exec($cmd); //worked ok also but we changed strategy
 
-$c = '/usr/bin/curl -I -X POST -H "Jenkins-Crumb:64377cccf355db2cc6fe0c0726012401" http://eli:b2e5ca02f73b5c7d716449c763e120dd@localhost:8080/job/wget_job/buildWithParameters?myShell='.$cmd;
-
 // /* new
 // $destination = __DIR__ . "/../../sh_files/eli.sh";
 $destination = __DIR__ . "/../../sh_files/".$params['uuid'].".sh";
