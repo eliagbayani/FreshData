@@ -17,14 +17,12 @@ $ctrler->write_to_sh($params['uuid'], $cmd);
 //$shell_debug = shell_exec($cmd); //worked ok also but we changed strategy
 
 // /* new
-// $destination = __DIR__ . "/../../sh_files/eli.sh";
-$destination = __DIR__ . "/../../sh_files/".$params['uuid'].".sh";
-$cmd = "exec $destination";
+$sh_destination = $ctrler->generate_sh_filepath($params['uuid']); //pass the desired basename of the filename
+$cmd = "exec $sh_destination";
 $cmd .= " 2>&1";
 // */
 
-$c = '/usr/bin/curl -I -X POST -H "Jenkins-Crumb:64377cccf355db2cc6fe0c0726012401" http://eli:b2e5ca02f73b5c7d716449c763e120dd@localhost:8080/job/wget_job/buildWithParameters?myShell='.urlencode($cmd);
-$c .= " 2>&1";
+$c = $ctrler->build_curl_cmd_for_jenkins($cmd, "wget_job");
 
 if(file_exists($params['destination'])) unlink($params['destination']);
 

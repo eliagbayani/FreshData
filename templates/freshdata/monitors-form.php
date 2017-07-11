@@ -39,7 +39,7 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                 <li><a href="#tabs-0">Edit</a></li>
                 <li><a href="#tabs-2">Delete</a></li>
                 <li><a href="#tabs-1">Create a new monitor</a></li>
-                <li><a href="#tabs-3">Download TSV</a></li>
+                <li><a href="#tabs-3">Download Occurrence TSV</a></li>
                 <li><a href="#tabs-4">Special Queries</a></li>
             </ul>
 
@@ -80,13 +80,13 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                         elseif(!self::is_there_an_unfinished_job_for_this_uuid($uuid))
                         {
                             echo "<hr>went bbb<hr>";
-                            $disp_dl_button = true;
+                            $disp_dl_button = false;
                             require_once("templates/freshdata/monitor-q-download-tsv.php");
                         }
                         elseif(!self::is_task_in_queue("wget_job", $uuid))
                         {
                             echo "<hr>went aaa<hr>";
-                            $disp_dl_button = true;
+                            $disp_dl_button = false;
                             require_once("templates/freshdata/monitor-q-download-tsv.php");
                         }
                         else

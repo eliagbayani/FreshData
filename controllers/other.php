@@ -16,6 +16,19 @@ class other_controller
     }
 
     //start queries ============================================================================
+    
+    function generate_sh_filepath($basename)
+    {
+        return __DIR__ . "/../sh_files/".$basename.".sh";
+    }
+    
+    function build_curl_cmd_for_jenkins($cmd, $jenkins_job) //for download of TSV files
+    {
+        $c = '/usr/bin/curl -I -X POST -H "'.JENKINS_CRUMB.'" http://'.JENKINS_USER_TOKEN.'@'.JENKINS_DOMAIN.'/job/'.$jenkins_job.'/buildWithParameters?myShell='.urlencode($cmd);
+        $c .= " 2>&1";
+        return $c;
+    }
+    
     function write_to_sh($uuid, $cmd)
     {
         $destination = __DIR__ . "/../sh_files/".$uuid.".sh";
