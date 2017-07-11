@@ -17,6 +17,14 @@ class other_controller
 
     //start queries ============================================================================
     
+    function generate_exec_command($basename)
+    {
+        $sh_destination = self::generate_sh_filepath($basename); //pass the desired basename of the filename
+        $cmd = "exec $sh_destination";
+        $cmd .= " 2>&1";
+        return $cmd;
+    }
+    
     function generate_sh_filepath($basename)
     {
         return __DIR__ . "/../sh_files/".$basename.".sh";
@@ -29,7 +37,7 @@ class other_controller
         return $c;
     }
     
-    function write_to_sh($uuid, $cmd)
+    function write_to_sh($uuid, $cmd) //uuid is basename for .sh file
     {
         $destination = __DIR__ . "/../sh_files/".$uuid.".sh";
         shell_exec("chmod 755 $destination"); //https://www.shellscript.sh/
@@ -41,9 +49,9 @@ class other_controller
         else echo "<br>Write to file failed.<br>";
     }
     
-    function is_there_an_unfinished_job_for_this_uuid($uuid)
+    function is_there_an_unfinished_job_for_this_uuid($task, $uuid)
     {
-        $status = self::get_last_build_console_text("wget_job", $uuid);
+        $status = self::get_last_build_console_text($task, $uuid);
         if(stripos($status, "$uuid.sh") !== false) //string is found
         {
             if(self::is_build_currently_running($status)) return true;
@@ -74,7 +82,7 @@ class other_controller
         return false;
     }
     
-    function get_last_build_console_text($task, $id, $build_no = false)
+    function get_last_build_console_text($task, $id, $build_no = false) //$id is basename of .sh filename
     {
         /* first version
         if($build_no)   $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/job/$task/$build_no/consoleText";    //http://localhost:8080/job/wget_job/lastBuild/consoleText
@@ -88,7 +96,7 @@ class other_controller
         */
         
         //step 1: get_last_build_number
-        $last_build_no = self::get_last_build_number("wget_job");
+        $last_build_no = self::get_last_build_number($task);
         //step 2: loop downwards, one step at a time
         for($build_no = $last_build_no; $build_no >= ($last_build_no-10); $build_no--)
         {
@@ -105,7 +113,7 @@ class other_controller
         $options = $this->download_options;
         $options['expire_seconds'] = 0;
         if($html = Functions::lookup_with_cache($url, $options)) return $html;
-        else echo "<hr>Jenkins API last_build info is not ready.<hr>";
+        else echo "<hr>Jenkins API last_build info is not ready 01 [$task].<hr>";
         return false;
     }
     
@@ -116,7 +124,7 @@ class other_controller
         $options = $this->download_options;
         $options['expire_seconds'] = 0;
         if($build_no = Functions::lookup_with_cache($url, $options)) return $build_no;
-        else echo "<hr>Jenkins API last_build info is not ready.<hr>";
+        else echo "<hr>Jenkins API last_build info is not ready 02 [$task].<hr>";
         return false;
     }
     
@@ -164,6 +172,14 @@ class other_controller
     }
     */
     //end queries ==============================================================================
+    
+    //start invasive ==============================================================================
+    function apply_invasive_filter($uuid)
+    {
+        echo "<hr>[$uuid]<hr>eli was here...<hr>";
+    }
+    //end invasive ================================================================================ uuid
+    
     
 
     function scistarter_fields()

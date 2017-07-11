@@ -16,12 +16,7 @@ $cmd .= " 2>&1";
 $ctrler->write_to_sh($params['uuid'], $cmd);
 //$shell_debug = shell_exec($cmd); //worked ok also but we changed strategy
 
-// /* new
-$sh_destination = $ctrler->generate_sh_filepath($params['uuid']); //pass the desired basename of the filename
-$cmd = "exec $sh_destination";
-$cmd .= " 2>&1";
-// */
-
+$cmd = $ctrler->generate_exec_command($params['uuid']); //pass the desired basename of the .sh filename (e.g. xxx.sh then pass "xxx")
 $c = $ctrler->build_curl_cmd_for_jenkins($cmd, "wget_job");
 
 if(file_exists($params['destination'])) unlink($params['destination']);

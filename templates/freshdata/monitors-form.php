@@ -59,8 +59,8 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                     {
                         echo "<hr>went here 01<hr>";
                         $button_text  = "Refresh";
-                        if(self::is_there_an_unfinished_job_for_this_uuid($uuid)) self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download of occurrence for this monitor. Please check back soon *.")); //saw this already
-                        elseif(self::is_task_in_queue("wget_job", $uuid))         self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download of occurrence for this monitor. Please check back soon **.")); //has not seen this yet
+                        if(self::is_there_an_unfinished_job_for_this_uuid("wget_job", $uuid)) self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download of occurrence for this monitor. Please check back soon *.")); //saw this already
+                        elseif(self::is_task_in_queue("wget_job", $uuid))                     self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download of occurrence for this monitor. Please check back soon **.")); //has not seen this yet
                         else
                         {
                             $disp_total_rows = true;
@@ -77,7 +77,7 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                             $button_text  = "Refresh";
                             self::display_message(array('type' => "highlight", 'msg' => "This task is already on queue. Please check back soon ****.")); //saw this already
                         }
-                        elseif(!self::is_there_an_unfinished_job_for_this_uuid($uuid))
+                        elseif(!self::is_there_an_unfinished_job_for_this_uuid("wget_job", $uuid))
                         {
                             echo "<hr>went bbb<hr>";
                             $disp_dl_button = false;
@@ -146,36 +146,6 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                 <br>
             </div><!---end: Special Queries--->
 
-            <!--- temporarily commented, working but no ajax effect
-            <div id="tabs-4"> Special Queries
-                <span id = "login_form4">
-                    span area
-                </span>
-                <div id="stage4" style = "background-color:white;"></div>
-                <br>
-                <form action="index.php" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="uuid"        value="<?php echo $uuid ?>"                 >
-                <input type="hidden" name="monitorAPI"  value="<?php echo $params['monitorAPI'] ?>" >
-                <input type="hidden" name="view_type"   value="<?php echo $params['view_type'] ?>"  >
-                <input type="hidden" name="queries"     value="2"                                   >
-                <?php
-                if(file_exists($destination) && filesize($destination) && $disp_total_rows)
-                {
-                    //apply special query: Invasive
-                    require("templates/freshdata/special-invasive-YN.php");
-                    ?>
-                    <br><br><input type="submit" value="Continue 2">
-                    <?php
-                }
-                else
-                {
-                    self::display_message(array('type' => "error", 'msg' => "Occurrence TSV file not yet downloaded."));
-                    self::display_message(array('type' => "error", 'msg' => "Use 'Download TSV' tab"));
-                }
-                ?>
-                </form>
-            </div>
-            --->
 
             <div id="tabs-0"><!---Edit--->
                 <?php 

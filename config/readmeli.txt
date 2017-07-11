@@ -69,4 +69,38 @@ worked command-line
 wget -O TSV_files/eli.tsv "http://api.effechecka.org/occurrences.tsv?taxonSelector=Aphaenogaster&traitSelector=&wktString=POLYGON%20((-138.8671875%2044,%20-138.8671875%2070,%20-47.8125%2070,%20-47.8125%2044,%20-138.8671875%2044))"
 */
 
+======================
+from monitors-form.php
+
+<!--- temporarily commented, working but no ajax effect
+<div id="tabs-4"> Special Queries
+    <span id = "login_form4">
+        span area
+    </span>
+    <div id="stage4" style = "background-color:white;"></div>
+    <br>
+    <form action="index.php" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="uuid"        value="<?php echo $uuid ?>"                 >
+    <input type="hidden" name="monitorAPI"  value="<?php echo $params['monitorAPI'] ?>" >
+    <input type="hidden" name="view_type"   value="<?php echo $params['view_type'] ?>"  >
+    <input type="hidden" name="queries"     value="2"                                   >
+    <?php
+    if(file_exists($destination) && filesize($destination) && $disp_total_rows)
+    {
+        //apply special query: Invasive
+        require("templates/freshdata/special-invasive-YN.php");
+        ?>
+        <br><br><input type="submit" value="Continue 2">
+        <?php
+    }
+    else
+    {
+        self::display_message(array('type' => "error", 'msg' => "Occurrence TSV file not yet downloaded."));
+        self::display_message(array('type' => "error", 'msg' => "Use 'Download TSV' tab"));
+    }
+    ?>
+    </form>
+</div>
+--->
+
 
