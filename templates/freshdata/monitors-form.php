@@ -45,18 +45,19 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
 
 
             <div id="tabs-3"><!---Queries--->
+                <?php
+                $search_url = FRESHDATA_DOMAIN."?taxonSelector=".$rec_from_text['Taxa']."&traitSelector=".$rec_from_text['Trait_selector']."&wktString=".$rec_from_text['String'];
+                $url = $this->api['effechecka_occurrences']."?taxonSelector=".$rec_from_text['Taxa']."&traitSelector=".$rec_from_text['Trait_selector']."&wktString=".$rec_from_text['String'];
+                //vars to be filled-up for other tabs e.g. Special Queries
+                $button_text  = "Continue 1 queries";
+                $destination = self::generate_tsv_filepath($uuid);
+                $task = "wget_job";
+                ?>
                 <span id = "login_form3">
                 <?php
-                    $search_url = FRESHDATA_DOMAIN."?taxonSelector=".$rec_from_text['Taxa']."&traitSelector=".$rec_from_text['Trait_selector']."&wktString=".$rec_from_text['String'];
-                    $url = $this->api['effechecka_occurrences']."?taxonSelector=".$rec_from_text['Taxa']."&traitSelector=".$rec_from_text['Trait_selector']."&wktString=".$rec_from_text['String'];
-
                     $disp_total_rows = false;
                     $disp_dl_button = false;
-                    $button_text  = "Continue 1";
-                    
-                    $destination = self::generate_tsv_filepath($uuid);
-                    $task = "wget_job";
-                    
+
                     if(file_exists($destination) && filesize($destination))
                     {
                         echo "<hr>went here 01<hr>";
