@@ -53,8 +53,12 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                 $basename = $uuid;
                 $destination = self::generate_tsv_filepath($basename);
                 $task = "wget_job";
+                $form_elements_index = 3;
+                $php_form_script = "templates/freshdata/monitor-q-download-tsv.php";
+                $queries_tab_index = 1;
                 ?>
-                <span id = "login_form3">
+                
+                <span id = "login_form<?php echo $form_elements_index ?>">
                 <?php
                     $disp_total_rows = false;
                     $disp_dl_button = false;
@@ -85,13 +89,13 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                         {
                             echo "<hr>went bbb<hr>";
                             $disp_dl_button = false;
-                            require_once("templates/freshdata/monitor-q-download-tsv.php");
+                            require_once($php_form_script);
                         }
                         elseif(!self::is_task_in_queue($task, $basename))
                         {
                             echo "<hr>went aaa<hr>";
                             $disp_dl_button = false;
-                            require_once("templates/freshdata/monitor-q-download-tsv.php");
+                            require_once($php_form_script);
                         }
                         else
                         {
@@ -101,13 +105,13 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                     }
                 ?>
                 </span>
-                <div id="stage3" style = "background-color:white;"></div>
+                <div id="stage<?php echo $form_elements_index ?>" style = "background-color:white;"></div>
                 <br>
                 <form action="index.php" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="uuid"        value="<?php echo $uuid ?>"                 >
                 <input type="hidden" name="monitorAPI"  value="<?php echo $params['monitorAPI'] ?>" >
                 <input type="hidden" name="view_type"   value="<?php echo $params['view_type'] ?>"  >
-                <input type="hidden" name="queries"     value="1"                                   >
+                <input type="hidden" name="queries"     value="<?php echo $queries_tab_index ?>"    >
                 <?php
                 if(file_exists($destination) && filesize($destination) && $disp_total_rows)
                 {

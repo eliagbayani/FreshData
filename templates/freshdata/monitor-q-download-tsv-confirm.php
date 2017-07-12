@@ -44,7 +44,7 @@ elseif($ctrler->is_build_currently_running($build_status))
 else
 {
     if(file_exists($params['destination']) && filesize($params['destination'])) $ctrler->display_message(array('type' => "highlight", 'msg' => "Job completed: OK"));
-    else                                                                        $ctrler->display_message(array('type' => "highlight", 'msg' => "Build is in unknown state. Will investigate"));
+    else                                                                        $ctrler->display_message(array('type' => "highlight", 'msg' => "Build is in unknown state. Will investigate. Click <b>Continue</b>."));
 }
 echo "<hr><pre>".$build_status."</pre><hr>"; //debug only
 ?>
