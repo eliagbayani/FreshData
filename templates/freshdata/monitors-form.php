@@ -55,6 +55,7 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                 $form_elements_index = 3;
                 $php_form_script = "templates/freshdata/monitor-q-download-tsv.php";
                 $queries_tab_index = 1;
+                $job_type = "download occurrence tsv";
                 require("templates/freshdata/jenkins-interface.php");
                 ?>
             </div><!---end: Queries--->
@@ -69,6 +70,7 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                 $form_elements_index = 4;
                 $php_form_script = "templates/freshdata/special-invasive-form.php";
                 $queries_tab_index = 2;
+                $job_type = "apply invasive filter to occurrence";
                 require("templates/freshdata/jenkins-interface.php");
                 ?>
             </div><!---end: Special Queries--->

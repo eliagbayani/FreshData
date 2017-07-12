@@ -14,7 +14,13 @@
             $disp_total_rows = true;
             $button_text  = "Submit";
             self::display_message(array('type' => "highlight", 'msg' => "Task has finished. &nbsp; File size: ".filesize($destination)." bytes."));
-            self::display_message(array('type' => "highlight", 'msg' => "You can now proceed with 'Special Queries' tab"));
+            if($job_type == "download occurrence tsv")
+            {
+                self::display_message(array('type' => "highlight", 'msg' => "You can now proceed with 'Special Queries' tab"));
+            }
+            elseif($job_type == "apply invasive filter to occurrence") {}
+            $zip_path = self::generate_tsv_filepath($basename).".gz";
+            echo "<p><a href='$zip_path'>Download here.</a>";
         }
     }
     else
