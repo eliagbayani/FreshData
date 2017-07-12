@@ -54,7 +54,9 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                     $disp_dl_button = false;
                     $button_text  = "Continue 1";
                     
-                    $destination = __DIR__ . "/../../TSV_files/$uuid.tsv";
+                    // $destination = __DIR__ . "/../../TSV_files/$uuid.tsv"; working but re-factor code
+                    $destination = self::generate_tsv_filepath($uuid);
+                    
                     if(file_exists($destination) && filesize($destination))
                     {
                         echo "<hr>went here 01<hr>";
@@ -139,6 +141,7 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
             <div id="tabs-4"><!---Special Queries--->
                 <span id = "login_form4">
                 <?php
+                    $destination_inv = self::generate_tsv_filepath($uuid."_inv");
                     require_once("templates/freshdata/special-invasive-form.php");
                 ?>
                 </span>

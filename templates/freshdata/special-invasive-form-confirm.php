@@ -41,7 +41,7 @@ if(file_exists($params['destination'])) unlink($params['destination']);
 */
 
 $shell_debug = shell_exec($c);
-sleep(10);
+// sleep(10);
 
 // echo "<pre><hr>$cmd<hr>$c<hr></pre>";
 echo "<pre><hr>[$shell_debug]<hr></pre>"; //debug only
@@ -59,10 +59,8 @@ elseif($ctrler->is_build_currently_running($build_status))
 }
 else
 {
-    /*
-    if(file_exists($params['destination']) && filesize($params['destination'])) $ctrler->display_message(array('type' => "highlight", 'msg' => "Job completed: OK"));
-    else                                                                        $ctrler->display_message(array('type' => "highlight", 'msg' => "Build is in unknown state. Will investigate"));
-    */
+    if(file_exists($params['destination_inv']) && filesize($params['destination_inv'])) $ctrler->display_message(array('type' => "highlight", 'msg' => "Job completed: OK"));
+    else                                                                                $ctrler->display_message(array('type' => "highlight", 'msg' => "Build is in unknown state. Will investigate"));
 }
 echo "<hr><pre>".$build_status."</pre><hr>"; //debug only
 

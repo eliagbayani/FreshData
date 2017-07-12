@@ -102,5 +102,8 @@ from monitors-form.php
     </form>
 </div>
 --->
+=============================
+$a = get_declared_classes();
+print_r($a); exit;
 
 

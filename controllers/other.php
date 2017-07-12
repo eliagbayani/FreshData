@@ -15,8 +15,63 @@ class other_controller
         $this->download_options = array('download_timeout_seconds' => 4800, 'download_wait_time' => 300000, 'expire_seconds' => 43200); //expires in 12 hours
     }
 
-    //start queries ============================================================================
+    //start invasive ==============================================================================
+    function apply_invasive_filter($uuid)
+    {
+        echo "<hr>[$uuid]<hr>eli was here...<hr>";
+        $invasives = self::unique_invasive_species_scinames();
+
+        //prepare for target file
+        $filename_target = self::generate_tsv_filepath($uuid."_inv");
+        $write = Functions::file_open($filename_target, "w");
+        
+        //start loop the downloaded TSV and apply the invasive filter, then generate a new filtered TSV
+        $filename = self::generate_tsv_filepath($uuid); //param here is basename; basename.tsv
+        $fn = Functions::file_open($filename, "r");
+        while (($line = fgets($fn)) !== false)
+        {
+            $arr = explode("\t", $line);
+            $taxon = trim($arr[0]);
+            if(!in_array($taxon, $invasives))
+            {
+                // echo "<br>$line";
+                fwrite($write, $line);
+            }
+        }
+        fclose($fn);
+        fclose($write);
+    }
     
+    private function unique_invasive_species_scinames()
+    {
+        $scinames = array();
+        $names = self::get_google_sheet();
+        foreach($names as $name) $scinames[$name[0]] = '';
+        $scinames = array_keys($scinames);
+        $scinames = array_map('trim', $scinames);
+        // print_r($scinames);
+        // echo "<hr>".count($scinames)."<hr>";
+        return $scinames;
+    }
+    
+    private function get_google_sheet() //sheet found here: https://eol-jira.bibalex.org/browse/DATA-1682?focusedCommentId=61079&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-61079
+    {
+        include(__DIR__ . '/../../eol_php_code/lib/connectors/GoogleClientAPI.php');
+        $func = new php_active_record\GoogleClientAPI(); //get_declared_classes(); will give you how to access all available classes
+        $params['spreadsheetID'] = '1KMxy2mjx2JRX6CKCqOUXoGbWTGNUTyuOfmFa3Y4d20M';
+        $params['range']         = 'Compiled list #2- For the Filter!F2:F'; //where "A" is the starting column, "C" is the ending column, and "2" is the starting row.
+        return $func->access_google_sheet($params);
+    }
+    
+    function generate_tsv_filepath($basename)
+    {
+        return __DIR__ . "/../TSV_files/".$basename.".tsv";
+    }
+    
+    //end invasive ================================================================================ uuid
+
+
+    //start queries ============================================================================
     function generate_exec_command($basename)
     {
         $sh_destination = self::generate_sh_filepath($basename); //pass the desired basename of the filename
@@ -24,7 +79,7 @@ class other_controller
         $cmd .= " 2>&1";
         return $cmd;
     }
-    
+
     function generate_sh_filepath($basename)
     {
         return __DIR__ . "/../sh_files/".$basename.".sh";
@@ -173,15 +228,6 @@ class other_controller
     */
     //end queries ==============================================================================
     
-    //start invasive ==============================================================================
-    function apply_invasive_filter($uuid)
-    {
-        echo "<hr>[$uuid]<hr>eli was here...<hr>";
-    }
-    //end invasive ================================================================================ uuid
-    
-    
-
     function scistarter_fields()
     {
         return array( //default from https://docs.google.com/spreadsheets/d/1gHdrWRaZbEKp3bCI7kXhN95le-jGvQOXXxeVpgmypJ4/edit?ts=5919e683#gid=0
