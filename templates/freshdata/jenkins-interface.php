@@ -5,21 +5,21 @@
 
     if(file_exists($destination) && filesize($destination))
     {
-        echo "<hr>went here 01<hr>";
+        // echo "<hr>went here 01<hr>";
         $button_text  = "Refresh";
-        if(self::is_there_an_unfinished_job_for_this_uuid($task, $basename)) self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download of occurrence for this monitor. Please check back soon *.")); //saw this already
-        elseif(self::is_task_in_queue($task, $basename))                     self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download of occurrence for this monitor. Please check back soon **.")); //has not seen this yet
+        if(self::is_there_an_unfinished_job_for_this_uuid($task, $basename)) self::display_message(array('type' => "highlight", 'msg' => "Task is currently running. Please check back soon *.")); //saw this already
+        elseif(self::is_task_in_queue($task, $basename))                     self::display_message(array('type' => "highlight", 'msg' => "Task is currently running. Please check back soon **.")); //has not seen this yet
         else
         {
             $disp_total_rows = true;
             $button_text  = "Submit";
-            self::display_message(array('type' => "highlight", 'msg' => "Occurrence TSV file already downloaded. &nbsp; File size: ".filesize($destination)." bytes."));
+            self::display_message(array('type' => "highlight", 'msg' => "Task has finished. &nbsp; File size: ".filesize($destination)." bytes."));
             self::display_message(array('type' => "highlight", 'msg' => "You can now proceed with 'Special Queries' tab"));
         }
     }
     else
     {
-        echo "<hr>went here 02<hr>";
+        // echo "<hr>went here 02<hr>";
         if(self::is_task_in_queue($task, $basename))
         {
             $button_text  = "Refresh";
@@ -27,20 +27,20 @@
         }
         elseif(!self::is_there_an_unfinished_job_for_this_uuid($task, $basename))
         {
-            echo "<hr>went bbb<hr>";
+            // echo "<hr>went bbb<hr>";
             $disp_dl_button = false;
             require_once($php_form_script);
         }
         elseif(!self::is_task_in_queue($task, $basename))
         {
-            echo "<hr>went aaa<hr>";
+            // echo "<hr>went aaa<hr>";
             $disp_dl_button = false;
             require_once($php_form_script);
         }
         else
         {
             $button_text  = "Refresh";
-            self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download of occurrence for this monitor. Please check back soon ***.")); //has not seen this yet
+            self::display_message(array('type' => "highlight", 'msg' => "Task is currently running. Please check back soon ***.")); //has not seen this yet
         }
     }
 ?>
@@ -57,17 +57,17 @@ if(file_exists($destination) && filesize($destination) && $disp_total_rows)
 {
     ?>
     Count total rows:
-    <select name="get_count" id="toggleYN">
+    <select name="get_count<?php echo $form_elements_index ?>" id="toggleYN">
         <option>
         <?php $yn = array('Yes', 'No');
         foreach($yn as $ans) {
             $selected = "";
-            if(@$params['get_count'] == $ans) $selected = "selected";
+            if(@$params['get_count'.$form_elements_index] == $ans) $selected = "selected";
             echo '<option value="' . $ans . '" ' . $selected . '>' . $ans . '</option>';
         }?>
     </select>
     <?php 
-    if(@$params['get_count']=='Yes') echo "<br><br>Total rows: ".self::get_total_rows($basename); //param is basename of .tsv filename
+    if(@$params['get_count'.$form_elements_index]=='Yes') echo "<br><br>Total rows: ".self::get_total_rows($basename); //param is basename of .tsv filename
     /*
     //apply special query: Invasive
     require_once("templates/freshdata/special-invasive-YN.php");

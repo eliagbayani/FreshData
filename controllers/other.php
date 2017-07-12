@@ -18,7 +18,7 @@ class other_controller
     //start invasive ==============================================================================
     function apply_invasive_filter($uuid)
     {
-        echo "<hr>[$uuid]<hr>eli was here...<hr>";
+        // echo "<hr>[$uuid]<hr>eli was here...<hr>";
         $invasives = self::unique_invasive_species_scinames();
 
         //prepare for target file
@@ -40,6 +40,20 @@ class other_controller
         }
         fclose($fn);
         fclose($write);
+        self::gzip_file($uuid."_inv");
+    }
+    
+    private function gzip_file($basename)
+    {
+        $source = self::generate_tsv_filepath($basename);
+        $target = $source.".gz";
+        if(file_exists($source))
+        {
+            $cmd = "/usr/bin/gzip -c " . $source . " >" . $target;
+            $cmd .= " 2>&1";
+            $output = shell_exec($cmd);
+        }
+        else echo "\nCannot gzip. File does not exist: [$source]\n";
     }
     
     private function unique_invasive_species_scinames()
