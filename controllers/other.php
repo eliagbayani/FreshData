@@ -139,17 +139,6 @@ class other_controller
     
     function get_last_build_console_text($task, $id, $build_no = false) //$id is basename of .sh filename
     {
-        /* first version
-        if($build_no)   $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/job/$task/$build_no/consoleText";    //http://localhost:8080/job/wget_job/lastBuild/consoleText
-        else            $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/job/$task/lastBuild/consoleText";    //http://localhost:8080/job/wget_job/lastBuild/consoleText
-        $options = $this->download_options;
-        $options['expire_seconds'] = 0;
-        // echo "<hr>$url<hr>";
-        if($html = Functions::lookup_with_cache($url, $options)) return $html;
-        else echo "<hr>Jenkins API last_build info is not ready.<hr>";
-        return false;
-        */
-        
         //step 1: get_last_build_number
         $last_build_no = self::get_last_build_number($task);
         //step 2: loop downwards, one step at a time

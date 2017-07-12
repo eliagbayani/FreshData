@@ -3,6 +3,7 @@ require_once("../../config/settingz.php");
 require_once("../../../LiteratureEditor/Custom/lib/Functions.php");
 require_once("../../controllers/other.php");
 require_once("../../controllers/freshdata.php");
+$task = "wget_job";
 
 $params =& $_GET;
 if(!$params) $params =& $_POST;
@@ -17,7 +18,7 @@ $ctrler->write_to_sh($params['uuid'], $cmd);
 //$shell_debug = shell_exec($cmd); //worked ok also but we changed strategy
 
 $cmd = $ctrler->generate_exec_command($params['uuid']); //pass the desired basename of the .sh filename (e.g. xxx.sh then pass "xxx")
-$c = $ctrler->build_curl_cmd_for_jenkins($cmd, "wget_job");
+$c = $ctrler->build_curl_cmd_for_jenkins($cmd, $task);
 
 if(file_exists($params['destination'])) unlink($params['destination']);
 
@@ -29,7 +30,7 @@ sleep(10);
 echo "<pre><hr>[$shell_debug]<hr></pre>"; //debug only
 
 // the $build_status should come from the status for uuid in question not just the currently last_build
-$build_status = $ctrler->get_last_build_console_text("wget_job", $params['uuid']);
+$build_status = $ctrler->get_last_build_console_text($task, $params['uuid']);
 if($ctrler->did_build_fail($build_status))
 {
     $ctrler->display_message(array('type' => "error", 'msg' => "Occurrences for this search is NOT yet ready in Fresh Data."));

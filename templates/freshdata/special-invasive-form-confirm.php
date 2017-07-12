@@ -19,7 +19,7 @@ require_once("../../config/settingz.php");
 require_once("../../../LiteratureEditor/Custom/lib/Functions.php");
 require_once("../../controllers/other.php");
 require_once("../../controllers/freshdata.php");
-
+$task = "process_invasive_job";
 $params =& $_GET;
 if(!$params) $params =& $_POST;
 
@@ -27,14 +27,12 @@ $ctrler = new freshdata_controller($params);
 // sleep(1);
 
 //worked on script
-// $cmd = WGET_PATH.' --tries=3 -O '.$params['destination'].' "'.$params['url'].'"';
-$cmd = PHP_PATH.' app/invasive_filter.php?uuid='.urlencode($params['uuid']);
 $cmd = PHP_PATH.' app/invasive_filter.php '.$params['uuid'];
 $cmd .= " 2>&1";
 $ctrler->write_to_sh($params['uuid']."_inv", $cmd);
 
 $cmd = $ctrler->generate_exec_command($params['uuid']."_inv"); //pass the desired basename of the .sh filename (e.g. xxx.sh then pass "xxx")
-$c = $ctrler->build_curl_cmd_for_jenkins($cmd, "process_invasive_job");
+$c = $ctrler->build_curl_cmd_for_jenkins($cmd, $task);
 
 /* to TSV destination here...
 if(file_exists($params['destination'])) unlink($params['destination']);
@@ -47,7 +45,7 @@ $shell_debug = shell_exec($c);
 echo "<pre><hr>[$shell_debug]<hr></pre>"; //debug only
 
 // the $build_status should come from the status for uuid in question not just the currently last_build
-$build_status = $ctrler->get_last_build_console_text("process_invasive_job", $params['uuid']."_inv");
+$build_status = $ctrler->get_last_build_console_text($task, $params['uuid']."_inv");
 if($ctrler->did_build_fail($build_status))
 {
     $ctrler->display_message(array('type' => "error", 'msg' => "Build failed. Will need to investigate."));

@@ -54,15 +54,15 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                     $disp_dl_button = false;
                     $button_text  = "Continue 1";
                     
-                    // $destination = __DIR__ . "/../../TSV_files/$uuid.tsv"; working but re-factor code
                     $destination = self::generate_tsv_filepath($uuid);
+                    $task = "wget_job";
                     
                     if(file_exists($destination) && filesize($destination))
                     {
                         echo "<hr>went here 01<hr>";
                         $button_text  = "Refresh";
-                        if(self::is_there_an_unfinished_job_for_this_uuid("wget_job", $uuid)) self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download of occurrence for this monitor. Please check back soon *.")); //saw this already
-                        elseif(self::is_task_in_queue("wget_job", $uuid))                     self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download of occurrence for this monitor. Please check back soon **.")); //has not seen this yet
+                        if(self::is_there_an_unfinished_job_for_this_uuid($task, $uuid)) self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download of occurrence for this monitor. Please check back soon *.")); //saw this already
+                        elseif(self::is_task_in_queue($task, $uuid))                     self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download of occurrence for this monitor. Please check back soon **.")); //has not seen this yet
                         else
                         {
                             $disp_total_rows = true;
@@ -74,18 +74,18 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                     else
                     {
                         echo "<hr>went here 02<hr>";
-                        if(self::is_task_in_queue("wget_job", $uuid))
+                        if(self::is_task_in_queue($task, $uuid))
                         {
                             $button_text  = "Refresh";
                             self::display_message(array('type' => "highlight", 'msg' => "This task is already on queue. Please check back soon ****.")); //saw this already
                         }
-                        elseif(!self::is_there_an_unfinished_job_for_this_uuid("wget_job", $uuid))
+                        elseif(!self::is_there_an_unfinished_job_for_this_uuid($task, $uuid))
                         {
                             echo "<hr>went bbb<hr>";
                             $disp_dl_button = false;
                             require_once("templates/freshdata/monitor-q-download-tsv.php");
                         }
-                        elseif(!self::is_task_in_queue("wget_job", $uuid))
+                        elseif(!self::is_task_in_queue($task, $uuid))
                         {
                             echo "<hr>went aaa<hr>";
                             $disp_dl_button = false;
