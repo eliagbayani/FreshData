@@ -104,17 +104,17 @@ class other_controller
         else echo "<br>Write to file failed.<br>";
     }
     
-    function is_there_an_unfinished_job_for_this_uuid($task, $uuid)
+    function is_there_an_unfinished_job_for_this_uuid($task, $basename)
     {
-        $status = self::get_last_build_console_text($task, $uuid);
-        if(stripos($status, "$uuid.sh") !== false) //string is found
+        $status = self::get_last_build_console_text($task, $basename);
+        if(stripos($status, "$basename.sh") !== false) //string is found
         {
             if(self::is_build_currently_running($status)) return true;
         }
         return false;
     }
     
-    function is_task_in_queue($task, $uuid)
+    function is_task_in_queue($task, $basename)
     {
         $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/queue/api/xml";
         // http://localhost:8080/queue/api/xml
@@ -129,7 +129,7 @@ class other_controller
             // echo"<pre>";print_r($xml);echo"</pre>";
             foreach($xml->item as $item)
             {
-                if($item->task->name == $task && stripos($item->params, "$uuid.sh") !== false) return true; //string is found
+                if($item->task->name == $task && stripos($item->params, "$basename.sh") !== false) return true; //string is found
                 // echo "<hr>".$item->task->name;
                 // echo "<hr>".$item->params;
             }
@@ -137,7 +137,7 @@ class other_controller
         return false;
     }
     
-    function get_last_build_console_text($task, $id, $build_no = false) //$id is basename of .sh filename
+    function get_last_build_console_text($task, $basename, $build_no = false) //$id is basename of .sh filename
     {
         //step 1: get_last_build_number
         $last_build_no = self::get_last_build_number($task);
@@ -146,7 +146,7 @@ class other_controller
         {
             // echo "<br> - [$build_no]";
             $status = self::get_task_build_status($task, $build_no);
-            if(stripos($status, "$id.sh") !== false) return $status; //string is found
+            if(stripos($status, "$basename.sh") !== false) return $status; //string is found
         }
         return "";
     }
@@ -193,9 +193,9 @@ class other_controller
         else return false;
     }
     
-    function get_total_rows($uuid)
+    function get_total_rows($basename) //basename of .tsv filename
     {
-        $file = __DIR__ . "/../TSV_files/".$uuid.".tsv";
+        $file = __DIR__ . "/../TSV_files/".$basename.".tsv";
         if(file_exists($file)) return number_format(Functions::count_rows_from_text_file($file)-1);
         else echo "<hr>File does not exist: [$file]<hr>";
     }

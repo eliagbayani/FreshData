@@ -50,7 +50,8 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                 $url = $this->api['effechecka_occurrences']."?taxonSelector=".$rec_from_text['Taxa']."&traitSelector=".$rec_from_text['Trait_selector']."&wktString=".$rec_from_text['String'];
                 //vars to be filled-up for other tabs e.g. Special Queries
                 $button_text  = "Continue 1 queries";
-                $destination = self::generate_tsv_filepath($uuid);
+                $basename = $uuid;
+                $destination = self::generate_tsv_filepath($basename);
                 $task = "wget_job";
                 ?>
                 <span id = "login_form3">
@@ -62,8 +63,8 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                     {
                         echo "<hr>went here 01<hr>";
                         $button_text  = "Refresh";
-                        if(self::is_there_an_unfinished_job_for_this_uuid($task, $uuid)) self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download of occurrence for this monitor. Please check back soon *.")); //saw this already
-                        elseif(self::is_task_in_queue($task, $uuid))                     self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download of occurrence for this monitor. Please check back soon **.")); //has not seen this yet
+                        if(self::is_there_an_unfinished_job_for_this_uuid($task, $basename)) self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download of occurrence for this monitor. Please check back soon *.")); //saw this already
+                        elseif(self::is_task_in_queue($task, $basename))                     self::display_message(array('type' => "highlight", 'msg' => "There is an on-going download of occurrence for this monitor. Please check back soon **.")); //has not seen this yet
                         else
                         {
                             $disp_total_rows = true;
@@ -75,18 +76,18 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                     else
                     {
                         echo "<hr>went here 02<hr>";
-                        if(self::is_task_in_queue($task, $uuid))
+                        if(self::is_task_in_queue($task, $basename))
                         {
                             $button_text  = "Refresh";
                             self::display_message(array('type' => "highlight", 'msg' => "This task is already on queue. Please check back soon ****.")); //saw this already
                         }
-                        elseif(!self::is_there_an_unfinished_job_for_this_uuid($task, $uuid))
+                        elseif(!self::is_there_an_unfinished_job_for_this_uuid($task, $basename))
                         {
                             echo "<hr>went bbb<hr>";
                             $disp_dl_button = false;
                             require_once("templates/freshdata/monitor-q-download-tsv.php");
                         }
-                        elseif(!self::is_task_in_queue($task, $uuid))
+                        elseif(!self::is_task_in_queue($task, $basename))
                         {
                             echo "<hr>went aaa<hr>";
                             $disp_dl_button = false;
@@ -122,7 +123,7 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                         }?>
                     </select>
                     <?php 
-                    if(@$params['get_count']=='Yes') echo "<br><br>Total rows: ".self::get_total_rows($uuid);
+                    if(@$params['get_count']=='Yes') echo "<br><br>Total rows: ".self::get_total_rows($basename); //param is basename of .tsv filename
                     /*
                     //apply special query: Invasive
                     require_once("templates/freshdata/special-invasive-YN.php");
