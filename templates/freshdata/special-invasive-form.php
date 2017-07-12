@@ -5,9 +5,9 @@ $(document).ready(function() {
 
     var uuid = $("#uuid").val();
     var YN = $('#YN').val();
-    var destination_inv = $('#destination_inv').val();
+    var destination = $('#destination').val();
 
-    $("#stage4").load('templates/freshdata/special-invasive-form-confirm.php', {"uuid":uuid, "YN":YN, "destination_inv":destination_inv} );
+    $("#stage4").load('templates/freshdata/special-invasive-form-confirm.php', {"uuid":uuid, "YN":YN, "destination":destination} );
     $("#login_form4").hide();
     $('#stage4').append('<div class="help-block4"><br>Processing, please wait...<br><br></div>'); // add the actual error message under our input
     });
@@ -15,9 +15,9 @@ $(document).ready(function() {
 </script>
 
 <!---<span id = "login_form4">--->
-  <input type="hidden" id="uuid_archive"            value="<?php echo $rec_from_text['uuid_archive'] ?>" />
-  <input type="hidden" id="uuid"                    value="<?php echo $uuid ?>">
-  <input type="hidden" id="destination_inv"                    value="<?php echo $destination_inv ?>">
+  <input type="hidden" id="uuid_archive"    value="<?php echo $rec_from_text['uuid_archive'] ?>" />
+  <input type="hidden" id="uuid"            value="<?php echo $uuid ?>">
+  <input type="hidden" id="destination"     value="<?php echo $destination ?>">
   
   <hr>
   

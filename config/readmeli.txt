@@ -105,5 +105,17 @@ from monitors-form.php
 =============================
 $a = get_declared_classes();
 print_r($a); exit;
+==================================
+working but was changed: from monitors-form.php
 
+<div id="tabs-4"><!---Special Queries---> 
+    <span id = "login_form4">
+    <?php
+        $destination_inv = self::generate_tsv_filepath($uuid."_inv");
+        require_once("templates/freshdata/special-invasive-form.php");
+    ?>
+    </span>
+    <div id="stage4" style = "background-color:white;"></div>
+    <br>
+</div><!---end: Special Queries--->
 
