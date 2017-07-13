@@ -43,7 +43,7 @@ class other_controller
         self::gzip_file($uuid."_inv");
     }
     
-    private function gzip_file($basename)
+    function gzip_file($basename)
     {
         $source = self::generate_tsv_filepath($basename);
         $target = $source.".gz";

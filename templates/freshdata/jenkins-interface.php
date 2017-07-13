@@ -19,8 +19,10 @@
                 self::display_message(array('type' => "highlight", 'msg' => "You can now proceed with 'Special Queries' tab"));
             }
             elseif($job_type == "apply invasive filter to occurrence") {}
-            $zip_path = self::generate_tsv_filepath($basename).".gz";
-            echo "<p><a href='$zip_path'>Download here.</a>";
+
+            $zip_path = "TSV_files/$basename".".tsv.gz";
+            if(file_exists($zip_path)) echo "<p><a href='$zip_path'>Download here.</a>";
+            else echo "Zip does not exist";
         }
     }
     else

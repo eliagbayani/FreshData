@@ -7,6 +7,8 @@ $ jekyll server --incremental --watch
 -> then open in browser localhost:4000
 
 ===========================================
+chmod 755 /Library/WebServer/Documents/eol_php_code/vendor/google_client_library/json/sheets.googleapis.com-php-quickstart.json
+============================================
 best jquery+ajax tutorial
 https://www.tutorialspoint.com/jquery/jquery-ajax.htm
 ===========================================
