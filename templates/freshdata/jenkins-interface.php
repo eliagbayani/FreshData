@@ -31,7 +31,7 @@
         if(self::is_task_in_queue($task, $basename))
         {
             $button_text  = "Refresh";
-            self::display_message(array('type' => "highlight", 'msg' => "This task is already on queue. Please check back soon ****.")); //saw this already
+            self::display_message(array('type' => "highlight", 'msg' => "This task is already on queue. Please check back soon.")); //saw this already
         }
         elseif(!self::is_there_an_unfinished_job_for_this_uuid($task, $basename))
         {

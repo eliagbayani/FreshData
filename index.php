@@ -2,7 +2,9 @@
 <!doctype html>
 <html lang="us">
 <head>
+    <!---
     <div id="loadOverlay" style="background-color:#333; position:absolute; top:0px; left:0px; width:100%; height:100%; z-index:2000; color:white; font-size:120%;">Loading, please wait ...</div>
+    --->
     <title>Fresh Data: Monitors Maintenance</title>
     <?php require_once("config/head-entry.html") ?>
 </head>
@@ -12,7 +14,7 @@
 $params =& $_GET;
 if(!$params) $params =& $_POST;
 
-// print_r($params);// exit;
+// print_r($params);
 
 require_once("../LiteratureEditor/Custom/lib/Functions.php");
 require_once("controllers/other.php");

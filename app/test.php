@@ -2,7 +2,7 @@
 
 /* works OK
 $crumb = shell_exec("curl -s 'http://eli:b2e5ca02f73b5c7d716449c763e120dd@localhost:8080/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,\":\",//crumb)'");
-exit("<hr>$crumb<hr>");
+echo "<hr>$crumb<hr>";
 */
 
 

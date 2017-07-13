@@ -169,7 +169,7 @@ class freshdata_controller extends other_controller
                 $uuid = $m['selector']['uuid'];
                 $rec_from_text = self::get_text_file_value($uuid);
                 $info = array();
-                // print_r($rec_from_text); exit;
+                // print_r($rec_from_text);
                 /* Array ( [Title] => [Description] => [URL] => [Training_materials] => [Contact] => [uuid_archive] => [Taxa] => [Status] => [Records] => [Trait_selector] => [String] => ) */
                 $info['taxonSelector']  = $rec_from_text['Taxa'];
                 $info['wktString']      = $rec_from_text['String'];
@@ -338,7 +338,6 @@ class freshdata_controller extends other_controller
     
     function get_monitor_record($uuid)
     {
-        // exit("<br>111<br>");
         // if($json = Functions::lookup_with_cache($this->monitors_api['one'].$uuid, $this->download_options))
         if(false)
         {
@@ -609,7 +608,7 @@ class freshdata_controller extends other_controller
                 if(    @$p['search_type'] == 'booksearch')      echo self::render_template('booksearch-result', array('xml' => $xml));
                 elseif(@$p['search_type'] == 'itemsearch')      echo self::render_template('itemsearch-result', array('xml' => $xml));
             }
-            // else exit("<br>investigate pls.[$template]<br>");
+            // else echo "<br>investigate pls.[$template]<br>";
         }
         return self::render_template($template, array('book_title' => @$p['book_title'], 'volume' => @$p['volume'], 'lname' => @$p['lname'], 'use_cache' => @$p['use_cache']));
     }
