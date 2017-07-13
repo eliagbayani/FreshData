@@ -76,6 +76,25 @@ if(file_exists($destination) && filesize($destination) && $disp_total_rows)
     </select>
     <?php 
     if(@$params['get_count'.$form_elements_index]=='Yes') echo "<br><br>Total rows: ".self::get_total_rows($basename); //param is basename of .tsv filename
+    
+    ?>
+    <p>Delete TSV:
+    <select name="del_tsv<?php echo $form_elements_index ?>" id="toggleYN">
+        <option>
+        <?php $yn = array('Yes', 'No');
+        foreach($yn as $ans) {
+            $selected = "";
+            if(@$params['del_tsv'.$form_elements_index] == $ans) $selected = "selected";
+            echo '<option value="' . $ans . '" ' . $selected . '>' . $ans . '</option>';
+        }?>
+    </select>
+    <?php 
+    if(@$params['del_tsv'.$form_elements_index]=='Yes')
+    {
+        echo "<br><br>Deletion status: ".self::delete_tsv_file($basename); //param is basename of .tsv filename
+        ?><input type="submit" value="Refresh"><?php
+    }
+
     /*
     //apply special query: Invasive
     require_once("templates/freshdata/special-invasive-YN.php");

@@ -32,15 +32,61 @@ class other_controller
         {
             $arr = explode("\t", $line);
             $taxon = trim($arr[0]);
-            if(!in_array($taxon, $invasives))
+            if(self::sciname_is_species_and_below($taxon)) //https://eol-jira.bibalex.org/browse/DATA-1682?focusedCommentId=61223&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-61223
             {
-                // echo "<br>$line";
-                fwrite($write, $line);
+                if(!self::taxon_in_filter_list($taxon, $invasives)) //https://eol-jira.bibalex.org/browse/DATA-1682?focusedCommentId=61224&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-61224
+                {
+                    echo "<br>[$taxon]";
+                    fwrite($write, $line);
+                }
             }
         }
         fclose($fn);
         fclose($write);
         self::gzip_file($uuid."_inv");
+    }
+    
+    private function taxon_in_filter_list($taxon, $invasives)
+    {
+        if(in_array($taxon, $invasives)) return true;
+        foreach($invasives as $invasive)
+        {
+            if(self::str_exists_infront_of_string($taxon, $invasive)) return true;
+        }
+        return false;
+    }
+    private function str_exists_infront_of_string($str, $string)
+    {
+        $str = trim($str);
+        $string = trim($string);
+        $count_str = strlen($str);
+        if($str == substr($string,0,$count_str)) return true;
+        else return false;
+    }
+    
+    private function sciname_is_species_and_below($name)
+    {
+        $tmp = explode(" ", trim($name));
+        if(count($tmp) === 1) return false;
+        else
+        {
+            $second_word = $tmp[1];
+            if(ctype_upper($second_word[0])) return false;
+            else return true;
+        }
+        /* echo "<hr>start test<hr>"; $arr = array("Lampyridae Latreille, 1817", "Lampyridae", "Lampyridae ", "Gadus morhua ogac", "Gadus morhua Eli", "Gadus Eli", "Chanos chanos", "Chanos", "chanos");
+        foreach($arr as $name)
+        {
+            echo "<br>$name - ";
+            $tmp = explode(" ", trim($name));
+            if(count($tmp) === 1) echo "false";
+            else
+            {
+                $second_word = $tmp[1];
+                if(ctype_upper($second_word[0])) echo "false";
+                else echo "true";
+            }
+        } echo "<hr>end test<hr>"; */
     }
     
     function gzip_file($basename)
@@ -211,6 +257,19 @@ class other_controller
     {
         $file = __DIR__ . "/../TSV_files/".$basename.".tsv";
         if(file_exists($file)) return number_format(Functions::count_rows_from_text_file($file)-1);
+        else echo "<hr>File does not exist: [$file]<hr>";
+    }
+
+    function delete_tsv_file($basename) //basename of .tsv filename
+    {
+        $file = __DIR__ . "/../TSV_files/".$basename.".tsv";
+        $file_gz = $file.".gz";
+        if(file_exists($file))
+        {
+            unlink($file);
+            if(file_exists($file_gz)) unlink($file_gz);
+            return "File deleted.";
+        }
         else echo "<hr>File does not exist: [$file]<hr>";
     }
     
