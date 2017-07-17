@@ -68,5 +68,5 @@ Array
 <input type="hidden" name="monitorAPI"  value="0">
 <input type="hidden" name="view_type"   value="admin">
 <input type="hidden" name="queries"     value="1">
-<br><br><input type="submit" value="Refresh A">
+<br><br><input type="submit" value="Refresh">
 </form>

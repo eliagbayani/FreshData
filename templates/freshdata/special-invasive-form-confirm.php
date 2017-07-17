@@ -69,5 +69,5 @@ echo "<hr><pre>".$build_status."</pre><hr>"; //debug only
 <input type="hidden" name="monitorAPI"  value="0">
 <input type="hidden" name="view_type"   value="admin">
 <input type="hidden" name="queries"     value="2"><!---Special Queries--->
-<br><br><input type="submit" value="Refresh B">
+<br><br><input type="submit" value="Refresh">
 

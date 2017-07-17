@@ -50,9 +50,10 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                 $search_url = FRESHDATA_DOMAIN."?taxonSelector=".$rec_from_text['Taxa']."&traitSelector=".$rec_from_text['Trait_selector']."&wktString=".$rec_from_text['String'];
                 $url = $this->api['effechecka_occurrences']."?taxonSelector=".$rec_from_text['Taxa']."&traitSelector=".$rec_from_text['Trait_selector']."&wktString=".$rec_from_text['String'];
                 //vars to be filled-up for other tabs e.g. Special Queries
-                $button_text  = "Continue 1 queries";
+                $button_text  = "Continue";
                 $basename = $uuid;
                 $destination = self::generate_tsv_filepath($basename);
+                $destination_dl_tsv = $destination;
                 $task = "wget_job";
                 $form_elements_index = 3;
                 $php_form_script = "templates/freshdata/monitor-q-download-tsv.php";
@@ -65,7 +66,7 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
             <div id="tabs-4"><!---Special Queries--->
                 <?php
                 //vars to be filled-up for other tabs
-                $button_text  = "Continue 1 special queries";
+                $button_text  = "Continue";
                 $basename = $uuid."_inv";
                 $destination = self::generate_tsv_filepath($basename);
                 $task = "process_invasive_job";
@@ -73,7 +74,13 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                 $php_form_script = "templates/freshdata/special-invasive-form.php";
                 $queries_tab_index = 2;
                 $job_type = "apply invasive filter to occurrence";
+                
+                // echo "<hr>$destination_dl_tsv<hr>";
+                // if(file_exists($destination_dl_tsv)) require("templates/freshdata/jenkins-interface.php");
+                // echo "<p>Occurrence TSV not yet downloaded.";
+                
                 require("templates/freshdata/jenkins-interface.php");
+
                 ?>
             </div><!---end: Special Queries--->
 
