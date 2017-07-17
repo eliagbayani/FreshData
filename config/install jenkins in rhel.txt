@@ -1,0 +1,38 @@
+installing jenkins in rhel:
+
+checking if java is installed and what version: https://www.cyberciti.biz/faq/linux-unix-minify-compress-css-javascript-files-shell-prompt/verify-java-installed-on-linux-unix/
+$ whereis java
+$ java -verion
+
+
+------history
+editors.eol.org -> port 8080
+opendata.eol.org -> port 5000
+Then, let me figure out inside Archive how to setup the other two ports:
+:8983 -> for Solr, to be used by CKAN
+:8800 -> for DataPusher, also for CKAN
+-------------
+
+***maybe use this for Rhel: changing ports, etc. NICE DOC:
+https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Managing_Confined_Services/sect-Managing_Confined_Services-Configuration_examples-Changing_port_numbers.html
+https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/4/html/Security_Guide/s1-server-ports.html
+
+to open CKAN in w3m:
+w3m http://10.252.248.39:5000
+
+--------------------------------
+main instructions: https://jenkins.io/download/ --> then choose the stable release link
+https://wiki.jenkins.io/display/JENKINS/Installing+Jenkins+on+Red+Hat+distributions
+http://scmquest.com/jenkins-installation-and-configuration-on-redhat-distributions-with-screenshots/
+
+from wiki: I followed this:... wiki installation
+sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
+sudo rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
+sudo yum install jenkins
+
+-> edit JENKINS_PORT=”8080″ to 8090
+sudo vi /etc/sysconfig/jenkins
+
+sudo service jenkins start|stop|restart|status
+-> to test Jenkins
+w3m http://10.252.248.39:8090
