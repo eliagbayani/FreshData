@@ -91,6 +91,19 @@ class other_controller
             }
         } echo "<hr>end test<hr>"; */
     }
+
+    function generate_gzip_cmd($basename)
+    {
+        $source = self::generate_tsv_filepath($basename);
+        $target = $source.".gz";
+        if(file_exists($source))
+        {
+            $cmd = "/usr/bin/gzip -c " . $source . " >" . $target;
+            $cmd .= " 2>&1";
+            return $cmd;
+        }
+        else return false;
+    }
     
     function gzip_file($basename)
     {
@@ -109,7 +122,10 @@ class other_controller
     {
         $scinames = array();
         $names = self::get_google_sheet();
-        foreach($names as $name) $scinames[$name[0]] = '';
+        foreach($names as $name)
+        {
+            if($val = @$name[0]) $scinames[$val] = '';
+        }
         $scinames = array_keys($scinames);
         $scinames = array_map('trim', $scinames);
         // print_r($scinames);
@@ -160,9 +176,10 @@ class other_controller
         return __DIR__ . "/../sh_files/".$basename.".sh";
     }
     
-    function build_curl_cmd_for_jenkins($cmd, $jenkins_job) //for download of TSV files
+    function build_curl_cmd_for_jenkins($cmd, $jenkins_job, $cmd2 = null) //for download of TSV files
     {
         $c = '/usr/bin/curl -I -X POST -H "'.JENKINS_CRUMB.'" http://'.JENKINS_USER_TOKEN.'@'.JENKINS_DOMAIN.'/job/'.$jenkins_job.'/buildWithParameters?myShell='.urlencode($cmd);
+        // if($cmd2) $c .= '&myShell='.urlencode($cmd2); ---> does not work
         $c .= " 2>&1";
         return $c;
     }
@@ -286,7 +303,7 @@ class other_controller
             if(file_exists($file_gz)) unlink($file_gz);
             return "File deleted.";
         }
-        else echo "<hr>File does not exist: [$file]<hr>";
+        else return "File does not exist.";
     }
     
     /* not used yet

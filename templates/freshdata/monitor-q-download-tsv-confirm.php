@@ -18,6 +18,7 @@ $ctrler->write_to_sh($params['uuid'], $cmd);
 //$shell_debug = shell_exec($cmd); //worked ok also but we changed strategy
 
 $cmd = $ctrler->generate_exec_command($params['uuid']); //pass the desired basename of the .sh filename (e.g. xxx.sh then pass "xxx")
+// $cmd2 = $ctrler->generate_gzip_cmd($params['uuid']);
 $c = $ctrler->build_curl_cmd_for_jenkins($cmd, $task);
 
 if(file_exists($params['destination'])) unlink($params['destination']);

@@ -32,6 +32,7 @@ $cmd .= " 2>&1";
 $ctrler->write_to_sh($params['uuid']."_inv", $cmd);
 
 $cmd = $ctrler->generate_exec_command($params['uuid']."_inv"); //pass the desired basename of the .sh filename (e.g. xxx.sh then pass "xxx")
+// $cmd2 = $ctrler->generate_gzip_cmd($params['uuid']."_inv");
 $c = $ctrler->build_curl_cmd_for_jenkins($cmd, $task);
 
 /* to TSV destination here...
