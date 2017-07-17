@@ -20,7 +20,8 @@ class other_controller
     {
         // echo "<hr>[$uuid]<hr>eli was here...<hr>";
         $invasives = self::unique_invasive_species_scinames();
-
+        echo "\nInvasive species count: " . count($invasives)."\n";
+        
         //prepare for target file
         $filename_target = self::generate_tsv_filepath($uuid."_inv");
         $write = Functions::file_open($filename_target, "w");
