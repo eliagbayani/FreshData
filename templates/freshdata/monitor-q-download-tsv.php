@@ -26,7 +26,7 @@ echo "<br><a href='".$search_url."' target='".$uuid."'>Search in Fresh Data.</a>
   <input type="hidden" id="destination"     value="<?php echo $destination ?>">
   <input type="hidden" id="url"             value="<?php echo $url ?>">
   <input type="hidden" id="search_url"      value="<?php echo $search_url ?>">
-  <hr>
+  <br>
   <button id="driver3" type="submit">Download occurrence TSV from Fresh Data</button>
   &nbsp;<a href="<?php echo $admin_link ?>">Cancel</a>
 <!---</span>--->

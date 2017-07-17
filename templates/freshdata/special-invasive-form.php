@@ -19,7 +19,7 @@ $(document).ready(function() {
   <input type="hidden" id="uuid"            value="<?php echo $uuid ?>">
   <input type="hidden" id="destination"     value="<?php echo $destination ?>">
   
-  <hr>
+  <br>
   
   Apply filter 'Invasive Species':
   <select name="YN" id="YN" style="width:60px;">
