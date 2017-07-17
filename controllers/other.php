@@ -177,6 +177,7 @@ class other_controller
             fclose($fn);
         }
         else echo "<br>Write to file failed.<br>";
+        // sleep(10); //delay for the chmod to take effect
     }
     
     function is_there_an_unfinished_job_for_this_uuid($task, $basename)

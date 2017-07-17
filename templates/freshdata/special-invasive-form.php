@@ -9,7 +9,7 @@ $(document).ready(function() {
 
     $("#stage4").load('templates/freshdata/special-invasive-form-confirm.php', {"uuid":uuid, "YN":YN, "destination":destination} );
     $("#login_form4").hide();
-    $('#stage4').append('<div class="help-block4"><br>Processing, please wait...<br><br></div>'); // add the actual error message under our input
+    $('#stage4').append('<div class="help-block4"><br>Processing, please wait...<br><br>OR you can click Continue and check the download later.</div>'); // add the actual error message under our input
     });
 });
 </script>

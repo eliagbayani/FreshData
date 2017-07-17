@@ -44,6 +44,8 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
             </ul>
 
             <div id="tabs-3"><!---Queries--->
+                <?php require("templates/freshdata/monitor-text-data.php"); ?>
+                
                 <?php
                 $search_url = FRESHDATA_DOMAIN."?taxonSelector=".$rec_from_text['Taxa']."&traitSelector=".$rec_from_text['Trait_selector']."&wktString=".$rec_from_text['String'];
                 $url = $this->api['effechecka_occurrences']."?taxonSelector=".$rec_from_text['Taxa']."&traitSelector=".$rec_from_text['Trait_selector']."&wktString=".$rec_from_text['String'];
@@ -104,18 +106,11 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                         self::display_message(array('type' => "highlight", 'msg' => "Go to: Admin Page -> Deleted Records -> Choose a record -> Click 'Un-delete' button"));
                     }
                     ?>
-                    <table>
-                    <tr><td colspan="2"><hr><b>Archive Info:</b><hr></td></tr>
-                    <?php
-                    $fields = array("uuid_archive", "Taxa", "Status", "Records", "Trait_selector", "String");
-                    foreach($fields as $field) echo "<tr><td>$field:</td><td id='value'>".$rec_from_text[$field]."</td></tr>";
-                    ?>
-                    <tr><td colspan="2"><hr><b>Additional Fields:</b><hr></td></tr>
-                    <?php
-                    $fields = array("Title", "Description", "URL", "Training_materials", "Contact");
-                    foreach($fields as $field) echo "<tr><td>$field:</td><td id='value'>".$rec_from_text[$field]."</td></tr>";
-                    ?>
-                    </table>
+                    
+                    
+                    <?php require("templates/freshdata/monitor-text-data-template.php"); ?>
+                    
+                    
                     <?php require_once("templates/freshdata/monitor-delete.php"); ?>
                     <?php
                 }

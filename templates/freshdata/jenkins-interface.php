@@ -16,13 +16,17 @@
             self::display_message(array('type' => "highlight", 'msg' => "Task has finished. &nbsp; File size: ".filesize($destination)." bytes."));
             if($job_type == "download occurrence tsv")
             {
-                self::display_message(array('type' => "highlight", 'msg' => "You can now proceed with 'Special Queries' tab"));
+                self::display_message(array('type' => "highlight", 'msg' => "You can now proceed with [Special Queries] tab"));
             }
             elseif($job_type == "apply invasive filter to occurrence") {}
 
             $zip_path = "TSV_files/$basename".".tsv.gz";
             if(file_exists($zip_path)) echo "<p><a href='$zip_path'>Download here.</a>";
-            else echo "Zip does not exist";
+            else
+            {
+                echo "Zip does not exist";
+                self::gzip_file($uuid);
+            }
         }
     }
     else
@@ -92,7 +96,7 @@ if(file_exists($destination) && filesize($destination) && $disp_total_rows)
     if(@$params['del_tsv'.$form_elements_index]=='Yes')
     {
         echo "<br><br>Deletion status: <i>".self::delete_tsv_file($basename)."</i>"; //param is basename of .tsv filename
-        self::display_message(array('type' => "highlight", 'msg' => "File deleted [<i>$basename".".tsv</i>]. Click 'Refresh'."));
+        self::display_message(array('type' => "highlight", 'msg' => "File deleted [<i>$basename".".tsv</i>]. Click [Refresh] to continue."));
         ?><input type="submit" value="Refresh"><?php
     }
 
