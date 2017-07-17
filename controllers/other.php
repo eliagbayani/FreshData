@@ -36,7 +36,7 @@ class other_controller
             {
                 if(!self::taxon_in_filter_list($taxon, $invasives)) //https://eol-jira.bibalex.org/browse/DATA-1682?focusedCommentId=61224&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-61224
                 {
-                    echo "<br>[$taxon]";
+                    // echo "<br>[$taxon]";
                     fwrite($write, $line);
                 }
             }
@@ -49,6 +49,7 @@ class other_controller
     private function taxon_in_filter_list($taxon, $invasives)
     {
         if(in_array($taxon, $invasives)) return true;
+        if(in_array(Functions::canonical_form($taxon), $invasives)) return true;
         foreach($invasives as $invasive)
         {
             if(self::str_exists_infront_of_string($taxon, $invasive)) return true;
@@ -66,6 +67,7 @@ class other_controller
     
     private function sciname_is_species_and_below($name)
     {
+        if($name == "taxonName") return true; //meaning 1st row, the headers
         $tmp = explode(" ", trim($name));
         if(count($tmp) === 1) return false;
         else
@@ -126,6 +128,18 @@ class other_controller
     function generate_tsv_filepath($basename)
     {
         return __DIR__ . "/../TSV_files/".$basename.".tsv";
+    }
+
+    function loop_tsv_utility($basename) //utility
+    {
+        $filename_target = self::generate_tsv_filepath($basename);
+        $fn = Functions::file_open($filename, "r");
+        while (($line = fgets($fn)) !== false)
+        {
+            $arr = explode("\t", $line);
+            $taxon = trim($arr[0]);
+            if(stripos($taxon, "Chrysemys picta") !== false) exit("<hr>may problem<hr>");//string is found
+        }
     }
     
     //end invasive ================================================================================ uuid
