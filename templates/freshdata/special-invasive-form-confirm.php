@@ -53,7 +53,7 @@ if($ctrler->did_build_fail($build_status))
 }
 elseif($ctrler->is_build_currently_running($build_status))
 {
-    $ctrler->display_message(array('type' => "highlight", 'msg' => "Processing... Has not completed yet."));
+    $ctrler->display_message(array('type' => "highlight", 'msg' => "Processing..."));
     $ctrler->display_message(array('type' => "highlight", 'msg' => "Please check back later."));
 }
 else
