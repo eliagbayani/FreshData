@@ -25,7 +25,7 @@
             else
             {
                 echo "Zip does not exist";
-                self::gzip_file($uuid);
+                self::gzip_file($basename);
             }
         }
     }
@@ -96,7 +96,7 @@ if(file_exists($destination) && filesize($destination) && $disp_total_rows)
     if(@$params['del_tsv'.$form_elements_index]=='Yes')
     {
         $status = self::delete_tsv_file($basename); //param is basename of .tsv filename
-        self::display_message(array('type' => "highlight", 'msg' => "$status [<i>$basename".".tsv</i>]. Click [Refresh] to continue."));
+        self::display_message(array('type' => "highlight", 'msg' => "$status [ <i>$basename".".tsv</i> ].  &nbsp; Click [Refresh] to continue."));
         ?><input type="submit" value="Refresh"><?php
     }
 

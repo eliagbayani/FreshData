@@ -20,14 +20,14 @@ $(document).ready(function() {
   <input type="hidden" id="destination"     value="<?php echo $destination ?>">
   
   <br>
-  
+  <!---
   Apply filter 'Invasive Species':
   <select name="YN" id="YN" style="width:60px;">
       <option>
       <option value="Yes">Yes</option>
       <option value="No">No</option>
   </select>
-  
+  --->
   <button id="driver4" type="submit">Apply invasive list filter</button>
   &nbsp;<a href="<?php echo $admin_link ?>">Cancel</a>
 <!---</span>--->

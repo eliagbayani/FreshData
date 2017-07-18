@@ -188,6 +188,7 @@ class other_controller
     {
         $destination = __DIR__ . "/../sh_files/".$uuid.".sh";
         shell_exec("chmod 755 $destination"); //https://www.shellscript.sh/
+        // shell_exec("chmod +x $destination"); //https://www.shellscript.sh/
         if($fn = Functions::file_open($destination, "w"))
         {
             fwrite($fn, $cmd . "\n");
