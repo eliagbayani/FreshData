@@ -11,8 +11,10 @@ require_once(dirname(__FILE__) . "/../controllers/other.php");
 require_once(dirname(__FILE__) . "/../controllers/freshdata.php");
 
 // print_r($argv);
+$params['uuid'] = $argv[1];
+$params['date_from'] = @$argv[2];
+$params['date_to'] = @$argv[3];
 
 $ctrler = new freshdata_controller();
-$ctrler->apply_invasive_filter($argv[1]); //argument is the uuid
+$ctrler->apply_invasive_filter($params);
 ?>
-

@@ -28,8 +28,11 @@ $(document).ready(function() {
   <input type="hidden" id="uuid_archive"    value="<?php echo $rec_from_text['uuid_archive'] ?>" />
   <input type="hidden" id="uuid"            value="<?php echo $uuid ?>">
   <input type="hidden" id="destination"     value="<?php echo $destination ?>">
-  <input type="hidden" id="date_from"       value="<?php echo $date_from ?>">
-  <input type="hidden" id="date_to"         value="<?php echo $date_to ?>">
+  
+  <table>
+    <tr><td>Date last generated</td><td><input type="text" id="date_from"   value="<?php echo $date_from ?>"></td></tr>
+    <tr><td>Date today</td><td><input type="text" id="date_to"              value="<?php echo $date_to ?>"></td></tr>
+  </table
   
   <br>
   <!---

@@ -23,11 +23,13 @@ $task = "process_invasive_job";
 $params =& $_GET;
 if(!$params) $params =& $_POST;
 
+// echo "<pre>"; print_r($params); echo "</pre>";
+
 $ctrler = new freshdata_controller($params);
 // sleep(1);
 
 //worked on script
-$cmd = PHP_PATH.' app/invasive_filter.php '.$params['uuid'];
+$cmd = PHP_PATH.' app/invasive_filter.php ' . "$params[uuid] $params[date_from] $params[date_to]";
 $cmd .= " 2>&1";
 $ctrler->write_to_sh($params['uuid']."_inv", $cmd);
 

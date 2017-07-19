@@ -16,8 +16,9 @@ class other_controller
     }
 
     //start invasive ==============================================================================
-    function apply_invasive_filter($uuid)
+    function apply_invasive_filter($params)
     {
+        $uuid = $params['uuid'];
         // echo "<hr>[$uuid]<hr>eli was here...<hr>";
         $invasives = self::unique_invasive_species_scinames();
         echo "\nInvasive species count: " . count($invasives)."\n";
@@ -45,6 +46,60 @@ class other_controller
         fclose($fn);
         fclose($write);
         self::gzip_file($uuid."_inv");
+        self::create_incremental_file_if_needed($params);
+    }
+    
+    private function create_incremental_file_if_needed($params)
+    {
+        echo "date from: ".$params['date_from'];
+        echo "date to: ".$params['date_to'];
+        $filename = self::generate_tsv_filepath($params['uuid']."_inv");
+        $filename_target = self::generate_tsv_filepath($params['uuid']."_inc_".$params['date_to']); //date("Y-m-d")
+        $write = Functions::file_open($filename_target, "w");
+        
+        $fn = Functions::file_open($filename, "r");
+        $i = 0;
+        $delete_file = true;
+        while (($line = fgets($fn)) !== false)
+        {
+            $i++;
+            if($i == 1)
+            {
+                $fields = explode("\t", $line);
+                fwrite($write, $line);
+            }
+            $arr = explode("\t", $line);
+            $rec = array(); $k = 0;
+            foreach($fields as $field)
+            {
+                $rec[$field] = $arr[$k];
+                $k++;
+            }
+            //start processing $rec
+            echo "\n[$params[date_from]] - [$params[date_to]]\n";   // firstAddedDate > Jul 1 and firstAddedDate <= Jul 8
+            $date = substr($rec['firstAddedDate'],0,10);            // 2017-07-02
+            if($date > $params['date_from'] && $date <= $params['date_to'])
+            {
+                fwrite($write, $line);
+                echo "\n[$date]";
+                $delete_file = false;
+            }
+            else echo "\nnot - [$date]";
+        }
+        fclose($fn);
+        fclose($write);
+        if($delete_file) unlink($filename_target);
+    }
+    
+    function get_incremental_files($uuid)
+    {   //5b6d8474-fcb4-5e16-b5cf-8f8a9a502fc3_inc_2017-07-19.tsv
+        $arr = array();
+        $files = __DIR__ . "/../TSV_files/".$uuid."_inc_*";
+        foreach(glob($files) as $filename)
+        {
+            $arr[] = $filename;
+        }
+        return $arr;
     }
     
     private function taxon_in_filter_list($taxon, $invasives)
@@ -111,9 +166,12 @@ class other_controller
         $target = $source.".gz";
         if(file_exists($source))
         {
-            $cmd = "/usr/bin/gzip -c " . $source . " >" . $target;
-            $cmd .= " 2>&1";
-            $output = shell_exec($cmd);
+            if(filesize($source))
+            {
+                $cmd = "/usr/bin/gzip -c " . $source . " >" . $target;
+                $cmd .= " 2>&1";
+                $output = shell_exec($cmd);
+            }
         }
         else echo "\nCannot gzip. File does not exist: [$source]\n";
     }
@@ -191,6 +249,7 @@ class other_controller
         // shell_exec("chmod +x $destination"); //https://www.shellscript.sh/
         if($fn = Functions::file_open($destination, "w"))
         {
+            fwrite($fn, "#!/bin/sh" . "\n");
             fwrite($fn, $cmd . "\n");
             fclose($fn);
         }
