@@ -21,12 +21,20 @@
             elseif($job_type == "apply invasive filter to occurrence") {}
 
             $zip_path = "TSV_files/$basename".".tsv.gz";
-            if(file_exists($zip_path)) echo "<p><a href='$zip_path'>Download here.</a>";
+            if(file_exists($zip_path)) echo "<hr><a href='$zip_path'>Download here.</a>";
             else
             {
                 echo "Zip does not exist";
                 self::gzip_file($basename);
             }
+            
+            if($job_type == "apply invasive filter to occurrence")
+            {
+                require_once("templates/freshdata/special-invasive-date-ranges.php");
+                require_once($php_form_script);
+                
+            }
+            
         }
     }
     else
@@ -68,7 +76,7 @@
 if(file_exists($destination) && filesize($destination) && $disp_total_rows)
 {
     ?>
-    Count total rows:
+    <hr>Count total rows:
     <select name="get_count<?php echo $form_elements_index ?>" id="toggleYN">
         <option>
         <?php $yn = array('Yes', 'No');
@@ -82,7 +90,7 @@ if(file_exists($destination) && filesize($destination) && $disp_total_rows)
     if(@$params['get_count'.$form_elements_index]=='Yes') echo "<br><br>Total rows: ".self::get_total_rows($basename); //param is basename of .tsv filename
     
     ?>
-    <p>Delete TSV:
+    <hr>Delete TSV:
     <select name="del_tsv<?php echo $form_elements_index ?>" id="toggleYN">
         <option>
         <?php $yn = array('Yes', 'No');

@@ -1,3 +1,11 @@
+<?php
+if(!isset($date_from))
+{
+    $date_from = "";
+    $date_to = "";
+}
+?>
+
 <script type = "text/javascript" language = "javascript">
 $(document).ready(function() {
   $("#driver4").click(function(event){
@@ -6,8 +14,10 @@ $(document).ready(function() {
     var uuid = $("#uuid").val();
     var YN = $('#YN').val();
     var destination = $('#destination').val();
+    var date_from = $('#date_from').val();
+    var date_to = $('#date_to').val();
 
-    $("#stage4").load('templates/freshdata/special-invasive-form-confirm.php', {"uuid":uuid, "YN":YN, "destination":destination} );
+    $("#stage4").load('templates/freshdata/special-invasive-form-confirm.php', {"uuid":uuid, "YN":YN, "destination":destination, "date_from":date_from, "date_to":date_to} );
     $("#login_form4").hide();
     $('#stage4').append('<div class="help-block4"><br>Processing, please wait...<br><br>OR you can click Continue and check the download later.</div>'); // add the actual error message under our input
     });
@@ -18,6 +28,8 @@ $(document).ready(function() {
   <input type="hidden" id="uuid_archive"    value="<?php echo $rec_from_text['uuid_archive'] ?>" />
   <input type="hidden" id="uuid"            value="<?php echo $uuid ?>">
   <input type="hidden" id="destination"     value="<?php echo $destination ?>">
+  <input type="hidden" id="date_from"       value="<?php echo $date_from ?>">
+  <input type="hidden" id="date_to"         value="<?php echo $date_to ?>">
   
   <br>
   <!---
