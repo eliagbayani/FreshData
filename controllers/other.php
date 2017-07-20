@@ -59,7 +59,7 @@ class other_controller
         
         $fn = Functions::file_open($filename, "r");
         $i = 0;
-        $delete_file = true;
+        $delete_file = true; //default is true
         while (($line = fgets($fn)) !== false)
         {
             $i++;
@@ -76,20 +76,54 @@ class other_controller
                 $k++;
             }
             //start processing $rec
-            echo "\n[$params[date_from]] - [$params[date_to]]\n";   // firstAddedDate > Jul 1 and firstAddedDate <= Jul 8
-            $date = substr($rec['firstAddedDate'],0,10);            // 2017-07-02
+            // echo "\n[$params[date_from]] - [$params[date_to]]\n";   // firstAddedDate > Jul 1 and firstAddedDate <= Jul 8
+            $date = substr($rec['firstAddedDate'],0,10);               // 2017-07-02
             if($date > $params['date_from'] && $date <= $params['date_to'])
             {
                 fwrite($write, $line);
-                echo "\n[$date]";
+                //echo "\n[$date]";
                 $delete_file = false;
             }
-            else echo "\nnot - [$date]";
+            //else echo "\nnot - [$date]";
         }
         fclose($fn);
         fclose($write);
         if($delete_file) unlink($filename_target);
+        else
+        {   //you can tweet the creation of an increment file
+            self::tweet_about_the_increment_file($params, $filename_target);
+        }
+        // self::tweet_about_the_increment_file($params, $filename_target);
+        
     }
+    
+    private function tweet_about_the_increment_file($params, $filename_target)
+    {   /*
+        [2017-07-03]Array
+        01:13:38 (
+        01:13:38     [uuid] => 5b6d8474-fcb4-5e16-b5cf-8f8a9a502fc3
+        01:13:38     [date_from] => 2017-07-01
+        01:13:38     [date_to] => 2017-07-20
+        01:13:38 )
+        01:13:38 <hr>/Library/WebServer/Documents/FreshData/controllers/../TSV_files/5b6d8474-fcb4-5e16-b5cf-8f8a9a502fc3_inc_2017-07-20.tsv<hr>Finished: SUCCESS
+        */
+        // print_r($params);
+        // echo "<hr>$filename_target<hr>";
+        $tweet = "Monitor produced an increment file when running invasiveness query. Last run was $params[date_from]. Latest run is $params[date_to]";
+        // self::send_tweet($tweet);
+
+        require("twitter.php");
+        $func = new twitter_controller("elix");
+        $func->tweet_now($tweet);
+
+    }
+    
+    // private function send_tweet($tweet)
+    // {
+    //     // require("twitter.php");
+    //     // $func = new twitter_controller("elix");
+    //     // $func->tweet_now($tweet);
+    // }
     
     function get_incremental_files($uuid)
     {   //5b6d8474-fcb4-5e16-b5cf-8f8a9a502fc3_inc_2017-07-19.tsv
@@ -179,7 +213,8 @@ class other_controller
     private function unique_invasive_species_scinames()
     {
         $scinames = array();
-        $names = self::get_google_sheet();
+        // $names = self::get_google_sheet(); //uncomment in real operation
+        $names = array(); //debug
         foreach($names as $name)
         {
             if($val = @$name[0]) $scinames[$val] = '';
@@ -187,7 +222,7 @@ class other_controller
         $scinames = array_keys($scinames);
         $scinames = array_map('trim', $scinames);
         // print_r($scinames);
-        // echo "<hr>".count($scinames)."<hr>";
+        echo "<hr>invasives=".count($scinames)."<hr>";
         return $scinames;
     }
     

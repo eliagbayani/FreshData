@@ -14,6 +14,7 @@ require_once(dirname(__FILE__) . "/../controllers/freshdata.php");
 $params['uuid'] = $argv[1];
 $params['date_from'] = @$argv[2];
 $params['date_to'] = @$argv[3];
+// $params['search_url'] = @$argv[4];
 
 $ctrler = new freshdata_controller();
 $ctrler->apply_invasive_filter($params);
