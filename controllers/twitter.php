@@ -15,7 +15,7 @@ class twitter_controller
         // $content = $connection->get("account/verify_credentials");
         $status = $connection->post("statuses/update", ["status" => $tweet]);
         
-        if(@$status->created_at) echo "\nTweet successfully sent.\n";
+        if(@$status->created_at) echo "\nTweet successfully sent OK.\n";
         else
         {
             echo "\nError: Tweet not sent\n";

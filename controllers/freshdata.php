@@ -454,10 +454,17 @@ class freshdata_controller extends other_controller
         }
         else
         {
+            // echo "\n111[$filename]\n";
+            // echo "\n".__DIR__."\n";
             $final = array();
             foreach($fields as $field) $final[$field] = "";
         }
         return $final;
+    }
+    
+    function generate_freshdata_search_url($arr)
+    {
+        return FRESHDATA_DOMAIN."?taxonSelector=".$arr['Taxa']."&traitSelector=".$arr['Trait_selector']."&wktString=".$arr['String'];
     }
     
     private function fill_up_main_monitor_fields($final, $uuid)
@@ -508,8 +515,12 @@ class freshdata_controller extends other_controller
 
     function get_uuid_text_file_path($uuid, $what = null)
     {
-        if($what) return "database/$what/$uuid" . ".txt";
-        else      return "database/uuid/$uuid" . ".txt";
+        if($what == "lookup") return __DIR__."/../database/uuid/$uuid.txt";
+        else //original
+        {
+            if($what) return "database/$what/$uuid" . ".txt";
+            else      return "database/uuid/$uuid" . ".txt";
+        }
     }
     
     // function save_monitor($params)

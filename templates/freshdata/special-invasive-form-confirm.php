@@ -29,7 +29,7 @@ $ctrler = new freshdata_controller($params);
 // sleep(1);
 
 //worked on script
-$cmd = PHP_PATH.' app/invasive_filter.php ' . "$params[uuid] $params[date_from] $params[date_to]";
+$cmd = PHP_PATH.' app/invasive_filter.php ' . "$params[uuid] $params[date_from] $params[date_to] '$params[search_url]'";
 $cmd .= " 2>&1";
 $ctrler->write_to_sh($params['uuid']."_inv", $cmd);
 

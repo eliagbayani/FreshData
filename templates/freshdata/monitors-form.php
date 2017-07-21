@@ -48,7 +48,12 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                 
                 <?php
                 $search_url = FRESHDATA_DOMAIN."?taxonSelector=".$rec_from_text['Taxa']."&traitSelector=".$rec_from_text['Trait_selector']."&wktString=".$rec_from_text['String'];
-                // $search_url = self::generate_freshdata_search_url($rec_from_text);
+                
+                /*
+                $search_url2 = self::generate_freshdata_search_url($rec_from_text); //new
+                if($search_url != $search_url2) exit("<hr>something is wrong");
+                else echo "<hr>tama na!!!<hr>";
+                */
                 
                 $url = $this->api['effechecka_occurrences']."?taxonSelector=".$rec_from_text['Taxa']."&traitSelector=".$rec_from_text['Trait_selector']."&wktString=".$rec_from_text['String'];
                 //vars to be filled-up for other tabs e.g. Special Queries

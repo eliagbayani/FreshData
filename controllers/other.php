@@ -109,7 +109,15 @@ class other_controller
         */
         // print_r($params);
         // echo "<hr>$filename_target<hr>";
-        $tweet = "Monitor produced an increment file when running invasiveness query. Last run was $params[date_from]. Latest run is $params[date_to]";
+        // echo "\n[$params[search_url]]\n"; //is correctly passed but it is too long for a tweet
+        
+        // http://127.0.0.1/FreshData/app/lookup.php?uuid=5b6d8474-fcb4-5e16-b5cf-8f8a9a502fc3
+        
+        // print_r($_SERVER);
+        $link = "http://".HTTP_HOST."/app/lookup.php?uuid=$params[uuid]";
+        $tweet = "Monitor $link produced an increment file when running invasiveness query. Last run was $params[date_from]. Latest run is $params[date_to]";
+        $tweet = "Monitor $link ";
+        
         // self::send_tweet($tweet);
 
         require("twitter.php");
