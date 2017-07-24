@@ -50,6 +50,7 @@ elseif(isset($params['contact_name']))        require_once("templates/freshdata/
 elseif(isset($params['uuid']) && @$params['view_type'] == 'admin') require_once("templates/freshdata/layout2.php");
 elseif(isset($params['uuid']) && @$params['view_type'] == 'delRecs') require_once("templates/freshdata/layout4.php");
 elseif(isset($params['uuid']) && @$params['view_type'] == 'manRecs') require_once("templates/freshdata/layout5.php");
+elseif(isset($params['uuid']) && @$params['view_type'] == 'monDetail') require_once("templates/freshdata/layout_monitor.php");
 
 elseif(@$params['view_type'] == 'admin')      require_once("templates/freshdata/layout_admin.php");
 elseif(@$params['view_type'] == 'scistarter') require_once("templates/freshdata/layout_scistarter.php");
@@ -96,6 +97,7 @@ elseif(@$params['view_type'] == 'scistarter')   print '<script>$( "#tabs_main" )
 
 elseif(isset($params['uuid']) && @$params['view_type'] == 'delRecs') print '<script>$( "#tabs_main" ).tabs( "option", "active", 1 );</script>'; //layout4.php
 elseif(isset($params['uuid']) && @$params['view_type'] == 'manRecs') print '<script>$( "#tabs_main" ).tabs( "option", "active", 1 );</script>'; //layout5.php
+elseif(isset($params['uuid']) && @$params['view_type'] == 'monDetail') print '<script>$( "#tabs_main" ).tabs( "option", "active", 0 );</script>'; //layout-monitor.php
 
 elseif(@$params['view_type'] == 'delRecs')      print '<script>$( "#tabs_main" ).tabs( "option", "active", 2 );</script>'; //layout_delRecs.php orig is 7
 elseif(@$params['view_type'] == 'manRecs')      print '<script>$( "#tabs_main" ).tabs( "option", "active", 3 );</script>'; //layout_manRecs.php

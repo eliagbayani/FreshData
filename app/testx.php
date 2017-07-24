@@ -5,7 +5,6 @@ $crumb = shell_exec("curl -s 'http://eli:b2e5ca02f73b5c7d716449c763e120dd@localh
 echo "<hr>$crumb<hr>";
 */
 
-
 // echo "\nEli was here...\n";
 // shell_exec("touch eli.txt");
 
@@ -15,11 +14,12 @@ echo "<hr>$crumb<hr>";
 // $s = "http://eli.eol.org?eli1=eli is here&eli2=eli cha";
 // echo urlencode($s);
 
+
+/*
 echo "<pre>";
 print_r($_SERVER);
-
 $_SERVER['HTTP_HOST']
-
 echo "</pre>";
+*/
 
 ?>

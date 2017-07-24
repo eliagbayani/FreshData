@@ -41,7 +41,13 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                 <li><a href="#tabs-1">Create a new monitor</a></li>
                 <li><a href="#tabs-3">Download Occurrence TSV</a></li>
                 <li><a href="#tabs-4">Special Queries</a></li>
+                <li><a href="#tabs-5">Public link</a></li>
             </ul>
+            <div id="tabs-5"><!---Public link--->
+                <?php
+                echo "<a href='index.php?view_type=monDetail&uuid=$uuid'>Public link</a>"
+                ?>
+            </div>
 
             <div id="tabs-3"><!---Queries--->
                 <?php require("templates/freshdata/monitor-text-data.php"); ?>

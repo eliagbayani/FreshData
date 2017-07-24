@@ -34,15 +34,7 @@
                 require_once($php_form_script);
                 if($incrementals = self::get_incremental_files($uuid))
                 {
-                    echo "<br><br>Incremental files:";
-                    foreach($incrementals as $inc)
-                    {
-                        $base = pathinfo($inc, PATHINFO_FILENAME);
-                        $zip_path = "TSV_files/$base".".tsv";
-                        $display = str_replace($uuid."_inc", "Latest_Data", $base);
-                        $display = str_replace("-","",$display);
-                        echo "<br><a href='$zip_path'>$display</a>";
-                    }
+                    require_once("templates/freshdata/special-incremental-files.php");
                 }
             }
             
