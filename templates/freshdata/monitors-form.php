@@ -43,6 +43,7 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                 <li><a href="#tabs-4">Special Queries</a></li>
                 <li><a href="#tabs-5">Public link</a></li>
             </ul>
+
             <div id="tabs-5"><!---Public link--->
                 <?php
                 echo "<a href='index.php?view_type=monDetail&uuid=$uuid'>Public link</a>"
@@ -51,10 +52,9 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
 
             <div id="tabs-3"><!---Queries--->
                 <?php require("templates/freshdata/monitor-text-data.php"); ?>
-                
                 <?php
                 $search_url = FRESHDATA_DOMAIN."?taxonSelector=".$rec_from_text['Taxa']."&traitSelector=".$rec_from_text['Trait_selector']."&wktString=".$rec_from_text['String'];
-                
+
                 /*
                 $search_url2 = self::generate_freshdata_search_url($rec_from_text); //new
                 if($search_url != $search_url2) exit("<hr>something is wrong");
@@ -87,13 +87,9 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                 $php_form_script = "templates/freshdata/special-invasive-form.php";
                 $queries_tab_index = 2;
                 $job_type = "apply invasive filter to occurrence";
-                
                 // echo "<hr>$destination_dl_tsv<hr>";
                 if(file_exists($destination_dl_tsv)) require("templates/freshdata/jenkins-interface.php");
                 else echo "<p>Occurrence TSV not yet downloaded.";
-                
-                // require("templates/freshdata/jenkins-interface.php");
-
                 ?>
             </div><!---end: Special Queries--->
 
