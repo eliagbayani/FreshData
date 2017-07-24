@@ -122,13 +122,6 @@ class other_controller
         $func->tweet_now($tweet);
     }
     
-    // private function send_tweet($tweet)
-    // {
-    //     // require("twitter.php");
-    //     // $func = new twitter_controller("elix");
-    //     // $func->tweet_now($tweet);
-    // }
-    
     function get_incremental_files($uuid)
     {   //5b6d8474-fcb4-5e16-b5cf-8f8a9a502fc3_inc_2017-07-19.tsv
         $arr = array();
