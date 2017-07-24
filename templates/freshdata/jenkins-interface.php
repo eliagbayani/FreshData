@@ -39,7 +39,9 @@
                     {
                         $base = pathinfo($inc, PATHINFO_FILENAME);
                         $zip_path = "TSV_files/$base".".tsv";
-                        echo "<br><a href='$zip_path'>$base</a>";
+                        $display = str_replace($uuid."_inc", "Latest_Data", $base);
+                        $display = str_replace("-","",$display);
+                        echo "<br><a href='$zip_path'>$display</a>";
                     }
                 }
             }

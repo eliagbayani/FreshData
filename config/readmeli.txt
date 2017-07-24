@@ -120,4 +120,7 @@ working but was changed: from monitors-form.php
     <div id="stage4" style = "background-color:white;"></div>
     <br>
 </div><!---end: Special Queries--->
+================================================
+Matthew Collins mcollins@acis.ufl.edu
+Thompson, Alexander M godfoder@acis.ufl.edu
 
