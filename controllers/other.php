@@ -284,8 +284,9 @@ class other_controller
             fwrite($fn, "#!/bin/sh" . "\n");
             fwrite($fn, $cmd . "\n");
             fclose($fn);
+            echo "<br>Write to file OK [$destination]<br>";
         }
-        else echo "<br>Write to file failed.<br>";
+        else echo "<br>Write to file failed [$destination]<br>";
         // sleep(10); //delay for the chmod to take effect
     }
     
