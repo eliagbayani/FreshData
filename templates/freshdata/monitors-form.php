@@ -39,9 +39,36 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                 <li><a href="#tabs-0">Edit</a></li>
                 <li><a href="#tabs-2">Delete</a></li>
                 <li><a href="#tabs-1">Create a new monitor</a></li>
+                <li><a href="#tabs-3">Download Occurrence TSV</a></li>
             </ul>
 
+            <div id="tabs-3"><!---Queries--->
+                <?php require("templates/freshdata/monitor-text-data.php"); ?>
+                <?php
+                $search_url = FRESHDATA_DOMAIN."?taxonSelector=".$rec_from_text['Taxa']."&traitSelector=".$rec_from_text['Trait_selector']."&wktString=".$rec_from_text['String'];
 
+                /*
+                $search_url2 = self::generate_freshdata_search_url($rec_from_text); //new
+                if($search_url != $search_url2) exit("<hr>something is wrong");
+                else echo "<hr>tama na!!!<hr>";
+                */
+                
+                $url = $this->api['effechecka_occurrences']."?taxonSelector=".$rec_from_text['Taxa']."&traitSelector=".$rec_from_text['Trait_selector']."&wktString=".$rec_from_text['String'];
+                // $url = "http://editors.eol.org/test.tsv";
+                //vars to be filled-up for other tabs e.g. Special Queries
+                $button_text  = "Continue";
+                $basename = $uuid;
+                $destination_jenkins = self::generate_tsv_filepath($basename, "jenkins");
+                $destination         = self::generate_tsv_filepath($basename);
+                $destination_dl_tsv  = $destination;
+                $task = "wget_job";
+                $form_elements_index = 3;
+                $php_form_script = "templates/freshdata/monitor-q-download-tsv.php";
+                $queries_tab_index = 1;
+                $job_type = "download occurrence tsv";
+                require("templates/freshdata/jenkins-interface.php");
+                ?>
+            </div><!---end: Queries--->
 
 
 
