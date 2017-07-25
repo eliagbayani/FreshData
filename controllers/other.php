@@ -234,7 +234,8 @@ class other_controller
     
     function generate_tsv_filepath($basename)
     {
-        return __DIR__ . "/../TSV_files/".$basename.".tsv";
+        if(PHP_PATH == '/usr/local/bin/php') return __DIR__ . "/../TSV_files/".$basename.".tsv";
+        elseif(PHP_PATH == 'php')            return "/FreshData/TSV_files/".$basename.".tsv";
     }
 
     function loop_tsv_utility($basename) //utility
