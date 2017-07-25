@@ -23,7 +23,8 @@ echo "<br><a href='".$search_url."' target='".$uuid."'>Search in Fresh Data.</a>
 
 <!---<span id = "login_form2">--->
   <input type="hidden" id="uuid"            value="<?php echo $uuid ?>">
-  <input type="hidden" id="destination"     value="<?php echo $destination ?>">
+  <input type="hidden" id="destination"     value="<?php echo $destination_jenkins ?>">
+  <?php echo "<hr>$destination_jenkins<hr>" ?>
   <input type="hidden" id="url"             value="<?php echo $url ?>">
   <input type="hidden" id="search_url"      value="<?php echo $search_url ?>">
   <br>

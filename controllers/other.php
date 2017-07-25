@@ -232,10 +232,10 @@ class other_controller
         return $func->access_google_sheet($params);
     }
     
-    function generate_tsv_filepath($basename)
+    function generate_tsv_filepath($basename, $useIn = "host")
     {
-        if(PHP_PATH == '/usr/local/bin/php') return __DIR__ . "/../TSV_files/".$basename.".tsv";
-        elseif(PHP_PATH == 'php')            return "/FreshData/TSV_files/".$basename.".tsv";
+        if($useIn == "host")        return __DIR__ . "/../TSV_files/".$basename.".tsv";
+        elseif($useIn == "jenkins") return "/html/FreshData/TSV_files/".$basename.".tsv";
     }
 
     function loop_tsv_utility($basename) //utility
@@ -266,7 +266,7 @@ class other_controller
     {
         // define('PHP_PATH', '/usr/local/bin/php');  //for mac mini
         if(PHP_PATH == '/usr/local/bin/php') return __DIR__ . "/../sh_files/".$basename.".sh";
-        elseif(PHP_PATH == 'php')            return "/FreshData/sh_files/".$basename.".sh";
+        elseif(PHP_PATH == 'php')            return "/html/FreshData/sh_files/".$basename.".sh";
     }
     
     function build_curl_cmd_for_jenkins($cmd, $jenkins_job, $cmd2 = null) //for download of TSV files

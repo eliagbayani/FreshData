@@ -1,9 +1,10 @@
 <?php
+include_once(dirname(__FILE__) . "/../config/settingz.php");
 
-/* works OK
-$crumb = shell_exec("curl -s 'http://eli:b2e5ca02f73b5c7d716449c763e120dd@localhost:8080/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,\":\",//crumb)'");
+// /* works OK
+$crumb = shell_exec("curl -s 'http://" . JENKINS_USER_TOKEN . "@" . JENKINS_DOMAIN . "/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,\":\",//crumb)'");
 echo "<hr>$crumb<hr>";
-*/
+// */
 
 // echo "\nEli was here...\n";
 // shell_exec("touch eli.txt");
