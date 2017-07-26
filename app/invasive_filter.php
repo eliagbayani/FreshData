@@ -10,7 +10,10 @@ require_once(dirname(__FILE__) . "/../../LiteratureEditor/Custom/lib/Functions.p
 require_once(dirname(__FILE__) . "/../controllers/other.php");
 require_once(dirname(__FILE__) . "/../controllers/freshdata.php");
 
-// print_r($argv);
+echo "\n";
+print_r($argv);
+echo "\n";
+
 $params['uuid'] = $argv[1];
 $params['date_from'] = @$argv[2];
 $params['date_to'] = @$argv[3];

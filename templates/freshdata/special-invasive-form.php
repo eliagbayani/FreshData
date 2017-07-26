@@ -1,8 +1,8 @@
 <?php
 if(!isset($date_from))
 {
-    $date_from = "";
-    $date_to = "";
+    $date_from = date("Y-m-d");
+    $date_to = date("Y-m-d");
 }
 ?>
 
@@ -33,8 +33,8 @@ $(document).ready(function() {
   
   
   <table>
-    <tr><td>Date last generated</td><td><input type="text" id="date_from"   value="<?php echo $date_from ?>"></td></tr>
-    <tr><td>Date today</td><td><input type="text" id="date_to"              value="<?php echo $date_to ?>"></td></tr>
+    <tr><td>Date last generated</td><td><input type="text" id="date_from" value="<?php echo $date_from ?>"></td></tr>
+    <tr><td>Date today</td><td>         <input type="text" id="date_to"   value="<?php echo $date_to ?>"></td></tr>
   </table
   
   <br>

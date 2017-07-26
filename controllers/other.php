@@ -51,8 +51,8 @@ class other_controller
     
     private function create_incremental_file_if_needed($params)
     {
-        echo "date from: ".$params['date_from'];
-        echo "date to: ".$params['date_to'];
+        echo "\ndate from: ".$params['date_from']."\n";
+        echo "\ndate to: ".$params['date_to']."\n";
         $filename = self::generate_tsv_filepath($params['uuid']."_inv");
         $filename_target = self::generate_tsv_filepath($params['uuid']."_inc_".$params['date_to']); //date("Y-m-d")
         $write = Functions::file_open($filename_target, "w");
@@ -76,15 +76,14 @@ class other_controller
                 $k++;
             }
             //start processing $rec
-            // echo "\n[$params[date_from]] - [$params[date_to]]\n";   // firstAddedDate > Jul 1 and firstAddedDate <= Jul 8
+            // firstAddedDate > Jul 1 and firstAddedDate <= Jul 8
             $date = substr($rec['firstAddedDate'],0,10);               // 2017-07-02
             if($date > $params['date_from'] && $date <= $params['date_to'])
             {
                 fwrite($write, $line);
-                //echo "\n[$date]";
                 $delete_file = false;
             }
-            //else echo "\nnot - [$date]";
+            //else echo "\nnot - [$date]"; //no add
         }
         fclose($fn);
         fclose($write);
@@ -234,8 +233,15 @@ class other_controller
     
     function generate_tsv_filepath($basename, $useIn = "host")
     {
-        if($useIn == "host")        return __DIR__ . "/../TSV_files/".$basename.".tsv";
-        elseif($useIn == "jenkins") return "/html/FreshData/TSV_files/".$basename.".tsv";
+        $host    = __DIR__ . "/../TSV_files/".$basename.".tsv";
+        $jenkins = "/html/FreshData/TSV_files/".$basename.".tsv";
+
+        if($useIn == "host") return $host;
+        elseif($useIn == "jenkins")
+        {
+            if(PHP_PATH == '/usr/local/bin/php') return $host;
+            elseif(PHP_PATH == 'php')            return $jenkins;
+        }
     }
 
     function loop_tsv_utility($basename) //utility
