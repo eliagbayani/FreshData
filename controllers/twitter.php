@@ -1,6 +1,8 @@
 <?php
-include(__DIR__ . '/../vendor/twitteroauth/autoload.php');
+$str = __DIR__ . '/../vendor/twitteroauth/autoload.php';
+include($str);
 use Abraham\TwitterOAuth\TwitterOAuth;
+echo "\ninclude: [$str]\n";
 
 class twitter_controller
 {
