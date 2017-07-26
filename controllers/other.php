@@ -54,7 +54,9 @@ class other_controller
         echo "\ndate from: ".$params['date_from']."\n";
         echo "\ndate to: ".$params['date_to']."\n";
         $filename = self::generate_tsv_filepath($params['uuid']."_inv");
-        $filename_target = self::generate_tsv_filepath($params['uuid']."_inc_".$params['date_to']); //date("Y-m-d")
+        
+        $basename_target = $params['uuid']."_inc_".$params['date_to'];
+        $filename_target = self::generate_tsv_filepath($basename_target); //date("Y-m-d")
         $write = Functions::file_open($filename_target, "w");
         
         $fn = Functions::file_open($filename, "r");
@@ -89,11 +91,12 @@ class other_controller
         fclose($write);
         if($delete_file) unlink($filename_target);
         else
-        {   //you can tweet the creation of an increment file
+        {   
+            self::gzip_file($basename_target);
+            
+            //you can tweet the creation of an increment file
             self::tweet_about_the_increment_file($params, $filename_target);
         }
-        // self::tweet_about_the_increment_file($params, $filename_target);
-        
     }
     
     private function tweet_about_the_increment_file($params, $filename_target)
@@ -113,6 +116,9 @@ class other_controller
         // print_r($_SERVER);
 
         $link = "http://".DOMAIN_NAME."/FreshData/app/lookup.php?uuid=$params[uuid]";
+        //http://127.0.0.1/FreshData/index.php?view_type=monDetail&uuid=4c7517a1-0e01-555e-b498-6924ab5021a7
+        $link = "http://".DOMAIN_NAME."/FreshData/index.php?view_type=monDetail&uuid=$params[uuid]";
+
         $tweet = "Monitor $link produced an increment file. Last: $params[date_from]. Latest: $params[date_to]";
         echo "\ntweet: $tweet\n";
 
@@ -124,7 +130,7 @@ class other_controller
     function get_incremental_files($uuid)
     {   //5b6d8474-fcb4-5e16-b5cf-8f8a9a502fc3_inc_2017-07-19.tsv
         $arr = array();
-        $files = __DIR__ . "/../TSV_files/".$uuid."_inc_*";
+        $files = __DIR__ . "/../TSV_files/".$uuid."_inc_*.gz";
         foreach(glob($files) as $filename)
         {
             $arr[] = $filename;
