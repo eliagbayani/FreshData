@@ -78,6 +78,12 @@
 <?php
 if(file_exists($destination) && filesize($destination) && $disp_total_rows)
 {
+    if($val = @$params['inc_del_file'])
+    {
+        $status = self::delete_tsv_file($val);
+        // echo "<hr>Deletedx: $status [$val]<hr>"; //debug
+        $params['inc_del_file'] = ''; //delete in first pass of jenkins-interface.php
+    }
     ?>
     <hr>Count total rows:
     <select name="get_count<?php echo $form_elements_index ?>" id="toggleYN">
@@ -93,7 +99,7 @@ if(file_exists($destination) && filesize($destination) && $disp_total_rows)
     if(@$params['get_count'.$form_elements_index]=='Yes') echo "<br><br>Total rows: ".self::get_total_rows($basename); //param is basename of .tsv filename
     
     ?>
-    <hr>Delete TSV:
+    <hr>Delete TSV: <!---<?php echo "[$basename]" ?>--->
     <select name="del_tsv<?php echo $form_elements_index ?>" id="toggleYN">
         <option>
         <?php $yn = array('Yes', 'No');
