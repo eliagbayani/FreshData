@@ -245,7 +245,7 @@ class other_controller
         if($useIn == "host") return $host;
         elseif($useIn == "jenkins")
         {
-            if(PHP_PATH == '/usr/local/bin/php') return $host;
+            if(PHP_PATH == '/usr/local/php5/bin/php') return $host;
             elseif(PHP_PATH == 'php')            return $jenkins;
         }
     }
@@ -276,8 +276,7 @@ class other_controller
 
     function generate_sh_filepath($basename)
     {
-        // define('PHP_PATH', '/usr/local/bin/php');  //for mac mini
-        if(PHP_PATH == '/usr/local/bin/php') return __DIR__ . "/../sh_files/".$basename.".sh";
+        if(PHP_PATH == '/usr/local/php5/bin/php') return __DIR__ . "/../sh_files/".$basename.".sh";
         elseif(PHP_PATH == 'php')            return "/html/FreshData/sh_files/".$basename.".sh";
     }
     
@@ -403,6 +402,7 @@ class other_controller
 
     function delete_tsv_file($basename) //basename of .tsv filename
     {
+        // exit("elixxx");
         $file = __DIR__ . "/../TSV_files/".$basename.".tsv";
         $file_gz = $file.".gz";
         if(file_exists($file))
@@ -411,7 +411,11 @@ class other_controller
             if(file_exists($file_gz)) unlink($file_gz);
             return "File deleted.";
         }
-        else return "File does not exist.";
+        else
+        {
+            echo "<hr>does not exist [$file] investigate<hr>";
+            return "File does not exist.";
+        }
     }
     
     /* not used yet

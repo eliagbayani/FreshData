@@ -30,11 +30,13 @@ foreach($incrementals as $inc)
 {
     $base = pathinfo($inc, PATHINFO_FILENAME);
     $zip_path = "TSV_files/$base".".gz";
+    
     $display = str_replace($uuid."_inc", "Latest_Data", $base);
     $display = str_replace("-","",$display);
     $display = str_replace(".tsv","",$display);
     echo "<br><br> - $display &nbsp;&nbsp; <a href='$zip_path'>Download</a>";
-    
+
+    $base = str_replace(".tsv","",$base);
     $flink = $link.$base;
     if($params['view_type'] == 'admin') echo " | <a href='$flink'>Delete</a>";
 }
