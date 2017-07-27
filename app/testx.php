@@ -3,10 +3,10 @@ include_once(dirname(__FILE__) . "/../config/settingz.php");
 
 phpinfo();
 
-/* works OK
+// /* works OK
 $crumb = shell_exec("curl -s 'http://" . JENKINS_USER_TOKEN . "@" . JENKINS_DOMAIN . "/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,\":\",//crumb)'");
 echo "<hr>$crumb<hr>";
-*/
+// */
 
 // echo "\nEli was here...\n";
 // shell_exec("touch eli.txt");
