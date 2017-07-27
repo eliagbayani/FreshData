@@ -215,8 +215,8 @@ class other_controller
     private function unique_invasive_species_scinames()
     {
         $scinames = array();
-        // $names = self::get_google_sheet(); //uncomment in real operation
-        $names = array(); //debug
+        $names = self::get_google_sheet(); //uncomment in real operation
+        // $names = array(); //debug
         foreach($names as $name)
         {
             if($val = @$name[0]) $scinames[$val] = '';
