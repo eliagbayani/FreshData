@@ -28,7 +28,7 @@ class freshdata_controller extends other_controller
         // $this->monitors_api['source']       = "http://api.effechecka.org/zmonitors?source=";
         // $this->monitors_api['id_source']    = "http://api.effechecka.org/zmonitors?id=id_val&source=source_val";
         
-        $this->api['effechecka_occurrences'] = "http://128.227.166.240/occurrences.tsv"; //api.effechecka.org
+        $this->api['effechecka_occurrences'] = "http://api.effechecka.org/occurrences.tsv"; // 128.227.166.240
         
         // http://api.effechecka.org/occurrences.tsv?taxonSelector=aphaenogaster%20picea%2Caphaenogaster%20fulva%2Caphaenogaster%20rudis&wktString=POLYGON%20((-138.8671875%2044%2C%20-138.8671875%2070%2C%20-47.8125%2070%2C%20-47.8125%2044%2C%20-138.8671875%2044))&monitorAPI=0
         // http://128.227.166.240/occurrences.tsv?taxonSelector=aphaenogaster%20picea%2Caphaenogaster%20fulva%2Caphaenogaster%20rudis&wktString=POLYGON%20((-138.8671875%2044%2C%20-138.8671875%2070%2C%20-47.8125%2070%2C%20-47.8125%2044%2C%20-138.8671875%2044))&monitorAPI=0
