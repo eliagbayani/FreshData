@@ -58,7 +58,7 @@ echo "<hr><pre>".$build_status."</pre><hr>"; //debug only
 Array
 (
     [uuid] => 5b6d8474-fcb4-5e16-b5cf-8f8a9a502fc3
-    [url] => http://api.effechecka.org/occurrences.tsv?taxonSelector=aphaenogaster picea|aphaenogaster fulva|aphaenogaster rudis&traitSelector=&wktString=POLYGON ((-138.8671875 44, -138.8671875 70, -47.8125 70, -47.8125 44, -138.8671875 44))
+    [url] => ...
     [destination] => /Library/WebServer/Documents/FreshData/templates/freshdata/../../TSV_files/5b6d8474-fcb4-5e16-b5cf-8f8a9a502fc3.tsv
     [search_url] => http://gimmefreshdata.github.io/?taxonSelector=aphaenogaster picea|aphaenogaster fulva|aphaenogaster rudis&traitSelector=&wktString=POLYGON ((-138.8671875 44, -138.8671875 70, -47.8125 70, -47.8125 44, -138.8671875 44))
 )
