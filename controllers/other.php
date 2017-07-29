@@ -291,14 +291,14 @@ class other_controller
     function write_to_sh($uuid, $cmd) //uuid is basename for .sh file
     {
         $destination = __DIR__ . "/../sh_files/".$uuid.".sh";
-        shell_exec("chmod 755 $destination"); //https://www.shellscript.sh/
-        // shell_exec("chmod +x $destination"); //https://www.shellscript.sh/
         if($fn = Functions::file_open($destination, "w"))
         {
             fwrite($fn, "#!/bin/sh" . "\n");
             fwrite($fn, $cmd . "\n");
             fclose($fn);
             echo "<br>Write to file OK [$destination]<br>";
+            shell_exec("chmod 755 $destination"); //https://www.shellscript.sh/
+            // shell_exec("chmod +x $destination"); //https://www.shellscript.sh/
         }
         else echo "<br>Write to file failed [$destination]<br>";
         // sleep(10); //delay for the chmod to take effect
