@@ -16,7 +16,7 @@
             self::display_message(array('type' => "highlight", 'msg' => "Task has finished. &nbsp; File size: ".filesize($destination)." bytes."));
             if($job_type == "download occurrence tsv")
             {
-                self::display_message(array('type' => "highlight", 'msg' => "You can now proceed with [Special Queries] tab"));
+                self::display_message(array('type' => "highlight", 'msg' => "You can now proceed with  &nbsp;<b>[Special Queries]</b> &nbsp;tab."));
             }
             elseif($job_type == "apply invasive filter to occurrence") {}
 
@@ -113,7 +113,7 @@ if(file_exists($destination) && filesize($destination) && $disp_total_rows)
     if(@$params['del_tsv'.$form_elements_index]=='Yes')
     {
         $status = self::delete_tsv_file($basename); //param is basename of .tsv filename
-        self::display_message(array('type' => "highlight", 'msg' => "$status [ <i>$basename".".tsv</i> ].  &nbsp; Click [Refresh] to continue."));
+        self::display_message(array('type' => "highlight", 'msg' => "$status [ <i>$basename".".tsv</i> ].  &nbsp; Click &nbsp;<b>[Refresh]</b>&nbsp; to continue."));
         ?><input type="submit" value="Refresh"><?php
     }
 
