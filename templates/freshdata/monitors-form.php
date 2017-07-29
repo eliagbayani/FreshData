@@ -51,8 +51,8 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
             </div>
 
             <div id="tabs-3"><!---Queries--->
-                <?php require("templates/freshdata/monitor-text-data.php"); ?>
-                <?php
+                <?php 
+                require("templates/freshdata/monitor-text-data.php");
                 $search_url = FRESHDATA_DOMAIN."?taxonSelector=".$rec_from_text['Taxa']."&traitSelector=".$rec_from_text['Trait_selector']."&wktString=".$rec_from_text['String'];
 
                 /*
@@ -81,6 +81,8 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
 
             <div id="tabs-4"><!---Special Queries--->
                 <?php
+                require("templates/freshdata/monitor-text-data.php");
+                
                 //vars to be filled-up for other tabs
                 $button_text  = "Continue";
                 $basename = $uuid."_inv";

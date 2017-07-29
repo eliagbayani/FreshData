@@ -14,7 +14,15 @@ $("#accordion").accordion({ collapsible: true,
                             heightStyle: "content"
                          });
 
+/* orig - working but it can't be placed in one page
 $("#accordion_close").accordion({ collapsible: true,
+                           header: "h3",
+                           active: false,
+                           heightStyle: "content"
+                        });
+*/
+// sol'n of above problem like id=accordion_close
+$('[id="accordion_close"]').accordion({ collapsible: true,
                            header: "h3",
                            active: false,
                            heightStyle: "content"
