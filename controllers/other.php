@@ -211,6 +211,22 @@ class other_controller
         }
         else echo "\nCannot gzip. File does not exist: [$source]\n";
     }
+    function get_source_target_4gzip($basename, $useIn="host")
+    {
+        $arr = array();
+        $host    = $source = self::generate_tsv_filepath($basename);
+        $jenkins = $source = self::generate_tsv_filepath($basename, "jenkins");
+
+        if($useIn == "host") $arr['source'] = $host;
+        elseif($useIn == "jenkins")
+        {
+            if(PHP_PATH == '/usr/local/php5/bin/php') $arr['source'] = $host;
+            elseif(PHP_PATH == 'php')                 $arr['source'] = $jenkins;
+        }
+
+        $arr['target'] = $source.".gz";
+        return $arr;
+    }
     
     private function unique_invasive_species_scinames()
     {

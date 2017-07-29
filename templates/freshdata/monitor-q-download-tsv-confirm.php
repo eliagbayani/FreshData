@@ -14,6 +14,14 @@ $ctrler = new freshdata_controller($params);
 //worked on script
 $cmd = WGET_PATH.' --tries=3 -O '.$params['destination'].' "'.$params['url'].'"'; //working well with shell_exec()
 $cmd .= " 2>&1";
+
+//after download then gzip it
+$st = $ctrler->get_source_target_4gzip($params['uuid']);
+$cmd .= "\n"; //next command in sh file
+$cmd .= "/usr/bin/gzip -c " . $st['source'] . " >" . $st['target'];
+$cmd .= " 2>&1";
+
+
 $ctrler->write_to_sh($params['uuid'], $cmd);
 //$shell_debug = shell_exec($cmd); //worked ok also but we changed strategy
 
@@ -47,7 +55,7 @@ else
     if(file_exists($params['destination']) && filesize($params['destination']))
     {
         $ctrler->display_message(array('type' => "highlight", 'msg' => "Job completed: OK"));
-        $ctrler->gzip_file($params['uuid']);
+        // $ctrler->gzip_file($params['uuid']); // working... but put this in the sh file instead
     }
     else                                                                        $ctrler->display_message(array('type' => "highlight", 'msg' => "Build is in unknown state. Will investigate. Click <b>Continue</b>."));
 }
