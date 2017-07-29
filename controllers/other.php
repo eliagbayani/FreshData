@@ -214,8 +214,8 @@ class other_controller
     function get_source_target_4gzip($basename, $useIn="host")
     {
         $arr = array();
-        $host    = $source = self::generate_tsv_filepath($basename);
-        $jenkins = $source = self::generate_tsv_filepath($basename, "jenkins");
+        $host    = self::generate_tsv_filepath($basename);
+        $jenkins = self::generate_tsv_filepath($basename, "jenkins");
 
         if($useIn == "host") $arr['source'] = $host;
         elseif($useIn == "jenkins")
@@ -224,7 +224,7 @@ class other_controller
             elseif(PHP_PATH == 'php')                 $arr['source'] = $jenkins;
         }
 
-        $arr['target'] = $source.".gz";
+        $arr['target'] = $arr['source'].".gz";
         return $arr;
     }
     

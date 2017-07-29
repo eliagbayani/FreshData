@@ -16,7 +16,7 @@ $cmd = WGET_PATH.' --tries=3 -O '.$params['destination'].' "'.$params['url'].'"'
 $cmd .= " 2>&1";
 
 //after download then gzip it
-$st = $ctrler->get_source_target_4gzip($params['uuid']);
+$st = $ctrler->get_source_target_4gzip($params['uuid'], 'jenkins');
 $cmd .= "\n"; //next command in sh file
 $cmd .= "/usr/bin/gzip -c " . $st['source'] . " >" . $st['target'];
 $cmd .= " 2>&1";
