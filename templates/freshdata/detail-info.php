@@ -10,15 +10,11 @@ $uuid = $params['uuid'];
 $rec_from_text = $rec_from_text = self::get_text_file_value($uuid);
 $search_url = self::generate_freshdata_search_url($rec_from_text);
 
-
 require("templates/freshdata/monitor-text-data.php");
 if($incrementals = self::get_incremental_files($uuid))
 {
     require_once("templates/freshdata/special-incremental-files.php");
 }
-
-
-
 ?>
 
 <!---
@@ -28,7 +24,6 @@ if($incrementals = self::get_incremental_files($uuid))
         <?php
         if($rows)
         {
-            // echo "<pre>"; print_r($rows); echo "</pre>";
             $data = array('group' => 'monitors', 'records' => $rows, 'view_type' => $params['view_type'], 'params' => $params);
             print self::render_template('monitors-table', array('data' => @$data));
         }
