@@ -25,7 +25,7 @@
             else
             {
                 echo "Zip does not exist";
-                self::gzip_file($basename);
+                // self::gzip_file($basename); //no longer needed since when downloading (wget) - gzip follows wget in sh file
             }
             
             if($job_type == "apply invasive filter to occurrence")

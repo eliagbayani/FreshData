@@ -45,7 +45,7 @@ class other_controller
         }
         fclose($fn);
         fclose($write);
-        self::gzip_file($uuid."_inv");
+        self::gzip_file($uuid."_inv"); //for main invasive TSV
         self::create_incremental_file_if_needed($params);
     }
     
@@ -92,7 +92,7 @@ class other_controller
         if($delete_file) unlink($filename_target);
         else
         {   
-            self::gzip_file($basename_target);
+            self::gzip_file($basename_target); //for increment file
             
             //you can tweet the creation of an increment file
             self::tweet_about_the_increment_file($params, $filename_target);
