@@ -123,14 +123,8 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                         self::display_message(array('type' => "highlight", 'msg' => "Original API-driven monitors can still be retrieved once deleted."));
                         self::display_message(array('type' => "highlight", 'msg' => "Go to: Admin Page -> Deleted Records -> Choose a record -> Click 'Un-delete' button"));
                     }
-                    ?>
-                    
-                    
-                    <?php require("templates/freshdata/monitor-text-data-template.php"); ?>
-                    
-                    
-                    <?php require_once("templates/freshdata/monitor-delete.php"); ?>
-                    <?php
+                    require("templates/freshdata/monitor-text-data-template.php");
+                    require_once("templates/freshdata/monitor-delete.php");
                 }
                 ?>
                 </span>
