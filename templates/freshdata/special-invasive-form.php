@@ -31,7 +31,7 @@ $(document).ready(function() {
   <input type="hidden" id="destination"     value="<?php echo $destination ?>">
   <input type="hidden" id="search_url"      value="<?php echo $search_url ?>">
   
-  
+  <hr>
   <table>
     <tr><td>Date last generated</td><td><input type="text" id="date_from" value="<?php echo $date_from ?>"></td></tr>
     <tr><td>Date today</td><td>         <input type="text" id="date_to"   value="<?php echo $date_to ?>"></td></tr>
