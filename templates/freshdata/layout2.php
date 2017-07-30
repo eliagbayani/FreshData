@@ -3,6 +3,7 @@
         <li><a onClick="tab1_clicked()" href="#tabs_main-1">Admin Page ››</a></li>
         <li><a href="#tabs_main-2">Maintenance</a></li>
         <li><a onClick="tab3_clicked()" href="#tabs_main-3">Monitors ››</a></li>
+        <li><?php echo $_SESSION["github_username"] ?></li>
     </ul>
     <div id="tabs_main-1">Loading...</div>
     <div id="tabs_main-2"><!---Click a monitor to update--->

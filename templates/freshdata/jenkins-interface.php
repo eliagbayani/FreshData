@@ -8,12 +8,12 @@
         // echo "<hr>went here 01<hr>";
         $button_text  = "Refresh";
         if(self::is_there_an_unfinished_job_for_this_uuid($task, $basename)) self::display_message(array('type' => "highlight", 'msg' => "Task is currently running. Please check back soon *.")); //saw this already
-        elseif(self::is_task_in_queue($task, $basename))                     self::display_message(array('type' => "highlight", 'msg' => "Task is currently running. Please check back soon **.")); //has not seen this yet
+        elseif(self::is_task_in_queue($task, $basename))                     self::display_message(array('type' => "highlight", 'msg' => "Task is in queue. Please check back soon **.")); //sqw this already
         else
         {
             $disp_total_rows = true;
             $button_text  = "Submit";
-            self::display_message(array('type' => "highlight", 'msg' => "$done_msg &nbsp; File size: ".filesize($destination)." bytes."));
+            self::display_message(array('type' => "highlight", 'msg' => "$done_msg (".date("Y-m-d",filectime($destination)).") &nbsp; File size: ".filesize($destination)." bytes."));
             if($job_type == "download occurrence tsv")
             {
                 self::display_message(array('type' => "highlight", 'msg' => "You can now proceed with  &nbsp;<b>[Special Queries]</b> &nbsp;tab."));
@@ -99,7 +99,7 @@ if(file_exists($destination) && filesize($destination) && $disp_total_rows)
     if(@$params['get_count'.$form_elements_index]=='Yes') echo "<br><br>Total rows: ".self::get_total_rows($basename); //param is basename of .tsv filename
     
     ?>
-    <hr>Delete TSV: <!---<?php echo "[$basename]" ?>--->
+    <hr><?php echo $del_label ?> <!---<?php echo "[$basename]" ?>--->
     <select name="del_tsv<?php echo $form_elements_index ?>" id="toggleYN">
         <option>
         <?php $yn = array('Yes', 'No');
@@ -113,7 +113,7 @@ if(file_exists($destination) && filesize($destination) && $disp_total_rows)
     if(@$params['del_tsv'.$form_elements_index]=='Yes')
     {
         $status = self::delete_tsv_file($basename); //param is basename of .tsv filename
-        self::display_message(array('type' => "highlight", 'msg' => "$status [<i>$basename".".tsv</i>].  &nbsp; Click &nbsp;<b>[Refresh]</b>&nbsp; to continue."));
+        self::display_message(array('type' => "highlight", 'msg' => "$status [<i>$basename".".tsv</i>].  &nbsp; Click <b>[Refresh]</b> to continue."));
         ?><input type="submit" value="Refresh"><?php
     }
 

@@ -16,8 +16,7 @@
         if($params['monitorAPI'] == 1) echo '<li><a onClick="tab7_clicked()" href="#tabs_main-7">Monitors Manual mode ››</a></li>';
         else                           echo '<li><a onClick="tab7_clicked()" href="#tabs_main-7">Monitors API mode ››</a></li>';
         ?>
-        
-        
+        <li><?php echo $_SESSION["github_username"] ?></li>
     </ul>
     <div id="tabs_main-1">Loading...</div>
     <div id="tabs_main-2"><?php print $ctrler->render_template('monitors-list', array('params' => @$params)); ?></div>

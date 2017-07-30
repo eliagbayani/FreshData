@@ -20,9 +20,7 @@
 */
 $link = "index.php?uuid=$params[uuid]&monitorAPI=$params[monitorAPI]&view_type=admin&queries=2&get_count4=&del_tsv4=&inc_del_file=";
 
-
 $full_file = "TSV_files/$params[uuid]"."_inv.tsv.gz";
-
 echo "<br><br>Full file: <a href='$full_file'>Download</a>";
 
 echo "<br><br>Incremental files:";
