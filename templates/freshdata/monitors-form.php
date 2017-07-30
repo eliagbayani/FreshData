@@ -50,7 +50,7 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                 ?>
             </div>
 
-            <div id="tabs-3"><!---Queries--->
+            <div id="tabs-3"><!---Download Occurrence TSV--->
                 <?php 
                 require("templates/freshdata/monitor-text-data.php");
                 $search_url = FRESHDATA_DOMAIN."?taxonSelector=".$rec_from_text['Taxa']."&traitSelector=".$rec_from_text['Trait_selector']."&wktString=".$rec_from_text['String'];

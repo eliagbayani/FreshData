@@ -11,14 +11,14 @@ $(document).ready(function() {
     
     $("#stage3").load('templates/freshdata/monitor-q-download-tsv-confirm.php', {"uuid":uuid, "url":url, "destination":destination, "search_url":search_url} );
     $("#login_form3").hide();
-    $('#stage3').append('<div class="help-block2"><br>Downloading, please wait... <br><br>OR you can click <b>Continue</b> and check the download later.<br><br></div>'); // add the actual error message under our input
-
+    $('#stage3').append('<div class="help-block2"><br>Downloading, please wait...</div>'); // add the actual error message under our input
+    //<br><br>OR you can click <b>Continue</b> and check the download later.<br><br>
     });
 });
 </script>
 
 <?php
-echo "<br><a href='".$search_url."' target='".$uuid."'>Search in Fresh Data.</a><br><br>";
+// echo "<br><a href='".$search_url."' target='".$uuid."'>Search in Fresh Data.</a><br><br>"; working but no longer needed
 ?>
 
 <!---<span id = "login_form2">--->

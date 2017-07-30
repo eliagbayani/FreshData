@@ -51,7 +51,7 @@ class other_controller
     
     private function create_incremental_file_if_needed($params)
     {
-        echo "\ndate from: ".$params['date_from']."\n";
+        echo "\ndate from: ".$params['date_from'];
         echo "\ndate to: ".$params['date_to']."\n";
         $filename = self::generate_tsv_filepath($params['uuid']."_inv");
         
@@ -89,7 +89,11 @@ class other_controller
         }
         fclose($fn);
         fclose($write);
-        if($delete_file) unlink($filename_target);
+        if($delete_file)
+        {
+            unlink($filename_target);
+            echo "\nNo increment file\n";
+        }
         else
         {   
             self::gzip_file($basename_target); //for increment file
@@ -231,8 +235,8 @@ class other_controller
     private function unique_invasive_species_scinames()
     {
         $scinames = array();
-        $names = self::get_google_sheet(); //uncomment in real operation
-        // $names = array(); //debug
+        // $names = self::get_google_sheet(); //uncomment in real operation
+        $names = array(); //debug
         foreach($names as $name)
         {
             if($val = @$name[0]) $scinames[$val] = '';
@@ -240,7 +244,7 @@ class other_controller
         $scinames = array_keys($scinames);
         $scinames = array_map('trim', $scinames);
         // print_r($scinames);
-        echo "<hr>invasives=".count($scinames)."<hr>";
+        // echo "<hr>invasives=".count($scinames)."<hr>";
         return $scinames;
     }
     
@@ -312,7 +316,7 @@ class other_controller
             fwrite($fn, "#!/bin/sh" . "\n");
             fwrite($fn, $cmd . "\n");
             fclose($fn);
-            echo "<br>Write to file OK [$destination]<br>";
+            // echo "<br>Write to file OK [$destination]<br>"; //debug only
             shell_exec("chmod 755 $destination"); //https://www.shellscript.sh/
             // shell_exec("chmod +x $destination"); //https://www.shellscript.sh/
         }
