@@ -90,7 +90,11 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                 $destination = self::generate_tsv_filepath($basename);
                 $task = "process_invasive_job";
                 $form_elements_index = 4;
+
+                if(file_exists($destination) && filesize($destination)) $inv_button_label = "Re-generate invasive species filter";
+                else                                                    $inv_button_label = "Generate invasive species filter";
                 $php_form_script = "templates/freshdata/special-invasive-form.php";
+
                 $queries_tab_index = 2;
                 $done_msg = "Invasive species filter applied.";
                 $job_type = "apply invasive filter to occurrence";
