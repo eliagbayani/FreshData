@@ -235,7 +235,7 @@ class other_controller
     {
         $scinames = array();
         $names = self::get_google_sheet(); //uncomment in real operation
-        // $names = array(); //debug
+        // $names = array(); //debug only
         foreach($names as $name)
         {
             if($val = @$name[0]) $scinames[$val] = '';
@@ -315,7 +315,7 @@ class other_controller
             fwrite($fn, "#!/bin/sh" . "\n");
             fwrite($fn, $cmd . "\n");
             fclose($fn);
-            // echo "<br>Write to file OK [$destination]<br>"; //debug only
+            // echo "<br>Write to file OK [$destination]<br>"; //debug
             shell_exec("chmod 755 $destination"); //https://www.shellscript.sh/
             // shell_exec("chmod +x $destination"); //https://www.shellscript.sh/
         }
