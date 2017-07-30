@@ -9,7 +9,6 @@ $params =& $_GET;
 if(!$params) $params =& $_POST;
 
 $ctrler = new freshdata_controller($params);
-// sleep(1);
 
 //worked on script
 $cmd = WGET_PATH.' --tries=3 -O '.$params['destination'].' "'.$params['url'].'"'; //working well with shell_exec()
@@ -36,7 +35,7 @@ $shell_debug = shell_exec($c);
 sleep(10);
 
 // echo "<pre><hr>$cmd<hr>$c<hr></pre>";
-echo "<pre><hr>[$shell_debug]<hr></pre>"; //debug only
+if($ctrler->is_eli()) echo "<pre><hr>[$shell_debug]<hr></pre>";
 
 // the $build_status should come from the status for uuid in question not just the currently last_build
 $build_status = $ctrler->get_last_build_console_text($task, $params['uuid']);
@@ -57,9 +56,9 @@ else
         $ctrler->display_message(array('type' => "highlight", 'msg' => "Job completed: OK"));
         // $ctrler->gzip_file($params['uuid']); // working... but put this in the sh file instead
     }
-    else                                                                        $ctrler->display_message(array('type' => "highlight", 'msg' => "Build is in unknown state. Will investigate. Click <b>Continue</b>."));
+    else $ctrler->display_message(array('type' => "highlight", 'msg' => "Build is in unknown state. Will investigate. Click <b>Continue</b>."));
 }
-echo "<hr><pre>".$build_status."</pre><hr>"; //debug only
+if($ctrler->is_eli()) echo "<hr><pre>".$build_status."</pre><hr>";
 ?>
 
 <!--- may not need these below; sample $params value:

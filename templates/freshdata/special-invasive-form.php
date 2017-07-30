@@ -46,7 +46,7 @@ $(document).ready(function() {
       <option value="No">No</option>
   </select>
   --->
-  <button id="driver4" type="submit">Apply invasive list filter</button>
+  <button id="driver4" type="submit">Apply invasive species filter</button>
   &nbsp;<a href="<?php echo $admin_link ?>">Cancel</a>
 <!---</span>--->
 <!---<div id="stage4" style = "background-color:white;"></div>--->

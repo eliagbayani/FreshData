@@ -74,6 +74,7 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                 $form_elements_index = 3;
                 $php_form_script = "templates/freshdata/monitor-q-download-tsv.php";
                 $queries_tab_index = 1;
+                $done_msg = "Occurrence TSV downloaded.";
                 $job_type = "download occurrence tsv";
                 require("templates/freshdata/jenkins-interface.php");
                 ?>
@@ -91,6 +92,7 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                 $form_elements_index = 4;
                 $php_form_script = "templates/freshdata/special-invasive-form.php";
                 $queries_tab_index = 2;
+                $done_msg = "Invasive species filter applied.";
                 $job_type = "apply invasive filter to occurrence";
                 // echo "<hr>$destination_dl_tsv<hr>"; //debug
                 if(file_exists($destination_dl_tsv) && filesize($destination_dl_tsv)) require("templates/freshdata/jenkins-interface.php");

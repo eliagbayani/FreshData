@@ -40,6 +40,7 @@ class freshdata_controller extends other_controller
     
     function user_is_logged_in_wiki($view_type)
     {
+        // echo"<pre>";print_r(@$_SESSION);echo"</pre>";
         if(@$_SESSION["freshdata_user_logged_in"]) return true;
         else
         {
@@ -47,6 +48,12 @@ class freshdata_controller extends other_controller
             self::display_message(array('type' => "highlight", 'msg' => "Go back to <a href='index.php'>public view</a>."));
             return false;
         }
+    }
+    
+    function is_eli()
+    {
+        if($_SESSION["github_username"] == 'eliagbayani') return true;
+        else return false;
     }
 
     function start_backup()

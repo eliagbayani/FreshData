@@ -45,7 +45,7 @@ $shell_debug = shell_exec($c);
 sleep(10);
 
 // echo "<pre><hr>$cmd<hr>$c<hr></pre>";
-echo "<pre><hr>[$shell_debug]<hr></pre>"; //debug only
+if($ctrler->is_eli()) echo "<pre><hr>[$shell_debug]<hr></pre>";
 
 // the $build_status should come from the status for uuid in question not just the currently last_build
 $build_status = $ctrler->get_last_build_console_text($task, $params['uuid']."_inv");
@@ -63,7 +63,7 @@ else
     if(file_exists($params['destination']) && filesize($params['destination'])) $ctrler->display_message(array('type' => "highlight", 'msg' => "Job completed: OK"));
     else                                                                        $ctrler->display_message(array('type' => "highlight", 'msg' => "Build is in unknown state. Will investigate"));
 }
-echo "<hr><pre>".$build_status."</pre><hr>"; //debug only
+if($ctrler->is_eli()) echo "<hr><pre>".$build_status."</pre><hr>";
 
 ?>
 
