@@ -14,7 +14,6 @@ print_r($params);
 
 $rec_from_text = $ctrler->get_text_file_value($params['uuid'], "lookup");
 // print_r($rec_from_text);
-$search_url = $ctrler->generate_freshdata_search_url($rec_from_text); //new
-header("Location: $search_url");
-
+if($search_url = $ctrler->generate_freshdata_search_url($rec_from_text)) header("Location: $search_url");
+else echo "<hr>ID now found: ".$params['uuid']."<hr>";
 ?>

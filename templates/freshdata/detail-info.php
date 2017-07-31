@@ -7,7 +7,10 @@ $uuid = $params['uuid'];
 // $rek = self::monitors_list($params);
 // echo "<pre>"; print_r($rek); echo "</pre>";
 
-$rec_from_text = $rec_from_text = self::get_text_file_value($uuid);
+$rec_from_text = self::get_text_file_value($uuid);
+
+// echo "<pre>"; print_r($rec_from_text); echo "</pre>";
+
 $search_url = self::generate_freshdata_search_url($rec_from_text);
 
 require("templates/freshdata/monitor-text-data.php");
