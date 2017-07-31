@@ -99,7 +99,8 @@ if(file_exists($destination) && filesize($destination) && $disp_total_rows)
     if(@$params['get_count'.$form_elements_index]=='Yes') echo "<br><br>Total rows: ".self::get_total_rows($basename); //param is basename of .tsv filename
     
     ?>
-    <hr><?php echo $del_label ?> <!---<?php echo "[$basename]" ?>--->
+    <br><br>
+    <?php echo $del_label ?> <!---<?php echo "[$basename]" ?>--->
     <select name="del_tsv<?php echo $form_elements_index ?>" id="toggleYN">
         <option>
         <?php $yn = array('Yes', 'No');
@@ -113,8 +114,8 @@ if(file_exists($destination) && filesize($destination) && $disp_total_rows)
     if(@$params['del_tsv'.$form_elements_index]=='Yes')
     {
         $status = self::delete_tsv_file($basename); //param is basename of .tsv filename
-        self::display_message(array('type' => "highlight", 'msg' => "$status [<i>$basename".".tsv</i>].  &nbsp; Click <b>[Refresh]</b> to continue."));
-        ?><input type="submit" value="Refresh"><?php
+        self::display_message(array('type' => "highlight", 'msg' => "$status [<i>$basename".".tsv</i>]. &nbsp; Click <b>[Refresh]</b> to continue."));
+        ?><br><input type="submit" value="Refresh"><?php
     }
 
     /*
@@ -124,9 +125,12 @@ if(file_exists($destination) && filesize($destination) && $disp_total_rows)
 }
 if(!$disp_dl_button)
 {
-    ?>
-    <br><br><input type="submit" value="<?php echo $button_text ?>">
-    <?php
+    if(!in_array($button_text, array("Continue 1", "Continue 2")))
+    {
+        ?>
+        <br><br><input type="submit" value="<?php echo $button_text ?>">
+        <?php
+    }
 }
 ?>
 </form>

@@ -11,7 +11,7 @@ $(document).ready(function() {
     
     $("#stage3").load('templates/freshdata/monitor-q-download-tsv-confirm.php', {"uuid":uuid, "url":url, "destination":destination, "search_url":search_url} );
     $("#login_form3").hide();
-    $('#stage3').append('<div class="help-block2"><br>Downloading, please wait...</div>'); // add the actual error message under our input
+    $('#stage3').append('<div class="help-block2"><br>Downloading, please wait...<img src="images/ajax-loader.gif"></div>'); // add the actual error message under our input
     //<br><br>OR you can click <b>Continue</b> and check the download later.<br><br>
     });
 });

@@ -65,7 +65,7 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                 // $url = "http://editors.eol.org/test.tsv"; //debug only
 
                 //vars to be filled-up for other tabs e.g. Special Queries
-                $button_text  = "Continue";
+                $button_text  = "Continue 1";
                 $basename = $uuid;
                 $destination_jenkins = self::generate_tsv_filepath($basename, "jenkins");
                 $destination         = self::generate_tsv_filepath($basename);
@@ -86,7 +86,7 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                 require("templates/freshdata/monitor-text-data.php");
                 
                 //vars to be filled-up for other tabs
-                $button_text  = "Continue";
+                $button_text  = "Continue 2";
                 $basename = $uuid."_inv";
                 $destination = self::generate_tsv_filepath($basename);
                 $task = "process_invasive_job";

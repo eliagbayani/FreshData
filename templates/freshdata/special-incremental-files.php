@@ -1,3 +1,4 @@
+<hr>
 <?php
 
 // if($params['view_type'] == 'monDetail') echo "111";
@@ -24,8 +25,7 @@ $link = "index.php?uuid=$params[uuid]&monitorAPI=$params[monitorAPI]&view_type=a
 $full_file = "TSV_files/$params[uuid]"."_inv.tsv.gz";
 echo "<br><br>Full file1: <a href='$full_file'>Download</a>";
 */
-
-echo "<br><br>Incremental files:";
+echo "Incremental files:";
 foreach($incrementals as $inc)
 {
     $base = pathinfo($inc, PATHINFO_FILENAME);

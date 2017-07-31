@@ -20,7 +20,7 @@ $(document).ready(function() {
 
     $("#stage4").load('templates/freshdata/special-invasive-form-confirm.php', {"uuid":uuid, "YN":YN, "destination":destination, "date_from":date_from, "date_to":date_to, "search_url":search_url} );
     $("#login_form4").hide();
-    $('#stage4').append('<div class="help-block4"><br>Processing, please wait...<br><br></div>'); // add the actual error message under our input
+    $('#stage4').append('<div class="help-block4"><br>Processing, please wait...<img src="images/ajax-loader.gif"></div>'); // add the actual error message under our input
     });
 });
 </script>
@@ -46,6 +46,7 @@ $(document).ready(function() {
       <option value="No">No</option>
   </select>
   --->
+  <br>
   <button id="driver4" type="submit"><?php echo $inv_button_label ?></button>
   &nbsp;<a href="<?php echo $admin_link ?>">Cancel</a>
 <!---</span>--->
