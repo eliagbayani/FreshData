@@ -16,8 +16,16 @@ if($ctrler->save_to_text($params))
     
     
     // echo "<br><span id='memo'>Saved OK</span><br>";
-    $ctrler->display_message(array('type' => "highlight", 'msg' => "Record has been successfully created."));
+    $ctrler->display_message(array('type' => "highlight", 'msg' => "Record has been successfully created. Click <b>Proceed</b>."));
     ?>
+    <br>
+    <form action="index.php" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="uuid"        value="<?php echo $params['uuid'] ?>">
+    <input type="hidden" name="monitorAPI"  value="">
+    <input type="hidden" name="view_type"   value="admin">
+    <input type="hidden" name="queries"     value="0">
+    <input type="submit" value="Proceed">
+    
     <table>
     <tr><td colspan="2"><hr><b>Archive Info:</b><hr></td></tr>
     <?php
