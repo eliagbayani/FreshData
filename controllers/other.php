@@ -123,6 +123,11 @@ class other_controller
         $link = "http://".DOMAIN_NAME."/FreshData/index.php?view_type=monDetail&uuid=$params[uuid]";
 
         $tweet = "Monitor $link produced an increment file. Last: $params[date_from]. Latest: $params[date_to]";
+        $m = freshdata_controller::get_text_file_value($params['uuid']);
+        
+        // echo "<pre>"; print_r($m); echo "</pre>";
+        
+        $tweet = "New records available for #".str_replace(" ","_",$m['Title']).", $link";
         echo "\ntweet: $tweet\n";
 
         require("twitter.php");
