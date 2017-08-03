@@ -32,5 +32,6 @@ $(document).ready(function() {
   <br>
   <button id="driver3" type="submit">Download occurrence TSV from Fresh Data</button>
   &nbsp;<a href="<?php echo $admin_link ?>">Cancel</a>
+  <br><br><i id="memo">Note: Download will fail if search has not yet been cached in Fresh Data. You can <a target="<?php echo $uuid ?>" href="<?php echo $search_url ?>">Search Fresh Data</a> first to see if occurrence is ready.</i>
 <!---</span>--->
 <!---<div id="stage2" style = "background-color:white;"></div>--->

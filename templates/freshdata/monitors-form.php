@@ -102,7 +102,9 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                 $job_type = "apply invasive filter to occurrence";
                 // echo "<hr>$destination_dl_tsv<hr>"; //debug
                 if(file_exists($destination_dl_tsv) && filesize($destination_dl_tsv)) require("templates/freshdata/jenkins-interface.php");
-                else echo "<p>Occurrence TSV not yet downloaded.";
+                else require("templates/freshdata/jenkins-interface.php");
+                // else echo "<p>Occurrence TSV not yet downloaded."; //orig, replaced by above
+                
                 ?>
             </div><!---end: Special Queries--->
 

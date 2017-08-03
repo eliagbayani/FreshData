@@ -32,22 +32,29 @@ $(document).ready(function() {
   <input type="hidden" id="search_url"      value="<?php echo $search_url ?>">
   
   <hr>
-  <table>
-    <tr><td>Date last generated</td><td><input type="text" id="date_from" value="<?php echo $date_from ?>"></td></tr>
-    <tr><td>Date today</td><td>         <input type="text" id="date_to"   value="<?php echo $date_to ?>"></td></tr>
-  </table
+  <?php
+  if(file_exists($destination_dl_tsv) && filesize($destination_dl_tsv)) 
+  {
+      ?>
+      <!---<br>--->
+      <table>
+        <tr><td>Date last generated</td><td><input type="text" id="date_from" value="<?php echo $date_from ?>"></td></tr>
+        <tr><td>Date today</td><td>         <input type="text" id="date_to"   value="<?php echo $date_to ?>"></td></tr>
+      </table>
+      <button id="driver4" type="submit"><?php echo $inv_button_label ?></button>
+      &nbsp;<a href="<?php echo $admin_link ?>">Cancel</a>
+      <?php
+  }
+  else
+  {
+      if(file_exists($destination) && filesize($destination)) $str = "re-generate";
+      else                                                    $str = "generate";
+      // echo "<hr>$destination<hr>";
+      freshdata_controller::display_message(array('type' => "error", 'msg' => "Cannot $str invasive species filter. <b>Download Occurrence TSV</b> first."));
+  }
+  // echo "<i id='memo'>Cannot re-generate invasive species filter. Download Occurrence TSV first.</i>";
+  ?>
   
-  <br>
-  <!---
-  Apply filter 'Invasive Species':
-  <select name="YN" id="YN" style="width:60px;">
-      <option>
-      <option value="Yes">Yes</option>
-      <option value="No">No</option>
-  </select>
-  --->
-  <br>
-  <button id="driver4" type="submit"><?php echo $inv_button_label ?></button>
-  &nbsp;<a href="<?php echo $admin_link ?>">Cancel</a>
+  
 <!---</span>--->
 <!---<div id="stage4" style = "background-color:white;"></div>--->

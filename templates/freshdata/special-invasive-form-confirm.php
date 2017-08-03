@@ -56,11 +56,11 @@ if($ctrler->did_build_fail($build_status))
 elseif($ctrler->is_build_currently_running($build_status))
 {
     $ctrler->display_message(array('type' => "highlight", 'msg' => "Processing..."));
-    $ctrler->display_message(array('type' => "highlight", 'msg' => "Please check back later."));
+    $ctrler->display_message(array('type' => "highlight", 'msg' => "Please check back later. Click <b>Refresh</b>."));
 }
 else
 {
-    if(file_exists($params['destination']) && filesize($params['destination'])) $ctrler->display_message(array('type' => "highlight", 'msg' => "Job completed: OK"));
+    if(file_exists($params['destination']) && filesize($params['destination'])) $ctrler->display_message(array('type' => "highlight", 'msg' => "Job completed OK. Click <b>Refresh</b>."));
     else                                                                        $ctrler->display_message(array('type' => "highlight", 'msg' => "Build is in unknown state. Will investigate"));
 }
 if($ctrler->is_eli()) echo "<hr><pre>".$build_status."</pre><hr>";

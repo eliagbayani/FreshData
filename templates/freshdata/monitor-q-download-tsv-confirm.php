@@ -47,13 +47,13 @@ if($ctrler->did_build_fail($build_status))
 elseif($ctrler->is_build_currently_running($build_status))
 {
     $ctrler->display_message(array('type' => "highlight", 'msg' => "Downloading..."));
-    $ctrler->display_message(array('type' => "highlight", 'msg' => "Please check back later."));
+    $ctrler->display_message(array('type' => "highlight", 'msg' => "Please check back later. Click <b>Refresh</b>."));
 }
 else
 {
     if(file_exists($params['destination']) && filesize($params['destination']))
     {
-        $ctrler->display_message(array('type' => "highlight", 'msg' => "Job completed: OK"));
+        $ctrler->display_message(array('type' => "highlight", 'msg' => "Job completed OK. Click <b>Refresh</b>."));
         // $ctrler->gzip_file($params['uuid']); // working... but put this in the sh file instead
     }
     else $ctrler->display_message(array('type' => "highlight", 'msg' => "Build is in unknown state. Will investigate. Click <b>Continue</b>."));
