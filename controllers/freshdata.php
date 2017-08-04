@@ -474,7 +474,8 @@ class freshdata_controller extends other_controller
     
     function generate_freshdata_search_url($arr)
     {
-        if($arr['Taxa'] || $arr['String']) return FRESHDATA_DOMAIN."?taxonSelector=".$arr['Taxa']."&traitSelector=".$arr['Trait_selector']."&wktString=".$arr['String'];
+        // if($arr['Taxa'] O.R. $arr['String']) return FRESHDATA_DOMAIN."?taxonSelector=".$arr['Taxa']."&traitSelector=".$arr['Trait_selector']."&wktString=".$arr['String']; //obsolete. only area is imperative
+        if($arr['String']) return FRESHDATA_DOMAIN."?taxonSelector=".$arr['Taxa']."&traitSelector=".$arr['Trait_selector']."&wktString=".$arr['String'];
         else return false;
     }
     

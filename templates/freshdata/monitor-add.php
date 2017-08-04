@@ -19,9 +19,10 @@ $(document).ready(function() {
     var Trait_selector_a = $("#Trait_selector_a").val();
     var String_a = $("#String_a").val();
     
-    if(!Taxa_a && !String_a)
+    /* if(!Taxa_a && !String_a) */
+    if(!String_a)
     {
-        $('#stage_add').append('<div id="memo" class="help-block">Taxa and String cannot be both blank. One or both must have an entry.</div>');
+        $('#stage_add').append('<div id="memo" class="help-block">Area cannot be blank.</div>');
         return;
     }
     
