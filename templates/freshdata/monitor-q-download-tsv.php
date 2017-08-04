@@ -39,7 +39,7 @@ $(document).ready(function() {
       <br><br><i id="memo">Note: Download will fail if search has not yet been cached in Fresh Data. You can <a target="<?php echo $uuid ?>" href="<?php echo $search_url ?>">Search Fresh Data</a> first to see if occurrence is ready.</i>
       <?php
   }
-  else freshdata_controller::display_message(array('type' => "error", 'msg' => "No taxa or polygon specified. Cannot request download."));
+  else freshdata_controller::display_message(array('type' => "error", 'msg' => "No area (polygon) specified. Cannot request download."));
   ?>
 
 <!---</span>--->
