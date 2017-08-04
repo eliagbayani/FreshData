@@ -30,8 +30,17 @@ $(document).ready(function() {
   <input type="hidden" id="url"             value="<?php echo $url ?>">
   <input type="hidden" id="search_url"      value="<?php echo $search_url ?>">
   <br>
-  <button id="driver3" type="submit">Download occurrence TSV from Fresh Data</button>
-  &nbsp;<a href="<?php echo $admin_link ?>">Cancel</a>
-  <br><br><i id="memo">Note: Download will fail if search has not yet been cached in Fresh Data. You can <a target="<?php echo $uuid ?>" href="<?php echo $search_url ?>">Search Fresh Data</a> first to see if occurrence is ready.</i>
+
+  <?php if(self::has_enough_query_params($rec_from_text))
+  {
+      ?>
+      <button id="driver3" type="submit">Download occurrence TSV from Fresh Data</button>
+      &nbsp;<a href="<?php echo $admin_link ?>">Cancel</a>
+      <br><br><i id="memo">Note: Download will fail if search has not yet been cached in Fresh Data. You can <a target="<?php echo $uuid ?>" href="<?php echo $search_url ?>">Search Fresh Data</a> first to see if occurrence is ready.</i>
+      <?php
+  }
+  else freshdata_controller::display_message(array('type' => "error", 'msg' => "No taxa or polygon specified. Cannot request download."));
+  ?>
+
 <!---</span>--->
 <!---<div id="stage2" style = "background-color:white;"></div>--->

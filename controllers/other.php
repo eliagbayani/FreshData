@@ -286,6 +286,11 @@ class other_controller
         }
     }
     
+    function has_enough_query_params($rec_from_text)
+    {
+        if(@$rec_from_text['String']) return true; //area is enough to make a query
+        return false;
+    }
     //end invasive ================================================================================ uuid
 
 
