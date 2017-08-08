@@ -311,7 +311,7 @@ class other_controller
     
     function build_curl_cmd_for_jenkins($cmd, $jenkins_job, $cmd2 = null) //for download of TSV files
     {
-        $c = '/usr/bin/curl -I -X POST -H "'.JENKINS_CRUMB.'" http://'.JENKINS_USER_TOKEN.'@'.JENKINS_DOMAIN.'/job/'.$jenkins_job.'/buildWithParameters?myShell='.urlencode($cmd);
+        $c = '/usr/bin/curl -I -X POST -H "'.JENKINS_CRUMB.'" http://'.JENKINS_USER_TOKEN.'@'.JENKINS_DOMAIN.'/job/'.JENKINS_FOLDER.'/job/'.$jenkins_job.'/buildWithParameters?myShell='.urlencode($cmd);
         // if($cmd2) $c .= '&myShell='.urlencode($cmd2); ---> does not work
         $c .= " 2>&1";
         return $c;
@@ -373,27 +373,29 @@ class other_controller
         //step 2: loop downwards, one step at a time
         for($build_no = $last_build_no; $build_no >= ($last_build_no-10); $build_no--)
         {
-            // echo "<br> - [$build_no]";
-            $status = self::get_task_build_status($task, $build_no);
-            if(stripos($status, "$basename.sh") !== false) return $status; //string is found
+            if($build_no > 0)
+            {
+                $status = self::get_task_build_status($task, $build_no);
+                if(stripos($status, "$basename.sh") !== false) return $status; //string is found
+            }
         }
         return "";
     }
     
     function get_task_build_status($task, $build_no) //get status of this task with this build_no
     {
-        $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/job/$task/$build_no/consoleText";    //http://localhost:8080/job/wget_job/190/consoleText
+        $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/job/".JENKINS_FOLDER."/job/$task/$build_no/consoleText";    //http://localhost:8080/job/wget_job/190/consoleText
         $options = $this->download_options;
         $options['expire_seconds'] = 0;
         if($html = Functions::lookup_with_cache($url, $options)) return $html;
-        else echo "<hr>Jenkins API last_build info is not ready 01 [$task].<hr>";
+        else echo "<hr>Jenkins API last_build info is not ready 01 [$task][$build_no].<hr>";
         return false;
     }
     
     function get_last_build_number($task) //e.g. $task = "wget_job"
     {
         // http://localhost:8080/job/wget_job/lastBuild/buildNumber
-        $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/job/$task/lastBuild/buildNumber";
+        $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/job/".JENKINS_FOLDER."/job/$task/lastBuild/buildNumber";
         $options = $this->download_options;
         $options['expire_seconds'] = 0;
         if($build_no = Functions::lookup_with_cache($url, $options)) return $build_no;
