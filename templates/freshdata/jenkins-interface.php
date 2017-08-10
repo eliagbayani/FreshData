@@ -7,8 +7,8 @@
     {
         // echo "<hr>went here 01<hr>";
         $button_text  = "Refresh";
-        if(self::is_there_an_unfinished_job_for_this_uuid($task, $basename)) self::display_message(array('type' => "highlight", 'msg' => "Task is currently running. Please check back soon *.")); //saw this already
-        elseif(self::is_task_in_queue($task, $basename))                     self::display_message(array('type' => "highlight", 'msg' => "Task is in queue. Please check back soon **.")); //sqw this already
+        if(self::is_there_an_unfinished_job_for_this_uuid($short_task, $basename)) self::display_message(array('type' => "highlight", 'msg' => "Task is currently running. Please check back soon *.")); //saw this already
+        elseif(self::is_task_in_queue($short_task, $basename))                     self::display_message(array('type' => "highlight", 'msg' => "Task is in queue. Please check back soon **.")); //sqw this already
         else
         {
             $disp_total_rows = true;

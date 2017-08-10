@@ -76,7 +76,7 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                 $destination_jenkins = self::generate_tsv_filepath($basename, "jenkins");
                 $destination         = self::generate_tsv_filepath($basename);
                 $destination_dl_tsv  = $destination;
-                $task = "wget_job";
+                $short_task = "wget_job";
                 $form_elements_index = 3;
                 $php_form_script = "templates/freshdata/monitor-q-download-tsv.php";
                 $queries_tab_index = 1;
@@ -95,7 +95,7 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                 $button_text  = "Continue 2";
                 $basename = $uuid."_inv";
                 $destination = self::generate_tsv_filepath($basename);
-                $task = "process_invasive_job";
+                $short_task = "process_invasive_job";
                 $form_elements_index = 4;
 
                 if(file_exists($destination) && filesize($destination)) $inv_button_label = "Re-generate invasive species filter";

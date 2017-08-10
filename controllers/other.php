@@ -333,18 +333,33 @@ class other_controller
         // sleep(10); //delay for the chmod to take effect
     }
     
-    function is_there_an_unfinished_job_for_this_uuid($task, $basename)
+    function is_there_an_unfinished_job_for_this_uuid($short_task, $basename)
     {
+        /* orig OK
         $status = self::get_last_build_console_text($task, $basename);
         if(stripos($status, "$basename.sh") !== false) //string is found
         {
             if(self::is_build_currently_running($status)) return true;
         }
         return false;
+        */
+
+        self::tests_for_now("a", $short_task); //assumes that $short_task here is either 'wget_job' or 'process_invasive_job'
+        for($i = 0; $i <= JOBS_PER_TASK; $i++)
+        {
+            $task .= $short_task."_$i";
+            $status = self::get_last_build_console_text($task, $basename);
+            if(stripos($status, "$basename.sh") !== false) //string is found
+            {
+                if(self::is_build_currently_running($status)) return true;
+            }
+            return false;
+        }
     }
     
-    function is_task_in_queue($task, $basename)
+    function is_task_in_queue($short_task, $basename)
     {
+        self::tests_for_now("b", $short_task); //assumes that $short_task here is either 'wget_job' or 'process_invasive_job'
         $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/queue/api/xml";
         // http://localhost:8080/queue/api/xml
         // $url = "http://localhost/queue.xml";
@@ -358,9 +373,13 @@ class other_controller
             // echo"<pre>";print_r($xml);echo"</pre>";
             foreach($xml->item as $item)
             {
-                if($item->task->name == $task && stripos($item->params, "$basename.sh") !== false) return true; //string is found
-                // echo "<hr>".$item->task->name;
-                // echo "<hr>".$item->params;
+                for($i = 0; $i <= JOBS_PER_TASK; $i++)
+                {
+                    $task = $short_task."_$i";
+                    if($item->task->name == $task && stripos($item->params, "$basename.sh") !== false) return true; //string is found
+                    // echo "<hr>".$item->task->name;
+                    // echo "<hr>".$item->params;
+                }
             }
         }
         return false;
@@ -629,6 +648,12 @@ class other_controller
             $str = str_ireplace("GEOMETRYCOLLECTION", "MULTIPOLYGON", $str);
         }
         return $str;
+    }
+    
+    function tests_for_now($id, $task)
+    {
+        $arr = array("wget_job", "process_invasive_job");
+        if(!in_array($task, $arr)) echo "<hr>Check this Eli [$id][$task]<hr>";
     }
 
 }
