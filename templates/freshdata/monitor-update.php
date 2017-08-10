@@ -89,7 +89,23 @@ function validateURL(textval)
   <tr><td>uuid:</td>                   <td><?php echo $rec_from_text['uuid_archive'] ?><input type = "hidden" id = "uuid_archive"         size = "100" value="<?php echo $rec_from_text['uuid_archive'] ?>" /></td></tr>
   
   <tr><td>Taxa:</td>                <td><input type = "text" id = "Taxa"            size = "100" value="<?php echo $rec_from_text['Taxa']           ?>" /></td></tr>
-  <tr><td>Status:</td>              <td><input type = "text" id = "Status"          size = "100" value="<?php echo $rec_from_text['Status']         ?>" /></td></tr>
+  <tr><td>Status:</td>              
+  <td>
+      <!---
+      <input type = "text" id = "Status"          size = "100" value="<?php echo $rec_from_text['Status']         ?>" />
+      --->
+      <select name="" id="Status">
+          <option>
+          <?php $statuses = array('ready', 'submitted', 'busy');
+          foreach($statuses as $ans) {
+              $selected = "";
+              if($rec_from_text['Status'] == $ans) $selected = "selected";
+              echo '<option value="' . $ans . '" ' . $selected . '>' . $ans . '</option>';
+          }?>
+      </select>
+      
+      
+  </td></tr>
   <tr><td>No. of records:</td>      <td><input type = "text" id = "Records"         size = "100" value="<?php echo $rec_from_text['Records']        ?>" /></td></tr>
   <tr><td>Trait_selector:</td>      <td><input type = "text" id = "Trait_selector"  size = "100" value="<?php echo $rec_from_text['Trait_selector'] ?>" /></td></tr>
   <tr valign="top"><td>String:</td> <td valign="top"><textarea id="String" rows="10" cols="100" name="String"><?php echo $rec_from_text['String'];  ?></textarea></td></tr>
