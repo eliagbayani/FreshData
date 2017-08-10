@@ -240,7 +240,7 @@ class other_controller
     {
         $scinames = array();
         $names = self::get_google_sheet(); //uncomment in real operation
-        // $names = array(); //debug only
+        $names = array(); //debug only
         foreach($names as $name)
         {
             if($val = @$name[0]) $scinames[$val] = '';
@@ -384,7 +384,7 @@ class other_controller
     
     function get_task_build_status($task, $build_no) //get status of this task with this build_no
     {
-        $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/job/".JENKINS_FOLDER."/job/$task/$build_no/consoleText";    //http://localhost:8080/job/wget_job/190/consoleText
+        $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/job/".JENKINS_FOLDER."/job/$task/$build_no/consoleText";    //http://localhost:8080/job/jobName/190/consoleText
         $options = $this->download_options;
         $options['expire_seconds'] = 0;
         if($html = Functions::lookup_with_cache($url, $options)) return $html;
@@ -392,14 +392,30 @@ class other_controller
         return false;
     }
     
-    function get_last_build_number($task) //e.g. $task = "wget_job"
+    function get_last_build_number($task)
     {
-        // http://localhost:8080/job/wget_job/lastBuild/buildNumber
+        // http://localhost:8080/job/jobName/lastBuild/buildNumber
         $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/job/".JENKINS_FOLDER."/job/$task/lastBuild/buildNumber";
         $options = $this->download_options;
         $options['expire_seconds'] = 0;
         if($build_no = Functions::lookup_with_cache($url, $options)) return $build_no;
         else echo "<hr>Jenkins API last_build info is not ready 02 [$task].<hr>";
+        return false;
+    }
+    
+    function is_task_running($task)
+    {
+        // http://localhost:8080/job/FreshData_Monitors_V2/job/process_invasive_job/lastBuild/api/json
+        $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/job/".JENKINS_FOLDER."/job/$task/lastBuild/api/json";
+        $options = $this->download_options; $options['expire_seconds'] = 0;
+        if($json = Functions::lookup_with_cache($url, $options))
+        {
+            $arr = json_decode($json, true);
+            if($arr['building'] == 1) return true;
+            else return false;
+            // echo"<pre>"; print_r($arr); echo"</pre>";
+        }
+        else echo "<hr>Jenkins API last_build info is not ready 03 [$task].<hr>";
         return false;
     }
     

@@ -52,6 +52,12 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
 
             <div id="tabs-3"><!---Download Occurrence TSV--->
                 <?php 
+                
+                /*
+                if(self::is_task_running("process_invasive_job")) echo "<hr>invasive job IS RUNNING...</hr>";
+                else echo "<hr>invasive job is NOT running...</hr>";
+                */
+                
                 require("templates/freshdata/monitor-text-data.php");
                 $search_url = FRESHDATA_DOMAIN."?taxonSelector=".$rec_from_text['Taxa']."&traitSelector=".$rec_from_text['Trait_selector']."&wktString=".$rec_from_text['String'];
 
@@ -62,7 +68,7 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
                 */
                 
                 $url = $this->api['effechecka_occurrences']."?taxonSelector=".$rec_from_text['Taxa']."&traitSelector=".$rec_from_text['Trait_selector']."&wktString=".$rec_from_text['String'];
-                // $url = "http://editors.eol.org/test.tsv"; //debug only
+                $url = "http://editors.eol.org/test.tsv"; //debug only
 
                 //vars to be filled-up for other tabs e.g. Special Queries
                 $button_text  = "Continue 1";
