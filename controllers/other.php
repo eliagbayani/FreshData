@@ -344,10 +344,10 @@ class other_controller
         return false;
         */
 
-        self::tests_for_now("a", $short_task); //assumes that $short_task here is either 'wget_job' or 'process_invasive_job'
+        self::tests_for_now("a", $short_task); //assumes that $short_task here is the short name
         for($i = 0; $i <= JOBS_PER_TASK; $i++)
         {
-            $task .= $short_task."_$i";
+            $task = $short_task."_$i";
             $status = self::get_last_build_console_text($task, $basename);
             if(stripos($status, "$basename.sh") !== false) //string is found
             {
@@ -359,7 +359,7 @@ class other_controller
     
     function is_task_in_queue($short_task, $basename)
     {
-        self::tests_for_now("b", $short_task); //assumes that $short_task here is either 'wget_job' or 'process_invasive_job'
+        self::tests_for_now("b", $short_task); //assumes that $short_task here is the short name
         $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/queue/api/xml";
         // http://localhost:8080/queue/api/xml
         // $url = "http://localhost/queue.xml";
@@ -419,22 +419,6 @@ class other_controller
         $options['expire_seconds'] = 0;
         if($build_no = Functions::lookup_with_cache($url, $options)) return $build_no;
         else echo "<hr>Jenkins API last_build info is not ready 02 [$task].<hr>";
-        return false;
-    }
-    
-    function is_task_running($task)
-    {
-        // http://localhost:8080/job/FreshData_Monitors_V2/job/process_invasive_job/lastBuild/api/json
-        $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/job/".JENKINS_FOLDER."/job/$task/lastBuild/api/json";
-        $options = $this->download_options; $options['expire_seconds'] = 0;
-        if($json = Functions::lookup_with_cache($url, $options))
-        {
-            $arr = json_decode($json, true);
-            if($arr['building'] == 1) return true;
-            else return false;
-            // echo"<pre>"; print_r($arr); echo"</pre>";
-        }
-        else echo "<hr>Jenkins API last_build info is not ready 03 [$task].<hr>";
         return false;
     }
     
@@ -654,6 +638,30 @@ class other_controller
     {
         $arr = array("wget_job", "process_invasive_job");
         if(!in_array($task, $arr)) echo "<hr>Check this Eli [$id][$task]<hr>";
+    }
+    
+    function is_task_running($task)
+    {
+        // http://localhost:8080/job/FreshData_Monitors_V2/job/jobName/lastBuild/api/json
+        $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/job/".JENKINS_FOLDER."/job/$task/lastBuild/api/json";
+        $options = $this->download_options; $options['expire_seconds'] = 0;
+        if($json = Functions::lookup_with_cache($url, $options))
+        {
+            $arr = json_decode($json, true);
+            if($arr['building'] == 1) return true;
+            else return false;
+            // echo"<pre>"; print_r($arr); echo"</pre>";
+        }
+        else echo "<hr>Jenkins API last_build info is not ready 03 [$task].<hr>";
+        return false;
+    }
+    
+    function get_available_job($short_task)
+    {
+        for($i = 0; $i <= JOBS_PER_TASK; $i++)
+        {
+            
+        }
     }
 
 }

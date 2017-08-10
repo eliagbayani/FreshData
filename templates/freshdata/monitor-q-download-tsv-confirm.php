@@ -3,7 +3,7 @@ require_once("../../config/settingz.php");
 require_once("../../../LiteratureEditor/Custom/lib/Functions.php");
 require_once("../../controllers/other.php");
 require_once("../../controllers/freshdata.php");
-$task = "wget_job";
+$task = self::get_available_job("wget_job");
 
 $params =& $_GET;
 if(!$params) $params =& $_POST;
