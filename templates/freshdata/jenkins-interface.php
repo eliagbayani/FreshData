@@ -43,20 +43,18 @@
     else
     {
         // echo "<hr>went here 02<hr>";
-        if(self::is_task_in_queue($task, $basename))
+        if(self::is_task_in_queue($short_task, $basename))
         {
             $button_text  = "Refresh";
             self::display_message(array('type' => "highlight", 'msg' => "This task is already on queue. Please check back soon.")); //saw this already
         }
-        elseif(!self::is_there_an_unfinished_job_for_this_uuid($task, $basename))
+        elseif(!self::is_there_an_unfinished_job_for_this_uuid($short_task, $basename))
         {
-            // echo "<hr>went bbb<hr>";
             $disp_dl_button = false;
             require_once($php_form_script);
         }
-        elseif(!self::is_task_in_queue($task, $basename))
+        elseif(!self::is_task_in_queue($short_task, $basename))
         {
-            // echo "<hr>went aaa<hr>";
             $disp_dl_button = false;
             require_once($php_form_script);
         }
