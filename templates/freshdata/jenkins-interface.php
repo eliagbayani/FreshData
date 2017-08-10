@@ -112,7 +112,7 @@ if(file_exists($destination) && filesize($destination) && $disp_total_rows)
     if(@$params['del_tsv'.$form_elements_index]=='Yes')
     {
         $status = self::delete_tsv_file($basename); //param is basename of .tsv filename
-        self::display_message(array('type' => "highlight", 'msg' => "$status [<i>$basename".".tsv</i>]. &nbsp; Click <b>Refresh</b> to continue."));
+        self::display_message(array('type' => "highlight", 'msg' => "$status. &nbsp; Click <b>Refresh</b> to continue.")); //[<i>$basename".".tsv</i>]
         ?><br><input type="submit" value="Refresh"><?php
     }
 

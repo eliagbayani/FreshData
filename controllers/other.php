@@ -396,7 +396,7 @@ class other_controller
         //step 1: get_last_build_number
         $last_build_no = self::get_last_build_number($task);
         //step 2: loop downwards, one step at a time
-        for($build_no = $last_build_no; $build_no >= ($last_build_no-10); $build_no--)
+        for($build_no = $last_build_no; $build_no >= ($last_build_no-5); $build_no--) //checks the last 5 builds if the uuid was processed
         {
             if($build_no > 0)
             {
