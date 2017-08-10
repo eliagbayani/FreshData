@@ -19,13 +19,12 @@ require_once("../../config/settingz.php");
 require_once("../../../LiteratureEditor/Custom/lib/Functions.php");
 require_once("../../controllers/other.php");
 require_once("../../controllers/freshdata.php");
-$task = self::get_available_job("process_invasive_job");
 $params =& $_GET;
 if(!$params) $params =& $_POST;
-
 // echo "<pre>"; print_r($params); echo "</pre>";
 
 $ctrler = new freshdata_controller($params);
+$task = $ctrler->get_available_job("process_invasive_job");
 // sleep(1);
 
 //worked on script

@@ -3,12 +3,11 @@ require_once("../../config/settingz.php");
 require_once("../../../LiteratureEditor/Custom/lib/Functions.php");
 require_once("../../controllers/other.php");
 require_once("../../controllers/freshdata.php");
-$task = self::get_available_job("wget_job");
-
 $params =& $_GET;
 if(!$params) $params =& $_POST;
 
 $ctrler = new freshdata_controller($params);
+$task = $ctrler->get_available_job("wget_job");
 
 //worked on script
 $cmd = WGET_PATH.' --tries=3 -O '.$params['destination'].' "'.$params['url'].'"'; //working well with shell_exec()

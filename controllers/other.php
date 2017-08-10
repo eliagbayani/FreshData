@@ -240,7 +240,7 @@ class other_controller
     {
         $scinames = array();
         $names = self::get_google_sheet(); //uncomment in real operation
-        $names = array(); //debug only
+        // $names = array(); //debug only
         foreach($names as $name)
         {
             if($val = @$name[0]) $scinames[$val] = '';
@@ -345,7 +345,7 @@ class other_controller
         */
 
         self::tests_for_now("a", $short_task); //assumes that $short_task here is the short name
-        for($i = 0; $i <= JOBS_PER_TASK; $i++)
+        for($i = 1; $i <= JOBS_PER_TASK; $i++)
         {
             $task = $short_task."_$i";
             $status = self::get_last_build_console_text($task, $basename);
@@ -353,8 +353,14 @@ class other_controller
             {
                 if(self::is_build_currently_running($status)) return true;
             }
-            return false;
+            
+            // if($json = self::is_task_running($task))
+            // {
+            //     if(stripos($json, "$basename.sh") !== false) return true; //string is found
+            // }
+            
         }
+        return false;
     }
     
     function is_task_in_queue($short_task, $basename)
@@ -373,7 +379,7 @@ class other_controller
             // echo"<pre>";print_r($xml);echo"</pre>";
             foreach($xml->item as $item)
             {
-                for($i = 0; $i <= JOBS_PER_TASK; $i++)
+                for($i = 1; $i <= JOBS_PER_TASK; $i++)
                 {
                     $task = $short_task."_$i";
                     if($item->task->name == $task && stripos($item->params, "$basename.sh") !== false) return true; //string is found
@@ -418,7 +424,7 @@ class other_controller
         $options = $this->download_options;
         $options['expire_seconds'] = 0;
         if($build_no = Functions::lookup_with_cache($url, $options)) return $build_no;
-        else echo "<hr>Jenkins API last_build info is not ready 02 [$task].<hr>";
+        // else echo "<hr>Notice: Jenkins API last_build info is not ready 02 [$task][$build_no].<hr>"; //just a notice no need to display
         return false;
     }
     
@@ -648,20 +654,23 @@ class other_controller
         if($json = Functions::lookup_with_cache($url, $options))
         {
             $arr = json_decode($json, true);
-            if($arr['building'] == 1) return true;
+            if($arr['building'] == 1) return $json;
+            if($arr['building'] == "true") return $json;
             else return false;
             // echo"<pre>"; print_r($arr); echo"</pre>";
         }
-        else echo "<hr>Jenkins API last_build info is not ready 03 [$task].<hr>";
+        // else echo "<hr>Notice: Jenkins API last_build info is not ready 03 [$task].<hr>"; //no need to display since it only means that this job hasn't build yet, that is acceptable
         return false;
     }
     
     function get_available_job($short_task)
     {
-        for($i = 0; $i <= JOBS_PER_TASK; $i++)
+        for($i = 1; $i <= JOBS_PER_TASK; $i++)
         {
-            
+            $task = $short_task."_$i";
+            if(!self::is_task_running($task)) return $task;
         }
+        return $short_task."_1"; //TODO get the $i with the least number of queued items
     }
 
 }
