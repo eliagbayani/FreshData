@@ -413,7 +413,7 @@ class other_controller
         $options = $this->download_options;
         $options['expire_seconds'] = 0;
         if($html = Functions::lookup_with_cache($url, $options)) return $html;
-        else echo "<hr>Jenkins API last_build info is not ready 01 [$task][$build_no].<hr>";
+        // else echo "<hr>Jenkins API last_build info is not ready 01 [$task][$build_no].<hr>"; //working ok, comment in normal operation
         return false;
     }
     
