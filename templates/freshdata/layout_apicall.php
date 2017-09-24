@@ -37,9 +37,9 @@
 
 <?php
     $back = FRESHDATA_DOMAIN;
-    $admin = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=admin";
-    $refresh = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?refresh_cache=";
-    $api = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?api_call=";
+    $admin = HTTP_PROTOCOL . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=admin";
+    $refresh = HTTP_PROTOCOL . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?refresh_cache=";
+    $api = HTTP_PROTOCOL . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?api_call=";
 ?>
 <script>
 function tab2_clicked() { location.href = '<?php echo $admin ?>'; }

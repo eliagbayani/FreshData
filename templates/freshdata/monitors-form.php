@@ -157,7 +157,7 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
 
 <!--- did not use
 <?php
-    $queries = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=queries&uuid=".$uuid;
+    $queries = HTTP_PROTOCOL . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=queries&uuid=".$uuid;
 ?>
 <script>
 function tab3_clicked() { location.href = '<?php echo $queries ?>'; }

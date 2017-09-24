@@ -10,7 +10,7 @@
 </div>
 
 <?php 
-    $public = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=public&monitorAPI=".$params['monitorAPI'];
+    $public = HTTP_PROTOCOL . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=public&monitorAPI=".$params['monitorAPI'];
 ?>
 <script>
 function tab1_clicked() { location.href = '<?php echo $public ?>'; }

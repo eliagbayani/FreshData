@@ -35,14 +35,14 @@
 </div>
 
 <?php 
-    $admin = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=admin&monitorAPI=".$params['monitorAPI'];
+    $admin = HTTP_PROTOCOL . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=admin&monitorAPI=".$params['monitorAPI'];
     $back = FRESHDATA_DOMAIN;
-    $public = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=public&monitorAPI=".$params['monitorAPI'];
-    $scistarter = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=scistarter&monitorAPI=".$params['monitorAPI'];
-    $api = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?api_call=";
-    $admin_manrecs = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=manRecs&monitorAPI=".$params['monitorAPI'];
-    if($params['monitorAPI'] == 0) $admin_unhooked = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=delRecs&monitorAPI=1";
-    else                           $admin_unhooked = "http://" . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=delRecs&monitorAPI=0";
+    $public = HTTP_PROTOCOL . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=public&monitorAPI=".$params['monitorAPI'];
+    $scistarter = HTTP_PROTOCOL . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=scistarter&monitorAPI=".$params['monitorAPI'];
+    $api = HTTP_PROTOCOL . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?api_call=";
+    $admin_manrecs = HTTP_PROTOCOL . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=manRecs&monitorAPI=".$params['monitorAPI'];
+    if($params['monitorAPI'] == 0) $admin_unhooked = HTTP_PROTOCOL . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=delRecs&monitorAPI=1";
+    else                           $admin_unhooked = HTTP_PROTOCOL . $_SERVER['SERVER_NAME'] . "/FreshData/index.php?view_type=delRecs&monitorAPI=0";
 ?>
 <script>
 function tab2_clicked() { location.href = '<?php echo $admin ?>'; }
