@@ -7,13 +7,13 @@ class freshdata_controller extends other_controller
     {
         // $this->bhl_api_service['booksearch']  = "http://www.biodiversitylibrary.org/api2/httpquery.ashx?op=BookSearch&apikey=" . BHL_API_KEY;
         // $this->bhl_api_service['itemsearch']  = "http://www.biodiversitylibrary.org/api2/httpquery.ashx?op=GetItemMetadata&pages=t&ocr=t&parts=t&apikey=" . BHL_API_KEY;
-        // $this->mediawiki_api = "http://" . $_SERVER['SERVER_NAME'] . "/" . MEDIAWIKI_MAIN_FOLDER . "/api.php";
+        // $this->mediawiki_api = HTTP_PROTOCOL . $_SERVER['SERVER_NAME'] . "/" . MEDIAWIKI_MAIN_FOLDER . "/api.php";
         $this->download_options = array('download_timeout_seconds' => 4800, 'download_wait_time' => 300000, 'expire_seconds' => 43200); //expires in 12 hours
 
         // /*
         // $this->monitors_api['all'] = "http://api.effechecka.org/monitors";
         // $this->monitors_api['all'] = "http://localhost/FreshData/database/archive/monitors.json";
-        $this->monitors_api['all'] = "http://editors.eol.org/FreshData/database/archive/monitors.json";
+        $this->monitors_api['all'] = "https://editors.eol.org/FreshData/database/archive/monitors.json";
         
         $this->monitors_api['one'] = "http://api.effechecka.org/monitors?uuid=";
         $this->monitors_api['id']  = "http://api.effechecka.org/monitors?id=";
@@ -22,7 +22,7 @@ class freshdata_controller extends other_controller
         // */
 
         // $this->monitors_api['all2']          = "http://localhost/FreshData/database/archive/monitors.json";
-        $this->monitors_api['all2']          = "http://editors.eol.org/FreshData/database/archive/monitors.json";
+        $this->monitors_api['all2']          = "https://editors.eol.org/FreshData/database/archive/monitors.json";
         // $this->monitors_api['one']          = "http://api.effechecka.org/zmonitors?uuid=";
         // $this->monitors_api['id']           = "http://api.effechecka.org/zmonitors?id=";
         // $this->monitors_api['source']       = "http://api.effechecka.org/zmonitors?source=";
@@ -44,7 +44,7 @@ class freshdata_controller extends other_controller
         if(@$_SESSION["freshdata_user_logged_in"]) return true;
         else
         {
-            self::display_message(array('type' => "error", 'msg' => "Cannot open Admin page. <a href='" . "http://" . $_SERVER['SERVER_NAME'] . "/github-php-client/app/login/index.php?view_type=$view_type'>You must login using your GitHub account first</a>."));
+            self::display_message(array('type' => "error", 'msg' => "Cannot open Admin page. <a href='" . HTTP_PROTOCOL . $_SERVER['SERVER_NAME'] . "/github-php-client/app/login/index.php?view_type=$view_type'>You must login using your GitHub account first</a>."));
             self::display_message(array('type' => "highlight", 'msg' => "Go back to <a href='index.php'>public view</a>."));
             return false;
         }
@@ -58,7 +58,7 @@ class freshdata_controller extends other_controller
 
     function start_backup()
     {
-        $file = "http://editors.eol.org/FreshData/database/manually_added_monitors.txt";
+        $file = "https://editors.eol.org/FreshData/database/manually_added_monitors.txt";
         echo "\nbackup starts now...\n";
         $download_params = $this->download_options;
         $download_params['expire_seconds'] = 0;
@@ -595,7 +595,7 @@ class freshdata_controller extends other_controller
     {
         $session_cookie = MW_DBNAME.'_session';
         if(!isset($_COOKIE[$session_cookie])) return false;
-        $url = "http://" . $_SERVER['SERVER_NAME'] . $url;
+        $url = HTTP_PROTOCOL . $_SERVER['SERVER_NAME'] . $url;
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_COOKIE, $session_cookie . '=' . $_COOKIE[$session_cookie]);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -609,7 +609,7 @@ class freshdata_controller extends other_controller
     {
         $session_cookie = MW_DBNAME.'_session';
         if(!isset($_COOKIE[$session_cookie])) return false;
-        $url = "http://" . $_SERVER['SERVER_NAME'] . $url;
+        $url = HTTP_PROTOCOL . $_SERVER['SERVER_NAME'] . $url;
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_COOKIE, $session_cookie . '=' . $_COOKIE[$session_cookie]);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
