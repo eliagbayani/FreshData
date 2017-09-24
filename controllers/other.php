@@ -118,9 +118,9 @@ class other_controller
         // http://127.0.0.1/FreshData/app/lookup.php?uuid=5b6d8474-fcb4-5e16-b5cf-8f8a9a502fc3
         // print_r($_SERVER);
 
-        $link = "http://".DOMAIN_NAME."/FreshData/app/lookup.php?uuid=$params[uuid]";
+        $link = HTTP_PROTOCOL.DOMAIN_NAME."/FreshData/app/lookup.php?uuid=$params[uuid]";
         //http://127.0.0.1/FreshData/index.php?view_type=monDetail&uuid=4c7517a1-0e01-555e-b498-6924ab5021a7
-        $link = "http://".DOMAIN_NAME."/FreshData/index.php?view_type=monDetail&uuid=$params[uuid]";
+        $link = HTTP_PROTOCOL.DOMAIN_NAME."/FreshData/index.php?view_type=monDetail&uuid=$params[uuid]";
 
         $tweet = "Monitor $link produced an increment file. Last: $params[date_from]. Latest: $params[date_to]";
         $m = freshdata_controller::get_text_file_value($params['uuid']);
