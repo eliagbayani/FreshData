@@ -58,15 +58,23 @@ class freshdata_controller extends other_controller
 
     function start_backup()
     {
-        $file = "https://editors.eol.org/FreshData/database/manually_added_monitors.txt";
+        $source = "https://editors.eol.org/FreshData/database/manually_added_monitors.txt";
+        $destination = __DIR__ . "/../app/backup/".date("Y-m-d")."_manually_added_monitors.txt";
+        self::backup_now($source, $destination);
+        
+        $source = "https://editors.eol.org/eol_php_code/applications/content_server/resources/EOL_FreshData_connectors.txt";
+        $destination = __DIR__ . "/../app/backup/".date("Y-m-d")."_EOL_FreshData_connectors.txt";
+        self::backup_now($source, $destination);
+    }
+    private function backup_now($source, $destination)
+    {
         echo "\nbackup starts now...\n";
         $download_params = $this->download_options;
         $download_params['expire_seconds'] = 0;
-        $json = Functions::lookup_with_cache($file, $download_params);
-        $destination = __DIR__ . "/../app/backup/".date("Y-m-d")."_manually_added_monitors.txt";
+        $content = Functions::lookup_with_cache($source, $download_params);
         echo "\ndestination: [$destination]\n";
         $fn = fopen($destination, "w");
-        fwrite($fn, $json . "\n");
+        fwrite($fn, $content . "\n");
         fclose($fn);
     }
 
