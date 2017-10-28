@@ -403,8 +403,8 @@ class other_controller
                 $status = self::get_task_build_status($task, $build_no);
                 if(stripos($status, "$basename.sh") !== false) //string is found
                 {
-                    $progress = self::get_progress_in_percentage($task, $build_no);
-                    return "Progress: $progress% finished <p> $status";
+                    if($progress = self::get_progress_in_percentage($task, $build_no)) return "Progress: $progress% finished<br>Build no. $build_no <p>$status";
+                                                                                       return                                  "Build no. $build_no <p>$status";
                 }
             }
         }
