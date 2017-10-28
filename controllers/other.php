@@ -401,12 +401,28 @@ class other_controller
             if($build_no > 0)
             {
                 $status = self::get_task_build_status($task, $build_no);
-                if(stripos($status, "$basename.sh") !== false) return $status; //string is found
+                if(stripos($status, "$basename.sh") !== false) //string is found
+                {
+                    $progress = self::get_progress_in_percentage($task, $build_no);
+                    return "Progress: $progress% finished <p> $status";
+                }
             }
         }
         return "";
     }
-    
+    function get_progress_in_percentage($task, $build_no)
+    {
+        // echo "<hr>$task - $build_no";
+        // e.g. genHigherClass_job_1 - 92
+        // http://localhost:8080/job/FreshData_Monitors_V2/job/genHigherClass_job_1/92/api/xml?tree=executor[progress]
+        $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/job/".JENKINS_FOLDER."/job/$task/$build_no/api/xml?tree=executor[progress]";
+        $options = $this->download_options;
+        $options['expire_seconds'] = 0;
+        if($xml = Functions::lookup_with_cache($url, $options)) {
+            $xml = simplexml_load_string($xml);
+            return $xml->executor->progress;
+        }
+    }
     function get_task_build_status($task, $build_no) //get status of this task with this build_no
     {
         $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/job/".JENKINS_FOLDER."/job/$task/$build_no/consoleText";    //http://localhost:8080/job/jobName/190/consoleText
