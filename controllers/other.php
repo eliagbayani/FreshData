@@ -423,6 +423,12 @@ class other_controller
             return $xml->executor->progress;
         }
     }
+    function is_build_aborted($build_status)
+    {
+        if(strpos($build_status, "Finished: ABORTED") !== false) return true; //string is found
+        else return false;
+    }
+    
     function get_task_build_status($task, $build_no) //get status of this task with this build_no
     {
         $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/job/".JENKINS_FOLDER."/job/$task/$build_no/consoleText";    //http://localhost:8080/job/jobName/190/consoleText
@@ -658,7 +664,7 @@ class other_controller
     
     function tests_for_now($id, $task)
     {
-        $arr = array("wget_job", "process_invasive_job");
+        $arr = array("wget_job", "process_invasive_job", "genHigherClass_job");
         if(!in_array($task, $arr)) echo "<hr>Check this Eli [$id][$task]<hr>";
     }
     
