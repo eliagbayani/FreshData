@@ -213,7 +213,7 @@ class other_controller
             if(filesize($source))
             {
                 echo "<hr>Compressing...<hr>";
-                $cmd = "/usr/bin/gzip -c " . $source . " > " . $target;
+                $cmd = GZIP_PATH_JENKINS." -c " . $source . " > " . $target;
                 // $cmd .= " 2>&1";
                 $output = shell_exec($cmd);
                 echo "<hr>Compression result: [$output]<hr>";
