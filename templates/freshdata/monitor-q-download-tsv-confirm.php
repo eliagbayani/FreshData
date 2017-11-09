@@ -17,7 +17,7 @@ $cmd .= " 2>&1";
 $st = $ctrler->get_source_target_4gzip($params['uuid'], 'jenkins');
 $cmd .= "\n"; //next command in sh file
 $cmd .= "/usr/bin/gzip -c " . $st['source'] . " > " . $st['target'];
-$cmd .= " 2>&1";
+// $cmd .= " 2>&1";
 
 
 $ctrler->write_to_sh($params['uuid'], $cmd);
