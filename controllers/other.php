@@ -197,7 +197,7 @@ class other_controller
         $target = $source.".gz";
         if(file_exists($source))
         {
-            $cmd = "/usr/bin/gzip -c " . $source . " >" . $target;
+            $cmd = "/usr/bin/gzip -c " . $source . " > " . $target;
             $cmd .= " 2>&1";
             return $cmd;
         }
@@ -212,7 +212,7 @@ class other_controller
         {
             if(filesize($source))
             {
-                $cmd = "/usr/bin/gzip -c " . $source . " >" . $target;
+                $cmd = "/usr/bin/gzip -c " . $source . " > " . $target;
                 $cmd .= " 2>&1";
                 $output = shell_exec($cmd);
             }

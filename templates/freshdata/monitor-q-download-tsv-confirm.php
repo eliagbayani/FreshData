@@ -16,7 +16,7 @@ $cmd .= " 2>&1";
 //after download then gzip it
 $st = $ctrler->get_source_target_4gzip($params['uuid'], 'jenkins');
 $cmd .= "\n"; //next command in sh file
-$cmd .= "/usr/bin/gzip -c " . $st['source'] . " >" . $st['target'];
+$cmd .= "/usr/bin/gzip -c " . $st['source'] . " > " . $st['target'];
 $cmd .= " 2>&1";
 
 
