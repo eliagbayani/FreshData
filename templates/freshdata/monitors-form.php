@@ -89,28 +89,32 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
 
             <div id="tabs-4"><!---Special Queries--->
                 <?php
-                require("templates/freshdata/monitor-text-data.php");
-                
-                //vars to be filled-up for other tabs
-                $button_text  = "Continue 2";
-                $basename = $uuid."_inv";
-                $destination = self::generate_tsv_filepath($basename);
-                $short_task = "process_invasive_job";
-                $form_elements_index = 4;
+                if($uuid != "653727f3-3da8-5062-b2f8-94948687afff") { //Title: "Invader Detectives DC"
+                    echo "No special queries assigned for this monitor.";
+                }
+                else {
+                    require("templates/freshdata/monitor-text-data.php");
 
-                if(file_exists($destination) && filesize($destination)) $inv_button_label = "Re-generate invasive species filter";
-                else                                                    $inv_button_label = "Generate invasive species filter";
-                $php_form_script = "templates/freshdata/special-invasive-form.php";
+                    //vars to be filled-up for other tabs
+                    $button_text  = "Continue 2";
+                    $basename = $uuid."_inv";
+                    $destination = self::generate_tsv_filepath($basename);
+                    $short_task = "process_invasive_job";
+                    $form_elements_index = 4;
 
-                $queries_tab_index = 2;
-                $done_msg = "Invasive species filter applied.";
-                $del_label = "Delete full file:";
-                $job_type = "apply invasive filter to occurrence";
-                // echo "<hr>$destination_dl_tsv<hr>"; //debug
-                if(file_exists($destination_dl_tsv) && filesize($destination_dl_tsv)) require("templates/freshdata/jenkins-interface.php");
-                else require("templates/freshdata/jenkins-interface.php");
-                // else echo "<p>Occurrence TSV not yet downloaded."; //orig, replaced by above
-                
+                    if(file_exists($destination) && filesize($destination)) $inv_button_label = "Re-generate invasive species filter";
+                    else                                                    $inv_button_label = "Generate invasive species filter";
+                    $php_form_script = "templates/freshdata/special-invasive-form.php";
+
+                    $queries_tab_index = 2;
+                    $done_msg = "Invasive species filter applied.";
+                    $del_label = "Delete full file:";
+                    $job_type = "apply invasive filter to occurrence";
+                    // echo "<hr>$destination_dl_tsv<hr>"; //debug
+                    if(file_exists($destination_dl_tsv) && filesize($destination_dl_tsv)) require("templates/freshdata/jenkins-interface.php");
+                    else require("templates/freshdata/jenkins-interface.php");
+                    // else echo "<p>Occurrence TSV not yet downloaded."; //orig, replaced by above
+                }
                 ?>
             </div><!---end: Special Queries--->
 

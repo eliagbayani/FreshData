@@ -127,7 +127,9 @@ class other_controller
         
         // echo "<pre>"; print_r($m); echo "</pre>";
         
-        $tweet = "New records available for #".str_replace(" ","_",$m['Title']).", $link";
+        if($params['uuid'] == "653727f3-3da8-5062-b2f8-94948687afff") $hashtag = "noveltaxadc"; //Title: "Invader Detectives DC"
+        else                                                          $hashtag = $m['Title'];
+        $tweet = "New records available for #".str_replace(" ","_",$hashtag).", $link";
         echo "\ntweet: $tweet\n";
 
         require("twitter.php");
