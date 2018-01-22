@@ -489,6 +489,24 @@ class freshdata_controller extends other_controller
         else return false;
     }
     
+    function main_fields_display($rec)
+    {
+        /*
+        $fields = array("uuid_archive", "Taxa", "Status", "Records", "Trait_selector", "String", "tsv_url");
+        foreach($fields as $field) {
+            echo "<tr><td>$field:</td><td id='value'>".$rec[$field]."</td></tr>";
+        }
+        */
+        
+        $fields = array("uuid_archive", "Taxa", "Status", "Records", "Trait_selector", "String", "tsv_url");
+        foreach($fields as $field) {
+            $tfield = $field;
+            if($tfield == "tsv_url") $tfield = "TSV URL";
+            echo "<tr><td>$tfield:</td><td id='value'>".@$rec[$field]."</td></tr>";
+        }
+
+    }
+    
     private function fill_up_main_monitor_fields($final, $uuid)
     {
         // echo "<hr>not yet filled-up<hr>";
