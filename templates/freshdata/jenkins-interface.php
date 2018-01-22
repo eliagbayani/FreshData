@@ -13,7 +13,7 @@
         {
             $disp_total_rows = true;
             $button_text  = "Submit";
-            self::display_message(array('type' => "highlight", 'msg' => "$done_msg (".date("Y-m-d",filectime($destination)).") &nbsp; File size: ".filesize($destination)." bytes."));
+            self::display_message(array('type' => "highlight", 'msg' => "$done_msg (".date("Y-m-d",filectime($destination)).") &nbsp; File size: ".Functions::formatSizeUnits(filesize($destination))));
             if($job_type == "download occurrence tsv")
             {
                 self::display_message(array('type' => "highlight", 'msg' => "You can now proceed with  &nbsp;<b>[Special Queries]</b> &nbsp;tab."));

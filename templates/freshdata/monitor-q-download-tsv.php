@@ -26,14 +26,14 @@ $(document).ready(function() {
   <input type="hidden" id="destination"     value="<?php echo $destination_jenkins ?>">
   <?php 
     if(self::is_eli()) {
-        echo "<hr>Admin stuff:<br>destination: [$destination_jenkins]<hr>url: [$url]<hr>search_url: [$search_url]<hr>";
+        // echo "<hr>Admin stuff:<br>destination: [$destination_jenkins]<hr>url: [$url]<hr>search_url: [$search_url]<hr>"; //good debug
     }
     if($val = @$rec_from_text['tsv_url']) {
         $url = $val;
         $search_url = $val;
     }
     if(self::is_eli()) {
-        echo "<hr>Admin stuff:<br>url: [$url]<hr>search_url: [$search_url]<hr>";
+        // echo "<hr>Admin stuff:<br>url: [$url]<hr>search_url: [$search_url]<hr>"; //good debug
     }
     
   ?>
@@ -44,13 +44,19 @@ $(document).ready(function() {
   <?php if(self::has_enough_query_params($rec_from_text)) {
       if(@$rec_from_text['tsv_url']) {
           self::display_message(array('type' => "highlight", 'msg' => "Since you've entered the TSV URL: ".$rec_from_text['tsv_url']));
-          self::display_message(array('type' => "highlight", 'msg' => "System will use this to download the occurrence TSV. Taxa/trait/area filters will not be used."));
+          self::display_message(array('type' => "highlight", 'msg' => "System will use this to download the occurrence TSV. The filters for Taxa/traits/area (e.g. polygon) will not be used."));
+          echo "<br>";
       }
       ?>
       <button id="driver3" type="submit">Download occurrence TSV from Fresh Data</button>
       &nbsp;<a href="<?php echo $admin_link ?>">Cancel</a>
-      <br><br><i id="memo">Note: Download will fail if search has not yet been cached in Fresh Data. You can <a target="<?php echo $uuid ?>" href="<?php echo $search_url ?>">Search Fresh Data</a> first to see if occurrence is ready.</i>
+      
       <?php
+      if(!@$rec_from_text['tsv_url']) {
+          ?>
+          <br><br><i id="memo">Note: Download will fail if search has not yet been cached in Fresh Data. You can <a target="<?php echo $uuid ?>" href="<?php echo $search_url ?>">Search Fresh Data</a> first to see if occurrence is ready.</i>
+          <?php
+      }
   }
   else freshdata_controller::display_message(array('type' => "error", 'msg' => "No area (polygon) specified. Cannot request download."));
   ?>
