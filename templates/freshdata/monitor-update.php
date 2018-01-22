@@ -33,6 +33,7 @@ $(document).ready(function() {
     var Records = $("#Records").val();
     var Trait_selector = $("#Trait_selector").val();
     var String = $("#String").val();
+    var tsv_url = $("#tsv_url").val();
     
     /* if(!Taxa && !String) */
     if(!String)
@@ -49,25 +50,31 @@ $(document).ready(function() {
             return;
         }
     }
-    
-    if(URL)
-    {
-        if(!validateURL(URL))
-        {
+    if(URL) {
+        if(!validateURL(URL)) {
             $('#stage').append('<div id="memo" class="help-block">Invalid URL</div>');
             return;
         }
     }
+
+    if(tsv_url) {
+        if(!validateURL(tsv_url)) {
+            $('#stage').append('<div id="memo" class="help-block">Invalid TSV URL</div>');
+            return;
+        }
+    }
+
+    
     /*
-    if(!uuid_archive)
-    {
+    if(!uuid_archive) {
         $('#stage').append('<div id="memo" class="help-block">uuid cannot be blank!</div>');
         return;
     }
     */
     
     $("#stage").load('templates/freshdata/monitor-save.php', {"uuid":uuid, "Title":Title, "Description":Description, "URL":URL, "Training_materials":Training_materials, "Contact":Contact, 
-                                                              "uuid_archive":uuid_archive, "Taxa":Taxa, "Status":Status, "Records":Records, "Trait_selector":Trait_selector, "String":String} );
+                                                              "uuid_archive":uuid_archive, "Taxa":Taxa, "Status":Status, "Records":Records, "Trait_selector":Trait_selector, 
+                                                              "String":String, "tsv_url":tsv_url} );
     $("#login_form").hide();
     $('#stage').append('<div class="help-block"><br>Saving, please wait...<br><br></div>'); // add the actual error message under our input
 
@@ -109,6 +116,7 @@ function validateURL(textval)
   <tr><td>No. of records:</td>      <td><input type = "text" id = "Records"         size = "100" value="<?php echo $rec_from_text['Records']        ?>" /></td></tr>
   <tr><td>Trait_selector:</td>      <td><input type = "text" id = "Trait_selector"  size = "100" value="<?php echo $rec_from_text['Trait_selector'] ?>" /></td></tr>
   <tr valign="top"><td>String:</td> <td valign="top"><textarea id="String" rows="10" cols="100" name="String"><?php echo $rec_from_text['String'];  ?></textarea></td></tr>
+  <tr><td>TSV URL:</td>      <td><input type = "text" id = "tsv_url"  size = "100" value="<?php echo @$rec_from_text['tsv_url'] ?>" /></td></tr>
 
   <tr><td colspan="2"><hr><b>Update Additional Fields:</b><hr></td></tr>
   <tr><td>Title:</td>                   <td><input type = "text" id = "Title"       size = "100" value="<?php echo $rec_from_text['Title']          ?>" /></td></tr>

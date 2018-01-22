@@ -192,6 +192,8 @@ class freshdata_controller extends other_controller
                 $info['taxonSelector']  = $rec_from_text['Taxa'];
                 $info['wktString']      = $rec_from_text['String'];
                 $info['traitSelector']  = $rec_from_text['Trait_selector'];
+                $info['tsv_url']        = @$rec_from_text['tsv_url'];
+                
                 // $info['uuid']           = $rec_from_text['uuid_archive'];
                 $info['uuid']           = $uuid;
                 $info['status']         = $rec_from_text['Status'];
@@ -411,7 +413,7 @@ class freshdata_controller extends other_controller
         else
         {
             $fields = array("Title", "Description", "URL", "Training_materials", "Contact"); //original Admin
-            $fields = array("Title", "Description", "URL", "Training_materials", "Contact", "uuid_archive", "Taxa", "Status", "Records", "Trait_selector", "String"); //new Admin
+            $fields = array("Title", "Description", "URL", "Training_materials", "Contact", "uuid_archive", "Taxa", "Status", "Records", "Trait_selector", "String", "tsv_url"); //new Admin
         }
         
         $filename = self::get_uuid_text_file_path($uuid, $what);
@@ -511,6 +513,7 @@ class freshdata_controller extends other_controller
         $final['Status'] = @$monitor['status'];
         $final['Records'] = $monitor['recordCount'];
         $final['Trait_selector'] = $monitor['selector']['traitSelector'];
+        $final['tsv_url'] = $monitor['selector']['tsv_url'];
         $final['String'] = $monitor['selector']['wktString'];
         return $final;
     }
@@ -564,8 +567,9 @@ class freshdata_controller extends other_controller
             // fwrite($fn, $params['Title'] . "\t" . $params['Description'] . "\t" . $params['URL'] . "\t" . $params['Training_materials'] . "\t" . $params['Contact']); //saves five fields
 
             fwrite($fn, $params['Title'] . "\t" . $params['Description'] . "\t" . $params['URL'] . "\t" . $params['Training_materials'] . "\t" . $params['Contact'] . "\t" . 
-                        $params['uuid_archive'] . "\t" . $params['Taxa'] . "\t" . $params['Status'] . "\t" . $params['Records'] . "\t" . $params['Trait_selector'] . "\t" . $params['String']);
-            
+                        $params['uuid_archive'] . "\t" . $params['Taxa'] . "\t" . $params['Status'] . "\t" . $params['Records'] . "\t" . $params['Trait_selector'] . "\t" . 
+                        $params['String'] . "\t" . @$params['tsv_url']
+                        );
 
             fclose($fn);
             return true;

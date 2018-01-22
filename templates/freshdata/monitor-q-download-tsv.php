@@ -25,14 +25,27 @@ $(document).ready(function() {
   <input type="hidden" id="uuid"            value="<?php echo $uuid ?>">
   <input type="hidden" id="destination"     value="<?php echo $destination_jenkins ?>">
   <?php 
-    if(self::is_eli()) echo "<hr>$destination_jenkins<hr>";
+    if(self::is_eli()) {
+        echo "<hr>Admin stuff:<br>destination: [$destination_jenkins]<hr>url: [$url]<hr>search_url: [$search_url]<hr>";
+    }
+    if($val = @$rec_from_text['tsv_url']) {
+        $url = $val;
+        $search_url = $val;
+    }
+    if(self::is_eli()) {
+        echo "<hr>Admin stuff:<br>url: [$url]<hr>search_url: [$search_url]<hr>";
+    }
+    
   ?>
   <input type="hidden" id="url"             value="<?php echo $url ?>">
   <input type="hidden" id="search_url"      value="<?php echo $search_url ?>">
   <br>
 
-  <?php if(self::has_enough_query_params($rec_from_text))
-  {
+  <?php if(self::has_enough_query_params($rec_from_text)) {
+      if(@$rec_from_text['tsv_url']) {
+          self::display_message(array('type' => "highlight", 'msg' => "Since you've entered the TSV URL: ".$rec_from_text['tsv_url']));
+          self::display_message(array('type' => "highlight", 'msg' => "System will use this to download the occurrence TSV. Taxa/trait/area filters will not be used."));
+      }
       ?>
       <button id="driver3" type="submit">Download occurrence TSV from Fresh Data</button>
       &nbsp;<a href="<?php echo $admin_link ?>">Cancel</a>

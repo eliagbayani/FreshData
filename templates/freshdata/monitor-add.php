@@ -17,35 +17,38 @@ $(document).ready(function() {
     var Status_a = $("#Status_a").val();
     var Records_a = $("#Records_a").val();
     var Trait_selector_a = $("#Trait_selector_a").val();
+    var tsv_url_a = $("#tsv_url_a").val();
     var String_a = $("#String_a").val();
     
     /* if(!Taxa_a && !String_a) */
-    if(!String_a)
-    {
+    if(!String_a) {
         $('#stage_add').append('<div id="memo" class="help-block">Area cannot be blank.</div>');
         return;
     }
     
-    if(Records_a)
-    {
-        if(isNaN(Records_a))
-        {
+    if(Records_a) {
+        if(isNaN(Records_a)) {
             $('#stage_add').append('<div id="memo" class="help-block">No. of records should be numeric.</div>');
             return;
         }
     }
-    
-    if(URL_a)
-    {
-        if(!validateURL(URL_a))
-        {
+    if(URL_a) {
+        if(!validateURL(URL_a)) {
             $('#stage_add').append('<div id="memo" class="help-block">Invalid URL</div>');
             return;
         }
     }
+    if(tsv_url_a) {
+        if(!validateURL(tsv_url_a)) {
+            $('#stage_add').append('<div id="memo" class="help-block">Invalid TSV URL</div>');
+            return;
+        }
+    }
+
     
     $("#stage_add").load('templates/freshdata/monitor-save-add.php', {"uuid":uuid_a, "Title":Title_a, "Description":Description_a, "URL":URL_a, "Training_materials":Training_materials_a, "Contact":Contact_a, 
-                                                              "uuid_archive":uuid_archive_a, "Taxa":Taxa_a, "Status":Status_a, "Records":Records_a, "Trait_selector":Trait_selector_a, "String":String_a} );
+                                                              "uuid_archive":uuid_archive_a, "Taxa":Taxa_a, "Status":Status_a, "Records":Records_a, "Trait_selector":Trait_selector_a, 
+                                                              "String":String_a, "tsv_url":tsv_url_a} );
     $("#login_form_add").hide();
     $('#stage_add').append('<div class="help-block"><br>Saving, please wait...<br><br></div>'); // add the actual error message under our input
 
@@ -73,6 +76,7 @@ function validateURL(textval)
   <tr><td>No. of records:</td>      <td><input type = "text" id = "Records_a"         size = "100"  /></td></tr>
   <tr><td>Trait_selector:</td>      <td><input type = "text" id = "Trait_selector_a"  size = "100"  /></td></tr>
   <tr valign="top"><td>String:</td> <td valign="top"><textarea id="String_a" rows="10" cols="100" name="String_a"></textarea></td></tr>
+  <tr><td>TSV URL:</td>             <td><input type = "text" id = "tsv_url_a"  size = "100"  /></td></tr>
 
   <tr><td colspan="2"><hr><b>Additional Fields:</b><hr></td></tr>
   <tr><td>Title:</td>                   <td><input type = "text" id = "Title_a"               size = "100"  /></td></tr>

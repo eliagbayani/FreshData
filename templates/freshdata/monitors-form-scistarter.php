@@ -47,6 +47,8 @@ else                           $str .= " | Monitors Manual Mode";
                         <tr><td>No. of records:</td> <td id="value"><?php echo number_format($rec_from_text1['Records']) ?></td></tr>
                         <tr><td>Trait selector:</td> <td id="value"><?php echo $rec_from_text1['Trait_selector'] ?></td></tr>
                         <tr><td>String:</td>         <td id="value"><?php echo $rec_from_text1['String'] ?></td></tr>
+                        <tr><td>TSV URL:</td>        <td id="value"><?php echo $rec_from_text1['tsv_url'] ?></td></tr>
+                        
                     </table>
                     <?php
                 }
