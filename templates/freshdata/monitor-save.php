@@ -27,8 +27,7 @@ if($ctrler->save_to_text($params))
     <tr><td colspan="2"><hr><b>Archive Info:</b><hr></td></tr>
     <?php
     $fields = array("uuid_archive", "Taxa", "Status", "Records", "Trait_selector", "String", "tsv_url");
-    foreach($fields as $field)
-    {
+    foreach($fields as $field) {
         echo "<tr><td>$field:</td><td id='value'>".$params[$field]."</td></tr>";
     }
     ?>
