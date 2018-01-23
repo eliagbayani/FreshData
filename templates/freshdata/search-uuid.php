@@ -13,12 +13,12 @@ $(document).ready(function() {
 });
 </script>
 
-  Search UUID: <input size="50" type="text" id="uuid_3">
-  <p>
-  <button id="driver_3" type="submit">Search</button>
-
+<hr>
+Search UUID: <input size="50" type="text" id="uuid_3"><p>
+<button id="driver_3" type="submit">Search</button>
+<hr>
 
 <?php
-echo "<hr>"; // IMPERATIVE ... doesn't work without any echo...
+// echo "<br><hr>"; // IMPERATIVE ... doesn't work without any echo...
 // echo "<hr>".dirname(__FILE__)."<hr>";
 ?>

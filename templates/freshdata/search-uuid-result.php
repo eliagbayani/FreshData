@@ -19,6 +19,7 @@ if($monitor = $ctrler->search_effechecka_uuid($uuid)) {
     $ctrler->display_message(array('type' => "highlight", 'msg' => "UUID exists."));
     // require("templates/freshdata/monitor-orig-api-data.php");
     require("../../templates/freshdata/monitor-orig-api-data.php");
+    require_once("../../config/script-below-entry.html");
 }
 else
 {
