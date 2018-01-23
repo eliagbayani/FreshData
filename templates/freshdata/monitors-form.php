@@ -38,6 +38,7 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
             <ul>
                 <li><a href="#tabs-0">Edit</a></li>
                 <li><a href="#tabs-2">Delete</a></li>
+                <li><a href="#tabs-6">Create a new monitor for an existing UUID</a></li>
                 <li><a href="#tabs-1">Create a new monitor</a></li>
                 <li><a href="#tabs-3">Download Occurrence TSV</a></li>
                 <li><a href="#tabs-4">Special Queries</a></li>
@@ -120,14 +121,34 @@ $admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
 
             <div id="tabs-0"><!---Edit--->
                 <?php 
-                if(!self::manually_added_monitor($uuid)) require("templates/freshdata/monitor-orig-api-data.php"); 
+                    if(!self::manually_added_monitor($uuid)) require("templates/freshdata/monitor-orig-api-data.php");
+                    require_once("templates/freshdata/monitor-update.php");
                 ?>
-                <?php require_once("templates/freshdata/monitor-update.php"); ?>
             </div>
-
             <div id="tabs-1"><!---Create a new monitor--->
                 <?php require_once("templates/freshdata/monitor-add.php"); ?>
             </div>
+            <div id="tabs-6"><!---Create a new monitor with UUID --->
+                <?php
+                self::display_message(array('type' => "highlight", 'msg' => "Enter UUID:"));
+                ?>
+                <?php //require("templates/freshdata/monitor-orig-api-data.php"); ?>
+                
+                <span id = "login_form2">
+                <table>
+                <tr><td colspan="2"><hr><b>Archive Info:</b><hr></td></tr>
+                <?php
+                // self::main_fields_display($rec_from_text);
+                ?>
+                </table>
+                <?php 
+                    require_once("templates/freshdata/search-uuid.php"); 
+                    //require_once("templates/freshdata/monitor-undelete.php"); 
+                ?>
+                </span>
+                <div id="stage2" style = "background-color:white;"></div>
+            </div>
+
 
             <div id="tabs-2"><!---Delete--->
                 <span id = "login_form2">

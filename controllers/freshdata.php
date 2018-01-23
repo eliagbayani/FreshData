@@ -531,7 +531,7 @@ class freshdata_controller extends other_controller
         $final['Status'] = @$monitor['status'];
         $final['Records'] = $monitor['recordCount'];
         $final['Trait_selector'] = $monitor['selector']['traitSelector'];
-        $final['tsv_url'] = $monitor['selector']['tsv_url'];
+        $final['tsv_url'] = @$monitor['selector']['tsv_url'];
         $final['String'] = $monitor['selector']['wktString'];
         return $final;
     }
