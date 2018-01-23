@@ -377,7 +377,8 @@ class freshdata_controller extends other_controller
         }
         return array();
     }
-
+    //not found in effechecka: 18faa636-15a8-553d-aca8-ee0771c1d3d4
+    //found in effechecka: ed370919-735e-5c9d-bda7-a1f408dd7c38
     function search_effechecka_uuid($uuid)
     {
         if($json = Functions::lookup_with_cache($this->monitors_api['one'].$uuid, $this->download_options)) return json_decode($json, true);

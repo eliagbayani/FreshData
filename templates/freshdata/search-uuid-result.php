@@ -14,22 +14,50 @@ sleep(1);
 $uuid = $params['uuid'];
 
 
-if($monitor = $ctrler->search_effechecka_uuid($uuid)) {
-    // print_r($monitor);
-    $ctrler->display_message(array('type' => "highlight", 'msg' => "UUID exists."));
-    // require("templates/freshdata/monitor-orig-api-data.php");
-    require("../../templates/freshdata/monitor-orig-api-data.php");
-    require_once("../../config/script-below-entry.html");
+
+// if($monitor = $ctrler->get_monitor_record($uuid)) {
+if($monitor = $ctrler->get_text_file_value($uuid, "lookup")) {
+    if($monitor['String'])
+    {
+        $ctrler->display_message(array('type' => "error", 'msg' => "Monitor with UUID [$uuid] already exists in Monitors V2"));
+        ?>
+        <br>
+        <form action="index.php" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="monitorAPI"  value="0">
+        <input type="hidden" name="view_type"   value="create_new_monitor">
+        <input type="submit" value="Search another...">
+        </form>
+        <?php
+    }
+    else 
+    {
+        // $ctrler->display_message(array('type' => "highlight", 'msg' => "Monitor with UUID [$uuid] DOES NOT EXIST Monitors V2 01")); //debug purposes only
+        if($monitor = $ctrler->search_effechecka_uuid($uuid)) {
+            // print_r($monitor);
+            $ctrler->display_message(array('type' => "highlight", 'msg' => "Monitor exists. You can create a monitor for this UUID: <i><b>$uuid</b></i>."));
+            // require("templates/freshdata/monitor-orig-api-data.php");
+            require("../../templates/freshdata/monitor-orig-api-data.php");
+            require_once("../../config/script-below-entry.html");
+        }
+        else {
+            $ctrler->display_message(array('type' => "error", 'msg' => "UUID not found in effechecka server."));
+        }
+    }
 }
-else {
-    $ctrler->display_message(array('type' => "error", 'msg' => "UUID not found in effechecka server."));
+else //may not go here ever...
+{
+    $ctrler->display_message(array('type' => "highlight", 'msg' => "Monitor with UUID [$uuid] DOES NOT Monitors V2 02"));
 }
+
+
+
 ?>
 <br>
 <form action="index.php" method="post" enctype="multipart/form-data">
 <input type="hidden" name="monitorAPI"  value="0">
 <input type="hidden" name="view_type"   value="admin">
 <input type="submit" value="Proceed">
+</form>
 <?php
 
 

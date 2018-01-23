@@ -52,7 +52,9 @@ elseif(isset($params['uuid']) && @$params['view_type'] == 'delRecs') require_onc
 elseif(isset($params['uuid']) && @$params['view_type'] == 'manRecs') require_once("templates/freshdata/layout5.php");
 elseif(isset($params['uuid']) && @$params['view_type'] == 'monDetail') require_once("templates/freshdata/layout_monitor.php");
 
-elseif(@$params['view_type'] == 'admin')      require_once("templates/freshdata/layout_admin.php");
+elseif(@$params['view_type'] == 'admin')              require_once("templates/freshdata/layout_admin.php");
+elseif(@$params['view_type'] == 'create_new_monitor') require_once("templates/freshdata/layout_admin.php");
+
 elseif(@$params['view_type'] == 'scistarter') require_once("templates/freshdata/layout_scistarter.php");
 elseif(@$params['view_type'] == 'delRecs')    require_once("templates/freshdata/layout_delRecs.php");
 elseif(@$params['view_type'] == 'manRecs')    require_once("templates/freshdata/layout_manRecs.php");
@@ -92,8 +94,9 @@ if(isset($params['search_type']))
 require_once("config/script-below-entry.html");
 
 //for layout
-if(@$params['view_type'] == 'admin')            print '<script>$( "#tabs_main" ).tabs( "option", "active", 1 );</script>';
-elseif(@$params['view_type'] == 'scistarter')   print '<script>$( "#tabs_main" ).tabs( "option", "active", 2 );</script>';
+if(@$params['view_type'] == 'admin')                    print '<script>$( "#tabs_main" ).tabs( "option", "active", 1 );</script>';
+elseif(@$params['view_type'] == 'create_new_monitor')   print '<script>$( "#tabs_main" ).tabs( "option", "active", 2 );</script>';
+elseif(@$params['view_type'] == 'scistarter')           print '<script>$( "#tabs_main" ).tabs( "option", "active", 2 );</script>';
 
 elseif(isset($params['uuid']) && @$params['view_type'] == 'delRecs') print '<script>$( "#tabs_main" ).tabs( "option", "active", 1 );</script>'; //layout4.php
 elseif(isset($params['uuid']) && @$params['view_type'] == 'manRecs') print '<script>$( "#tabs_main" ).tabs( "option", "active", 1 );</script>'; //layout5.php
