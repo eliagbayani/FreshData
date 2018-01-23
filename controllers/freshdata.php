@@ -13,7 +13,7 @@ class freshdata_controller extends other_controller
         // /*
         // $this->monitors_api['all'] = "http://api.effechecka.org/monitors";
         // $this->monitors_api['all'] = "http://localhost/FreshData/database/archive/monitors.json";
-        $this->monitors_api['all'] = "https://editors.eol.org/FreshData/database/archive/monitors.json";
+        $this->monitors_api['all'] = "https://editors.eol.org/FreshData/database/archive/monitors.json"; //final value
         
         $this->monitors_api['one'] = "http://api.effechecka.org/monitors?uuid=";
         $this->monitors_api['id']  = "http://api.effechecka.org/monitors?id=";
@@ -22,7 +22,7 @@ class freshdata_controller extends other_controller
         // */
 
         // $this->monitors_api['all2']          = "http://localhost/FreshData/database/archive/monitors.json";
-        $this->monitors_api['all2']          = "https://editors.eol.org/FreshData/database/archive/monitors.json";
+        $this->monitors_api['all2']          = "https://editors.eol.org/FreshData/database/archive/monitors.json"; //final value
         // $this->monitors_api['one']          = "http://api.effechecka.org/zmonitors?uuid=";
         // $this->monitors_api['id']           = "http://api.effechecka.org/zmonitors?id=";
         // $this->monitors_api['source']       = "http://api.effechecka.org/zmonitors?source=";
@@ -361,7 +361,6 @@ class freshdata_controller extends other_controller
         // if($json = Functions::lookup_with_cache($this->monitors_api['one'].$uuid, $this->download_options))
         if(false)
         {
-            
             $monitor = json_decode($json, true);
             print_r($monitor);
             echo "<hr>here 01<hr>";
@@ -371,8 +370,7 @@ class freshdata_controller extends other_controller
         {
             $json = Functions::lookup_with_cache($this->monitors_api['all2'], $this->download_options);
             $monitors = json_decode($json, true);
-            foreach($monitors as $monitor)
-            {
+            foreach($monitors as $monitor) {
                 if($monitor['selector']['uuid'] == $uuid) return $monitor;
                 // echo "<pre>";print_r($monitor);echo "</pre>";
             }

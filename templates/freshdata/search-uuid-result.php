@@ -21,8 +21,7 @@ if($monitor = $ctrler->search_effechecka_uuid($uuid)) {
     require("../../templates/freshdata/monitor-orig-api-data.php");
     require_once("../../config/script-below-entry.html");
 }
-else
-{
+else {
     $ctrler->display_message(array('type' => "error", 'msg' => "UUID not found in effechecka server."));
 }
 ?>
@@ -34,7 +33,7 @@ else
 <?php
 
 
-/*
+/* copied elsewhere...
 if($ctrler->save_to_text($params)) {
     $ctrler->display_message(array('type' => "highlight", 'msg' => "Record has been successfully deleted. Click <b><a href='index.php?view_type=admin&monitorAPI=0'>Proceed</a></b>."));
     if($ctrler->manually_added_monitor($params['uuid_archive'])) $ctrler->delete_manually_added_uuid($params);
