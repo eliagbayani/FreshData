@@ -2,6 +2,8 @@
     <ul>
         <li><a onClick="tab1_clicked()" href="#tabs_main-1">Monitors ››</a></li>
         <li><a                          href="#tabs_main-2">Admin Page</a></li>
+        <li><a                          href="#tabs_main-10">Create a new monitor for an existing UUID</a></li>
+        
         
         <!---
         <li><a onClick="tab6_clicked()" href="#tabs_main-6">Admin SciStarter ››</a></li>
@@ -31,6 +33,16 @@
     <div id="tabs_main-7">Loading...</div>
     <div id="tabs_main-8">Loading...</div>
     <div id="tabs_main-9">Loading...</div>
+
+    <div id="tabs_main-10">
+        <span id = "login_form_3">
+        <?php 
+            require_once("templates/freshdata/search-uuid.php"); 
+        ?>
+        </span>
+        <div id="stage_3" style = "background-color:white;"></div>
+    </div>
+    
     
 </div>
 

@@ -379,6 +379,12 @@ class freshdata_controller extends other_controller
         }
         return array();
     }
+
+    function search_effechecka_uuid($uuid)
+    {
+        if($json = Functions::lookup_with_cache($this->monitors_api['one'].$uuid, $this->download_options)) return json_decode($json, true);
+        return false;
+    }
     
     //start params scheme
     function params_is_uuid($uuid)
