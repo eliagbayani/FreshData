@@ -141,9 +141,11 @@ elseif($view_type == 'public')
     <input type="hidden" name="taxonSelector" id="taxonSelector">
     <input type="hidden" name="traitSelector" id="traitSelector">
     <input type="hidden" name="wktString"     id="wktString">
+    <input type="hidden" name="uuid"          id="uuid">
     <input type="hidden" name="monitorAPI"  value="<?php echo $params['monitorAPI'] ?>" id="monitorAPI<?php echo $table_id ?>">
     </form>
     <?php
+    // echo "<pre>"; print_r($params); echo "</pre>"; exit;
 }
 ?>
 
@@ -243,17 +245,25 @@ function myFunction<?php echo $table_id ?>(uuid, taxonSelector, traitSelector, w
     elseif($view_type == 'public')
     {
         ?>
+        var use_uuid = false; 
+        if(taxonSelector.length > 2048) {taxonSelector = ''; use_uuid = true;}
+        if(traitSelector.length > 2048) {traitSelector = ''; use_uuid = true;}
+        if(wktString.length > 2048)     {wktString = ''    ; use_uuid = true;}
+        if(use_uuid)
+        {
+            document.getElementById("uuid").value = uuid;
+        }
+        
         document.getElementById("taxonSelector").value = taxonSelector;
         
         traitSelector = traitSelector.replace('&gt;', '>');
         traitSelector = traitSelector.replace('&lt;', '<');
-        
         document.getElementById("traitSelector").value = traitSelector;
+
         document.getElementById("wktString").value = wktString;
         <?php
     }
     ?>
-    
     
     document.getElementById("myform<?php echo $table_id ?>").submit();
 }
