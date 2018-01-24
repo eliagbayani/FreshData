@@ -26,7 +26,7 @@ $str = "Monitor info";
 if($params['monitorAPI'] == 1) $str .= " | Monitors API Mode";
 else                           $str .= " | Monitors Manual Mode";
 
-$admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI']
+$admin_link = "index.php?view_type=admin&monitorAPI=".$params['monitorAPI'];
 
 ?>
 

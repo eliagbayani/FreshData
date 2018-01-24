@@ -12,8 +12,8 @@ class freshdata_controller extends other_controller
 
         // /*
         // $this->monitors_api['all'] = "http://api.effechecka.org/monitors";
-        // $this->monitors_api['all'] = "http://localhost/FreshData/database/archive/monitors.json";
-        $this->monitors_api['all'] = "https://editors.eol.org/FreshData/database/archive/monitors.json"; //final value
+        // $this->monitors_api['all'] = "http://localhost/FreshData/database/archive/monitors.json"; //comment in real operation
+        $this->monitors_api['all'] = "https://editors.eol.org/FreshData/database/archive/monitors.json"; //final value, uncomment in real operation
         
         $this->monitors_api['one'] = "http://api.effechecka.org/monitors?uuid=";
         $this->monitors_api['id']  = "http://api.effechecka.org/monitors?id=";
@@ -21,8 +21,8 @@ class freshdata_controller extends other_controller
         $this->monitors_api['id_source']  = "http://api.effechecka.org/monitors?id=id_val&source=source_val";
         // */
 
-        // $this->monitors_api['all2']          = "http://localhost/FreshData/database/archive/monitors.json";
-        $this->monitors_api['all2']          = "https://editors.eol.org/FreshData/database/archive/monitors.json"; //final value
+        // $this->monitors_api['all2']          = "http://localhost/FreshData/database/archive/monitors.json"; //comment in real operation
+        $this->monitors_api['all2']          = "https://editors.eol.org/FreshData/database/archive/monitors.json"; //final value, uncomment in real operation
         // $this->monitors_api['one']          = "http://api.effechecka.org/zmonitors?uuid=";
         // $this->monitors_api['id']           = "http://api.effechecka.org/zmonitors?id=";
         // $this->monitors_api['source']       = "http://api.effechecka.org/zmonitors?source=";
