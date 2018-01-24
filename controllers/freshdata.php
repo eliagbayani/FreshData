@@ -42,20 +42,17 @@ class freshdata_controller extends other_controller
     {
         // echo"<pre>";print_r(@$_SESSION);echo"</pre>";
         if(@$_SESSION["freshdata_user_logged_in"]) return true;
-        else
-        {
+        else {
             self::display_message(array('type' => "error", 'msg' => "Cannot open Admin page. <a href='" . HTTP_PROTOCOL . $_SERVER['SERVER_NAME'] . "/github-php-client/app/login/index.php?view_type=$view_type'>You must login using your GitHub account first</a>."));
             self::display_message(array('type' => "highlight", 'msg' => "Go back to <a href='index.php'>public view</a>."));
             return false;
         }
     }
-    
     function is_eli()
     {
         if($_SESSION["github_username"] == 'eliagbayani') return true;
         else return false;
     }
-
     function start_backup()
     {
         $source = "https://editors.eol.org/FreshData/database/manually_added_monitors.txt";
@@ -77,7 +74,6 @@ class freshdata_controller extends other_controller
         fwrite($fn, $content . "\n");
         fclose($fn);
     }
-
     function manually_added_monitor($uuid)
     {   /*
         if(substr($uuid,0,2) == "m-") return true;
@@ -97,7 +93,6 @@ class freshdata_controller extends other_controller
     {
         // $manually_added_uuids = array_filter($manually_added_uuids); //remove null arrays
         $manually_added_uuids = array_values($manually_added_uuids); //reindex key
-        
         
         $json = json_encode($manually_added_uuids);
         $filename = __DIR__ . "/../database/manually_added_monitors.txt"; //added extra ../ bec. curdir is inside templates/freshdata/
@@ -121,8 +116,7 @@ class freshdata_controller extends other_controller
     {
         $manually_added_uuids = self::get_manually_added_uuids();
         // echo"<pre>"; print_r($manually_added_uuids); echo "</pre>";
-        if($manually_added_uuids)
-        {
+        if($manually_added_uuids) {
             foreach($manually_added_uuids as $uuid) $monitors[] = array("selector" => array("uuid" => $uuid));
         }
         return $monitors;
@@ -152,15 +146,13 @@ class freshdata_controller extends other_controller
         else                                                            $manual_mode = false;
         
         $download_params = $this->download_options;
-        if(isset($params['refresh_cache']))
-        {
+        if(isset($params['refresh_cache'])) {
             $download_params['expire_seconds'] = true;
             self::display_message(array('type' => "highlight", 'msg' => "Cache refreshed."));
         }
         
         $json = Functions::lookup_with_cache($this->monitors_api['all'], $download_params);
-        if(!$json)
-        {
+        if(!$json) {
             echo "<br>Original Monitors API discontinued 01.<br>";
             $json = Functions::lookup_with_cache($this->monitors_api['all2'], $download_params);
         }
@@ -201,22 +193,18 @@ class freshdata_controller extends other_controller
                 $info['uuid']           = $uuid;
                 $info['status']         = $rec_from_text['Status'];
                 $info['recordCount']    = $rec_from_text['Records'];
-                if($params['view_type'] == 'scistarter')
-                {
+                if($params['view_type'] == 'scistarter') {
                     if(self::has_title_desc_url($rec_from_text['uuid_archive'])) $recs[] = $info;
                 }
-                elseif($params['view_type'] == 'public' || $params['view_type'] == 'admin')
-                {
+                elseif($params['view_type'] == 'public' || $params['view_type'] == 'admin') {
                     if(self::valid_for_public($info)) $recs[] = $info;
                 }
-                elseif($params['view_type'] == 'delRecs')
-                {
+                elseif($params['view_type'] == 'delRecs') {
                     if(self::valid_for_deleted_recs($info))
                     {
-                        // $recs[] = $info; //orig but gives blank records as expected
                         $m = self::get_monitor_record($info['uuid']);
-                        if(isset($m['selector'])) //added this line after implementation of adding monitor via uuid from effechecka, then delete it. This row prevents the error when going tab 'Deleted Records'.
-                        {
+                        // if(isset($m['selector'])) //added this line after implementation of adding monitor via uuid from effechecka, then delete it. This row prevents the error when going tab 'Deleted Records'.
+                        // {
                             $info = array();
                             $info['taxonSelector']  = $m['selector']['taxonSelector'];
                             $info['wktString']      = $m['selector']['wktString'];
@@ -225,11 +213,10 @@ class freshdata_controller extends other_controller
                             $info['status']         = @$m['status'];
                             $info['recordCount']    = $m['recordCount'];
                             $recs[] = $info;
-                        }
+                        // }
                     }
                 }
-                elseif($params['view_type'] == 'manRecs')
-                {
+                elseif($params['view_type'] == 'manRecs') {
                     if(self::valid_for_manual_recs($info)) $recs[] = $info;
                 }
                 else $recs[] = $info;
@@ -262,15 +249,13 @@ class freshdata_controller extends other_controller
                 else $recs[] = $info;
             }
             
-            
         }
         return array("total" => count($recs), "recs" => $recs);
     }
     
     function append_additional_fields($id = null, $source = null)
     {
-        if($id && $source)
-        {
+        if($id && $source) {
             $url = $this->monitors_api['id_source'];
             $url = str_replace("id_val", $id, $url);
             $url = str_replace("source_val", $source, $url);
@@ -281,8 +266,7 @@ class freshdata_controller extends other_controller
         else
         {
             $json = Functions::lookup_with_cache($this->monitors_api['all'], $this->download_options);
-            if(!$json)
-            {
+            if(!$json) {
                 echo "<br>Original Monitors API discontinued 02.<br>";
                 $json = Functions::lookup_with_cache($this->monitors_api['all2'], $this->download_options);
             }
@@ -297,16 +281,14 @@ class freshdata_controller extends other_controller
             
             if($rek)
             {
-                if($id && $source)
-                {
+                if($id && $source) {
                     $rows[$i]['Title']          = $rek['Title'];
                     $rows[$i]['Description']    = $rek['Description'];
                     $rows[$i]['URL']            = $rek['URL'];
                     $rows[$i]['Training_materials'] = $rek['Training_materials'];
                     $rows[$i]['Contact']            = $rek['Contact'];
                 }
-                else
-                {
+                else {
                     $rows[$i]['selector']['Title']          = $rek['Title'];
                     $rows[$i]['selector']['Description']    = $rek['Description'];
                     $rows[$i]['selector']['URL']            = $rek['URL'];
@@ -421,8 +403,7 @@ class freshdata_controller extends other_controller
         // $fields = array("Title", "Description", "URL", "field4", "field5"); //orig
         
         if($what == 'scistarter') $fields = other_controller::all_scistarter_fields();
-        else
-        {
+        else {
             $fields = array("Title", "Description", "URL", "Training_materials", "Contact"); //original Admin
             $fields = array("Title", "Description", "URL", "Training_materials", "Contact", "uuid_archive", "Taxa", "Status", "Records", "Trait_selector", "String", "tsv_url"); //new Admin
         }
@@ -442,8 +423,7 @@ class freshdata_controller extends other_controller
                 */
                 $i = 0;
                 $final = array();
-                foreach($arr as $val)
-                {
+                foreach($arr as $val) {
                     // echo "<br>" . $fields[$i]; //debug
                     $final[$fields[$i]] = $val;
                     $i++;
@@ -460,10 +440,8 @@ class freshdata_controller extends other_controller
                         $final['uuid'] = $uuid;
                         self::save_to_text($final);
                     }
-                    else
-                    {
-                        if(!$final['uuid_archive']) 
-                        {
+                    else {
+                        if(!$final['uuid_archive'])  {
                             $final = self::fill_up_main_monitor_fields($final, $uuid);
                             // echo "<pre>"; print_r($final); echo "</pre>";
                             // echo "<br>passed 222 [$uuid]<br>";
@@ -477,14 +455,12 @@ class freshdata_controller extends other_controller
                 }
                 //=========================================
             }
-            else
-            {
+            else {
                 $final = array();
                 foreach($fields as $field) $final[$field] = "";
             }
         }
-        else
-        {
+        else {
             // echo "\n111[$filename]\n";
             // echo "\n".__DIR__."\n";
             $final = array();
@@ -635,7 +611,6 @@ class freshdata_controller extends other_controller
                         $params['uuid_archive'] . "\t" . $params['Taxa'] . "\t" . $params['Status'] . "\t" . $params['Records'] . "\t" . $params['Trait_selector'] . "\t" . 
                         $params['String'] . "\t" . @$params['tsv_url']
                         );
-
             fclose($fn);
             return true;
         }
