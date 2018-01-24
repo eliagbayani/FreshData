@@ -22,8 +22,7 @@ Search UUID: <input size="50" type="text" id="uuid_3"><p>
 <hr>
 
 <?php
-echo "<pre>"; print_r($params); echo "</pre>";
-
+// echo "<pre>"; print_r($params); echo "</pre>";
 // echo "<br><hr>"; // IMPERATIVE ... doesn't work without any echo...
 // echo "<hr>".dirname(__FILE__)."<hr>";
 ?>
