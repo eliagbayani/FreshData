@@ -23,7 +23,7 @@ if($monitor = $ctrler->get_text_file_value($uuid, "lookup")) {
         // $ctrler->display_message(array('type' => "highlight", 'msg' => "Monitor with UUID [$uuid] DOES NOT EXIST Monitors V2 01.")); //debug purposes only
         if($monitor = $ctrler->search_effechecka_uuid($uuid)) {
             // echo "<pre>"; print_r($monitor); echo "</pre>";
-            $ctrler->display_message(array('type' => "highlight", 'msg' => "Monitor exists in effechecka. You can create a monitor for this UUID: <i><b>$uuid</b></i> &nbsp;here in Monitors V2."));
+            $ctrler->display_message(array('type' => "highlight", 'msg' => "Monitor exists in effechecka with this UUID: <i><b>$uuid</b></i>. &nbsp;You can create this monitor here in Monitors V2."));
             require("../../templates/freshdata/monitor-orig-api-data.php");
             require("../../templates/freshdata/monitor-add-via-uuid.php");
             require_once("../../config/script-below-entry.html");

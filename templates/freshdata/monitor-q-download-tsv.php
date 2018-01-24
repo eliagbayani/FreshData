@@ -42,8 +42,8 @@ $(document).ready(function() {
 
   <?php if(self::has_enough_query_params($rec_from_text)) {
       if(@$rec_from_text['tsv_url']) {
-          self::display_message(array('type' => "highlight", 'msg' => "Since you've entered the TSV URL: ".$rec_from_text['tsv_url']));
-          self::display_message(array('type' => "highlight", 'msg' => "System will use this to download the occurrence TSV. The filters for Taxa/traits/area (e.g. polygon) will not be used."));
+          self::display_message(array('type' => "highlight", 'msg' => "Since you've entered the TSV URL, or the system may have entered it: ".$rec_from_text['tsv_url']));
+          self::display_message(array('type' => "highlight", 'msg' => "System will use this URL to download the occurrence TSV. The filters for Taxa/traits/area (e.g. polygon) will not be used."));
           echo "<br>";
       }
       ?>

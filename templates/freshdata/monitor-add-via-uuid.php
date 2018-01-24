@@ -68,15 +68,12 @@ Array (
       <input type="hidden" id="tsv_url" value="">
       <?php
   }
-
-
-
-
   ?>
   
   <table>
   <tr><td colspan="2">
-      <button id="driver_add" type="submit">Save</button> &nbsp;&nbsp;
+      <p>
+      <button id="driver_add" type="submit">Create this monitor</button> &nbsp;&nbsp;
       <a href="<?php echo $admin_link ?>">Cancel</a>
   </td></tr>
   </table>
