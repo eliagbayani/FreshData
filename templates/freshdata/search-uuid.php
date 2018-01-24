@@ -6,6 +6,12 @@ $(document).ready(function() {
     var uuid = $("#uuid_3").val();
     var monitorAPI = $("#monitorAPI").val();
     
+    if(!uuid) {
+        $('#stage_3').append('<div id="memo" class="help-block_3">UUID cannot be blank!</div>');
+        return;
+    }
+    
+    
     // alert(uuid);
     $("#stage_3").load('templates/freshdata/search-uuid-result.php', {"uuid":uuid, "monitorAPI":monitorAPI} );
     $("#login_form_3").hide();
