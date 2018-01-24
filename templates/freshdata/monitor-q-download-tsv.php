@@ -30,7 +30,6 @@ $(document).ready(function() {
     }
     if($val = @$rec_from_text['tsv_url']) {
         $url = $val;
-        $search_url = $val;
     }
     if(self::is_eli()) {
         // echo "<hr>Admin stuff:<br>url: [$url]<hr>search_url: [$search_url]<hr>"; //good debug

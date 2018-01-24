@@ -29,10 +29,10 @@ class freshdata_controller extends other_controller
         // $this->monitors_api['id_source']    = "http://api.effechecka.org/zmonitors?id=id_val&source=source_val";
         
         $this->api['effechecka_occurrences'] = "http://api.effechecka.org/occurrences.tsv"; // 128.227.166.240
-        
+                                             // http://api.effechecka.org/occurrences.tsv?uuid=ed370919-735e-5c9d-bda7-a1f408dd7c38
+        $this->char_limit = 2048;
         // http://api.effechecka.org/occurrences.tsv?taxonSelector=aphaenogaster%20picea%2Caphaenogaster%20fulva%2Caphaenogaster%20rudis&wktString=POLYGON%20((-138.8671875%2044%2C%20-138.8671875%2070%2C%20-47.8125%2070%2C%20-47.8125%2044%2C%20-138.8671875%2044))&monitorAPI=0
         // http://128.227.166.240/occurrences.tsv?taxonSelector=aphaenogaster%20picea%2Caphaenogaster%20fulva%2Caphaenogaster%20rudis&wktString=POLYGON%20((-138.8671875%2044%2C%20-138.8671875%2070%2C%20-47.8125%2070%2C%20-47.8125%2044%2C%20-138.8671875%2044))&monitorAPI=0
-        
     }
 
     // start queries ======================================================================
@@ -494,10 +494,46 @@ class freshdata_controller extends other_controller
     }
     
     function generate_freshdata_search_url($arr)
-    {
-        // if($arr['Taxa'] O.R. $arr['String']) return FRESHDATA_DOMAIN."?taxonSelector=".$arr['Taxa']."&traitSelector=".$arr['Trait_selector']."&wktString=".$arr['String']; //obsolete. only area is imperative
-        if($arr['String']) return FRESHDATA_DOMAIN."?taxonSelector=".$arr['Taxa']."&traitSelector=".$arr['Trait_selector']."&wktString=".$arr['String'];
-        else return false;
+    {   /* Array (
+            [Title] => Invader Detectives DC
+            [Description] => This query is for all biota in the DC metropolitan area and several surrounding counties. It will be filtered through a list removing native and naturalized taxa, to detect potential new invasive species.
+            [URL] => 
+            [Training_materials] => 
+            [Contact] => 
+            [uuid_archive] => 653727f3-3da8-5062-b2f8-94948687afff
+            [Taxa] => 
+            [Status] => ready
+            [Records] => 2800218
+            [Trait_selector] => 
+            [String] => POLYGON ((-76.6900634765625 38.77978137804918, -76.640625 38.91240739487225, -77.19268798828125 39.34916646551957, -77.4810791015625 39.11301365149975, -77.32040405273436 39.052784883296624, -77.54150390625 38.85682013474361, -77.22152709960938 38.65870536210694, -77.19818115234375 38.62008939987629, -77.07046508789061 38.61257832462118, -76.89468383789062 38.649053322140226, -76.74774169921875 38.62116234642254, -76.74156188964844 38.561321083266414, -76.68113708496092 38.541720956040386, -76.6900634765625 38.77978137804918))
+        )*/
+        
+        $use_uuid = false;
+        if(strlen($arr['Taxa']) > $this->char_limit) {
+            $arr['Taxa'] = '';
+            $use_uuid = true;
+        }
+        if(strlen($arr['Trait_selector']) > $this->char_limit) {
+            $arr['Trait_selector'] = '';
+            $use_uuid = true;
+        }
+        if(strlen($arr['String']) > $this->char_limit) {
+            $arr['String'] = '';
+            $use_uuid = true;
+        }
+        
+        if(!$use_uuid) { //orig
+            if($arr['String']) return FRESHDATA_DOMAIN."?taxonSelector=".$arr['Taxa']."&traitSelector=".$arr['Trait_selector']."&wktString=".$arr['String'];
+            else return false;
+        }
+        else {
+            if($arr['uuid_archive']) return FRESHDATA_DOMAIN."?uuid=".$arr['uuid_archive']."&taxonSelector=".$arr['Taxa']."&traitSelector=".$arr['Trait_selector']."&wktString=".$arr['String'];
+            else { //may not go here ever...
+                echo "<pre>"; print_r($arr); echo "</pre>";
+                exit("<hr>investigate no uuid_archive<hr>");
+                return false;
+            }
+        }
     }
     
     function main_fields_display($rec)
