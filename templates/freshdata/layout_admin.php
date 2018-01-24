@@ -2,7 +2,7 @@
     <ul>
         <li><a onClick="tab1_clicked()" href="#tabs_main-1">Monitors ››</a></li>
         <li><a                          href="#tabs_main-2">Admin Page</a></li>
-        <li><a                          href="#tabs_main-10">Create a new monitor for an existing UUID</a></li>
+        <li><a                          href="#tabs_main-10">Create a new monitor from an existing UUID</a></li>
         
         
         <!---
