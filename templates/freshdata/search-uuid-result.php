@@ -39,12 +39,3 @@ else { //may not go here ever...
     $ctrler->display_message(array('type' => "highlight", 'msg' => "Monitor with UUID [$uuid] DOES NOT Monitors V2 02."));
 }
 ?>
-
-<!---
-<br>
-<form action="index.php" method="post" enctype="multipart/form-data">
-<input type="hidden" name="monitorAPI"  value="0">
-<input type="hidden" name="view_type"   value="admin">
-<input type="submit" value="Proceed">
-</form>
---->

@@ -4,7 +4,6 @@ $(document).ready(function() {
     
     $('.help-block').remove(); // remove the error text
     
-
     var uuid_a = $("#uuid_a").val();
     var Title_a = $("#Title_a").val();
     var Description_a = $("#Description_a").val();
@@ -25,7 +24,6 @@ $(document).ready(function() {
         $('#stage_add').append('<div id="memo" class="help-block">Area cannot be blank.</div>');
         return;
     }
-    
     if(Records_a) {
         if(isNaN(Records_a)) {
             $('#stage_add').append('<div id="memo" class="help-block">No. of records should be numeric.</div>');
@@ -44,14 +42,11 @@ $(document).ready(function() {
             return;
         }
     }
-
-    
     $("#stage_add").load('templates/freshdata/monitor-save-add.php', {"uuid":uuid_a, "Title":Title_a, "Description":Description_a, "URL":URL_a, "Training_materials":Training_materials_a, "Contact":Contact_a, 
                                                               "uuid_archive":uuid_archive_a, "Taxa":Taxa_a, "Status":Status_a, "Records":Records_a, "Trait_selector":Trait_selector_a, 
                                                               "String":String_a, "tsv_url":tsv_url_a} );
     $("#login_form_add").hide();
     $('#stage_add').append('<div class="help-block"><br>Saving, please wait...<br><br></div>'); // add the actual error message under our input
-
     });
 });
 
@@ -61,7 +56,6 @@ function validateURL(textval)
     var urlregex = /^(https?):\/\/([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/;
     return urlregex.test(textval);
 }
-
 </script>
 <?php 
     $guid = self::create_guid();
