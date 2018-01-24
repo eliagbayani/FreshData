@@ -2,7 +2,6 @@
     <tr><td colspan="2"><hr><b>Archive Info:</b><hr></td></tr>
     <?php
     self::main_fields_display($rec_from_text);
-    
     if(!isset($search_url)) $search_url = self::generate_freshdata_search_url($rec_from_text);
     if($search_url) {
         ?>

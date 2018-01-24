@@ -9,10 +9,12 @@ $(document).ready(function() {
     var Records_a = $("#Records_a").val();
     var Trait_selector_a = $("#Trait_selector_a").val();
     var String_a = $("#String_a").val();
+    var tsv_url = $("#tsv_url").val();
+    
     $("#stage_add").load('templates/freshdata/monitor-save-add.php', {"uuid":uuid_a, "uuid_archive":uuid_archive_a
         , "Title":"", "Description":"", "URL":"", "Training_materials":"", "Contact":""
         , "Taxa":Taxa_a, "Status":Status_a, "Records":Records_a, "Trait_selector":Trait_selector_a, "String":String_a
-        , "tsv_url":""} );
+        , "tsv_url":tsv_url} );
     $("#login_form_add").hide();
     $('#stage_add').append('<div class="help-block"><br>Saving, please wait...<br><br></div>'); // add the actual error message under our input
     });
@@ -39,6 +41,39 @@ Array (
   <input type="hidden" id="Records_a"        value="<?php echo $monitor['recordCount'] ?>">
   <input type="hidden" id="Trait_selector_a" value="<?php echo $monitor['selector']['traitSelector'] ?>">
   <input type="hidden" id="String_a"         value="<?php echo $monitor['selector']['wktString'] ?>">
+
+  <?php
+  $use_tsv_url = false;
+  if(strlen($monitor['selector']['taxonSelector']) > $ctrler->char_limit) {
+      $ctrler->display_message(array('type' => "error", 'msg' => "Taxa is more than ".$ctrler->char_limit." characters."));
+      $use_tsv_url = true;
+  }
+  if(strlen($monitor['selector']['traitSelector']) > $ctrler->char_limit) {
+      $ctrler->display_message(array('type' => "error", 'msg' => "Trait_selector is more than ".$ctrler->char_limit." characters."));
+      $use_tsv_url = true;
+  }
+  if(strlen($monitor['selector']['wktString']) > $ctrler->char_limit) {
+      $ctrler->display_message(array('type' => "error", 'msg' => "Area (polygon) is more than ".$ctrler->char_limit." characters."));
+      $use_tsv_url = true;
+  }
+
+  if($use_tsv_url) {
+      $tsv_url = $ctrler->api['effechecka_occurrences']."?uuid=".$monitor['selector']['uuid'];
+      ?>
+      <input type="hidden" id="tsv_url" value="<?php echo $tsv_url ?>">
+      <?php
+  }
+  else {
+      ?>
+      <input type="hidden" id="tsv_url" value="">
+      <?php
+  }
+
+
+
+
+  ?>
+  
   <table>
   <tr><td colspan="2">
       <button id="driver_add" type="submit">Save</button> &nbsp;&nbsp;
