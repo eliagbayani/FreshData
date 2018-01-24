@@ -79,14 +79,18 @@ class freshdata_controller extends other_controller
     }
 
     function manually_added_monitor($uuid)
-    {
+    {   /*
         if(substr($uuid,0,2) == "m-") return true;
         return false;
+        */
+        $manually_added_uuids = self::get_manually_added_uuids();
+        if(in_array($uuid, $manually_added_uuids)) return true;
+        else return false;
     }
     function save_manually_added_uuid($uuid)
     {
         $manually_added_uuids = self::get_manually_added_uuids();
-        $manually_added_uuids[] = $uuid;
+        if(!in_array($uuid, $manually_added_uuids)) $manually_added_uuids[] = $uuid;
         self::save_manually_added_ids_2text($manually_added_uuids);
     }
     private function save_manually_added_ids_2text($manually_added_uuids)
@@ -105,10 +109,9 @@ class freshdata_controller extends other_controller
     private function get_manually_added_uuids()
     {
         $filename = __DIR__ . "/../database/manually_added_monitors.txt"; //added extra ../ bec. curdir is inside templates/freshdata/
-        if(!file_exists($filename))
+        if(!file_exists($filename)) //initialize
         {
             $fn = fopen($filename, "w");
-            // fwrite($fn, $json . "\n");
             fclose($fn);
         }
         $json = file_get_contents($filename);
@@ -212,14 +215,17 @@ class freshdata_controller extends other_controller
                     {
                         // $recs[] = $info; //orig but gives blank records as expected
                         $m = self::get_monitor_record($info['uuid']);
-                        $info = array();
-                        $info['taxonSelector']  = $m['selector']['taxonSelector'];
-                        $info['wktString']      = $m['selector']['wktString'];
-                        $info['traitSelector']  = $m['selector']['traitSelector'];
-                        $info['uuid']           = $m['selector']['uuid'];
-                        $info['status']         = @$m['status'];
-                        $info['recordCount']    = $m['recordCount'];
-                        $recs[] = $info;
+                        if(isset($m['selector'])) //added this line after implementation of adding monitor via uuid from effechecka, then delete it. This row prevents the error when going tab 'Deleted Records'.
+                        {
+                            $info = array();
+                            $info['taxonSelector']  = $m['selector']['taxonSelector'];
+                            $info['wktString']      = $m['selector']['wktString'];
+                            $info['traitSelector']  = $m['selector']['traitSelector'];
+                            $info['uuid']           = $m['selector']['uuid'];
+                            $info['status']         = @$m['status'];
+                            $info['recordCount']    = $m['recordCount'];
+                            $recs[] = $info;
+                        }
                     }
                 }
                 elseif($params['view_type'] == 'manRecs')
