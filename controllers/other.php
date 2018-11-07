@@ -668,7 +668,7 @@ class other_controller
     
     function tests_for_now($id, $task)
     {
-        $arr = array("wget_job", "process_invasive_job", "genHigherClass_job", "extract_DwC_branch_job", "xls2dwca_job", "dwca_validator_job");
+        $arr = array("wget_job", "process_invasive_job", "genHigherClass_job", "extract_DwC_branch_job", "xls2dwca_job", "dwca_validator_job", "map_data_job");
         if(!in_array($task, $arr)) echo "<hr>Check this Eli [$id][$task]<hr>";
     }
     
