@@ -330,7 +330,10 @@ class other_controller
             fwrite($fn, $cmd . "\n");
             fclose($fn);
             // echo "<br>Write to file OK [$destination]<br>"; //debug
-            shell_exec("chmod 755 $destination"); //https://www.shellscript.sh/
+            
+            if(PHP_PATH == '/usr/local/php5/bin/php') shell_exec("/bin/chmod 755 $destination"); //https://www.shellscript.sh/
+            elseif(PHP_PATH == 'php')                 shell_exec("chmod 755 $destination"); //https://www.shellscript.sh/
+            
             // shell_exec("chmod +x $destination"); //https://www.shellscript.sh/
         }
         else echo "<br>Write to file failed [$destination]<br>";
