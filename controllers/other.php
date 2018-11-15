@@ -694,6 +694,7 @@ class other_controller
     
     function get_available_job($short_task)
     {
+        echo "\nAvailable JOBS_PER_TASK: ".JOBS_PER_TASK." \n";
         for($i = 1; $i <= JOBS_PER_TASK; $i++)
         {
             $task = $short_task."_$i";
