@@ -678,6 +678,8 @@ class other_controller
     function is_task_running($task)
     {
         // http://localhost:8080/job/FreshData_Monitors_V2/job/jobName/lastBuild/api/json
+        // http://160.111.248.39:8081/job/FreshData_Monitors_V2/job/eol_stats_job_1/lastBuild/api/json
+        // http://160.111.248.39:8081/queue/api/xml
         $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/job/".JENKINS_FOLDER."/job/$task/lastBuild/api/json";
         $options = $this->download_options; $options['expire_seconds'] = 0;
         if($json = Functions::lookup_with_cache($url, $options))
