@@ -14,7 +14,6 @@ class other_controller
         
         $this->download_options = array('download_timeout_seconds' => 4800, 'download_wait_time' => 300000, 'expire_seconds' => 43200); //expires in 12 hours
     }
-
     //start invasive ==============================================================================
     function apply_invasive_filter($params)
     {
@@ -29,14 +28,11 @@ class other_controller
         //start loop the downloaded TSV and apply the invasive filter, then generate a new filtered TSV
         $filename = self::generate_tsv_filepath($uuid); //param here is basename; basename.tsv
         $fn = Functions::file_open($filename, "r");
-        while (($line = fgets($fn)) !== false)
-        {
+        while (($line = fgets($fn)) !== false) {
             $arr = explode("\t", $line);
             $taxon = trim($arr[0]);
-            if(self::sciname_is_species_and_below($taxon)) //https://eol-jira.bibalex.org/browse/DATA-1682?focusedCommentId=61223&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-61223
-            {
-                if(!self::taxon_in_filter_list($taxon, $invasives)) //https://eol-jira.bibalex.org/browse/DATA-1682?focusedCommentId=61224&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-61224
-                {
+            if(self::sciname_is_species_and_below($taxon)) { //https://eol-jira.bibalex.org/browse/DATA-1682?focusedCommentId=61223&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-61223
+                if(!self::taxon_in_filter_list($taxon, $invasives)) { //https://eol-jira.bibalex.org/browse/DATA-1682?focusedCommentId=61224&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-61224
                     // echo "<br>[$taxon]";
                     fwrite($write, $line);
                 }
@@ -47,7 +43,6 @@ class other_controller
         self::gzip_file($uuid."_inv"); //for main invasive TSV
         self::create_incremental_file_if_needed($params);
     }
-    
     private function create_incremental_file_if_needed($params)
     {
         echo "\ndate from: ".$params['date_from'];
@@ -61,26 +56,22 @@ class other_controller
         $fn = Functions::file_open($filename, "r");
         $i = 0;
         $delete_file = true; //default is true
-        while (($line = fgets($fn)) !== false)
-        {
+        while (($line = fgets($fn)) !== false) {
             $i++;
-            if($i == 1)
-            {
+            if($i == 1) {
                 $fields = explode("\t", $line);
                 fwrite($write, $line);
             }
             $arr = explode("\t", $line);
             $rec = array(); $k = 0;
-            foreach($fields as $field)
-            {
+            foreach($fields as $field) {
                 $rec[$field] = $arr[$k];
                 $k++;
             }
             //start processing $rec
             // firstAddedDate > Jul 1 and firstAddedDate <= Jul 8
             $date = substr($rec['firstAddedDate'],0,10);               // 2017-07-02
-            if($date > $params['date_from'] && $date <= $params['date_to'])
-            {
+            if($date > $params['date_from'] && $date <= $params['date_to']) {
                 fwrite($write, $line);
                 $delete_file = false;
             }
@@ -88,20 +79,16 @@ class other_controller
         }
         fclose($fn);
         fclose($write);
-        if($delete_file)
-        {
+        if($delete_file) {
             unlink($filename_target);
             echo "\nNo increment file\n";
         }
-        else
-        {   
+        else {
             self::gzip_file($basename_target); //for increment file
-            
             //you can tweet the creation of an increment file
             self::tweet_about_the_increment_file($params, $filename_target);
         }
     }
-    
     private function tweet_about_the_increment_file($params, $filename_target)
     {   /*
         [2017-07-03]Array
@@ -136,24 +123,20 @@ class other_controller
         $func = new twitter_controller("elix");
         $func->tweet_now($tweet);
     }
-    
     function get_incremental_files($uuid)
     {   //5b6d8474-fcb4-5e16-b5cf-8f8a9a502fc3_inc_2017-07-19.tsv
         $arr = array();
         $files = __DIR__ . "/../TSV_files/".$uuid."_inc_*.gz";
-        foreach(glob($files) as $filename)
-        {
+        foreach(glob($files) as $filename) {
             $arr[] = $filename;
         }
         return $arr;
     }
-    
     private function taxon_in_filter_list($taxon, $invasives)
     {
         if(in_array($taxon, $invasives)) return true;
         if(in_array(Functions::canonical_form($taxon), $invasives)) return true;
-        foreach($invasives as $invasive)
-        {
+        foreach($invasives as $invasive) {
             if(self::str_exists_infront_of_string($taxon, $invasive)) return true;
         }
         return false;
@@ -166,54 +149,45 @@ class other_controller
         if($str == substr($string,0,$count_str)) return true;
         else return false;
     }
-    
     private function sciname_is_species_and_below($name)
     {
         if($name == "taxonName") return true; //meaning 1st row, the headers
         $tmp = explode(" ", trim($name));
         if(count($tmp) === 1) return false;
-        else
-        {
+        else {
             $second_word = $tmp[1];
             if(ctype_upper($second_word[0])) return false;
             else return true;
         }
         /* echo "<hr>start test<hr>"; $arr = array("Lampyridae Latreille, 1817", "Lampyridae", "Lampyridae ", "Gadus morhua ogac", "Gadus morhua Eli", "Gadus Eli", "Chanos chanos", "Chanos", "chanos");
-        foreach($arr as $name)
-        {
+        foreach($arr as $name) {
             echo "<br>$name - ";
             $tmp = explode(" ", trim($name));
             if(count($tmp) === 1) echo "false";
-            else
-            {
+            else {
                 $second_word = $tmp[1];
                 if(ctype_upper($second_word[0])) echo "false";
                 else echo "true";
             }
         } echo "<hr>end test<hr>"; */
     }
-
     function generate_gzip_cmd($basename)
     {
         $source = self::generate_tsv_filepath($basename);
         $target = $source.".gz";
-        if(file_exists($source))
-        {
+        if(file_exists($source)) {
             $cmd = "/usr/bin/gzip -c " . $source . " > " . $target;
             $cmd .= " 2>&1";
             return $cmd;
         }
         else return false;
     }
-    
     function gzip_file($basename)
     {
         $source = self::generate_tsv_filepath($basename);
         $target = $source.".gz";
-        if(file_exists($source))
-        {
-            if(filesize($source))
-            {
+        if(file_exists($source)) {
+            if(filesize($source)) {
                 // echo "<hr>Compressing...<hr>";
                 $cmd = GZIP_PATH_JENKINS." -c " . $source . " > " . $target;
                 // $cmd .= " 2>&1";
@@ -230,23 +204,19 @@ class other_controller
         $jenkins = self::generate_tsv_filepath($basename, "jenkins");
 
         if($useIn == "host") $arr['source'] = $host;
-        elseif($useIn == "jenkins")
-        {
+        elseif($useIn == "jenkins") {
             if(PHP_PATH == '/usr/local/php5/bin/php') $arr['source'] = $host;
             elseif(PHP_PATH == 'php')                 $arr['source'] = $jenkins;
         }
-
         $arr['target'] = $arr['source'].".gz";
         return $arr;
     }
-    
     private function unique_invasive_species_scinames()
     {
         $scinames = array();
         $names = self::get_google_sheet(); //uncomment in real operation
         // $names = array(); //debug only
-        foreach($names as $name)
-        {
+        foreach($names as $name) {
             if($val = @$name[0]) $scinames[$val] = '';
         }
         $scinames = array_keys($scinames);
@@ -255,7 +225,6 @@ class other_controller
         // echo "<hr>invasives=".count($scinames)."<hr>";
         return $scinames;
     }
-    
     private function get_google_sheet() //sheet found here: https://eol-jira.bibalex.org/browse/DATA-1682?focusedCommentId=61079&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-61079
     {
         include(__DIR__ . '/../../eol_php_code/lib/connectors/GoogleClientAPI.php');
@@ -264,39 +233,32 @@ class other_controller
         $params['range']         = 'Compiled list #2- For the Filter!F2:F'; //where "A" is the starting column, "C" is the ending column, and "2" is the starting row.
         return $func->access_google_sheet($params);
     }
-    
     function generate_tsv_filepath($basename, $useIn = "host")
     {
         $host    = __DIR__ . "/../TSV_files/".$basename.".tsv";
         $jenkins = "/html/FreshData/TSV_files/".$basename.".tsv";
-
         if($useIn == "host") return $host;
-        elseif($useIn == "jenkins")
-        {
+        elseif($useIn == "jenkins") {
             if(PHP_PATH == '/usr/local/php5/bin/php') return $host;
-            elseif(PHP_PATH == 'php')            return $jenkins;
+            elseif(PHP_PATH == 'php')                 return $jenkins;
         }
     }
-
     function loop_tsv_utility($basename) //utility
     {
         $filename_target = self::generate_tsv_filepath($basename);
         $fn = Functions::file_open($filename, "r");
-        while (($line = fgets($fn)) !== false)
-        {
+        while (($line = fgets($fn)) !== false) {
             $arr = explode("\t", $line);
             $taxon = trim($arr[0]);
             if(stripos($taxon, "Chrysemys picta") !== false) exit("<hr>may problem<hr>");//string is found
         }
     }
-    
     function has_enough_query_params($rec_from_text)
     {
         if(@$rec_from_text['String']) return true; //area is enough to make a query
         return false;
     }
     //end invasive ================================================================================ uuid
-
 
     //start queries ============================================================================
     function generate_exec_command($basename)
@@ -306,13 +268,11 @@ class other_controller
         $cmd .= " 2>&1";
         return $cmd;
     }
-
     function generate_sh_filepath($basename)
     {
         if(PHP_PATH == '/usr/local/php5/bin/php') return __DIR__ . "/../sh_files/".$basename.".sh";
         elseif(PHP_PATH == 'php')            return "/html/FreshData/sh_files/".$basename.".sh";
     }
-    
     function build_curl_cmd_for_jenkins($cmd, $jenkins_job, $cmd2 = null) //for download of TSV files
     {
         $c = '/usr/bin/curl -I -X POST -H "'.JENKINS_CRUMB.'" http://'.JENKINS_USER_TOKEN.'@'.JENKINS_DOMAIN.'/job/'.JENKINS_FOLDER.'/job/'.$jenkins_job.'/buildWithParameters?myShell='.urlencode($cmd);
@@ -320,12 +280,10 @@ class other_controller
         $c .= " 2>&1";
         return $c;
     }
-    
     function write_to_sh($uuid, $cmd) //uuid is basename for .sh file
     {
         $destination = __DIR__ . "/../sh_files/".$uuid.".sh";
-        if($fn = Functions::file_open($destination, "w"))
-        {
+        if($fn = Functions::file_open($destination, "w")) {
             fwrite($fn, "#!/bin/sh" . "\n");
             fwrite($fn, $cmd . "\n");
             fclose($fn);
@@ -339,37 +297,29 @@ class other_controller
         else echo "<br>Write to file failed [$destination]<br>";
         // sleep(10); //delay for the chmod to take effect
     }
-    
     function is_there_an_unfinished_job_for_this_uuid($short_task, $basename)
     {
         /* orig OK
         $status = self::get_last_build_console_text($task, $basename);
-        if(stripos($status, "$basename.sh") !== false) //string is found
-        {
+        if(stripos($status, "$basename.sh") !== false) { //string is found
             if(self::is_build_currently_running($status)) return true;
         }
         return false;
         */
-
         self::tests_for_now("a", $short_task); //assumes that $short_task here is the short name
-        for($i = 1; $i <= JOBS_PER_TASK; $i++)
-        {
+        for($i = 1; $i <= JOBS_PER_TASK; $i++) {
             $task = $short_task."_$i";
             $status = self::get_last_build_console_text($task, $basename);
-            if(stripos($status, "$basename.sh") !== false) //string is found
-            {
+            if(stripos($status, "$basename.sh") !== false) { //string is found
                 if(self::is_build_currently_running($status)) return true;
             }
-            
             // if($json = self::is_task_running($task))
             // {
             //     if(stripos($json, "$basename.sh") !== false) return true; //string is found
             // }
-            
         }
         return false;
     }
-    
     function is_task_in_queue($short_task, $basename)
     {
         self::tests_for_now("b", $short_task); //assumes that $short_task here is the short name
@@ -380,14 +330,11 @@ class other_controller
         
         $options = $this->download_options;
         $options['expire_seconds'] = 0;
-        if($xml = Functions::lookup_with_cache($url, $options))
-        {
+        if($xml = Functions::lookup_with_cache($url, $options)) {
             $xml = simplexml_load_string($xml);
             // echo"<pre>";print_r($xml);echo"</pre>";
-            foreach($xml->item as $item)
-            {
-                for($i = 1; $i <= JOBS_PER_TASK; $i++)
-                {
+            foreach($xml->item as $item) {
+                for($i = 1; $i <= JOBS_PER_TASK; $i++) {
                     $task = $short_task."_$i";
                     if($item->task->name == $task && stripos($item->params, "$basename.sh") !== false) return true; //string is found
                     // echo "<hr>".$item->task->name;
@@ -397,19 +344,15 @@ class other_controller
         }
         return false;
     }
-    
     function get_last_build_console_text($task, $basename, $build_no = false) //$id is basename of .sh filename
     {
         //step 1: get_last_build_number
         $last_build_no = self::get_last_build_number($task);
         //step 2: loop downwards, one step at a time
-        for($build_no = $last_build_no; $build_no >= ($last_build_no-5); $build_no--) //checks the last 5 builds if the uuid was processed
-        {
-            if($build_no > 0)
-            {
+        for($build_no = $last_build_no; $build_no >= ($last_build_no-5); $build_no--) { //checks the last 5 builds if the uuid was processed
+            if($build_no > 0) {
                 $status = self::get_task_build_status($task, $build_no);
-                if(stripos($status, "$basename.sh") !== false) //string is found
-                {
+                if(stripos($status, "$basename.sh") !== false) { //string is found
                     if($progress = self::get_progress_in_percentage($task, $build_no)) return "Progress: $progress% finished<br>Build no. $build_no <p>$status";
                                                                                        return                                  "Build no. $build_no <p>$status";
                 }
@@ -435,7 +378,6 @@ class other_controller
         if(strpos($build_status, "Finished: ABORTED") !== false) return true; //string is found
         else return false;
     }
-    
     function get_task_build_status($task, $build_no) //get status of this task with this build_no
     {
         $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/job/".JENKINS_FOLDER."/job/$task/$build_no/consoleText";    //http://localhost:8080/job/jobName/190/consoleText
@@ -445,7 +387,6 @@ class other_controller
         // else echo "<hr>Jenkins API last_build info is not ready 01 [$task][$build_no].<hr>"; //working ok, comment in normal operation
         return false;
     }
-    
     function get_last_build_number($task)
     {
         // http://localhost:8080/job/jobName/lastBuild/buildNumber
@@ -456,7 +397,6 @@ class other_controller
         // else echo "<hr>Notice: Jenkins API last_build info is not ready 02 [$task][$build_no].<hr>"; //just a notice no need to display
         return false;
     }
-    
     function did_build_fail($status)
     {
         if(stripos($status, "404 Not Found") !== false) return true; //string is found
@@ -464,45 +404,38 @@ class other_controller
         elseif(stripos($status, "Finished: FAILURE") !== false) return true; //string is found
         else return false;
     }
-    
     function is_build_currently_running($status)
     {
         if(!self::did_build_fail($status) && !self::is_build_finish($status)) return true;
         else return false;
     }
-    
     function is_build_finish($status)
     {
         if    (stripos($status, "Finished: SUCCESS") !== false) return true; //string is found
         elseif(stripos($status, "Finished: FAILURE") !== false) return true; //string is found
         else return false;
     }
-    
     function get_total_rows($basename) //basename of .tsv filename
     {
         $file = __DIR__ . "/../TSV_files/".$basename.".tsv";
         if(file_exists($file)) return number_format(Functions::count_rows_from_text_file($file)-1);
         else echo "<hr>File does not exist: [$file]<hr>";
     }
-
     function delete_tsv_file($basename) //basename of .tsv filename
     {
         // exit("elixxx");
         $file = __DIR__ . "/../TSV_files/".$basename.".tsv";
         $file_gz = $file.".gz";
-        if(file_exists($file))
-        {
+        if(file_exists($file)) {
             unlink($file);
             if(file_exists($file_gz)) unlink($file_gz);
             return "File deleted.";
         }
-        else
-        {
+        else {
             echo "<hr>does not exist [$file] investigate<hr>";
             return "File does not exist.";
         }
     }
-    
     /* not used yet
     function is_tsv_ready($url)
     {
@@ -510,16 +443,13 @@ class other_controller
         $options = $this->download_options;
         $options['expire_seconds'] = 0;
         $options['download_timeout_seconds'] = 10;
-        
-        if($html = Functions::lookup_with_cache($url, $options))
-        {
+        if($html = Functions::lookup_with_cache($url, $options)) {
             echo $html;
         }
         else return false;
     }
     */
     //end queries ==============================================================================
-    
     function scistarter_fields()
     {
         return array( //default from https://docs.google.com/spreadsheets/d/1gHdrWRaZbEKp3bCI7kXhN95le-jGvQOXXxeVpgmypJ4/edit?ts=5919e683#gid=0
@@ -543,18 +473,15 @@ class other_controller
         "project_type" => "Project",
         "audience" => "High School (14 - 17 years), College, Graduate students, Adults, Families");
     }
-    
     static function all_scistarter_fields()
     {
         return array("name", "description", "url", "contact_name", "contact_affiliation", "contact_email", "contact_phone", "contact_address", "presenting_org", "origin", "video_url", "blog_url", "twitter_name", "facebook_page", "status", "preregistration", "goal", "task", "image", "image_credit", "how_to_join", "special_skills", "gear", "outdoors", "indoors", "time_commitment", "project_type", "audience", "regions", "UN_regions", "ProjectID");
     }
-
     function get_default_values_if_blank($arr, $text1, $monitor)
     {
         $scistarter_fields = self::scistarter_fields();
         $fields = array_keys($arr);
-        foreach($fields as $field)
-        {
+        foreach($fields as $field) {
             if(!$arr[$field]) $arr[$field] = @$scistarter_fields[$field];
         }
         if(!$arr['name']) $arr['name'] = "Fresh Data - " . $text1['Title'];
@@ -563,14 +490,12 @@ class other_controller
         if(!$arr['regions']) $arr['regions'] = self::convert_GEOMETRYCOLLECTION_to_MULTIPOLYGON($monitor['selector']['wktString']);
         return $arr;
     }
-    
     public function submit_add_project($params, $uuid)
     {
         $params['key'] = SCISTARTER_API_KEY;
         $params['ProjectName'] = $params['name'];
         $info = self::curl_post_request(SCISTARTER_ADD_PROJECT_API, $params);
-        if($obj = self::if_add_is_successful($info))
-        {
+        if($obj = self::if_add_is_successful($info)) {
             echo "<b>Print information below for your reference.</b><p>
             Project Name: $params[name]<br>
             Project ID: $obj->project_id<br>";
@@ -578,20 +503,17 @@ class other_controller
         }
         return $info;
     }
-    
     private function if_add_is_successful($info)
     {
         // {"project_id": 17626, "result": "success"}
-        if($obj = json_decode($info))
-        {
+        if($obj = json_decode($info)) {
             if($obj->project_id && $obj->result == "success") return $obj;
             else return false;
         }
         else return false;
     }
-    
     private function put_project_id_in_project($obj, $uuid)
-    {   
+    {
         //stdClass Object ( [project_id] => 17626 [result] => success )
         // self::update_field_with_value('ProjectID', $obj->project_id);
         // echo "<hr>$uuid<hr>";
@@ -602,7 +524,6 @@ class other_controller
         // print_r($rec);
         freshdata_controller::save_to_text_scistarter($rec);
     }
-    
     static function curl_post_request($url, $parameters_array = array())
     {
         $data_string = json_encode($parameters_array);
@@ -629,9 +550,7 @@ class other_controller
         $arr = json_decode($result);
         if($arr->result == "success") freshdata_controller::display_message(array('type' => "highlight", 'msg' => "Project sent successfully."));
         
-        
-        if(0 == curl_errno($ch))
-        {
+        if(0 == curl_errno($ch)) {
             curl_close($ch);
             return $result;
         }
@@ -639,11 +558,8 @@ class other_controller
         
         freshdata_controller::display_message(array('type' => "error", 'msg' => "Curl error ($url)"));
         freshdata_controller::display_message(array('type' => "error", 'msg' => curl_error($ch)));
-        
-        
         return false;
     }
-    
     private function convert_GEOMETRYCOLLECTION_to_MULTIPOLYGON($str)
     {
         /*
@@ -661,20 +577,17 @@ class other_controller
             )
         */
         
-        if(stripos($str, "GEOMETRYCOLLECTION") !== false) //string is found
-        {
+        if(stripos($str, "GEOMETRYCOLLECTION") !== false) { //string is found
             $str = str_ireplace("POLYGON", "", $str);
             $str = str_ireplace("GEOMETRYCOLLECTION", "MULTIPOLYGON", $str);
         }
         return $str;
     }
-    
     function tests_for_now($id, $task)
     {
         $arr = array("wget_job", "process_invasive_job", "genHigherClass_job", "extract_DwC_branch_job", "xls2dwca_job", "dwca_validator_job", "map_data_job");
         if(!in_array($task, $arr)) echo "<hr>Check this Eli [$id][$task]<hr>";
     }
-    
     function is_task_running($task)
     {
         // http://localhost:8080/job/FreshData_Monitors_V2/job/jobName/lastBuild/api/json
@@ -682,8 +595,7 @@ class other_controller
         // http://160.111.248.39:8081/queue/api/xml
         $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/job/".JENKINS_FOLDER."/job/$task/lastBuild/api/json";
         $options = $this->download_options; $options['expire_seconds'] = 0;
-        if($json = Functions::lookup_with_cache($url, $options))
-        {
+        if($json = Functions::lookup_with_cache($url, $options)) {
             $arr = json_decode($json, true);
             if($arr['building'] == 1) return $json;
             if($arr['building'] == "true") return $json;
@@ -693,17 +605,14 @@ class other_controller
         // else echo "<hr>Notice: Jenkins API last_build info is not ready 03 [$task].<hr>"; //no need to display since it only means that this job hasn't build yet, that is acceptable
         return false;
     }
-    
     function get_available_job($short_task)
     {
         echo "\nAvailable JOBS_PER_TASK: ".JOBS_PER_TASK." \n";
-        for($i = 1; $i <= JOBS_PER_TASK; $i++)
-        {
+        for($i = 1; $i <= JOBS_PER_TASK; $i++) {
             $task = $short_task."_$i";
             if(!self::is_task_running($task)) return $task;
         }
         return $short_task."_1"; //TODO get the $i with the least number of queued items
     }
-
 }
 ?>
