@@ -637,7 +637,9 @@ class other_controller
         }
         print_r($final);
         $final = self::eli_sort($final);
+        echo "\nmain job sorting...start\n";
         print_r($final);
+        echo "\nmain job sorting...end\n";
         return $final[0]['job_name'];
     }
     private function eli_sort($multi_array)
