@@ -618,6 +618,7 @@ class other_controller
     }
     function get_least_number_from_queued_items($short_task = '')
     {
+        sleep(60); //this is important so Jenkins can stabilize first...
         // http://160.111.248.39:8081/queue/api/xml
         // http://localhost:8080/queue/api/xml
         // $url = 'http://localhost/jenkins_queue.xml';
