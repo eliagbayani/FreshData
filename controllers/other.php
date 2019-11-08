@@ -592,7 +592,6 @@ class other_controller
     {
         // http://localhost:8080/job/FreshData_Monitors_V2/job/jobName/lastBuild/api/json
         // http://160.111.248.39:8081/job/FreshData_Monitors_V2/job/eol_stats_job_1/lastBuild/api/json
-        // http://160.111.248.39:8081/queue/api/xml
         $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/job/".JENKINS_FOLDER."/job/$task/lastBuild/api/json";
         $options = $this->download_options; $options['expire_seconds'] = 0;
         if($json = Functions::lookup_with_cache($url, $options)) {
@@ -612,7 +611,52 @@ class other_controller
             $task = $short_task."_$i";
             if(!self::is_task_running($task)) return $task;
         }
+        /* old, inadequate...
         return $short_task."_1"; //TODO get the $i with the least number of queued items
+        */
+        return self::get_least_number_from_queued_items($short_task);
+    }
+    function get_least_number_from_queued_items($short_task = '')
+    {
+        // http://160.111.248.39:8081/queue/api/xml
+        // http://localhost:8080/queue/api/xml
+        // $url = 'http://localhost/jenkins_queue.xml';
+        $url = "http://".JENKINS_USER_TOKEN."@".JENKINS_DOMAIN."/queue/api/xml";
+        $options = $this->download_options; $options['expire_seconds'] = 0;
+        if($xml = Functions::get_hashed_response($url, $options)) {
+            $queues = array();
+            foreach($xml->item as $t) {
+                if($val = (string) $t->task->name) @$queues[$val]++;
+            }
+        }
+        print_r($queues);
+        for($i = JOBS_PER_TASK; $i >= 1; $i--) {
+            $task = $short_task."_$i";
+            if($val = @$queues[$task]) $final[$task] = $val;
+            else                      $final[$task] = 0;
+        }
+        print_r($final);
+        $final = self::eli_sort($final);
+        print_r($final);
+        return $final[0]['job_name'];
+    }
+    private function eli_sort($multi_array)
+    {
+        $data = array();
+        foreach($multi_array as $key => $value) $data[] = array('job_name' => $key, 'no_of_queues' => $value);
+        /* before PHP 5.5.0
+        foreach ($data as $key => $row) {
+            $job_name[$key]  = $row['job_name'];
+            $no_of_queues[$key] = $row['no_of_queues'];
+        }
+        */
+        
+        // as of PHP 5.5.0 you can use array_column() instead of the above code
+        $job_name  = array_column($data, 'job_name');
+        $no_of_queues = array_column($data, 'no_of_queues');
+
+        array_multisort($no_of_queues, SORT_ASC, $job_name, SORT_ASC, $data);
+        return $data;
     }
 }
 ?>
