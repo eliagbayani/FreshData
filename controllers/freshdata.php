@@ -69,6 +69,7 @@ class freshdata_controller extends other_controller
         $download_params = $this->download_options;
         $download_params['expire_seconds'] = 0;
         $content = Functions::lookup_with_cache($source, $download_params);
+        echo "\nsource: [$source]\n";
         echo "\ndestination: [$destination]\n";
         $fn = fopen($destination, "w");
         fwrite($fn, $content . "\n");
