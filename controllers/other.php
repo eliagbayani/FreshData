@@ -280,6 +280,13 @@ class other_controller
         $c .= " 2>&1";
         return $c;
     }
+    function build_curl_cmd_for_jenkins_specific($jenkins_job, $resource_ID) //didn't get to use it. Worked in calling Jenkins local using jenkins_call.php
+    {
+        $c = '/usr/bin/curl -I -X POST -H "'.JENKINS_CRUMB.'" http://'.JENKINS_USER_TOKEN.'@'.JENKINS_DOMAIN.'/job/'.JENKINS_FOLDER.'/job/'.$jenkins_job.'/buildWithParameters?resourceID='.urlencode($resource_ID);
+        $c .= " 2>&1";
+        echo "\n[$c]\n";
+        return $c;
+    }
     function write_to_sh($uuid, $cmd) //uuid is basename for .sh file
     {
         $destination = __DIR__ . "/../sh_files/".$uuid.".sh";
