@@ -205,7 +205,7 @@ class other_controller
 
         if($useIn == "host") $arr['source'] = $host;
         elseif($useIn == "jenkins") {
-            if(PHP_PATH == '/usr/local/php5/bin/php') $arr['source'] = $host;
+            if(PHP_PATH == '/opt/homebrew/opt/php@5.6/bin/php') $arr['source'] = $host;
             elseif(PHP_PATH == 'php')                 $arr['source'] = $jenkins;
         }
         $arr['target'] = $arr['source'].".gz";
@@ -239,7 +239,7 @@ class other_controller
         $jenkins = "/html/FreshData/TSV_files/".$basename.".tsv";
         if($useIn == "host") return $host;
         elseif($useIn == "jenkins") {
-            if(PHP_PATH == '/usr/local/php5/bin/php') return $host;
+            if(PHP_PATH == '/opt/homebrew/opt/php@5.6/bin/php') return $host;
             elseif(PHP_PATH == 'php')                 return $jenkins;
         }
     }
@@ -270,7 +270,7 @@ class other_controller
     }
     function generate_sh_filepath($basename)
     {
-        if(PHP_PATH == '/usr/local/php5/bin/php') return __DIR__ . "/../sh_files/".$basename.".sh";
+        if(PHP_PATH == '/opt/homebrew/opt/php@5.6/bin/php') return __DIR__ . "/../sh_files/".$basename.".sh";
         elseif(PHP_PATH == 'php')            return "/html/FreshData/sh_files/".$basename.".sh";
     }
     function build_curl_cmd_for_jenkins($cmd, $jenkins_job, $cmd2 = null) //for download of TSV files
@@ -296,7 +296,7 @@ class other_controller
             fclose($fn);
             // echo "<br>Write to file OK [$destination]<br>"; //debug
             
-            if(PHP_PATH == '/usr/local/php5/bin/php') shell_exec("/bin/chmod 755 $destination"); //https://www.shellscript.sh/
+            if(PHP_PATH == '/opt/homebrew/opt/php@5.6/bin/php') shell_exec("/bin/chmod 755 $destination"); //https://www.shellscript.sh/
             elseif(PHP_PATH == 'php')                 shell_exec("chmod 755 $destination"); //https://www.shellscript.sh/
             
             // shell_exec("chmod +x $destination"); //https://www.shellscript.sh/

@@ -21,6 +21,11 @@ curl -XGET 'http://localhost:8080/checkJobName?value=EoEarth_PHP_backup_script' 
 get crumb on command-line:
 curl -s 'http://eli:b2e5ca02f73b5c7d716449c763e120dd@localhost:8080/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,":",//crumb)'
 
+curl -s 'http://eli:110b974f5af197e940eeded9b5b19efe22@localhost:8080/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,":",//crumb)'
+-> mac studio
+
+
+
 get crumb on PHP script:
 $crumb = shell_exec("curl -s 'http://eli:b2e5ca02f73b5c7d716449c763e120dd@localhost:8080/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,\":\",//crumb)'");
 print("<hr>$crumb<hr>");
